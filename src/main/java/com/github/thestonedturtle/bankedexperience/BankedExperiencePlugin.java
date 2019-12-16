@@ -1,4 +1,4 @@
-package com.github.thestonedturtle;
+package com.github.thestonedturtle.bankedexperience;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;

@@ -22,7 +22,7 @@ dependencies {
 	testImplementation 'net.runelite:client:1.5.43-SNAPSHOT'
 }
 
-group = 'com.github.thestonedturtle'
+group = 'com.github.thestonedturtle.bankedexperience'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
