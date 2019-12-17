@@ -24,17 +24,90 @@
  */
 package com.github.thestonedturtle.bankedexperience;
 
+import com.github.thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
+import com.github.thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
+import com.github.thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
+import com.github.thestonedturtle.bankedexperience.data.Activity;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ItemEvent;
+import java.awt.image.BufferedImage;
+import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.border.EmptyBorder;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SkillIconManager;
+import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
 
 @Slf4j
 public class BankedCalculatorPanel extends PluginPanel
 {
+	private final BankedCalculator calculator;
+
 	public BankedCalculatorPanel(Client client, BankedExperienceConfig config, SkillIconManager skillIconManager, ItemManager itemManager)
 	{
+		super();
 
+		setBorder(new EmptyBorder(10, 10, 10, 10));
+		setLayout(new GridBagLayout());
+
+		final UICalculatorInputArea inputs = new UICalculatorInputArea();
+		inputs.setBorder(new EmptyBorder(15, 0, 15, 0));
+		inputs.setBackground(ColorScheme.DARK_GRAY_COLOR);
+
+		inputs.getUiFieldTargetXP().setEditable(false);
+		inputs.getUiFieldTargetLevel().setEditable(false);
+
+		calculator = new BankedCalculator(inputs, client, config, itemManager);
+
+		// Create the Skill dropdown with icons
+		final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
+		final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
+		renderer.setDefaultText("Select a Skill...");
+		dropdown.setRenderer(renderer);
+
+		for (final Skill skill : Activity.BANKABLE_SKILLS)
+		{
+			final BufferedImage img = skillIconManager.getSkillImage(skill, true);
+			final ComboBoxIconEntry entry = new ComboBoxIconEntry(new ImageIcon(img), skill.getName(), skill);
+			dropdown.addItem(entry);
+		}
+
+		dropdown.addItemListener(e ->
+		{
+			if (e.getStateChange() == ItemEvent.SELECTED)
+			{
+				final ComboBoxIconEntry source = (ComboBoxIconEntry) e.getItem();
+				if (source.getData() instanceof Skill)
+				{
+					final Skill skill = (Skill) source.getData();
+					this.calculator.open(skill);
+				}
+			}
+		});
+
+		dropdown.setSelectedIndex(-1);
+
+		final GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+
+		add(dropdown, c);
+		c.gridy++;
+		add(inputs, c);
+		c.gridy++;
+		add(calculator, c);
+	}
+
+	public void setBankMap(final Map<Integer, Integer> bankMap)
+	{
+		calculator.setBankMap(bankMap);
 	}
 }
