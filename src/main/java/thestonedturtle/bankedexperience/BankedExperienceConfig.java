@@ -1,4 +1,4 @@
-package com.github.thestonedturtle.bankedexperience;
+package thestonedturtle.bankedexperience;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;

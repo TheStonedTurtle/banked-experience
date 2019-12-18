@@ -24,7 +24,7 @@ dependencies {
     testImplementation files('/client-shaded.jar')
 }
 
-group = 'com.github.thestonedturtle.bankedexperience'
+group = 'thestonedturtle.bankedexperience'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
