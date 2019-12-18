@@ -67,7 +67,7 @@ public class GridItem extends JLabel
 
 	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
 
-	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount)
+	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final float xpFactor)
 	{
 		super("");
 
@@ -81,7 +81,7 @@ public class GridItem extends JLabel
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 
 		updateIcon(icon, amount);
-		updateToolTip();
+		updateToolTip(xpFactor);
 
 		this.addMouseListener(new MouseAdapter()
 		{
@@ -162,19 +162,19 @@ public class GridItem extends JLabel
 		this.amount = amount;
 	}
 
-	public void updateToolTip()
+	public void updateToolTip(final float modifier)
 	{
-		this.setToolTipText(buildToolTip());
+		this.setToolTipText(buildToolTip(modifier));
 	}
 
-	private String buildToolTip()
+	private String buildToolTip(final float modifier)
 	{
 		String tip = "<html>" + bankedItem.getItem().getItemInfo().getName();
 
 		final Activity a = bankedItem.getItem().getSelectedActivity();
 		if (a != null)
 		{
-			final double xp = bankedItem.getXpRate();
+			final double xp = a.getXpRate(modifier);
 			tip += "<br/>Activity: " +  a.getName();
 			tip += "<br/>Xp/Action: " + BankedCalculator.XP_FORMAT_COMMA.format(xp);
 			tip += "<br/>Total Xp: " + BankedCalculator.XP_FORMAT_COMMA.format(xp * amount);

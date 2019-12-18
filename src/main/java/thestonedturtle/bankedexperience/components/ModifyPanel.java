@@ -237,7 +237,7 @@ public class ModifyPanel extends JPanel
 		adjustContainer.add(label, c);
 		c.gridy++;
 
-		final float xpFactor = (bankedItem.getItem().isIgnoreBonus() ? 1.0f : this.calc.getXpFactor());
+		final float xpFactor = this.calc.getXpFactor();
 
 		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), calc.getSkillLevel());
 		if (activities == null || activities.size() == 0)
@@ -250,7 +250,7 @@ public class ModifyPanel extends JPanel
 
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon());
 			final ImageIcon icon = new ImageIcon(img);
-			final double xp = a.getXp() * xpFactor;
+			final double xp = a.getXpRate(xpFactor);
 			final JPanel container = createShadowedLabel(icon, a.getName(), FORMAT_COMMA.format(xp) + "xp");
 
 			img.onLoaded(() ->
@@ -269,7 +269,7 @@ public class ModifyPanel extends JPanel
 
 			for (final Activity option : activities)
 			{
-				final double xp = option.getXp() * xpFactor;
+				final double xp = option.getXpRate(xpFactor);
 				String name = option.getName();
 				if (xp > 0)
 				{

@@ -269,7 +269,13 @@ public class BankedCalculator extends JPanel
 
 	public double getItemXpRate(final BankedItem bankedItem)
 	{
-		return bankedItem.getXpRate() * (bankedItem.getItem().isIgnoreBonus() ? 1.0f : xpFactor);
+		final Activity selected = bankedItem.getItem().getSelectedActivity();
+		if (selected == null)
+		{
+			return 0;
+		}
+
+		return selected.getXpRate(xpFactor);
 	}
 
 	/**
@@ -346,7 +352,7 @@ public class BankedCalculator extends JPanel
 		}
 
 		modifyPanel.setBankedItem(i);
-		itemGrid.getPanelMap().get(i).updateToolTip();
+		itemGrid.getPanelMap().get(i).updateToolTip(xpFactor);
 
 		// recalculate total xp
 		calculateBankedXpTotal();
@@ -383,7 +389,7 @@ public class BankedCalculator extends JPanel
 			final int oldQty = gridItem.getAmount();
 			panelAmountChange = panelAmountChange || ( (oldQty == 0 && qty > 0) || (oldQty > 0 && qty == 0) );
 			gridItem.updateIcon(img, qty);
-			gridItem.updateToolTip();
+			gridItem.updateToolTip(xpFactor);
 
 			foundSelected = foundSelected || itemGrid.getSelectedItem().equals(bi);
 
@@ -454,7 +460,7 @@ public class BankedCalculator extends JPanel
 
 	private void modifierUpdated()
 	{
-		itemGrid.getPanelMap().values().forEach(GridItem::updateToolTip);
+		itemGrid.getPanelMap().values().forEach(item -> item.updateToolTip(xpFactor));
 		modifyPanel.setBankedItem(modifyPanel.getBankedItem());
 		calculateBankedXpTotal();
 	}

@@ -706,4 +706,9 @@ public enum Activity
 			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
 		}
 	}
+
+	public double getXpRate(final float modifier)
+	{
+		return experienceItem.isIgnoreBonus() ? xp : xp * modifier;
+	}
 }

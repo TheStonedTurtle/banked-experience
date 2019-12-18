@@ -34,17 +34,6 @@ public class BankedItem
 	private final ExperienceItem item;
 	private final int qty;
 
-	public double getXpRate()
-	{
-		final Activity selectedActivity = item.getSelectedActivity();
-		if (selectedActivity == null)
-		{
-			return 0;
-		}
-
-		return selectedActivity.getXp();
-	}
-
 	@Override
 	public String toString()
 	{
