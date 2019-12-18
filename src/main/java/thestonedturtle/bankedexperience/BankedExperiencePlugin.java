@@ -1,7 +1,7 @@
 package thestonedturtle.bankedexperience;
 
-import com.github.thestonedturtle.bankedexperience.data.Activity;
-import com.github.thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.data.ExperienceItem;
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;

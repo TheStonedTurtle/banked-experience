@@ -22,12 +22,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.thestonedturtle.bankedexperience;
+package thestonedturtle.bankedexperience;
 
-import com.github.thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
-import com.github.thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
-import com.github.thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
-import com.github.thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
+import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
+import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
+import thestonedturtle.bankedexperience.data.Activity;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;

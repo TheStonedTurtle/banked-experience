@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.thestonedturtle.bankedexperience.data;
+package thestonedturtle.bankedexperience.data;
 
 import lombok.Getter;
 import net.runelite.api.ItemID;

@@ -22,17 +22,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.github.thestonedturtle.bankedexperience;
+package thestonedturtle.bankedexperience;
 
-import com.github.thestonedturtle.bankedexperience.components.GridItem;
-import com.github.thestonedturtle.bankedexperience.components.ModifyPanel;
-import com.github.thestonedturtle.bankedexperience.components.SelectionGrid;
-import com.github.thestonedturtle.bankedexperience.components.SelectionListener;
-import com.github.thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
-import com.github.thestonedturtle.bankedexperience.data.Activity;
-import com.github.thestonedturtle.bankedexperience.data.BankedItem;
-import com.github.thestonedturtle.bankedexperience.data.ExperienceItem;
-import com.github.thestonedturtle.bankedexperience.data.XpModifiers;
+import thestonedturtle.bankedexperience.components.GridItem;
+import thestonedturtle.bankedexperience.components.ModifyPanel;
+import thestonedturtle.bankedexperience.components.SelectionGrid;
+import thestonedturtle.bankedexperience.components.SelectionListener;
+import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
+import thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.data.BankedItem;
+import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.XpModifiers;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.BorderLayout;
