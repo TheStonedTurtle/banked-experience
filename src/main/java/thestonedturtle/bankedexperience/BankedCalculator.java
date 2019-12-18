@@ -464,4 +464,9 @@ public class BankedCalculator extends JPanel
 		modifyPanel.setBankedItem(modifyPanel.getBankedItem());
 		calculateBankedXpTotal();
 	}
+
+	public int getItemQtyFromBank(final int id)
+	{
+		return bankMap.getOrDefault(id, 0);
+	}
 }

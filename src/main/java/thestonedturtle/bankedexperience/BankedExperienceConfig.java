@@ -17,4 +17,15 @@ public interface BankedExperienceConfig extends Config
 	{
 		return true;
 	}
+
+	@ConfigItem(
+		keyName = "showSecondaries",
+		name = "Show required secondaries",
+		description = "Toggles whether the Secondaries will be displayed for the selected item",
+		position = 1
+	)
+	default boolean showSecondaries()
+	{
+		return false;
+	}
 }

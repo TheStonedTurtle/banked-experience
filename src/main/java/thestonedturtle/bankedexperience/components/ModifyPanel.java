@@ -30,6 +30,7 @@ import com.github.thestonedturtle.bankedexperience.components.combobox.ComboBoxI
 import com.github.thestonedturtle.bankedexperience.data.Activity;
 import com.github.thestonedturtle.bankedexperience.data.BankedItem;
 import com.github.thestonedturtle.bankedexperience.data.ExperienceItem;
+import com.github.thestonedturtle.bankedexperience.data.ItemStack;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -232,7 +233,7 @@ public class ModifyPanel extends JPanel
 		c.weightx = 1;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.ipady = 0;
+		c.ipady = 4;
 
 		adjustContainer.add(label, c);
 		c.gridy++;
@@ -243,6 +244,7 @@ public class ModifyPanel extends JPanel
 		if (activities == null || activities.size() == 0)
 		{
 			adjustContainer.add(new JLabel("Unknown"));
+			return;
 		}
 		else if (activities.size() == 1)
 		{
@@ -260,6 +262,7 @@ public class ModifyPanel extends JPanel
 			});
 
 			adjustContainer.add(container, c);
+			c.gridy++;
 		}
 		else
 		{
@@ -311,6 +314,52 @@ public class ModifyPanel extends JPanel
 			});
 
 			adjustContainer.add(dropdown, c);
+			c.gridy++;
+		}
+
+		final ItemStack[] secondaries = bankedItem.getItem().getSelectedActivity().getSecondaries();
+		if (secondaries.length > 0 && this.calc.getConfig().showSecondaries())
+		{
+			final JLabel secondaryLabel = new JLabel("Secondaries:");
+			secondaryLabel.setVerticalAlignment(JLabel.CENTER);
+			secondaryLabel.setHorizontalAlignment(JLabel.CENTER);
+
+			adjustContainer.add(secondaryLabel, c);
+			c.gridy++;
+
+			final JPanel container = new JPanel();
+			container.setLayout(new GridLayout(1, 6, 1, 1));
+			container.setBackground(BACKGROUND_COLOR);
+
+			for (final ItemStack s : secondaries)
+			{
+				final JLabel l = new JLabel();
+				final int required = s.getQty() * amount;
+
+				final AsyncBufferedImage img = itemManager.getImage(s.getId(), required, required > 1);
+				final ImageIcon icon = new ImageIcon(img);
+				img.onLoaded(() ->
+				{
+					icon.setImage(img);
+					l.repaint();
+				});
+
+				l.setIcon(icon);
+				l.setHorizontalAlignment(JLabel.CENTER);
+
+				final int available = this.calc.getItemQtyFromBank(s.getId());
+				final int result = (available - required);
+
+				final String toolTip = "<html>" +
+					"Banked: " + FORMAT_COMMA.format(available) +
+					"<br/>Needed: " + FORMAT_COMMA.format(required) +
+					"<br/>Result: " + (result > 0 ? "+" : "") + FORMAT_COMMA.format(result) +
+					"</html>";
+				l.setToolTipText(toolTip);
+				container.add(l);
+			}
+			adjustContainer.add(container, c);
+			c.gridy++;
 		}
 	}
 

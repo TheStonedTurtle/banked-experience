@@ -606,7 +606,6 @@ public enum Activity
 	private final double xp;
 	private final ExperienceItem experienceItem;
 	private final Skill skill;
-	@Nullable
 	private final ItemStack[] secondaries;
 	@Nullable
 	private final ItemStack output;
