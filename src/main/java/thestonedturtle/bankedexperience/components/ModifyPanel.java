@@ -61,7 +61,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 
 public class ModifyPanel extends JPanel
 {
-	private static final Dimension ICON_SIZE = new Dimension(Constants.ITEM_SPRITE_WIDTH, Constants.ITEM_SPRITE_HEIGHT);
+	private static final Dimension ICON_SIZE = new Dimension(Constants.ITEM_SPRITE_WIDTH + 4, Constants.ITEM_SPRITE_HEIGHT);
 	private static final DecimalFormat FORMAT_COMMA = new DecimalFormat("#,###.#");
 
 	private static final Border PANEL_BORDER = new EmptyBorder(3, 0, 3, 0);
@@ -199,7 +199,7 @@ public class ModifyPanel extends JPanel
 		// Update image icon
 		final boolean stackable = item.getItemInfo().isStackable() || amount > 1;
 		final AsyncBufferedImage icon = itemManager.getImage(item.getItemID(), amount, stackable);
-		final Runnable resize = () -> image.setIcon(new ImageIcon(icon.getScaledInstance(ICON_SIZE.width, ICON_SIZE.height, Image.SCALE_SMOOTH)));
+		final Runnable resize = () -> image.setIcon(new ImageIcon(icon.getScaledInstance(Constants.ITEM_SPRITE_WIDTH, ICON_SIZE.height, Image.SCALE_SMOOTH)));
 		icon.onLoaded(resize);
 		resize.run();
 

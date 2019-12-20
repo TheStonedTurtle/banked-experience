@@ -114,7 +114,6 @@ public class BankedExperiencePlugin extends Plugin
 			return;
 		}
 
-		log.info("Running");
 		// Check if the contents have changed.
 		final ItemContainer c = client.getItemContainer(InventoryID.BANK);
 		if (c == null)
