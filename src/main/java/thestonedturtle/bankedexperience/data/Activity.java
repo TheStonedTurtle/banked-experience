@@ -598,6 +598,58 @@ public enum Activity
 		ExperienceItem.MAHOGANY_SAPLING, null, null),
 	SPIRIT_SAPLING(ItemID.SPIRIT_SAPLING, "Spirit tree", 83, 19500,
 		ExperienceItem.SPIRIT_SAPLING, null, null),
+	/**
+	 * Fletching
+	 */
+	// Logs
+	F_LOGS_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 1, 5,
+		ExperienceItem.F_LOGS, null, null),
+	F_LOGS_SHORTBOW_U(ItemID.SHORTBOW_U, "Shortbow (u)", 5, 5,
+		ExperienceItem.F_LOGS, null, null),
+	F_LOGS_LONGBOW_U(ItemID.LONGBOW_U, "Longbow (u)", 10, 10,
+		ExperienceItem.F_LOGS, null, null),
+	// Oak Logs
+	F_OAK_LOGS_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 15, 10,
+		ExperienceItem.F_OAK_LOGS, null, null),
+	F_OAK_LOGS_SHORTBOW_U(ItemID.OAK_SHORTBOW_U, "Oak shortbow (u)", 25, 16.5,
+		ExperienceItem.F_OAK_LOGS, null, null),
+	F_OAK_LOGS_LONGBOW_U(ItemID.OAK_LONGBOW_U, "Oak longbow (u)", 25, 25,
+		ExperienceItem.F_OAK_LOGS, null, null),
+	// Willow Logs
+	F_WILLOW_LOGS_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 30, 15,
+		ExperienceItem.F_WILLOW_LOGS, null, null),
+	F_WILLOW_LOGS_SHORTBOW_U(ItemID.WILLOW_SHORTBOW_U, "Willow shortbow (u)", 35, 33.3,
+		ExperienceItem.F_WILLOW_LOGS, null, null),
+	F_WILLOW_LOGS_LONGBOW_U(ItemID.WILLOW_LONGBOW_U, "Willow longbow (u)", 40, 41.5,
+		ExperienceItem.F_WILLOW_LOGS, null, null),
+	// Maple Logs
+	F_MAPLE_LOGS_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 45, 20,
+		ExperienceItem.F_MAPLE_LOGS, null, null),
+	F_MAPLE_LOGS_SHORTBOW_U(ItemID.MAPLE_SHORTBOW_U, "Maple shortbow (u)", 50, 50,
+		ExperienceItem.F_MAPLE_LOGS, null, null),
+	F_MAPLE_LOGS_LONGBOW_U(ItemID.MAPLE_LONGBOW_U, "Maple longbow (u)", 55, 58.3,
+		ExperienceItem.F_MAPLE_LOGS, null, null),
+	// Yew Logs
+	F_YEW_LOGS_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 60, 25,
+		ExperienceItem.F_YEW_LOGS, null, null),
+	F_YEW_LOGS_SHORTBOW_U(ItemID.YEW_SHORTBOW_U, "Yew shortbow (u)", 65, 67.5,
+		ExperienceItem.F_YEW_LOGS, null, null),
+	F_YEW_LOGS_LONGBOW_U(ItemID.YEW_LONGBOW_U, "Yew longbow (u)", 70, 75,
+		ExperienceItem.F_YEW_LOGS, null, null),
+	// Magic Logs
+	F_MAGIC_LOGS_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 75, 30,
+		ExperienceItem.F_MAGIC_LOGS, null, null),
+	F_MAGIC_LOGS_SHORTBOW_U(ItemID.MAGIC_SHORTBOW_U, "Magic shortbow (u)", 80, 83.3,
+		ExperienceItem.F_MAGIC_LOGS, null, null),
+	F_MAGIC_LOGS_LONGBOW_U(ItemID.MAGIC_LONGBOW_U, "Magic longbow (u)", 85, 91.5,
+		ExperienceItem.F_MAGIC_LOGS, null, null),
+	// Strung Bows
+	F_SHORTBOW(ItemID.SHORTBOW, "Shortbow", 5, 5,
+		ExperienceItem.F_SHORTBOW_U, Secondaries.BOW_STRING, new ItemStack(ItemID.SHORTBOW, 1)),
+	F_MAPLE_SHORTBOW(ItemID.MAPLE_SHORTBOW, "Maple shortbow", 50, 50,
+		ExperienceItem.F_MAPLE_SHORTBOW_U, Secondaries.BOW_STRING, new ItemStack(ItemID.MAPLE_SHORTBOW, 1)),
+	F_MAPLE_LONGBOW(ItemID.MAPLE_LONGBOW, "Maple longbow", 55, 58.2,
+		ExperienceItem.F_MAPLE_LONGBOW_U, Secondaries.BOW_STRING, new ItemStack(ItemID.MAPLE_LONGBOW, 1)),
 	;
 
 	private final int icon;
