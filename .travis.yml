@@ -1,0 +1,16 @@
+language: java
+os: linux
+dist: xenial
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+jdk:
+  - openjdk8
+branches:
+  only:
+    - master
+    - stable
+install: true
+before_script: gradle check
+script: gradle build

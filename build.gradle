@@ -1,5 +1,6 @@
 plugins {
 	id 'java'
+	id 'checkstyle'
 }
 
 repositories {
@@ -26,9 +27,13 @@ dependencies {
 }
 
 group = 'thestonedturtle.bankedexperience'
-version = '1.1'
+version = '1.2-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
 	options.encoding = 'UTF-8'
+}
+
+checkstyle {
+	configDir file('./')
 }
