@@ -109,6 +109,7 @@ public enum Secondaries
 	 * Fletching
 	 */
 	BOW_STRING(new ItemStack(ItemID.BOW_STRING, 1)),
+	FEATHER(new ItemStack(ItemID.FEATHER, 1)),
 	;
 	private final ItemStack[] items;
 
