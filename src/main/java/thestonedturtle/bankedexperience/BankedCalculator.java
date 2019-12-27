@@ -215,11 +215,12 @@ public class BankedCalculator extends JPanel
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();
-			if (a == null)
+			if (a == null || (skillLevel > 0 && skillLevel < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item);
+				final List<Activity> activities = Activity.getByExperienceItem(item, skillLevel);
 				if (activities.size() == 0)
 				{
+					item.setSelectedActivity(null);
 					continue;
 				}
 

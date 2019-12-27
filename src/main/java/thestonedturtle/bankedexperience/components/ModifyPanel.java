@@ -244,7 +244,12 @@ public class ModifyPanel extends JPanel
 		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), calc.getSkillLevel());
 		if (activities == null || activities.size() == 0)
 		{
-			adjustContainer.add(new JLabel("Unknown"));
+			final JLabel unusable = new JLabel("Unusable at current level");
+			unusable.setVerticalAlignment(JLabel.CENTER);
+			unusable.setHorizontalAlignment(JLabel.CENTER);
+
+			adjustContainer.removeAll();
+			adjustContainer.add(unusable, c);
 			return;
 		}
 		else if (activities.size() == 1)
