@@ -673,6 +673,25 @@ public enum Activity
 		ExperienceItem.F_RUNE_DART_TIP, Secondaries.FEATHER, new ItemStack(ItemID.RUNE_DART, 1)),
 	F_DRAGON_DARTS(ItemID.DRAGON_DART, "Dragon dart", 95, 25,
 		ExperienceItem.F_DRAGON_DART_TIP, Secondaries.FEATHER, new ItemStack(ItemID.DRAGON_DART, 1)),
+	// Arrows
+	F_BRONZE_ARROW(ItemID.BRONZE_ARROW, "Bronze arrow", 1, 1,
+		ExperienceItem.F_BRONZE_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.BRONZE_ARROW, 1)),
+	F_IRON_ARROW(ItemID.IRON_ARROW, "IRON arrow", 1, 1.3,
+		ExperienceItem.F_IRON_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.IRON_ARROW, 1)),
+	F_STEEL_ARROW(ItemID.STEEL_ARROW, "STEEL arrow", 30, 2.5,
+		ExperienceItem.F_STEEL_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.STEEL_ARROW, 1)),
+	F_MITHRIL_ARROW(ItemID.MITHRIL_ARROW, "MITHRIL arrow", 45, 5,
+		ExperienceItem.F_MITHRIL_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.MITHRIL_ARROW, 1)),
+	F_BROAD_ARROW(ItemID.BROAD_ARROWS, "BROAD arrow", 52, 7.5,
+		ExperienceItem.F_BROAD_ARROWHEADS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.BROAD_ARROWS, 1)),
+	F_ADAMANT_ARROW(ItemID.ADAMANT_ARROW, "ADAMANT arrow", 60, 10,
+		ExperienceItem.F_ADAMANT_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.ADAMANT_ARROW, 1)),
+	F_RUNE_ARROW(ItemID.RUNE_ARROW, "RUNE arrow", 75, 12.5,
+		ExperienceItem.F_RUNE_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.RUNE_ARROW, 1)),
+	F_AMETHYST_ARROW(ItemID.AMETHYST_ARROW, "AMETHYST arrow", 82, 13.5,
+		ExperienceItem.F_AMETHYST_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.AMETHYST_ARROW, 1)),
+	F_DRAGON_ARROW(ItemID.DRAGON_ARROW, "DRAGON arrow", 90, 15,
+		ExperienceItem.F_DRAGON_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.DRAGON_ARROW, 1)),
 	;
 
 	private final int icon;
