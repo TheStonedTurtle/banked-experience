@@ -328,8 +328,14 @@ public class ModifyPanel extends JPanel
 			adjustContainer.add(dropdown, c);
 			c.gridy++;
 		}
+		
+		final Activity a = bankedItem.getItem().getSelectedActivity();
+		if (a == null)
+		{
+			return;
+		}
 
-		final ItemStack[] secondaries = bankedItem.getItem().getSelectedActivity().getSecondaries();
+		final ItemStack[] secondaries = a.getSecondaries();
 		if (secondaries.length > 0 && this.calc.getConfig().showSecondaries())
 		{
 			final JLabel secondaryLabel = new JLabel("Secondaries:");
