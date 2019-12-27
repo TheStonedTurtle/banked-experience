@@ -24,6 +24,7 @@
  */
 package thestonedturtle.bankedexperience;
 
+import java.awt.Color;
 import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
 import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
 import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
@@ -67,6 +68,8 @@ public class BankedCalculatorPanel extends PluginPanel
 
 		// Create the Skill dropdown with icons
 		final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
+		dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
+		dropdown.setForeground(Color.WHITE);
 		final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
 		renderer.setDefaultText("Select a Skill...");
 		dropdown.setRenderer(renderer);

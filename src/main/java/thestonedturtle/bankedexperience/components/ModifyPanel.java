@@ -24,6 +24,8 @@
  */
 package thestonedturtle.bankedexperience.components;
 
+import javax.swing.border.MatteBorder;
+import net.runelite.client.ui.PluginPanel;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
 import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
@@ -267,7 +269,12 @@ public class ModifyPanel extends JPanel
 		else
 		{
 			final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
+			dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
+			dropdown.setForeground(Color.WHITE);
+			dropdown.setBorder(new EmptyBorder(2, 0, 0, 0));
+
 			final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
+			renderer.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH, 40));
 			dropdown.setRenderer(renderer);
 
 			for (final Activity option : activities)
