@@ -105,6 +105,12 @@ public enum Secondaries
 	 * Cooking
 	 */
 	JUG_OF_WATER(new ItemStack(ItemID.JUG_OF_WATER, 1)),
+	/**
+	 * Fletching
+	 */
+	BOW_STRING(new ItemStack(ItemID.BOW_STRING, 1)),
+	FEATHER(new ItemStack(ItemID.FEATHER, 1)),
+	HEADLESS_ARROW(new ItemStack(ItemID.HEADLESS_ARROW, 1)),
 	;
 	private final ItemStack[] items;
 
