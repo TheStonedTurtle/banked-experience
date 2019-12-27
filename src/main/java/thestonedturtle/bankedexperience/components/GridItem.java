@@ -182,7 +182,7 @@ public class GridItem extends JLabel
 		}
 		else
 		{
-			tip += "<br/>Outputs: " + bankedItem.getItem().getItemInfo().getName();
+			tip += "<br/>Unusable at current level";
 		}
 
 		return tip + "</html>";

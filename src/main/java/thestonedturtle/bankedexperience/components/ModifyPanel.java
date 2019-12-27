@@ -241,10 +241,16 @@ public class ModifyPanel extends JPanel
 
 		final float xpFactor = this.calc.getXpFactor();
 
-		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), calc.getSkillLevel());
+		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
+		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level);
 		if (activities == null || activities.size() == 0)
 		{
-			adjustContainer.add(new JLabel("Unknown"));
+			final JLabel unusable = new JLabel("Unusable at current level");
+			unusable.setVerticalAlignment(JLabel.CENTER);
+			unusable.setHorizontalAlignment(JLabel.CENTER);
+
+			adjustContainer.removeAll();
+			adjustContainer.add(unusable, c);
 			return;
 		}
 		else if (activities.size() == 1)
@@ -322,8 +328,14 @@ public class ModifyPanel extends JPanel
 			adjustContainer.add(dropdown, c);
 			c.gridy++;
 		}
+		
+		final Activity a = bankedItem.getItem().getSelectedActivity();
+		if (a == null)
+		{
+			return;
+		}
 
-		final ItemStack[] secondaries = bankedItem.getItem().getSelectedActivity().getSecondaries();
+		final ItemStack[] secondaries = a.getSecondaries();
 		if (secondaries.length > 0 && this.calc.getConfig().showSecondaries())
 		{
 			final JLabel secondaryLabel = new JLabel("Secondaries:");
