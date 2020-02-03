@@ -566,6 +566,15 @@ public enum Activity
 		ExperienceItem.MAHOGANY_SEED, null, new ItemStack(ItemID.MAHOGANY_SAPLING, 1)),
 	SPIRIT_SEED(ItemID.SPIRIT_SAPLING, "Spirit sapling", 83, 0,
 		ExperienceItem.SPIRIT_SEED, null, new ItemStack(ItemID.SPIRIT_SAPLING, 1)),
+	DRAGONFRUIT_TREE_SEED(ItemID.DRAGONFRUIT_TREE_SEED, "Dragonfruit sapling", 81, 0,
+		ExperienceItem.DRAGONFRUIT_TREE_SEED, null, new ItemStack(ItemID.DRAGONFRUIT_SAPLING, 1)),
+	CELASTRUS_SEED(ItemID.CELASTRUS_SEED, "Celastrus sapling", 85, 0,
+		ExperienceItem.CELASTRUS_SEED, null, new ItemStack(ItemID.CELASTRUS_SAPLING, 1)),
+	REDWOOD_TREE_SEED(ItemID.REDWOOD_TREE_SEED, "Redwood sapling", 90, 0,
+		ExperienceItem.REDWOOD_TREE_SEED, null, new ItemStack(ItemID.REDWOOD_SAPLING, 1)),
+	CRYSTAL_ACORN(ItemID.CRYSTAL_ACORN, "Crystal sapling", 74, 13366,
+		ExperienceItem.CRYSTAL_ACORN, null, new ItemStack(ItemID.CRYSTAL_SAPLING, 1)),
+
 	OAK_SAPPLING(ItemID.OAK_SAPLING, "Oak tree", 15, 481.3,
 		ExperienceItem.OAK_SAPLING, null, null),
 	WILLOW_SAPLING(ItemID.WILLOW_SAPLING, "Willow tree", 30, 1481.5,
@@ -598,6 +607,15 @@ public enum Activity
 		ExperienceItem.MAHOGANY_SAPLING, null, null),
 	SPIRIT_SAPLING(ItemID.SPIRIT_SAPLING, "Spirit tree", 83, 19500,
 		ExperienceItem.SPIRIT_SAPLING, null, null),
+	DRAGONFRUIT_SAPLING(ItemID.DRAGONFRUIT_SAPLING, "Dragonfruit tree", 81, 17825,
+		ExperienceItem.DRAGONFRUIT_SAPLING, null, null),
+	CELASTRUS_SAPLING(ItemID.CELASTRUS_SAPLING, "Celastrus tree", 85, 14404.5,
+		ExperienceItem.CELASTRUS_SAPLING, null, null),
+	REDWOOD_SAPLING(ItemID.REDWOOD_SAPLING, "Redwood tree", 90, 22680,
+		ExperienceItem.REDWOOD_SAPLING, null, null),
+	CRYSTAL_SAPLING(ItemID.CRYSTAL_SAPLING, "Crystal tree", 74, 13366,
+		ExperienceItem.CRYSTAL_SAPLING, null, null),
+
 	/**
 	 * Fletching
 	 */
