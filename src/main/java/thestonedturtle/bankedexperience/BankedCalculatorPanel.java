@@ -25,10 +25,6 @@
 package thestonedturtle.bankedexperience;
 
 import java.awt.Color;
-import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
-import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
-import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
-import thestonedturtle.bankedexperience.data.Activity;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
@@ -44,6 +40,10 @@ import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.SkillIconManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.PluginPanel;
+import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconEntry;
+import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRenderer;
+import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
+import thestonedturtle.bankedexperience.data.Activity;
 
 @Slf4j
 public class BankedCalculatorPanel extends PluginPanel
@@ -112,5 +112,10 @@ public class BankedCalculatorPanel extends PluginPanel
 	public void setBankMap(final Map<Integer, Integer> bankMap)
 	{
 		calculator.setBankMap(bankMap);
+	}
+
+	public void setVaultMap(final Map<Integer, Integer> bankMap)
+	{
+		calculator.setVaultMap(bankMap);
 	}
 }

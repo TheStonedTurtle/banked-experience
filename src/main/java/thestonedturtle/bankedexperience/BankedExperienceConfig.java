@@ -39,4 +39,15 @@ public interface BankedExperienceConfig extends Config
 	{
 		return true;
 	}
+
+	@ConfigItem(
+		keyName = "grabFromSeedVault",
+		name = "Include seed vault",
+		description = "Toggles whether the items stored inside the Seed Vault at the Farming Guild will be included in the calculations",
+		position = 4
+	)
+	default boolean grabFromSeedVault()
+	{
+		return true;
+	}
 }

@@ -24,15 +24,6 @@
  */
 package thestonedturtle.bankedexperience;
 
-import thestonedturtle.bankedexperience.components.GridItem;
-import thestonedturtle.bankedexperience.components.ModifyPanel;
-import thestonedturtle.bankedexperience.components.SelectionGrid;
-import thestonedturtle.bankedexperience.components.SelectionListener;
-import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
-import thestonedturtle.bankedexperience.data.Activity;
-import thestonedturtle.bankedexperience.data.BankedItem;
-import thestonedturtle.bankedexperience.data.ExperienceItem;
-import thestonedturtle.bankedexperience.data.XpModifiers;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.BorderLayout;
@@ -51,7 +42,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
@@ -61,6 +51,15 @@ import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.AsyncBufferedImage;
+import thestonedturtle.bankedexperience.components.GridItem;
+import thestonedturtle.bankedexperience.components.ModifyPanel;
+import thestonedturtle.bankedexperience.components.SelectionGrid;
+import thestonedturtle.bankedexperience.components.SelectionListener;
+import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
+import thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.data.BankedItem;
+import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.XpModifiers;
 
 @Slf4j
 public class BankedCalculator extends JPanel
@@ -82,8 +81,11 @@ public class BankedCalculator extends JPanel
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid;
 
-	@Setter
+	// Store items from all sources in the same map
+	private final Map<Integer, Integer> currentMap = new HashMap<>();
+	// keep sources separate for recreating currentMap when one updates
 	private Map<Integer, Integer> bankMap = new HashMap<>();
+	private Map<Integer, Integer> vaultMap = new HashMap<>();
 
 	@Getter
 	private Skill currentSkill;
@@ -122,7 +124,7 @@ public class BankedCalculator extends JPanel
 		removeAll();
 		xpFactor = 1.0f;
 
-		if (bankMap.size() <= 0)
+		if (currentMap.size() <= 0)
 		{
 			add(new JLabel( "Please visit a bank!", JLabel.CENTER));
 			revalidate();
@@ -211,7 +213,7 @@ public class BankedCalculator extends JPanel
 
 		for (final ExperienceItem item : items)
 		{
-			final BankedItem banked = new BankedItem(item, bankMap.getOrDefault(item.getItemID(), 0));
+			final BankedItem banked = new BankedItem(item, currentMap.getOrDefault(item.getItemID(), 0));
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();
@@ -470,5 +472,24 @@ public class BankedCalculator extends JPanel
 	public int getItemQtyFromBank(final int id)
 	{
 		return bankMap.getOrDefault(id, 0);
+	}
+
+	void setBankMap(Map<Integer, Integer> bankMap)
+	{
+		this.bankMap = bankMap;
+		updateCurrentMap();
+	}
+
+	void setVaultMap(Map<Integer, Integer> vaultMap)
+	{
+		this.vaultMap = vaultMap;
+		updateCurrentMap();
+	}
+
+	private void updateCurrentMap()
+	{
+		currentMap.clear();
+		currentMap.putAll(bankMap);
+		currentMap.putAll(vaultMap);
 	}
 }
