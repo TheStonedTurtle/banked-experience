@@ -692,7 +692,7 @@ public enum Activity
 		ExperienceItem.F_STEEL_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.STEEL_ARROW, 1)),
 	F_MITHRIL_ARROW(ItemID.MITHRIL_ARROW, "Mithril arrow", 45, 5,
 		ExperienceItem.F_MITHRIL_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.MITHRIL_ARROW, 1)),
-	F_BROAD_ARROW(ItemID.BROAD_ARROWS, "Broad arrow", 52, 7.5,
+	F_BROAD_ARROW(ItemID.BROAD_ARROWS, "Broad arrow", 52, 10,
 		ExperienceItem.F_BROAD_ARROWHEADS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.BROAD_ARROWS, 1)),
 	F_ADAMANT_ARROW(ItemID.ADAMANT_ARROW, "Adamant arrow", 60, 10,
 		ExperienceItem.F_ADAMANT_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.ADAMANT_ARROW, 1)),
