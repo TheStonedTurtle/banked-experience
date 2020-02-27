@@ -129,8 +129,14 @@ public enum Activity
 	// Cadantine
 	CADANTINE_POTION_UNF(ItemID.CADANTINE_POTION_UNF, "Unfinished potion", 66, 0,
 		ExperienceItem.CADANTINE, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.CADANTINE_POTION_UNF, 1)),
+	CADANTINE_BLOOD_POTION_UNF(ItemID.CADANTINE_BLOOD_POTION_UNF, "Unfinished blood potion", 80, 0,
+		ExperienceItem.CADANTINE, Secondaries.VIAL_OF_BLOOD, new ItemStack(ItemID.CADANTINE_BLOOD_POTION_UNF, 1)),
 	SUPER_DEFENCE_POTION(ItemID.SUPER_DEFENCE3, "Super defence", 66, 150,
 		ExperienceItem.CADANTINE_POTION_UNF, Secondaries.SUPER_DEFENCE_POTION, new ItemStack(ItemID.SUPER_DEFENCE3, 1)),
+	BASTION_POTION(ItemID.BASTION_POTION3, "Bastion potion", 80, 155,
+		ExperienceItem.CADANTINE_BLOOD_POTION_UNF, Secondaries.RANGING_POTION, new ItemStack(ItemID.BASTION_POTION3, 1)),
+	BATTLEMAGE_POTION(ItemID.BATTLEMAGE_POTION3, "Battlemage potion", 80, 155,
+		ExperienceItem.CADANTINE_BLOOD_POTION_UNF, Secondaries.MAGIC_POTION, new ItemStack(ItemID.BATTLEMAGE_POTION3, 1)),
 	// Lantadyme
 	LANTADYME_POTION_UNF(ItemID.LANTADYME_POTION_UNF, "Unfinished potion", 69, 0,
 		ExperienceItem.LANTADYME, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.LANTADYME_POTION_UNF, 1)),
