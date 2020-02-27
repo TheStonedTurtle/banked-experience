@@ -11,7 +11,7 @@ repositories {
 	mavenCentral()
 }
 
-def runeLiteVersion = '1.6.5'
+def runeLiteVersion = '1.6.7'
 
 dependencies {
     compileOnly group: 'net.runelite', name:'client', version: runeLiteVersion
@@ -27,7 +27,7 @@ dependencies {
 }
 
 group = 'thestonedturtle.bankedexperience'
-version = '1.3'
+version = '1.4'
 sourceCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
