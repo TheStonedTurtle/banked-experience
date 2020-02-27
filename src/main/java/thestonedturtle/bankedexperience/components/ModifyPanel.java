@@ -174,6 +174,11 @@ public class ModifyPanel extends JPanel
 		for (final Map.Entry<ExperienceItem, Integer> e : this.linkedMap.entrySet())
 		{
 			b.append("<br/>").append(e.getValue()).append(" x ").append(e.getKey().getItemInfo().getName());
+			final ItemStack output = e.getKey().getSelectedActivity().getOutput();
+			if (output != null && output.getQty() > 1)
+			{
+				b.append(" x ").append(output.getQty());
+			}
 		}
 
 		b.append("</html>");
