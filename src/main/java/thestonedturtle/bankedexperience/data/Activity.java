@@ -634,43 +634,46 @@ public enum Activity
 	/**
 	 * Fletching
 	 */
+	// General
+	F_HEADLESS_ARROWS(ItemID.HEADLESS_ARROW, "Headless arrow", 1, 1,
+		ExperienceItem.F_ARROW_SHAFT, Secondaries.FEATHER, new ItemStack(ItemID.HEADLESS_ARROW, 1)),
 	// Logs
-	F_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 1, 5,
+	F_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 1, 5,
 		ExperienceItem.F_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 15)),
 	F_SHORTBOW_U(ItemID.SHORTBOW_U, "Shortbow (u)", 5, 5,
 		ExperienceItem.F_LOGS, null, new ItemStack(ItemID.SHORTBOW_U, 1)),
 	F_LONGBOW_U(ItemID.LONGBOW_U, "Longbow (u)", 10, 10,
 		ExperienceItem.F_LOGS, null, new ItemStack(ItemID.LONGBOW_U, 1)),
 	// Oak Logs
-	F_OAK_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 15, 10,
+	F_OAK_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 15, 10,
 		ExperienceItem.F_OAK_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 30)),
 	F_OAK_SHORTBOW_U(ItemID.OAK_SHORTBOW_U, "Oak shortbow (u)", 25, 16.5,
 		ExperienceItem.F_OAK_LOGS, null, new ItemStack(ItemID.OAK_SHORTBOW_U, 1)),
 	F_OAK_LONGBOW_U(ItemID.OAK_LONGBOW_U, "Oak longbow (u)", 25, 25,
 		ExperienceItem.F_OAK_LOGS, null, new ItemStack(ItemID.OAK_LONGBOW_U, 1)),
 	// Willow Logs
-	F_WILLOW_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 30, 15,
+	F_WILLOW_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 30, 15,
 		ExperienceItem.F_WILLOW_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 45)),
 	F_WILLOW_SHORTBOW_U(ItemID.WILLOW_SHORTBOW_U, "Willow shortbow (u)", 35, 33.3,
 		ExperienceItem.F_WILLOW_LOGS, null, new ItemStack(ItemID.WILLOW_SHORTBOW_U, 1)),
 	F_WILLOW_LONGBOW_U(ItemID.WILLOW_LONGBOW_U, "Willow longbow (u)", 40, 41.5,
 		ExperienceItem.F_WILLOW_LOGS, null, new ItemStack(ItemID.WILLOW_LONGBOW_U, 1)),
 	// Maple Logs
-	F_MAPLE_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 45, 20,
+	F_MAPLE_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 45, 20,
 		ExperienceItem.F_MAPLE_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 60)),
 	F_MAPLE_SHORTBOW_U(ItemID.MAPLE_SHORTBOW_U, "Maple shortbow (u)", 50, 50,
 		ExperienceItem.F_MAPLE_LOGS, null, new ItemStack(ItemID.MAPLE_SHORTBOW_U, 1)),
 	F_MAPLE_LONGBOW_U(ItemID.MAPLE_LONGBOW_U, "Maple longbow (u)", 55, 58.3,
 		ExperienceItem.F_MAPLE_LOGS, null, new ItemStack(ItemID.MAPLE_LONGBOW_U, 1)),
 	// Yew Logs
-	F_YEW_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 60, 25,
+	F_YEW_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 60, 25,
 		ExperienceItem.F_YEW_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 75)),
 	F_YEW_SHORTBOW_U(ItemID.YEW_SHORTBOW_U, "Yew shortbow (u)", 65, 67.5,
 		ExperienceItem.F_YEW_LOGS, null, new ItemStack(ItemID.YEW_SHORTBOW_U, 1)),
 	F_YEW_LONGBOW_U(ItemID.YEW_LONGBOW_U, "Yew longbow (u)", 70, 75,
 		ExperienceItem.F_YEW_LOGS, null, new ItemStack(ItemID.YEW_LONGBOW_U, 1)),
 	// Magic Logs
-	F_MAGIC_HEADLESS_ARROWS(ItemID.ARROW_SHAFT, "Arrow shaft", 75, 30,
+	F_MAGIC_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 75, 30,
 		ExperienceItem.F_MAGIC_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 90)),
 	F_MAGIC_SHORTBOW_U(ItemID.MAGIC_SHORTBOW_U, "Magic shortbow (u)", 80, 83.3,
 		ExperienceItem.F_MAGIC_LOGS, null, new ItemStack(ItemID.MAGIC_SHORTBOW_U, 1)),

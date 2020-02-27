@@ -288,6 +288,8 @@ public enum ExperienceItem
 	/**
 	 * Fletching
 	 */
+	// General
+	F_ARROW_SHAFT(ItemID.ARROW_SHAFT, Skill.FLETCHING, "Headless arrow"),
 	// Logs
 	F_LOGS(ItemID.LOGS, Skill.FLETCHING, "Logs"),
 	F_OAK_LOGS(ItemID.OAK_LOGS, Skill.FLETCHING, "Logs"),
