@@ -77,6 +77,10 @@ public enum Secondaries
 	ZAMORAK_BREW(new ItemStack(ItemID.JANGERBERRIES, 1)),
 	SUPER_COMBAT_POTION(new ItemStack(ItemID.SUPER_ATTACK4, 1), new ItemStack(ItemID.SUPER_STRENGTH4, 1), new ItemStack(ItemID.SUPER_DEFENCE4, 1)),
 	ANTIVENOM_PLUS(new ItemStack(ItemID.ANTIVENOM4, 1)),
+	// Other
+	STAMINA_POTION(new ByDose(ItemID.SUPER_ENERGY1, ItemID.SUPER_ENERGY2, ItemID.SUPER_ENERGY3, ItemID.SUPER_ENERGY4)),
+	EXTENDED_ANTIFIRE(new ByDose(ItemID.ANTIFIRE_POTION1, ItemID.ANTIFIRE_POTION2, ItemID.ANTIFIRE_POTION3, ItemID.ANTIFIRE_POTION4)),
+	EXTENDED_SUPER_ANTIFIRE(new ByDose(ItemID.SUPER_ANTIFIRE_POTION1, ItemID.SUPER_ANTIFIRE_POTION2, ItemID.SUPER_ANTIFIRE_POTION3, ItemID.SUPER_ANTIFIRE_POTION4)),
 	/**
 	 * Smithing
 	 */
@@ -114,9 +118,36 @@ public enum Secondaries
 	HEADLESS_ARROW(new ItemStack(ItemID.HEADLESS_ARROW, 1)),
 	;
 	private final ItemStack[] items;
+	private final Object customHandler;
+
+	public static class ByDose
+	{
+		@Getter
+		// index + 1 = amount of doses the item id is worth
+		private final int[] items;
+
+		private ByDose(final int... items)
+		{
+			this.items = items;
+		}
+	}
 
 	Secondaries(ItemStack... items)
 	{
 		this.items = items;
+		this.customHandler = null;
+	}
+
+	// Needed to override Object constructor for single ItemStack entries
+	Secondaries(ItemStack item)
+	{
+		this.items = new ItemStack[]{ item };
+		this.customHandler = null;
+	}
+
+	Secondaries(Object customHandler)
+	{
+		this.items = new ItemStack[0];
+		this.customHandler = customHandler;
 	}
 }

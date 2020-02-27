@@ -187,6 +187,15 @@ public enum Activity
 		ExperienceItem.GRIMY_DWARF_WEED, null, new ItemStack(ItemID.DWARF_WEED, 1)),
 	CLEAN_TORSTOL(ItemID.TORSTOL, "Clean torstol", 75, 15,
 		ExperienceItem.GRIMY_TORSTOL, null, new ItemStack(ItemID.TORSTOL, 1)),
+	// Other
+	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, "Convert to crystals", 0, 0,
+		ExperienceItem.MARK_OF_GRACE, null , new ItemStack(ItemID.AMYLASE_CRYSTAL, 10)),
+	STAMINA_POTION(ItemID.STAMINA_POTION1, "Stamina potion", 77, 25.5,
+		ExperienceItem.AMYLASE_CRYSTAL, Secondaries.STAMINA_POTION , new ItemStack(ItemID.STAMINA_POTION1, 1)),
+	EXTENDED_ANTIFIRE(ItemID.EXTENDED_ANTIFIRE1, "Extended antifire", 77, 25.5,
+		ExperienceItem.LAVA_SCALE_SHARD, Secondaries.EXTENDED_ANTIFIRE , new ItemStack(ItemID.EXTENDED_ANTIFIRE1, 1)),
+	EXTENDED_SUPER_ANTIFIRE(ItemID.EXTENDED_SUPER_ANTIFIRE1, "Extended super antifire", 77, 25.5,
+		ExperienceItem.LAVA_SCALE_SHARD, Secondaries.EXTENDED_SUPER_ANTIFIRE , new ItemStack(ItemID.EXTENDED_SUPER_ANTIFIRE1, 1)),
 	/**
 	 * Construction
 	 */
@@ -734,7 +743,8 @@ public enum Activity
 	private final double xp;
 	private final ExperienceItem experienceItem;
 	private final Skill skill;
-	private final ItemStack[] secondaries;
+	@Nullable
+	private final Secondaries secondaries;
 	@Nullable
 	private final ItemStack output;
 	private ItemInfo outputItemInfo = null;
@@ -771,7 +781,7 @@ public enum Activity
 		this.level = level;
 		this.xp = xp;
 		this.experienceItem = experienceItem;
-		this.secondaries = secondaries == null ? new ItemStack[0] : secondaries.getItems();
+		this.secondaries = secondaries;
 		this.output = output;
 		this.linkedItem = output == null ? null : ExperienceItem.getByItemId(output.getId());
 	}

@@ -105,6 +105,10 @@ public enum ExperienceItem
 	LANTADYME_POTION_UNF(ItemID.LANTADYME_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	DWARF_WEED_POTION_UNF(ItemID.DWARF_WEED_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	TORSTOL_POTION_UNF(ItemID.TORSTOL_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
+	// Other
+	MARK_OF_GRACE(ItemID.MARK_OF_GRACE, Skill.HERBLORE, "Other"),
+	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, Skill.HERBLORE, "Other"),
+	LAVA_SCALE_SHARD(ItemID.LAVA_SCALE_SHARD, Skill.HERBLORE, "Other"),
 	/**
 	 * Prayer
 	 */
