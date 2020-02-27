@@ -157,21 +157,15 @@ public class ModifyPanel extends JPanel
 		}
 
 		this.bankedItem = bankedItem;
-;
+		this.amount = this.calc.getItemQty(bankedItem);
+
 		if (this.calc.getConfig().cascadeBankedXp())
 		{
 			this.linkedMap = this.calc.createLinksMap(bankedItem);
-
-			this.amount = bankedItem.getQty();
-			for (int i : linkedMap.values())
-			{
-				this.amount += i;
-			}
 		}
 		else
 		{
 			this.linkedMap = new HashMap<>();
-			this.amount = this.calc.getItemQty(bankedItem);
 		}
 
 		updateImageTooltip();

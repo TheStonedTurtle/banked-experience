@@ -59,6 +59,7 @@ import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputAr
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.XpModifiers;
 
 @Slf4j
@@ -297,7 +298,12 @@ public class BankedCalculator extends JPanel
 		}
 
 		final Map<ExperienceItem, Integer> linked = createLinksMap(item);
-		final int linkedQty = linked.values().stream().mapToInt(Integer::intValue).sum();
+		final int linkedQty = linked.entrySet().stream().mapToInt((entry) ->
+		{
+			// Account for activities that output multiple of a specific item per action
+			final ItemStack output = entry.getKey().getSelectedActivity().getOutput();
+			return entry.getValue() * (output != null ? output.getQty() : 1);
+		}).sum();
 
 		return qty + linkedQty;
 	}
