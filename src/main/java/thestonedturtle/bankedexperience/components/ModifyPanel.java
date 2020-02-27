@@ -244,7 +244,9 @@ public class ModifyPanel extends JPanel
 		{
 			final Activity a = activities.get(0);
 
-			final AsyncBufferedImage img = itemManager.getImage(a.getIcon());
+			final int qty =  a.getOutput() == null ? 1 : a.getOutput().getQty();
+			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
+			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
 			final double xp = a.getXpRate(xpFactor);
 			final JPanel container = createShadowedLabel(icon, a.getName(), FORMAT_COMMA.format(xp) + "xp");
