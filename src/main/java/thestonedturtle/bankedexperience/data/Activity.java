@@ -511,6 +511,15 @@ public enum Activity
 		ExperienceItem.BATTLESTAFF, Secondaries.FIRE_ORB, new ItemStack(ItemID.FIRE_BATTLESTAFF, 1)),
 	AIR_BATTLESTAFF(ItemID.AIR_BATTLESTAFF, "Air battlestaff", 66, 137.5,
 		ExperienceItem.BATTLESTAFF, Secondaries.AIR_ORB, new ItemStack(ItemID.AIR_BATTLESTAFF, 1)),
+	// Gold Jewelery
+	GOLD_RING(ItemID.GOLD_RING, "Gold ring", 5, 15,
+		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_RING, 1)),
+	GOLD_NECKLACE(ItemID.GOLD_NECKLACE, "Gold necklace", 6, 20,
+		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_NECKLACE, 1)),
+	GOLD_BRACELET(ItemID.GOLD_BRACELET, "Gold bracelet", 7, 25,
+		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_BRACELET, 1)),
+	GOLD_AMULET_U(ItemID.GOLD_AMULET_U, "Gold amulet (u)", 8, 30,
+		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_AMULET_U, 1)),
 	/**
 	 * Smithing
 	 */
