@@ -217,6 +217,8 @@ public enum Activity
 		ExperienceItem.MAHOGANY_LOGS, Secondaries.COINS_1500, new ItemStack(ItemID.MAHOGANY_PLANK, 1)),
 	MAHOGANY_PLANKS(ItemID.MAHOGANY_PLANK, "Mahogany products", 1, 140,
 		ExperienceItem.MAHOGANY_PLANK, null, null),
+	LONG_BONE(ItemID.LONG_BONE, "Long Bone", 30, 4500, ExperienceItem.LONG_BONE, null, null),
+	CURVED_BONE(ItemID.CURVED_BONE, "Curved Bone", 30, 6750, ExperienceItem.CURVED_BONE, null, null),
 	/**
 	 * Prayer
 	 */

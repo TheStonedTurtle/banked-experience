@@ -56,6 +56,9 @@ public enum ExperienceItem
 	OAK_PLANK(ItemID.OAK_PLANK, Skill.CONSTRUCTION, "Planks"),
 	TEAK_PLANK(ItemID.TEAK_PLANK, Skill.CONSTRUCTION, "Planks"),
 	MAHOGANY_PLANK(ItemID.MAHOGANY_PLANK, Skill.CONSTRUCTION, "Planks"),
+	// Other
+	LONG_BONE(ItemID.LONG_BONE, Skill.CONSTRUCTION, "Other"),
+	CURVED_BONE(ItemID.CURVED_BONE, Skill.CONSTRUCTION, "Other"),
 	/**
 	 * Herblore
 	 */
