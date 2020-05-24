@@ -211,7 +211,7 @@ public enum Activity
 		ExperienceItem.TEAK_LOGS, Secondaries.COINS_500, new ItemStack(ItemID.TEAK_PLANK, 1)),
 	TEAK_PLANKS(ItemID.TEAK_PLANK, "Teak products", 1, 90,
 		ExperienceItem.TEAK_PLANK, null, null),
-	MYTHICAL_CAPE(ItemID.MYTHICAL_CAPE, "Mythical cape rakes", 1, 123.33,
+	MYTHICAL_CAPE(ItemID.MYTHICAL_CAPE, "Mythical cape racks", 1, 123.33,
 		ExperienceItem.TEAK_PLANK, null, null),
 	MAHOGANY_PLANK(ItemID.MAHOGANY_PLANK, "Mahogany Plank", 1, 0,
 		ExperienceItem.MAHOGANY_LOGS, Secondaries.COINS_1500, new ItemStack(ItemID.MAHOGANY_PLANK, 1)),
