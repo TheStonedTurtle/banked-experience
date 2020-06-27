@@ -303,7 +303,7 @@ public class BankedCalculator extends JPanel
 		{
 			// Account for activities that output multiple of a specific item per action
 			final ItemStack output = entry.getKey().getSelectedActivity().getOutput();
-			return entry.getValue() * (output != null ? output.getQty() : 1);
+			return (int) (entry.getValue() * (output != null ? output.getQty() : 1));
 		}).sum();
 
 		return qty + linkedQty;

@@ -249,7 +249,7 @@ public class ModifyPanel extends JPanel
 		{
 			final Activity a = activities.get(0);
 
-			final int qty =  a.getOutput() == null ? 1 : a.getOutput().getQty();
+			final int qty =  a.getOutput() == null ? 1 : (int) a.getOutput().getQty();
 			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
@@ -345,7 +345,7 @@ public class ModifyPanel extends JPanel
 
 			for (final ItemStack s : secondaries.getItems())
 			{
-				final int required = s.getQty() * amount;
+				final int required = (int) (s.getQty() * amount);
 				final int available = this.calc.getItemQtyFromBank(s.getId());
 				container.add(createSecondaryItemLabel(s.getId(), available, required));
 			}
