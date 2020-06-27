@@ -79,6 +79,7 @@ public class BankedCalculator extends JPanel
 
 	private final Map<ExperienceItem, BankedItem> bankedItemMap = new LinkedHashMap<>();
 	private final JLabel totalXpLabel = new JLabel();
+	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid;
 
@@ -195,6 +196,7 @@ public class BankedCalculator extends JPanel
 		else
 		{
 			add(totalXpLabel);
+			add(xpToNextLevelLabel);
 			add(modifyPanel);
 			add(itemGrid);
 		}
@@ -321,12 +323,16 @@ public class BankedCalculator extends JPanel
 			total += getItemQty(bi) * getItemXpRate(bi);
 		}
 
-		endExp = (int) (skillExp + total);
+		endExp = Math.min(Experience.MAX_SKILL_XP, (int) (skillExp + total));
 		endLevel = Experience.getLevelForXp(endExp);
 
-		totalXpLabel.setText("Total Banked xp: " + XP_FORMAT_COMMA.format(total));
+		totalXpLabel.setText("Total Banked: " + XP_FORMAT_COMMA.format(total) + "xp");
 		uiInput.setTargetLevelInput(endLevel);
-		uiInput.setTargetXPInput(Math.min(Experience.MAX_SKILL_XP, endExp));
+		uiInput.setTargetXPInput(endExp);
+
+		final int nextLevel = Math.min(endLevel + 1, 126);
+		final int nextLevelXp = Experience.getXpForLevel(nextLevel) - endExp;
+		xpToNextLevelLabel.setText("Level " + nextLevel + " requires: " + XP_FORMAT_COMMA.format(nextLevelXp) + "xp");
 
 		revalidate();
 		repaint();
