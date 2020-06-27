@@ -45,7 +45,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
-import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
@@ -477,7 +476,7 @@ public class BankedCalculator extends JPanel
 
 	public int getItemQtyFromBank(final int id)
 	{
-		return inventoryMap.getOrDefault(InventoryID.BANK.getId(), new HashMap<>()).getOrDefault(id, 0);
+		return currentMap.getOrDefault(id, 0);
 	}
 
 	void setInventoryMap(final int inventoryId, final Map<Integer, Integer> map)
@@ -489,6 +488,13 @@ public class BankedCalculator extends JPanel
 	private void updateCurrentMap()
 	{
 		currentMap.clear();
-		inventoryMap.values().forEach(currentMap::putAll);
+		for (final Map<Integer, Integer> map : inventoryMap.values())
+		{
+			for (final int id : map.keySet())
+			{
+				final int qty = map.get(id) + currentMap.getOrDefault(id, 0);
+				currentMap.put(id, qty);
+			}
+		}
 	}
 }
