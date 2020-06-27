@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
+import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptCallbackEvent;
@@ -181,9 +182,28 @@ public class BankedExperiencePlugin extends Plugin
 		}
 
 		final Map<Integer, Integer> m = new HashMap<>();
-		for (Item widgetItem : c.getItems())
+		for (Item item : c.getItems())
 		{
-			m.put(widgetItem.getId(), widgetItem.getQuantity());
+			if (item.getId() == -1)
+			{
+				continue;
+			}
+
+			// Account for noted items, ignore placeholders.
+			int itemID = item.getId();
+			final ItemComposition itemComposition = itemManager.getItemComposition(itemID);
+			if (itemComposition.getPlaceholderTemplateId() != -1)
+			{
+				continue;
+			}
+
+			if (itemComposition.getNote() != -1)
+			{
+				itemID = itemComposition.getLinkedNoteId();
+			}
+
+			final int qty = m.getOrDefault(itemID, 0) + item.getQuantity();
+			m.put(itemID, qty);
 		}
 
 		final int curHash = m.hashCode();
