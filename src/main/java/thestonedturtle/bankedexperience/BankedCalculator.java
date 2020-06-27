@@ -355,7 +355,7 @@ public class BankedCalculator extends JPanel
 		item.setSelectedActivity(a);
 
 		// Cascade activity changes if necessary.
-		if (config.cascadeBankedXp() && (old.getLinkedItem() != a.getLinkedItem()))
+		if (config.cascadeBankedXp() && a.shouldUpdateLinked(old))
 		{
 			// Update Linked Map
 			linkedMap.remove(old.getLinkedItem(), i);

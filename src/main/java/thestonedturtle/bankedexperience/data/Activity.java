@@ -874,4 +874,32 @@ public enum Activity
 	{
 		return experienceItem.isIgnoreBonus() ? xp : xp * modifier;
 	}
+
+	private static boolean isOneNull(final Object a, final Object b)
+	{
+		return (a == null && b != null) || (a != null && b == null);
+	}
+
+	public boolean shouldUpdateLinked(final Activity old)
+	{
+		if (old.getLinkedItem() != linkedItem)
+		{
+			return true;
+		}
+
+		final ItemStack oldOutput = old.getOutput();
+		// If both are null and the item hasn't change it shouldn't be updated
+		if (oldOutput == null && output == null)
+		{
+			return false;
+		}
+
+		// If one was null an update should happen
+		if (isOneNull(oldOutput, output))
+		{
+			return true;
+		}
+
+		return oldOutput.getQty() != output.getQty() || oldOutput.getId() != output.getId();
+	}
 }
