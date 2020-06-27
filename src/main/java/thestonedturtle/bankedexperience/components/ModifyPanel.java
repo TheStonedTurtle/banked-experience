@@ -234,7 +234,7 @@ public class ModifyPanel extends JPanel
 		final float xpFactor = this.calc.getXpFactor();
 
 		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
-		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level);
+		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level, calc.getConfig().includeRngActivities());
 		if (activities == null || activities.size() == 0)
 		{
 			final JLabel unusable = new JLabel("Unusable at current level");

@@ -222,7 +222,7 @@ public class BankedCalculator extends JPanel
 			final int level = config.limitToCurrentLevel() ? skillLevel : -1;
 			if (a == null || (level > 0 && level < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, level);
+				final List<Activity> activities = Activity.getByExperienceItem(item, level, config.includeRngActivities());
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);

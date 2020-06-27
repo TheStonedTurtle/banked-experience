@@ -226,6 +226,10 @@ public enum ExperienceItem
 	DRAGONSTONE(ItemID.DRAGONSTONE, Skill.CRAFTING, "Gems"),
 	ONYX(ItemID.ONYX, Skill.CRAFTING, "Gems"),
 	ZENYTE(ItemID.ZENYTE, Skill.CRAFTING, "Gems"),
+	// RNG
+	SEAWEED(ItemID.SEAWEED, Skill.CRAFTING, "Misc"),
+	SODA_ASH(ItemID.SODA_ASH, Skill.CRAFTING, "Misc"),
+	GIANT_SEAWEED(ItemID.GIANT_SEAWEED, Skill.CRAFTING, "Misc"),
 	/**
 	 * Smithing
 	 */
@@ -349,7 +353,8 @@ public enum ExperienceItem
 	private final int itemID;
 	private final Skill skill;
 	private final String category;
-	private boolean ignoreBonus;
+	private final boolean ignoreBonus;
+	private final boolean rngItem;
 
 	@Setter
 	// Stores the item composition info we use since we don't operate on the game thread
@@ -370,17 +375,23 @@ public enum ExperienceItem
 		}
 	}
 
-	ExperienceItem(int itemID, Skill skill, String category, boolean ignoreBonus)
+	ExperienceItem(int itemID, Skill skill, String category, boolean ignoreBonus, boolean rngItem)
 	{
 		this.itemID = itemID;
 		this.category = category;
 		this.skill = skill;
 		this.ignoreBonus = ignoreBonus;
+		this.rngItem = rngItem;
+	}
+
+	ExperienceItem(int itemID, Skill skill, String category, boolean ignoreBonus)
+	{
+		this(itemID, skill, category, ignoreBonus, false);
 	}
 
 	ExperienceItem(int itemID, Skill skill, String category)
 	{
-		this(itemID, skill, category, false);
+		this(itemID, skill, category, false, false);
 	}
 
 	public static Collection<ExperienceItem> getBySkill(Skill skill)

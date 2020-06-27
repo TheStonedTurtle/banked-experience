@@ -522,6 +522,26 @@ public enum Activity
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_BRACELET, 1)),
 	GOLD_AMULET_U(ItemID.GOLD_AMULET_U, "Gold amulet (u)", 8, 30,
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_AMULET_U, 1)),
+	// RNG section
+	// Soda Ash
+	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 10,
+		ExperienceItem.SODA_ASH, null, new ItemStack(ItemID.MOLTEN_GLASS, 1)),
+	MOLTEN_GLASS_SPELL(ItemID.MOLTEN_GLASS, "SGM [1.3x]", 1, 10, true,
+		ExperienceItem.SODA_ASH, Secondaries.BUCKET_OF_SAND, new ItemStack(ItemID.MOLTEN_GLASS, 1.3)),
+	// Seaweed
+	SODA_ASH(ItemID.SODA_ASH, "Soda Ash", 1, 0,
+		ExperienceItem.SEAWEED, null, new ItemStack(ItemID.SODA_ASH, 1)),
+	S_MOLTEN_GLASS_SPELL(ItemID.MOLTEN_GLASS, "SGM [1.3x]", 1, 10, true,
+		ExperienceItem.SEAWEED, Secondaries.BUCKET_OF_SAND, new ItemStack(ItemID.MOLTEN_GLASS, 1.3)),
+	// Giant Seaweed
+	G_SODA_ASH(ItemID.SODA_ASH, "Soda Ash", 1, 0,
+		ExperienceItem.GIANT_SEAWEED, null, new ItemStack(ItemID.SODA_ASH, 6)),
+	MOLTEN_GLASS_SPELL_18_PICKUP(ItemID.MOLTEN_GLASS, "SGM 18:3 Pickup [1.6x]", 1, 60,  true,// XP per seaweed
+		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 9.6)),
+	MOLTEN_GLASS_SPELL_18(ItemID.MOLTEN_GLASS, "SGM 18:3 [1.488x]", 1, 60,  true,// XP per seaweed
+		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 8.928)),
+	MOLTEN_GLASS_SPELL_12(ItemID.MOLTEN_GLASS, "SGM 12:2 [1.45x]", 1, 60,  true,// XP per seaweed
+		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 8.7)),
 	/**
 	 * Smithing
 	 */
@@ -767,6 +787,7 @@ public enum Activity
 	private final String name;
 	private final int level;
 	private final double xp;
+	private final boolean rngActivity;
 	private final ExperienceItem experienceItem;
 	private final Skill skill;
 	@Nullable
@@ -791,7 +812,6 @@ public enum Activity
 		ITEM_MAP = map.build();
 		BANKABLE_SKILLS = set.build();
 	}
-
 	Activity(
 		final int icon,
 		final String name,
@@ -801,11 +821,25 @@ public enum Activity
 		@Nullable final Secondaries secondaries,
 		@Nullable final ItemStack output)
 	{
+		this(icon, name, level, xp, false, experienceItem, secondaries, output);
+	}
+
+	Activity(
+		final int icon,
+		final String name,
+		final int level,
+		final double xp,
+		final boolean rngActivity,
+		final ExperienceItem experienceItem,
+		@Nullable final Secondaries secondaries,
+		@Nullable final ItemStack output)
+	{
 		this.icon = icon;
 		this.name = name;
 		this.skill = experienceItem.getSkill();
 		this.level = level;
 		this.xp = xp;
+		this.rngActivity = rngActivity;
 		this.experienceItem = experienceItem;
 		this.secondaries = secondaries;
 		this.output = output;
@@ -832,9 +866,10 @@ public enum Activity
 	 * Get all Activities for this ExperienceItem limited to level
 	 * @param item ExperienceItem to check for
 	 * @param limitLevel Level to check Activitiy requirements against. -1/0 value disables limits
+	 * @param rng boolean flag about whether to include RNG activities
 	 * @return an empty Collection if no activities
 	 */
-	public static List<Activity> getByExperienceItem(final ExperienceItem item, final int limitLevel)
+	public static List<Activity> getByExperienceItem(final ExperienceItem item, final int limitLevel, final boolean rng)
 	{
 		// Return as list to allow getting by index
 		final List<Activity> l = getByExperienceItem(item);
@@ -843,7 +878,15 @@ public enum Activity
 			return l;
 		}
 
-		return l.stream().filter(a -> a.getLevel() <= limitLevel).collect(Collectors.toList());
+		return l.stream().filter(a ->
+		{
+			if (!rng && a.isRngActivity())
+			{
+				return false;
+			}
+
+			return a.getLevel() <= limitLevel;
+		}).collect(Collectors.toList());
 	}
 
 	/**
