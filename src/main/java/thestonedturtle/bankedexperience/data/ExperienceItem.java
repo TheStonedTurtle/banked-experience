@@ -332,6 +332,18 @@ public enum ExperienceItem
 	F_RUNE_ARROWTIPS(ItemID.RUNE_ARROWTIPS, Skill.FLETCHING, "Arrow"),
 	F_AMETHYST_ARROWTIPS(ItemID.AMETHYST_ARROWTIPS, Skill.FLETCHING, "Arrow"),
 	F_DRAGON_ARROWTIPS(ItemID.DRAGON_ARROWTIPS, Skill.FLETCHING, "Arrow"),
+	/**
+	 * Hunter
+	 */
+	H_LOGS(ItemID.LOGS, Skill.HUNTER, "Bird houses"),
+	H_OAK_LOGS(ItemID.OAK_LOGS, Skill.HUNTER, "Bird houses"),
+	H_WILLOW_LOGS(ItemID.WILLOW_LOGS, Skill.HUNTER, "Bird houses"),
+	H_TEAK_LOGS(ItemID.TEAK_LOGS, Skill.HUNTER, "Bird houses"),
+	H_MAPLE_LOGS(ItemID.MAPLE_LOGS, Skill.HUNTER, "Bird houses"),
+	H_MAHOGANY_LOGS(ItemID.MAHOGANY_LOGS, Skill.HUNTER, "Bird houses"),
+	H_YEW_LOGS(ItemID.YEW_LOGS, Skill.HUNTER, "Bird houses"),
+	H_MAGIC_LOGS(ItemID.MAGIC_LOGS, Skill.HUNTER, "Bird houses"),
+	H_REDWOOD_LOGS(ItemID.REDWOOD_LOGS, Skill.HUNTER, "Bird houses"),
 	;
 
 	private final int itemID;

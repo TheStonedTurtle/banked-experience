@@ -749,6 +749,18 @@ public enum Activity
 		ExperienceItem.F_AMETHYST_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.AMETHYST_ARROW, 1)),
 	F_DRAGON_ARROW(ItemID.DRAGON_ARROW, "Dragon arrow", 90, 15,
 		ExperienceItem.F_DRAGON_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.DRAGON_ARROW, 1)),
+	/**
+	 * Hunter
+	 */
+	BIRD_HOUSE(ItemID.BIRD_HOUSE, "Bird house", 5, 280, ExperienceItem.H_LOGS, null, null),
+	OAK_BIRD_HOUSE(ItemID.OAK_BIRD_HOUSE, "Oak bird house", 14, 420, ExperienceItem.H_OAK_LOGS, null, null),
+	WILLOW_BIRD_HOUSE(ItemID.WILLOW_BIRD_HOUSE, "Willow bird house", 24, 560, ExperienceItem.H_WILLOW_LOGS, null, null),
+	TEAK_BIRD_HOUSE(ItemID.TEAK_BIRD_HOUSE, "Teak bird house", 34, 700, ExperienceItem.H_TEAK_LOGS, null, null),
+	MAPLE_BIRD_HOUSE(ItemID.MAPLE_BIRD_HOUSE, "Maple bird house", 44, 820, ExperienceItem.H_MAPLE_LOGS, null, null),
+	MAHOGANY_BIRD_HOUSE(ItemID.MAHOGANY_BIRD_HOUSE, "Mahogany bird house", 49, 960, ExperienceItem.H_MAHOGANY_LOGS, null, null),
+	YEW_BIRD_HOUSE(ItemID.YEW_BIRD_HOUSE, "Yew bird house", 59, 1020, ExperienceItem.H_YEW_LOGS, null, null),
+	MAGIC_BIRD_HOUSE(ItemID.MAGIC_BIRD_HOUSE, "Magic bird house", 74, 1140, ExperienceItem.H_MAGIC_LOGS, null, null),
+	REDWOOD_BIRD_HOUSE(ItemID.REDWOOD_BIRD_HOUSE, "Redwood bird house", 89, 1200, ExperienceItem.H_REDWOOD_LOGS, null, null),
 	;
 
 	private final int icon;
