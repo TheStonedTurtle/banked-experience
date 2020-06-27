@@ -45,6 +45,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
+import net.runelite.api.InventoryID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
@@ -85,8 +86,7 @@ public class BankedCalculator extends JPanel
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
 	// keep sources separate for recreating currentMap when one updates
-	private Map<Integer, Integer> bankMap = new HashMap<>();
-	private Map<Integer, Integer> vaultMap = new HashMap<>();
+	private Map<Integer, Map<Integer, Integer>> inventoryMap = new HashMap<>();
 
 	@Getter
 	private Skill currentSkill;
@@ -477,25 +477,18 @@ public class BankedCalculator extends JPanel
 
 	public int getItemQtyFromBank(final int id)
 	{
-		return bankMap.getOrDefault(id, 0);
+		return inventoryMap.getOrDefault(InventoryID.BANK.getId(), new HashMap<>()).getOrDefault(id, 0);
 	}
 
-	void setBankMap(Map<Integer, Integer> bankMap)
+	void setInventoryMap(final int inventoryId, final Map<Integer, Integer> map)
 	{
-		this.bankMap = bankMap;
-		updateCurrentMap();
-	}
-
-	void setVaultMap(Map<Integer, Integer> vaultMap)
-	{
-		this.vaultMap = vaultMap;
+		inventoryMap.put(inventoryId, map);
 		updateCurrentMap();
 	}
 
 	private void updateCurrentMap()
 	{
 		currentMap.clear();
-		currentMap.putAll(bankMap);
-		currentMap.putAll(vaultMap);
+		inventoryMap.values().forEach(currentMap::putAll);
 	}
 }

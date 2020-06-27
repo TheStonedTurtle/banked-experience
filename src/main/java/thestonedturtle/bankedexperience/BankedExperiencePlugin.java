@@ -4,7 +4,6 @@ import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +37,9 @@ public class BankedExperiencePlugin extends Plugin
 	private static final Map<Integer, Integer> EMPTY_MAP = new HashMap<>();
 	private static final String CONFIG_GROUP = "bankedexperience";
 	private static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
+	private static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
+	private static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
+	private static final int LOOTING_BAG_ID = 516;
 
 	@Inject
 	private Client client;
@@ -63,11 +65,10 @@ public class BankedExperiencePlugin extends Plugin
 		return configManager.getConfig(BankedExperienceConfig.class);
 	}
 
+	private final Map<Integer, Integer> inventoryHashMap = new HashMap<>();
 	private NavigationButton navButton;
 	private BankedCalculatorPanel panel;
 	private boolean prepared = false;
-	private int bankHash = -1;
-	private int vaultHash = -1;
 	private int lastCheckTick = -1;
 
 	@Override
@@ -111,16 +112,36 @@ public class BankedExperiencePlugin extends Plugin
 	protected void shutDown() throws Exception
 	{
 		clientToolbar.removeNavigation(navButton);
+		panel = null;
+		navButton = null;
+		inventoryHashMap.clear();
 	}
 
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if (event.getGroup().equals(CONFIG_GROUP) && event.getKey().equals(VAULT_CONFIG_KEY))
+		if (!event.getGroup().equals(CONFIG_GROUP))
 		{
-			vaultHash = -1;
-			SwingUtilities.invokeLater(() -> panel.setVaultMap(EMPTY_MAP));
+			return;
 		}
+
+		final int inventoryId;
+		switch (event.getKey())
+		{
+			case VAULT_CONFIG_KEY:
+				inventoryId = InventoryID.SEED_VAULT.getId();
+				break;
+			case INVENTORY_CONFIG_KEY:
+				inventoryId = InventoryID.INVENTORY.getId();
+				break;
+			case LOOTING_BAG_CONFIG_KEY:
+				inventoryId = LOOTING_BAG_ID;
+				break;
+			default:
+				return;
+		}
+
+		SwingUtilities.invokeLater(() -> panel.setInventoryMap(inventoryId, EMPTY_MAP));
 	}
 
 	@Subscribe
@@ -131,66 +152,45 @@ public class BankedExperiencePlugin extends Plugin
 			return;
 		}
 
-		final Map<Integer, Integer> m = getItemsFromInventory(InventoryID.BANK);
-		if (m == null)
-		{
-			return;
-		}
-
-		final int curHash = m.hashCode();
-		if (bankHash != curHash)
-		{
-			bankHash = curHash;
-			SwingUtilities.invokeLater(() -> panel.setBankMap(m));
-		}
-
+		updateItemsFromInventory(InventoryID.BANK);
 		lastCheckTick = client.getTickCount();
 	}
 
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged ev)
 	{
-		if (ev.getContainerId() != InventoryID.SEED_VAULT.getId() || !config.grabFromSeedVault())
+		if ((ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
+			|| (ev.getContainerId() == InventoryID.INVENTORY.getId() && config.grabFromInventory())
+			|| (ev.getContainerId() == LOOTING_BAG_ID && config.grabFromLootingBag()))
 		{
-			return;
-		}
-
-		final Map<Integer, Integer> m = getItemsFromInventory(InventoryID.SEED_VAULT);
-		if (m == null)
-		{
-			return;
-		}
-
-		final int curHash = m.hashCode();
-		if (vaultHash != curHash)
-		{
-			vaultHash = curHash;
-			SwingUtilities.invokeLater(() -> panel.setVaultMap(m));
+			updateItemsFromItemContainer(ev.getContainerId(), ev.getItemContainer());
 		}
 	}
 
-	@Nullable
-	private Map<Integer, Integer> getItemsFromInventory(InventoryID inventoryID)
+	private void updateItemsFromInventory(final InventoryID inventoryID)
+	{
+		updateItemsFromItemContainer(inventoryID.getId(), client.getItemContainer(inventoryID));
+	}
+
+	private void updateItemsFromItemContainer(final int inventoryId, final ItemContainer c)
 	{
 		// Check if the contents have changed.
-		final ItemContainer c = client.getItemContainer(inventoryID);
 		if (c == null)
 		{
-			return null;
-		}
-
-		final Item[] widgetItems = c.getItems();
-		if (widgetItems == null)
-		{
-			return null;
+			return;
 		}
 
 		final Map<Integer, Integer> m = new HashMap<>();
-		for (Item widgetItem : widgetItems)
+		for (Item widgetItem : c.getItems())
 		{
 			m.put(widgetItem.getId(), widgetItem.getQuantity());
 		}
 
-		return m;
+		final int curHash = m.hashCode();
+		if (curHash != inventoryHashMap.getOrDefault(inventoryId, -1))
+		{
+			inventoryHashMap.put(inventoryId, curHash);
+			SwingUtilities.invokeLater(() -> panel.setInventoryMap(inventoryId, m));
+		}
 	}
 }
