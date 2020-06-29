@@ -217,7 +217,7 @@ public class ModifyPanel extends JPanel
 	{
 		adjustContainer.removeAll();
 
-		final JLabel label = new JLabel("Output:");
+		final JLabel label = new JLabel("Activity:");
 		label.setVerticalAlignment(JLabel.CENTER);
 		label.setHorizontalAlignment(JLabel.CENTER);
 
@@ -329,6 +329,35 @@ public class ModifyPanel extends JPanel
 			return;
 		}
 
+		if (a.getOutput() != null && a.getOutput().getQty() != 1)
+		{
+			final JLabel secondaryLabel = new JLabel("Outputs:");
+			secondaryLabel.setVerticalAlignment(JLabel.CENTER);
+			secondaryLabel.setHorizontalAlignment(JLabel.CENTER);
+
+			adjustContainer.add(secondaryLabel, c);
+			c.gridy++;
+
+			// Create Icon
+			final double qty = amount * a.getOutput().getQty();
+			final boolean stackable = qty > 1 || (a.getOutputItemInfo() != null && a.getOutputItemInfo().isStackable());
+			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), (int) qty, stackable);
+			final ImageIcon icon = new ImageIcon(img);
+			final JLabel iconLabel = createImageLabel(icon);
+			iconLabel.setToolTipText(FORMAT_COMMA.format((int) qty) + " x " + a.getOutputItemInfo().getName());
+
+			final JPanel container = createShadowedLabel(iconLabel, a.getName(), null);
+
+			img.onLoaded(() ->
+			{
+				icon.setImage(img);
+				container.repaint();
+			});
+
+			adjustContainer.add(container, c);
+			c.gridy++;
+		}
+
 		final Secondaries secondaries = a.getSecondaries();
 		if (secondaries != null && this.calc.getConfig().showSecondaries())
 		{
@@ -393,29 +422,8 @@ public class ModifyPanel extends JPanel
 		return l;
 	}
 
-	private JPanel createShadowedLabel(final ImageIcon icon, final String name, final String value)
+	private JLabel createImageLabel(final ImageIcon icon)
 	{
-		// Wrapper panel for the shadowed labels
-		final JPanel wrapper = new JPanel(new GridLayout(2, 1));
-		wrapper.setBorder(new EmptyBorder(0, 5, 0, 0));
-		wrapper.setBackground(BACKGROUND_COLOR);
-
-		final JShadowedLabel nameLabel = new JShadowedLabel(name);
-		nameLabel.setForeground(Color.WHITE);
-		nameLabel.setVerticalAlignment(SwingUtilities.BOTTOM);
-
-		final JShadowedLabel valueLabel = new JShadowedLabel(value);
-		valueLabel.setFont(FontManager.getRunescapeSmallFont());
-		valueLabel.setVerticalAlignment(SwingUtilities.TOP);
-
-		wrapper.add(nameLabel);
-		wrapper.add(valueLabel);
-
-		final JPanel container = new JPanel();
-		container.setLayout(new BorderLayout());
-		container.setBackground(BACKGROUND_COLOR);
-		container.setBorder(new EmptyBorder(5, 0, 5, 0));
-
 		final JLabel image = new JLabel();
 		image.setMinimumSize(ICON_SIZE);
 		image.setMaximumSize(ICON_SIZE);
@@ -425,7 +433,42 @@ public class ModifyPanel extends JPanel
 
 		image.setIcon(icon);
 
-		container.add(image, BorderLayout.LINE_START);
+		return image;
+	}
+
+	private JPanel createShadowedLabel(final ImageIcon icon, final String name, final String value)
+	{
+		final JLabel imageLabel = createImageLabel(icon);
+		return createShadowedLabel(imageLabel, name, value);
+	}
+
+	private JPanel createShadowedLabel(final JLabel icon, final String name, final String value)
+	{
+		// Wrapper panel for the shadowed labels
+		final JPanel wrapper = new JPanel(new GridLayout(value == null ? 1 : 2, 1));
+		wrapper.setBorder(new EmptyBorder(0, 5, 0, 0));
+		wrapper.setBackground(BACKGROUND_COLOR);
+
+		final JShadowedLabel nameLabel = new JShadowedLabel(name);
+		nameLabel.setForeground(Color.WHITE);
+		wrapper.add(nameLabel);
+
+		if (value != null)
+		{
+			nameLabel.setVerticalAlignment(SwingUtilities.BOTTOM);
+
+			final JShadowedLabel valueLabel = new JShadowedLabel(value);
+			valueLabel.setFont(FontManager.getRunescapeSmallFont());
+			valueLabel.setVerticalAlignment(SwingUtilities.TOP);
+			wrapper.add(valueLabel);
+		}
+
+		final JPanel container = new JPanel();
+		container.setLayout(new BorderLayout());
+		container.setBackground(BACKGROUND_COLOR);
+		container.setBorder(new EmptyBorder(5, 0, 5, 0));
+
+		container.add(icon, BorderLayout.LINE_START);
 		container.add(wrapper, BorderLayout.CENTER);
 
 		return container;
