@@ -301,6 +301,7 @@ public enum ExperienceItem
 	F_MAPLE_LOGS(ItemID.MAPLE_LOGS, Skill.FLETCHING, "Logs"),
 	F_YEW_LOGS(ItemID.YEW_LOGS, Skill.FLETCHING, "Logs"),
 	F_MAGIC_LOGS(ItemID.MAGIC_LOGS, Skill.FLETCHING, "Logs"),
+	F_REDWOOD_LOGS(ItemID.REDWOOD_LOGS, Skill.FLETCHING, "Logs"),
 	// Unstrung
 	F_SHORTBOW_U(ItemID.SHORTBOW_U, Skill.FLETCHING, "Unstrung"),
 	F_LONGBOW_U(ItemID.LONGBOW_U, Skill.FLETCHING, "Unstrung"),

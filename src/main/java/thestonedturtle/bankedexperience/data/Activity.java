@@ -690,6 +690,9 @@ public enum Activity
 		ExperienceItem.F_MAGIC_LOGS, null, new ItemStack(ItemID.MAGIC_SHORTBOW_U, 1)),
 	F_MAGIC_LONGBOW_U(ItemID.MAGIC_LONGBOW_U, "Magic longbow (u)", 85, 91.5,
 		ExperienceItem.F_MAGIC_LOGS, null, new ItemStack(ItemID.MAGIC_LONGBOW_U, 1)),
+	// Redwood Logs
+	F_REDWOOD_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 90, 35,
+		ExperienceItem.F_REDWOOD_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 105)),
 	// Strung Bows
 	F_SHORTBOW(ItemID.SHORTBOW, "Shortbow", 5, 5,
 		ExperienceItem.F_SHORTBOW_U, Secondaries.BOW_STRING, new ItemStack(ItemID.SHORTBOW, 1)),
