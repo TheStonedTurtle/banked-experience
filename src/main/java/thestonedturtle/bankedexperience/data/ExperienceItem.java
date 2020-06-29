@@ -355,7 +355,6 @@ public enum ExperienceItem
 	private final Skill skill;
 	private final String category;
 	private final boolean ignoreBonus;
-	private final boolean rngItem;
 
 	@Setter
 	// Stores the item composition info we use since we don't operate on the game thread
@@ -376,23 +375,17 @@ public enum ExperienceItem
 		}
 	}
 
-	ExperienceItem(int itemID, Skill skill, String category, boolean ignoreBonus, boolean rngItem)
+	ExperienceItem(int itemID, Skill skill, String category, boolean ignoreBonus)
 	{
 		this.itemID = itemID;
 		this.category = category;
 		this.skill = skill;
 		this.ignoreBonus = ignoreBonus;
-		this.rngItem = rngItem;
-	}
-
-	ExperienceItem(int itemID, Skill skill, String category, boolean ignoreBonus)
-	{
-		this(itemID, skill, category, ignoreBonus, false);
 	}
 
 	ExperienceItem(int itemID, Skill skill, String category)
 	{
-		this(itemID, skill, category, false, false);
+		this(itemID, skill, category, false);
 	}
 
 	public static Collection<ExperienceItem> getBySkill(Skill skill)
