@@ -72,4 +72,15 @@ public interface BankedExperienceConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigItem(
+		keyName = "includeRngActivities",
+		name = "Include RNG activities",
+		description = "Toggles whether activities with exp values that are effected by RNG will be shown in the calculator",
+		position = 7
+	)
+	default boolean includeRngActivities()
+	{
+		return false;
+	}
 }

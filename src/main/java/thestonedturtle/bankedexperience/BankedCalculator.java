@@ -222,7 +222,7 @@ public class BankedCalculator extends JPanel
 			final int level = config.limitToCurrentLevel() ? skillLevel : -1;
 			if (a == null || (level > 0 && level < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, level);
+				final List<Activity> activities = Activity.getByExperienceItem(item, level, config.includeRngActivities());
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);
@@ -303,7 +303,7 @@ public class BankedCalculator extends JPanel
 		{
 			// Account for activities that output multiple of a specific item per action
 			final ItemStack output = entry.getKey().getSelectedActivity().getOutput();
-			return entry.getValue() * (output != null ? output.getQty() : 1);
+			return (int) (entry.getValue() * (output != null ? output.getQty() : 1));
 		}).sum();
 
 		return qty + linkedQty;
@@ -355,7 +355,7 @@ public class BankedCalculator extends JPanel
 		item.setSelectedActivity(a);
 
 		// Cascade activity changes if necessary.
-		if (config.cascadeBankedXp() && (old.getLinkedItem() != a.getLinkedItem()))
+		if (config.cascadeBankedXp() && a.shouldUpdateLinked(old))
 		{
 			// Update Linked Map
 			linkedMap.remove(old.getLinkedItem(), i);

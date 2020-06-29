@@ -56,6 +56,9 @@ public class GridItem extends JLabel
 	private static final Color IGNORED_BACKGROUND = new Color(90, 0, 0);
 	private static final Color IGNORED_HOVER_BACKGROUND = new Color(120, 0, 0);
 
+	private static final Color RNG_BACKGROUND = new Color(140, 90, 0);
+	private static final Color RNG_HOVER_BACKGROUND = new Color(186, 120, 0);
+
 	@Setter
 	private SelectionListener selectionListener;
 
@@ -64,6 +67,7 @@ public class GridItem extends JLabel
 
 	private boolean selected = false;
 	private boolean ignored = false;
+	private boolean rng;
 
 	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
 
@@ -74,7 +78,7 @@ public class GridItem extends JLabel
 		this.bankedItem = item;
 
 		this.setOpaque(true);
-		this.setBackground(ColorScheme.DARKER_GRAY_COLOR);
+		this.setBackground(getBackgroundColor());
 		this.setBorder(BorderFactory.createEmptyBorder(5, 0, 2, 0));
 
 		this.setVerticalAlignment(SwingConstants.CENTER);
@@ -137,12 +141,12 @@ public class GridItem extends JLabel
 
 	private Color getBackgroundColor()
 	{
-		return ignored ? IGNORED_BACKGROUND : (selected ? SELECTED_BACKGROUND : UNSELECTED_BACKGROUND);
+		return ignored ? IGNORED_BACKGROUND : (rng ? RNG_BACKGROUND : (selected ? SELECTED_BACKGROUND : UNSELECTED_BACKGROUND));
 	}
 
 	private Color getHoverBackgroundColor()
 	{
-		return ignored ? IGNORED_HOVER_BACKGROUND : (selected ? SELECTED_HOVER_BACKGROUND : UNSELECTED_HOVER_BACKGROUND);
+		return ignored ? IGNORED_HOVER_BACKGROUND : (rng ? RNG_HOVER_BACKGROUND : (selected ? SELECTED_HOVER_BACKGROUND : UNSELECTED_HOVER_BACKGROUND));
 	}
 
 	void select()
@@ -166,6 +170,12 @@ public class GridItem extends JLabel
 	public void updateToolTip(final float modifier)
 	{
 		this.setToolTipText(buildToolTip(modifier));
+		final Activity selectedActivity = bankedItem.getItem().getSelectedActivity();
+		if (selectedActivity != null)
+		{
+			this.rng = selectedActivity.isRngActivity();
+			this.setBackground(getBackgroundColor());
+		}
 	}
 
 	private String buildToolTip(final float modifier)

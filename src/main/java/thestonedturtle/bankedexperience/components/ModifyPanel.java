@@ -234,7 +234,7 @@ public class ModifyPanel extends JPanel
 		final float xpFactor = this.calc.getXpFactor();
 
 		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
-		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level);
+		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level, calc.getConfig().includeRngActivities());
 		if (activities == null || activities.size() == 0)
 		{
 			final JLabel unusable = new JLabel("Unusable at current level");
@@ -249,7 +249,7 @@ public class ModifyPanel extends JPanel
 		{
 			final Activity a = activities.get(0);
 
-			final int qty =  a.getOutput() == null ? 1 : a.getOutput().getQty();
+			final int qty =  a.getOutput() == null ? 1 : (int) a.getOutput().getQty();
 			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
@@ -374,7 +374,7 @@ public class ModifyPanel extends JPanel
 
 			for (final ItemStack s : secondaries.getItems())
 			{
-				final int required = s.getQty() * amount;
+				final int required = (int) (s.getQty() * amount);
 				final int available = this.calc.getItemQtyFromBank(s.getId());
 				container.add(createSecondaryItemLabel(s.getId(), available, required));
 			}
