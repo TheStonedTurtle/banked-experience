@@ -13,7 +13,6 @@ import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.events.ItemContainerChanged;
-import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -70,7 +69,6 @@ public class BankedExperiencePlugin extends Plugin
 	private NavigationButton navButton;
 	private BankedCalculatorPanel panel;
 	private boolean prepared = false;
-	private int lastCheckTick = -1;
 
 	@Override
 	protected void startUp() throws Exception
@@ -146,31 +144,15 @@ public class BankedExperiencePlugin extends Plugin
 	}
 
 	@Subscribe
-	public void onScriptCallbackEvent(ScriptCallbackEvent event)
-	{
-		if (!event.getEventName().equals("setBankTitle") || client.getTickCount() == lastCheckTick)
-		{
-			return;
-		}
-
-		updateItemsFromInventory(InventoryID.BANK);
-		lastCheckTick = client.getTickCount();
-	}
-
-	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged ev)
 	{
-		if ((ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
+		if (ev.getContainerId() == InventoryID.BANK.getId()
+			|| (ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
 			|| (ev.getContainerId() == InventoryID.INVENTORY.getId() && config.grabFromInventory())
 			|| (ev.getContainerId() == LOOTING_BAG_ID && config.grabFromLootingBag()))
 		{
 			updateItemsFromItemContainer(ev.getContainerId(), ev.getItemContainer());
 		}
-	}
-
-	private void updateItemsFromInventory(final InventoryID inventoryID)
-	{
-		updateItemsFromItemContainer(inventoryID.getId(), client.getItemContainer(inventoryID));
 	}
 
 	private void updateItemsFromItemContainer(final int inventoryId, final ItemContainer c)
