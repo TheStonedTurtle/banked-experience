@@ -13,6 +13,8 @@ import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
 import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
@@ -26,6 +28,7 @@ import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.WidgetInventoryInfo;
 
 @Slf4j
 @PluginDescriptor(
@@ -138,7 +141,7 @@ public class BankedExperiencePlugin extends Plugin
 				inventoryId = LOOTING_BAG_ID;
 				break;
 			case FOSSIL_CHEST_CONFIG_KEY:
-				inventoryId = -420;
+				inventoryId = WidgetInventoryInfo.FOSSIL_CHEST.getId();
 				break;
 			default:
 				return;
@@ -157,6 +160,41 @@ public class BankedExperiencePlugin extends Plugin
 		{
 			updateItemsFromItemContainer(ev.getContainerId(), ev.getItemContainer());
 		}
+	}
+
+	@Subscribe
+	public void onWidgetLoaded(WidgetLoaded e)
+	{
+		if (!config.grabFromFossilChest())
+		{
+			return;
+		}
+
+		final WidgetInventoryInfo widgetInfo = WidgetInventoryInfo.getByGroupId(e.getGroupId());
+		if (widgetInfo == null)
+		{
+			return;
+		}
+
+		final Widget w = client.getWidget(widgetInfo.getGroupId(), widgetInfo.getChildId());
+		if (w == null)
+		{
+			return;
+		}
+
+		final Map<Integer, Integer> m = new HashMap<>();
+		for (int i = 0; i < w.getChildren().length; i++)
+		{
+			final Widget childWidget = w.getChild(i);
+			if (childWidget.getItemId() <= 0 || childWidget.getItemQuantity() <= 0)
+			{
+				continue;
+			}
+
+			m.merge(childWidget.getItemId(), childWidget.getItemQuantity(), Integer::sum);
+		}
+
+		updateInventoryMap(widgetInfo.getId(), m);
 	}
 
 	private void updateItemsFromItemContainer(final int inventoryId, final ItemContainer c)
@@ -192,6 +230,11 @@ public class BankedExperiencePlugin extends Plugin
 			m.put(itemID, qty);
 		}
 
+		updateInventoryMap(inventoryId, m);
+	}
+
+	private void updateInventoryMap(final int inventoryId, final Map<Integer, Integer> m)
+	{
 		final int curHash = m.hashCode();
 		if (curHash != inventoryHashMap.getOrDefault(inventoryId, -1))
 		{
