@@ -39,6 +39,7 @@ public class BankedExperiencePlugin extends Plugin
 	private static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
 	private static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
 	private static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
+	private static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
 	private static final int LOOTING_BAG_ID = 516;
 
 	@Inject
@@ -135,6 +136,9 @@ public class BankedExperiencePlugin extends Plugin
 				break;
 			case LOOTING_BAG_CONFIG_KEY:
 				inventoryId = LOOTING_BAG_ID;
+				break;
+			case FOSSIL_CHEST_CONFIG_KEY:
+				inventoryId = -420;
 				break;
 			default:
 				return;
