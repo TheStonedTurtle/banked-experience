@@ -83,4 +83,15 @@ public interface BankedExperienceConfig extends Config
 	{
 		return false;
 	}
+
+	@ConfigItem(
+		keyName = "grabFromFossilChest",
+		name = "Include Fossil Chest",
+		description = "Toggles whether the fossils stored inside your Fossil Island chest will be included in the calculations",
+		position = 8
+	)
+	default boolean grabFromFossilChest()
+	{
+		return true;
+	}
 }
