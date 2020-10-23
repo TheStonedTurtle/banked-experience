@@ -1,4 +1,4 @@
-# Banked Experience
+# Banked Experience [![Plugin Installs](http://img.shields.io/endpoint?url=https://i.pluginhub.info/shields/installs/plugin/banked-experience)](https://runelite.net/plugin-hub/TheStonedTurtle) [![Plugin Rank](http://img.shields.io/endpoint?url=https://i.pluginhub.info/shields/rank/plugin/banked-experience)](https://runelite.net/plugin-hub)
 Adds a new side panel for calculating how much experience you have banked. While this plugin tries to include the most
 common training methods it is not perfect and some may be missing. 
 
