@@ -194,7 +194,7 @@ public enum Activity
 		ExperienceItem.AMYLASE_CRYSTAL, Secondaries.STAMINA_POTION , new ItemStack(ItemID.STAMINA_POTION1, 1)),
 	EXTENDED_ANTIFIRE(ItemID.EXTENDED_ANTIFIRE1, "Extended antifire", 77, 25.5,
 		ExperienceItem.LAVA_SCALE_SHARD, Secondaries.EXTENDED_ANTIFIRE , new ItemStack(ItemID.EXTENDED_ANTIFIRE1, 1)),
-	EXTENDED_SUPER_ANTIFIRE(ItemID.EXTENDED_SUPER_ANTIFIRE1, "Extended super antifire", 77, 25.5,
+	EXTENDED_SUPER_ANTIFIRE(ItemID.EXTENDED_SUPER_ANTIFIRE1, "Extended super antifire", 77, 40,
 		ExperienceItem.LAVA_SCALE_SHARD, Secondaries.EXTENDED_SUPER_ANTIFIRE , new ItemStack(ItemID.EXTENDED_SUPER_ANTIFIRE1, 1)),
 	/**
 	 * Construction
@@ -575,7 +575,7 @@ public enum Activity
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_AMULET_U, 1)),
 	// RNG section
 	// Soda Ash
-	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 10,
+	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 20,
 		ExperienceItem.SODA_ASH, null, new ItemStack(ItemID.MOLTEN_GLASS, 1)),
 	MOLTEN_GLASS_SPELL(ItemID.MOLTEN_GLASS, "SGM [1.3x]", 1, 10, true,
 		ExperienceItem.SODA_ASH, Secondaries.BUCKET_OF_SAND, new ItemStack(ItemID.MOLTEN_GLASS, 1.3)),
