@@ -213,6 +213,7 @@ public enum ExperienceItem
 	RAW_DARK_CRAB(ItemID.RAW_DARK_CRAB, Skill.COOKING, "Fish"),
 	RAW_MANTA_RAY(ItemID.RAW_MANTA_RAY, Skill.COOKING, "Fish"),
 	GRAPES(ItemID.GRAPES, Skill.COOKING, "Other"),
+	SWEETCORN(ItemID.SWEETCORN, Skill.COOKING, "Other"),
 	/**
 	 * Crafting
 	 */

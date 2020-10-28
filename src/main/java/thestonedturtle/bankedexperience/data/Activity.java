@@ -410,6 +410,8 @@ public enum Activity
 		ExperienceItem.RAW_MANTA_RAY, null, new ItemStack(ItemID.MANTA_RAY, 1)),
 	WINE(ItemID.JUG_OF_WINE, "Jug of wine", 35, 200,
 		ExperienceItem.GRAPES, Secondaries.JUG_OF_WATER, new ItemStack(ItemID.JUG_OF_WINE, 1)),
+	SWEETCORN(ItemID.COOKED_SWEETCORN, "Cooked sweetcorn", 28, 104,
+		ExperienceItem.SWEETCORN, null, new ItemStack(ItemID.COOKED_SWEETCORN, 1)),
 	/**
 	 * Crafting
 	 */
