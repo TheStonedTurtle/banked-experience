@@ -400,6 +400,7 @@ public class ModifyPanel extends JPanel
 	private JLabel createSecondaryItemLabel(int itemID, int available, int required)
 	{
 		final JLabel l = new JLabel();
+		String itemName = itemManager.getItemComposition(itemID).getName();
 		final AsyncBufferedImage img = itemManager.getImage(itemID, required, required > 1);
 		final ImageIcon icon = new ImageIcon(img);
 		img.onLoaded(() ->
@@ -413,7 +414,8 @@ public class ModifyPanel extends JPanel
 
 		final int result = (available - required);
 		final String tooltip = "<html>" +
-			"Banked: " + FORMAT_COMMA.format(available) +
+			itemName +
+			"<br />Banked: " + FORMAT_COMMA.format(available) +
 			"<br/>Needed: " + FORMAT_COMMA.format(required) +
 			"<br/>Result: " + (result > 0 ? "+" : "") + FORMAT_COMMA.format(result) +
 			"</html>";
