@@ -600,7 +600,7 @@ public enum Activity
 	 */
 	// Smelting ores (Furnace)
 	IRON_ORE(ItemID.IRON_BAR, "Iron bar", 15, 12.5,
-		ExperienceItem.IRON_ORE, Secondaries.COAL_ORE, new ItemStack(ItemID.IRON_BAR, 1)),
+		ExperienceItem.IRON_ORE, null, new ItemStack(ItemID.IRON_BAR, 1)),
 	STEEL_ORE(ItemID.STEEL_BAR, "Steel bar", 30, 17.5,
 		ExperienceItem.IRON_ORE, Secondaries.COAL_ORE_2, new ItemStack(ItemID.STEEL_BAR, 1)),
 	SILVER_ORE(ItemID.SILVER_BAR, "Silver Bar", 20, 13.67,
