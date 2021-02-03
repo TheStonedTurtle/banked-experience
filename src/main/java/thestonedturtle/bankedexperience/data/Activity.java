@@ -37,6 +37,7 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
+import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 
 /**
  * A specific in-game action that consumes bank-able item(s) and rewards {@link Skill} experience.
@@ -967,6 +968,28 @@ public enum Activity
 			final ItemComposition c = m.getItemComposition(output.getId());
 			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
 		}
+	}
+
+	public double getXpRate(final Modifier modifier)
+	{
+		return modifier.appliesTo(this) ? modifier.appliedXpRate(this) : xp;
+	}
+
+	public double getXpRate(final Collection<Modifier> modifiers)
+	{
+		// Apply all modifiers
+		double tempXp = 0;
+		for (final Modifier modifier : modifiers)
+		{
+			if (!modifier.appliesTo(this))
+			{
+				continue;
+			}
+
+			tempXp += modifier.appliedXpDelta(this);
+		}
+
+		return tempXp;
 	}
 
 	public double getXpRate(final float modifier)
