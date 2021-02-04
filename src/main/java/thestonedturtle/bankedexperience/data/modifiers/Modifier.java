@@ -26,7 +26,6 @@ package thestonedturtle.bankedexperience.data.modifiers;
 
 import com.google.common.collect.ImmutableSet;
 import java.util.Collection;
-import javax.swing.JComponent;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Skill;
@@ -116,10 +115,20 @@ public abstract class Modifier
 	/**
 	 * Generates the UI component for use in the side panel for modifiers with complex settings.
 	 * Returning null will generate a default UI components (generally a checkbox)
-	 * @return A JComponent to be added to the UI to control this modifier.
+	 * @return A ModifierComponent to be added to the UI to control this modifier.
 	 */
-	public JComponent generateUIComponent()
+	public ModifierComponent generateModifierComponent()
 	{
-		return null;
+		return new ModifierPanel(this);
+	}
+
+	/**
+	 * Determines if the current modifier is compatible with the passed one
+	 * @param modifier Other modifier to check compatibility against
+	 * @return Whether the modifiers are compatible
+	 */
+	public boolean compatibleWith(final Modifier modifier)
+	{
+		return true;
 	}
 }

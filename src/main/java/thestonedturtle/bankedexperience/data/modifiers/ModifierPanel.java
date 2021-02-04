@@ -24,53 +24,56 @@
  */
 package thestonedturtle.bankedexperience.data.modifiers;
 
-import java.util.Collection;
+import java.util.function.BiConsumer;
+import javax.swing.JComponent;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Skill;
-import thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.components.LabeledCheckbox;
 
 /**
- * Modifies an {@link Activity} by a static {@link #xpModifier}. StaticModifiers are not compatible with other StaticModifiers
+ * The default UI component for enable/disabling a {@link Modifier}
  */
 @Slf4j
-public class StaticModifier extends Modifier
+public class ModifierPanel extends LabeledCheckbox implements ModifierComponent
 {
-	/**
-	 * A multiplier that controls how much the activities xp is modified. 0=none, 0.5=half, 1=default, 2=double, etc
-	 */
-	final float xpModifier;
+	@Getter
+	private final Modifier modifier;
 
-	StaticModifier(Skill skill, String name, final float xpModifier)
-	{
-		super(skill, name, null, null);
-		this.xpModifier = xpModifier;
-	}
+	@Setter
+	private BiConsumer<Modifier, Boolean> modifierConsumer;
 
-	StaticModifier(Skill skill, String name, final float xpModifier, Collection<Activity> included, Collection<Activity> ignored)
+	public ModifierPanel(final Modifier modifier)
 	{
-		super(skill, name, included, ignored);
-		this.xpModifier = xpModifier;
-	}
+		super(modifier.getName());
+		this.modifier = modifier;
 
-	/**
-	 * Applies the {@link #xpModifier} to the default xp rate of the passed activity, if applicable.
-	 * @param activity the {@link Activity} to apply this modifier to.
-	 * @return The adjusted xp rate for the activity, or 0 if the activity and modifier are not compatible
-	 */
-	public double appliedXpRate(final Activity activity)
-	{
-		return super.appliedXpRate(activity) * xpModifier;
+		getButton().addItemListener((l) -> {
+			if (modifierConsumer == null)
+			{
+				log.warn("Toggling a modifier wth no consumer: {}", modifier);
+				return;
+			}
+
+			modifierConsumer.accept(modifier, getButton().isSelected());
+		});
 	}
 
 	@Override
-	public boolean compatibleWith(final Modifier modifier)
+	public Boolean isModifierEnabled()
 	{
-		// Compatible with itself
-		if (this.equals(modifier))
-		{
-			return true;
-		}
+		return getButton().isSelected();
+	}
 
-		return !(modifier instanceof StaticModifier);
+	@Override
+	public void setModifierEnabled(boolean enabled)
+	{
+		getButton().setSelected(enabled);
+	}
+
+	@Override
+	public JComponent getComponent()
+	{
+		return this;
 	}
 }

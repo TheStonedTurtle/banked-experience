@@ -24,53 +24,15 @@
  */
 package thestonedturtle.bankedexperience.data.modifiers;
 
-import java.util.Collection;
-import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Skill;
-import thestonedturtle.bankedexperience.data.Activity;
+import java.util.function.BiConsumer;
+import javax.swing.JComponent;
 
-/**
- * Modifies an {@link Activity} by a static {@link #xpModifier}. StaticModifiers are not compatible with other StaticModifiers
- */
-@Slf4j
-public class StaticModifier extends Modifier
+public interface ModifierComponent
 {
-	/**
-	 * A multiplier that controls how much the activities xp is modified. 0=none, 0.5=half, 1=default, 2=double, etc
-	 */
-	final float xpModifier;
+	Modifier getModifier();
+	Boolean isModifierEnabled();
+	void setModifierEnabled(final boolean enabled);
+	void setModifierConsumer(final BiConsumer<Modifier, Boolean> modifierConsumer);
 
-	StaticModifier(Skill skill, String name, final float xpModifier)
-	{
-		super(skill, name, null, null);
-		this.xpModifier = xpModifier;
-	}
-
-	StaticModifier(Skill skill, String name, final float xpModifier, Collection<Activity> included, Collection<Activity> ignored)
-	{
-		super(skill, name, included, ignored);
-		this.xpModifier = xpModifier;
-	}
-
-	/**
-	 * Applies the {@link #xpModifier} to the default xp rate of the passed activity, if applicable.
-	 * @param activity the {@link Activity} to apply this modifier to.
-	 * @return The adjusted xp rate for the activity, or 0 if the activity and modifier are not compatible
-	 */
-	public double appliedXpRate(final Activity activity)
-	{
-		return super.appliedXpRate(activity) * xpModifier;
-	}
-
-	@Override
-	public boolean compatibleWith(final Modifier modifier)
-	{
-		// Compatible with itself
-		if (this.equals(modifier))
-		{
-			return true;
-		}
-
-		return !(modifier instanceof StaticModifier);
-	}
+	JComponent getComponent();
 }
