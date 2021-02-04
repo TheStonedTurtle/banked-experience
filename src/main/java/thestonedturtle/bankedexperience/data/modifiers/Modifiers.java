@@ -59,7 +59,7 @@ public final class Modifiers
 		modifiers = m.build();
 	}
 
-	public static Collection<Modifier> getModifiersBySkill(final Skill skill)
+	public static Collection<Modifier> getBySkill(final Skill skill)
 	{
 		return modifiers.get(skill);
 	}
