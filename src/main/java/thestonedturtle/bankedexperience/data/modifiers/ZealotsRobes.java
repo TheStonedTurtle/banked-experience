@@ -108,7 +108,7 @@ public class ZealotsRobes extends ConsumptionModifier implements ModifierCompone
 	}
 
 	@Override
-	public float getConsumptionModifier()
+	public float getSavePercentage()
 	{
 		return CONSUME_AMT * getEnabledButtonCount();
 	}

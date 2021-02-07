@@ -982,7 +982,7 @@ public enum Activity
 	{
 		// Apply all modifiers
 		double tempXp = xp;
-		float consumptionModifier = 0;
+		float savePercentage = 0;
 		for (final Modifier modifier : modifiers)
 		{
 			if (!modifier.appliesTo(this))
@@ -992,16 +992,16 @@ public enum Activity
 
 			if (modifier instanceof ConsumptionModifier)
 			{
-				consumptionModifier += ((ConsumptionModifier) modifier).getConsumptionModifier();
+				savePercentage += ((ConsumptionModifier) modifier).getSavePercentage();
 			}
 
 			tempXp += modifier.appliedXpDelta(this);
 		}
 
 		// Dividing the XP by the chance of consuming the item will give you the average xp per item
-		if (consumptionModifier != 0f)
+		if (savePercentage != 0f)
 		{
-			tempXp = tempXp / (1 - consumptionModifier);
+			tempXp = tempXp / (1 - savePercentage);
 		}
 
 		// Round to two decimal places

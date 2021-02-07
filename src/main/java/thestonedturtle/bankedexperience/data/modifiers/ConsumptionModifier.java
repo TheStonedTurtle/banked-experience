@@ -37,17 +37,17 @@ public class ConsumptionModifier extends Modifier
 {
 	// Percentage based scale where positive values reduce consumption and negative values increase consumption
 	@Getter
-	private final float consumptionModifier;
+	private final float savePercentage;
 
-	ConsumptionModifier(Skill skill, String name, float consumptionModifier)
+	ConsumptionModifier(Skill skill, String name, float savePercentage)
 	{
 		super(skill, name);
-		this.consumptionModifier = consumptionModifier;
+		this.savePercentage = savePercentage;
 	}
 
-	ConsumptionModifier(Skill skill, String name, float consumptionModifier, Collection<Activity> included, Collection<Activity> ignored)
+	ConsumptionModifier(Skill skill, String name, float savePercentage, Collection<Activity> included, Collection<Activity> ignored)
 	{
 		super(skill, name, included, ignored);
-		this.consumptionModifier = consumptionModifier;
+		this.savePercentage = savePercentage;
 	}
 }
