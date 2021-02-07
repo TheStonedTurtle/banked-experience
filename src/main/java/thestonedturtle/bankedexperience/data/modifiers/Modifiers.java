@@ -78,6 +78,8 @@ public final class Modifiers
 
 		m.put(Skill.FARMING, new StaticModifier(Skill.FARMING, "Farmer's Outfit (2.5% xp)", 1.025f));
 
+		m.put(Skill.CONSTRUCTION, new StaticModifier(Skill.CONSTRUCTION, "Carpenter's Outfit (2.5% xp)", 1.025f));
+
 		modifiers = m.build();
 	}
 
