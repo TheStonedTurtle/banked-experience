@@ -28,12 +28,14 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import java.util.Collection;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Skill;
 import thestonedturtle.bankedexperience.data.Activity;
 
 /**
  * A utility class that contains all XP modifiers
  */
+@Slf4j
 public final class Modifiers
 {
 	private static final ImmutableMultimap<Skill, Modifier> modifiers;
@@ -50,11 +52,31 @@ public final class Modifiers
 	{
 		final ImmutableMultimap.Builder<Skill, Modifier> m = ImmutableMultimap.builder();
 
-		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350%)", 3.5f));
-		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Ectofuntus (400%)", 4, BONES, null));
-		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Wildy Altar (700%)", 7, BONES, null));
+		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f));
+		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null));
+		// TODO: Create a generic ComboModifier and combine a Static and Consumption modifier instead of doing this?
+		m.put(Skill.PRAYER, new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp/50% Save)", 0.5f, BONES, null)
+		{
+			@Override
+			public double appliedXpRate(final Activity activity)
+			{
+				return activity.getXp() * 3.5f;
+			}
 
-		m.put(Skill.FARMING, new StaticModifier(Skill.FARMING, "Farmer's Outfit (2.5%)", 1.025f));
+			@Override
+			public boolean compatibleWith(final Modifier modifier)
+			{
+				if (modifier instanceof StaticModifier)
+				{
+					return false;
+				}
+
+				return super.compatibleWith(modifier);
+			}
+		});
+		m.put(Skill.PRAYER, new ZealotsRobes());
+
+		m.put(Skill.FARMING, new StaticModifier(Skill.FARMING, "Farmer's Outfit (2.5% xp)", 1.025f));
 
 		modifiers = m.build();
 	}

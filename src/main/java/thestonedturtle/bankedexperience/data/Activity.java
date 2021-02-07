@@ -26,6 +26,8 @@ package thestonedturtle.bankedexperience.data;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedSet;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -37,6 +39,7 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
+import thestonedturtle.bankedexperience.data.modifiers.ConsumptionModifier;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 
 /**
@@ -978,7 +981,8 @@ public enum Activity
 	public double getXpRate(final Collection<Modifier> modifiers)
 	{
 		// Apply all modifiers
-		double tempXp = 0;
+		double tempXp = xp;
+		float consumptionModifier = 0;
 		for (final Modifier modifier : modifiers)
 		{
 			if (!modifier.appliesTo(this))
@@ -986,10 +990,22 @@ public enum Activity
 				continue;
 			}
 
+			if (modifier instanceof ConsumptionModifier)
+			{
+				consumptionModifier += ((ConsumptionModifier) modifier).getConsumptionModifier();
+			}
+
 			tempXp += modifier.appliedXpDelta(this);
 		}
 
-		return tempXp;
+		// Dividing the XP by the chance of consuming the item will give you the average xp per item
+		if (consumptionModifier != 0f)
+		{
+			tempXp = tempXp / (1 - consumptionModifier);
+		}
+
+		// Round to two decimal places
+		return BigDecimal.valueOf(tempXp).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	public double getXpRate(final float modifier)
