@@ -198,14 +198,14 @@ public class BankedCalculator extends JPanel
 
 		for (final ExperienceItem item : items)
 		{
+			// Convert to bankedItems
 			final BankedItem banked = new BankedItem(item, currentMap.getOrDefault(item.getItemID(), 0));
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();
-			final int level = config.limitToCurrentLevel() ? skillLevel : -1;
-			if (a == null || (level > 0 && level < a.getLevel()))
+			if (a == null || (config.limitToCurrentLevel() && skillLevel < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, level, config.includeRngActivities());
+				final List<Activity> activities = Activity.getByExperienceItem(item, skillLevel, config.includeRngActivities());
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);
@@ -216,6 +216,7 @@ public class BankedCalculator extends JPanel
 				a = activities.get(0);
 			}
 
+			// If this activity outputs another experienceItem they should be linked
 			if (a.getLinkedItem() != null)
 			{
 				linkedMap.put(a.getLinkedItem(), banked);
@@ -367,8 +368,8 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
-		boolean foundSelected = false;
-		boolean panelAmountChange = false;
+		boolean foundSelected = false;		// Found the item currently being displayed in the ModifyPanel
+		boolean gridCountChanged = false;
 
 		ExperienceItem i = activity.getLinkedItem();
 		while (i != null)
@@ -380,16 +381,16 @@ public class BankedCalculator extends JPanel
 			}
 
 			final int qty = getItemQty(bi);
-			final boolean stackable = bi.getItem().getItemInfo().isStackable() || qty > 1;
+			final boolean stackable = qty > 1 || bi.getItem().getItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(bi.getItem().getItemID(), qty, stackable);
 
 			final GridItem gridItem = itemGrid.getPanelMap().get(bi);
 			final int oldQty = gridItem.getAmount();
-			panelAmountChange = panelAmountChange || ( (oldQty == 0 && qty > 0) || (oldQty > 0 && qty == 0) );
+			gridCountChanged |= ((oldQty == 0 && qty > 0) || (oldQty > 0 && qty == 0));
 			gridItem.updateIcon(img, qty);
 			gridItem.updateToolTip(enabledModifiers);
 
-			foundSelected = foundSelected || itemGrid.getSelectedItem().equals(bi);
+			foundSelected |= itemGrid.getSelectedItem().equals(bi);
 
 			final Activity a = bi.getItem().getSelectedActivity();
 			if (a == null)
@@ -400,7 +401,7 @@ public class BankedCalculator extends JPanel
 			i = a.getLinkedItem();
 		}
 
-		if (panelAmountChange)
+		if (gridCountChanged)
 		{
 			itemGrid.refreshGridDisplay();
 		}
