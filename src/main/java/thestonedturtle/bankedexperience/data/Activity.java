@@ -1008,11 +1008,6 @@ public enum Activity
 		return BigDecimal.valueOf(tempXp).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 
-	public double getXpRate(final float modifier)
-	{
-		return experienceItem.isIgnoreBonus() ? xp : xp * modifier;
-	}
-
 	private static boolean isOneNull(final Object a, final Object b)
 	{
 		return (a == null && b != null) || (a != null && b == null);
