@@ -27,6 +27,7 @@ package thestonedturtle.bankedexperience;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -45,6 +46,7 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.util.AsyncBufferedImage;
+import thestonedturtle.bankedexperience.components.ExpandableSection;
 import thestonedturtle.bankedexperience.components.GridItem;
 import thestonedturtle.bankedexperience.components.ModifyPanel;
 import thestonedturtle.bankedexperience.components.SelectionGrid;
@@ -87,7 +89,7 @@ public class BankedCalculator extends JPanel
 	// Keep a reference to enabled modifiers so recreating tooltips is faster.
 	@Getter
 	private final Set<Modifier> enabledModifiers = new HashSet<>();
-	private final Set<ModifierComponent> modifierComponents = new HashSet<>();
+	private final List<ModifierComponent> modifierComponents = new ArrayList<>();
 
 	@Getter
 	private Skill currentSkill;
@@ -166,7 +168,17 @@ public class BankedCalculator extends JPanel
 				modifierUpdated();
 			});
 			modifierComponents.add(c);
-			add(c.getComponent());
+		}
+
+		if (modifierComponents.size() > 0)
+		{
+			add(new ExpandableSection(
+				"Modifiers",
+				"Toggles the different ways activity/experience gains can be modified",
+				modifierComponents.stream()
+					.map(ModifierComponent::getComponent)
+					.collect(Collectors.toList())
+			));
 		}
 
 		recreateItemGrid();
