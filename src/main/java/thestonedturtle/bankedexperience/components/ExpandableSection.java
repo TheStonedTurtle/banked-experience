@@ -24,6 +24,7 @@
  */
 package thestonedturtle.bankedexperience.components;
 
+import com.google.common.collect.ImmutableList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
@@ -74,6 +75,11 @@ public class ExpandableSection extends JPanel
 	@Setter
 	@Getter
 	private boolean isOpen = false;
+
+	public ExpandableSection(final String header, final String description, JComponent... components)
+	{
+		this(header, description, ImmutableList.copyOf(components));
+	}
 
 	public ExpandableSection(final String header, final String description, Collection<JComponent> components)
 	{

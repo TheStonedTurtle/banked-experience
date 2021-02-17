@@ -49,6 +49,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 import thestonedturtle.bankedexperience.components.ExpandableSection;
 import thestonedturtle.bankedexperience.components.GridItem;
 import thestonedturtle.bankedexperience.components.ModifyPanel;
+import thestonedturtle.bankedexperience.components.SecondaryGrid;
 import thestonedturtle.bankedexperience.components.SelectionGrid;
 import thestonedturtle.bankedexperience.components.SelectionListener;
 import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
@@ -80,6 +81,7 @@ public class BankedCalculator extends JPanel
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid;
+	private SecondaryGrid secondaryGrid;
 
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
@@ -194,6 +196,19 @@ public class BankedCalculator extends JPanel
 			add(xpToNextLevelLabel);
 			add(modifyPanel);
 			add(itemGrid);
+
+			if (config.showSecondaries())
+			{
+				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values(), itemManager);
+				if (secondaryGrid.getSecMap().size() > 0)
+				{
+					add(new ExpandableSection(
+						"Secondaries",
+						"Shows a breakdown of how many secondaries are required for all enabled activities",
+						secondaryGrid
+					));
+				}
+			}
 		}
 
 		revalidate();
