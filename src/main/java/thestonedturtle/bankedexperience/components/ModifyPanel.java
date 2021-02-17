@@ -269,12 +269,12 @@ public class ModifyPanel extends JPanel
 		else
 		{
 			final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
+			dropdown.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH - 25, 40));
 			dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
 			dropdown.setForeground(Color.WHITE);
 			dropdown.setBorder(new EmptyBorder(2, 0, 0, 0));
 
 			final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
-			renderer.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH, 40));
 			dropdown.setRenderer(renderer);
 
 			for (final Activity option : activities)
