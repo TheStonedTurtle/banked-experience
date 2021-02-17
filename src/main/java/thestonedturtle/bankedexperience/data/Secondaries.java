@@ -132,16 +132,13 @@ public enum Secondaries
 		@Getter
 		// index + 1 = amount of doses the item id is worth
 		private final int[] items;
+		@Getter
+		private final ItemStack[] infoItems;
 
 		private ByDose(final int... items)
 		{
 			this.items = items;
-		}
-
-		@Override
-		public ItemStack[] getInfoItems()
-		{
-			return new ItemStack[]{new ItemStack(items[0], 1)};
+			this.infoItems =  new ItemStack[]{new ItemStack(items[0], 0)};
 		}
 	}
 

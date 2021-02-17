@@ -57,6 +57,7 @@ public class SecondaryGrid extends JPanel
 	@Getter
 	private final Multimap<Integer, SecondaryInfo> secMap = ArrayListMultimap.create();
 	private final Map<Integer, ItemInfo> infoMap = new HashMap<>();
+	private final Map<Integer, Integer> availableMap = new HashMap<>();
 	private final BankedCalculator calc;
 
 	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
@@ -100,7 +101,7 @@ public class SecondaryGrid extends JPanel
 
 			final ItemInfo info = infoMap.get(itemID);
 			final String itemName = info == null ? "" : info.getName();
-			final int available = calc.getItemQtyFromBank(itemID);
+			final int available = availableMap.getOrDefault(itemID, 0);
 			final double result = available - qty;
 
 			final String tooltip = "<html>" + itemName
@@ -118,6 +119,7 @@ public class SecondaryGrid extends JPanel
 	{
 		secMap.clear();
 		infoMap.clear();
+		availableMap.clear();
 		for (final GridItem item : items)
 		{
 			if (item.isIgnored())
@@ -133,6 +135,12 @@ public class SecondaryGrid extends JPanel
 				continue;
 			}
 
+			final int bankedQty = calc.getItemQty(item.getBankedItem());
+			if (bankedQty == 0)
+			{
+				continue;
+			}
+
 			// Ensure all items are stacked properly
 			final Secondaries secondaries = a.getSecondaries();
 			final Map<Integer, Double> qtyMap = new HashMap<>();
@@ -140,20 +148,22 @@ public class SecondaryGrid extends JPanel
 			if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
 			{
 				final Secondaries.ByDose byDose = ((Secondaries.ByDose) secondaries.getCustomHandler());
-				double available = 0;
+				final int firstId = byDose.getItems()[0];
+				int available = 0;
 				for (int i = 0; i < byDose.getItems().length; i++)
 				{
 					final int id = byDose.getItems()[i];
 					available += (this.calc.getItemQtyFromBank(id) * (i + 1));
 				}
-				qtyMap.merge(byDose.getItems()[0], available, Double::sum);
-				infoMap.put(byDose.getItems()[0], byDose.getInfoItems()[0].getInfo());
+				availableMap.put(firstId, available);
+				qtyMap.merge(firstId, (double) bankedQty, Double::sum);
+				infoMap.put(firstId, byDose.getInfoItems()[0].getInfo());
 			}
 			else
 			{
 				for (final ItemStack stack : secondaries.getItems())
 				{
-					qtyMap.merge(stack.getId(), stack.getQty() * calc.getItemQty(banked), Double::sum);
+					qtyMap.merge(stack.getId(), stack.getQty() * bankedQty, Double::sum);
 					infoMap.put(stack.getId(), stack.getInfo());
 				}
 			}
@@ -161,6 +171,11 @@ public class SecondaryGrid extends JPanel
 			// Map this quantity to this activity through the banked item
 			for (final Map.Entry<Integer, Double> entry : qtyMap.entrySet())
 			{
+				if (!availableMap.containsKey(entry.getKey()))
+				{
+					availableMap.put(entry.getKey(), calc.getItemQtyFromBank(entry.getKey()));
+				}
+
 				secMap.put(entry.getKey(), new SecondaryInfo(banked, entry.getValue()));
 			}
 		}
