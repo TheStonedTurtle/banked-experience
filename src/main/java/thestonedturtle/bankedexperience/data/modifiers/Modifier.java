@@ -97,22 +97,6 @@ public abstract class Modifier
 	}
 
 	/**
-	 * Applies the modifier to the activity and determines the difference between the new xp rate and the old rate of the activity.
-	 * @param activity the {@link Activity} to grab applied xp delta from
-	 * @return Returns the xp delta between the modified and base xp rates. 0 if the activity and modifier are not compatible.
-	 */
-	public double appliedXpDelta(final Activity activity)
-	{
-		if (!appliesTo(activity))
-		{
-			log.debug("Tried to modify an incompatible activity. Activity: {} | Modifier: {}", activity, this);
-			return 0;
-		}
-
-		return appliedXpRate(activity) - activity.getXp();
-	}
-
-	/**
 	 * Generates the UI component for use in the side panel for modifiers with complex settings.
 	 * Returning null will generate a default UI components (generally a checkbox)
 	 * @return A ModifierComponent to be added to the UI to control this modifier.

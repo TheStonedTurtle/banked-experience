@@ -995,7 +995,7 @@ public enum Activity
 				savePercentage += ((ConsumptionModifier) modifier).getSavePercentage();
 			}
 
-			tempXp += modifier.appliedXpDelta(this);
+			tempXp += (modifier.appliedXpRate(this) - xp);
 		}
 
 		// Dividing the XP by the chance of consuming the item will give you the average xp per item
