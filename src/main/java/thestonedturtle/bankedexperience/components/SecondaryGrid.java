@@ -75,16 +75,15 @@ public class SecondaryGrid extends JPanel
 			label.setHorizontalAlignment(SwingConstants.CENTER);
 
 			double qty = 0;
-			boolean newLine = false;
 			final StringBuilder resources = new StringBuilder();
 			for (final SecondaryInfo info : secMap.get(itemID))
 			{
-				if (newLine)
+				if (info.getQty() == 0)
 				{
-					resources.append("<br/>");
+					continue;
 				}
-				newLine = true;
 
+				resources.append("<br/>");
 				qty += info.getQty();
 				resources.append(BankedCalculator.XP_FORMAT_COMMA.format(info.getQty()))
 					.append(" x ")
@@ -97,7 +96,7 @@ public class SecondaryGrid extends JPanel
 
 			final String tooltip = "<html>Banked: " + BankedCalculator.XP_FORMAT_COMMA.format(available)
 				+ "<br/>Result: " + (result > 0 ? "+" : "") + BankedCalculator.XP_FORMAT_COMMA.format(result)
-				+ resources.toString() + "</html>";
+				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
 
 			add(label);
