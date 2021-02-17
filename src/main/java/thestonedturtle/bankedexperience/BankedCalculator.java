@@ -81,7 +81,7 @@ public class BankedCalculator extends JPanel
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid;
-	private SecondaryGrid secondaryGrid;
+	private ExpandableSection secondarySection;
 
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
@@ -199,14 +199,17 @@ public class BankedCalculator extends JPanel
 
 			if (config.showSecondaries())
 			{
-				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values(), itemManager);
+				final SecondaryGrid secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values(), itemManager);
 				if (secondaryGrid.getSecMap().size() > 0)
 				{
-					add(new ExpandableSection(
+					boolean opened = secondarySection != null && secondarySection.isOpen();
+					secondarySection = new ExpandableSection(
 						"Secondaries",
 						"Shows a breakdown of how many secondaries are required for all enabled activities",
 						secondaryGrid
-					));
+					);
+					secondarySection.setOpen(opened);
+					add(secondarySection);
 				}
 			}
 		}
