@@ -37,7 +37,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.Value;
-import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
@@ -57,12 +56,17 @@ public class SecondaryGrid extends JPanel
 	private final Multimap<Integer, SecondaryInfo> secMap = ArrayListMultimap.create();
 	private final BankedCalculator calc;
 
-	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items, final ItemManager itemManager)
+	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
 	{
 		this.calc = calc;
 		setLayout(new GridLayout(0, 5, 1, 1));
 
-		createSecMap(items);
+		updateSecMap(items);
+	}
+
+	private void refreshUI()
+	{
+		removeAll();
 		for (final int itemID : secMap.keySet())
 		{
 			final JLabel label = new JLabel();
@@ -89,7 +93,7 @@ public class SecondaryGrid extends JPanel
 					.append(" x ")
 					.append(info.getBankedItem().getItem().getItemInfo().getName());
 			}
-			itemManager.getImage(itemID, (int) Math.round(qty),qty > 0).addTo(label);
+			calc.getItemManager().getImage(itemID, (int) Math.round(qty),qty > 0).addTo(label);
 
 			final int available = calc.getItemQtyFromBank(itemID);
 			final double result = available - qty;
@@ -104,7 +108,7 @@ public class SecondaryGrid extends JPanel
 	}
 
 	// calculates the total required secondaries and links each secondary item by id to the banked items they come from
-	private void createSecMap(final Collection<GridItem> items)
+	public void updateSecMap(final Collection<GridItem> items)
 	{
 		secMap.clear();
 		for (final GridItem i : items)
@@ -135,5 +139,7 @@ public class SecondaryGrid extends JPanel
 				secMap.put(entry.getKey(), new SecondaryInfo(banked, entry.getValue()));
 			}
 		}
+
+		refreshUI();
 	}
 }
