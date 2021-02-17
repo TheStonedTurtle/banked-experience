@@ -42,6 +42,7 @@ import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ItemStack;
+import thestonedturtle.bankedexperience.data.Secondaries;
 
 public class SecondaryGrid extends JPanel
 {
@@ -87,8 +88,8 @@ public class SecondaryGrid extends JPanel
 					continue;
 				}
 
-				resources.append("<br/>");
 				qty += info.getQty();
+				resources.append("<br/>");
 				resources.append(BankedCalculator.XP_FORMAT_COMMA.format(info.getQty()))
 					.append(" x ")
 					.append(info.getBankedItem().getItem().getItemInfo().getName());
@@ -111,15 +112,15 @@ public class SecondaryGrid extends JPanel
 	public void updateSecMap(final Collection<GridItem> items)
 	{
 		secMap.clear();
-		for (final GridItem i : items)
+		for (final GridItem item : items)
 		{
-			if (i.isIgnored())
+			if (item.isIgnored())
 			{
 				continue;
 			}
 
 			// Check if the selected activity for the current item in the grid has any secondaries
-			final BankedItem banked =  i.getBankedItem();
+			final BankedItem banked =  item.getBankedItem();
 			final Activity a = banked.getItem().getSelectedActivity();
 			if (a == null || a.getSecondaries() == null)
 			{
@@ -127,10 +128,26 @@ public class SecondaryGrid extends JPanel
 			}
 
 			// Ensure all items are stacked properly
+			final Secondaries secondaries = a.getSecondaries();
 			final Map<Integer, Double> qtyMap = new HashMap<>();
-			for (final ItemStack stack : a.getSecondaries().getItems())
+
+			if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
 			{
-				qtyMap.merge(stack.getId(), stack.getQty() * calc.getItemQty(banked), Double::sum);
+				final Secondaries.ByDose byDose = ((Secondaries.ByDose) secondaries.getCustomHandler());
+				double available = 0;
+				for (int i = 0; i < byDose.getItems().length; i++)
+				{
+					final int id = byDose.getItems()[i];
+					available += (this.calc.getItemQtyFromBank(id) * (i + 1));
+				}
+				qtyMap.merge(byDose.getItems()[0], available, Double::sum);
+			}
+			else
+			{
+				for (final ItemStack stack : secondaries.getItems())
+				{
+					qtyMap.merge(stack.getId(), stack.getQty() * calc.getItemQty(banked), Double::sum);
+				}
 			}
 
 			// Map this quantity to this activity through the banked item
