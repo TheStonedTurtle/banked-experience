@@ -217,7 +217,7 @@ public class BankedCalculator extends JPanel
 			Activity a = item.getSelectedActivity();
 			if (a == null || (config.limitToCurrentLevel() && skillLevel < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, skillLevel, config.includeRngActivities());
+				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? skillLevel : -1, config.includeRngActivities());
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);
@@ -380,7 +380,7 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
-		boolean foundSelected = false;		// Found the item currently being displayed in the ModifyPanel
+		boolean foundSelected = false;		// Found an item currently being displayed in the ModifyPanel
 		boolean gridCountChanged = false;
 
 		ExperienceItem i = activity.getLinkedItem();

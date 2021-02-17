@@ -28,14 +28,12 @@ import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSet;
 import java.util.Collection;
 import java.util.Set;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Skill;
 import thestonedturtle.bankedexperience.data.Activity;
 
 /**
  * A utility class that contains all XP modifiers
  */
-@Slf4j
 public final class Modifiers
 {
 	private static final ImmutableMultimap<Skill, Modifier> modifiers;
@@ -54,7 +52,6 @@ public final class Modifiers
 
 		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f));
 		m.put(Skill.PRAYER, new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null));
-		// TODO: Create a generic ComboModifier and combine a Static and Consumption modifier instead of doing this?
 		m.put(Skill.PRAYER, new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp/50% Save)", 0.5f, BONES, null)
 		{
 			@Override
