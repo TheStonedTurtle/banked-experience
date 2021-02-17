@@ -120,9 +120,14 @@ public enum Secondaries
 	HEADLESS_ARROW(new ItemStack(ItemID.HEADLESS_ARROW, 1)),
 	;
 	private final ItemStack[] items;
-	private final Object customHandler;
+	private final SecondaryHandler customHandler;
 
-	public static class ByDose
+	public interface SecondaryHandler
+	{
+		ItemStack[] getInfoItems();
+	}
+
+	public static class ByDose implements SecondaryHandler
 	{
 		@Getter
 		// index + 1 = amount of doses the item id is worth
@@ -131,6 +136,12 @@ public enum Secondaries
 		private ByDose(final int... items)
 		{
 			this.items = items;
+		}
+
+		@Override
+		public ItemStack[] getInfoItems()
+		{
+			return new ItemStack[]{new ItemStack(items[0], 1)};
 		}
 	}
 
@@ -147,7 +158,7 @@ public enum Secondaries
 		this.customHandler = null;
 	}
 
-	Secondaries(Object customHandler)
+	Secondaries(SecondaryHandler customHandler)
 	{
 		this.items = new ItemStack[0];
 		this.customHandler = customHandler;

@@ -41,6 +41,7 @@ import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
+import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
 
@@ -55,6 +56,7 @@ public class SecondaryGrid extends JPanel
 
 	@Getter
 	private final Multimap<Integer, SecondaryInfo> secMap = ArrayListMultimap.create();
+	private final Map<Integer, ItemInfo> infoMap = new HashMap<>();
 	private final BankedCalculator calc;
 
 	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
@@ -96,10 +98,13 @@ public class SecondaryGrid extends JPanel
 			}
 			calc.getItemManager().getImage(itemID, (int) Math.round(qty),qty > 0).addTo(label);
 
+			final ItemInfo info = infoMap.get(itemID);
+			final String itemName = info == null ? "" : info.getName();
 			final int available = calc.getItemQtyFromBank(itemID);
 			final double result = available - qty;
 
-			final String tooltip = "<html>Banked: " + BankedCalculator.XP_FORMAT_COMMA.format(available)
+			final String tooltip = "<html>" + itemName
+				+ "<br/>Banked: " + BankedCalculator.XP_FORMAT_COMMA.format(available)
 				+ "<br/>Result: " + (result > 0 ? "+" : "") + BankedCalculator.XP_FORMAT_COMMA.format(result)
 				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
@@ -112,6 +117,7 @@ public class SecondaryGrid extends JPanel
 	public void updateSecMap(final Collection<GridItem> items)
 	{
 		secMap.clear();
+		infoMap.clear();
 		for (final GridItem item : items)
 		{
 			if (item.isIgnored())
@@ -141,12 +147,14 @@ public class SecondaryGrid extends JPanel
 					available += (this.calc.getItemQtyFromBank(id) * (i + 1));
 				}
 				qtyMap.merge(byDose.getItems()[0], available, Double::sum);
+				infoMap.put(byDose.getItems()[0], byDose.getInfoItems()[0].getInfo());
 			}
 			else
 			{
 				for (final ItemStack stack : secondaries.getItems())
 				{
 					qtyMap.merge(stack.getId(), stack.getQty() * calc.getItemQty(banked), Double::sum);
+					infoMap.put(stack.getId(), stack.getInfo());
 				}
 			}
 

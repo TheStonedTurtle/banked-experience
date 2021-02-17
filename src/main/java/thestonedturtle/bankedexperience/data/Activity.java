@@ -970,6 +970,25 @@ public enum Activity
 
 			final ItemComposition c = m.getItemComposition(output.getId());
 			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
+
+			// Attach names to all ItemStacks (secondaries)
+			if (a.getSecondaries() != null)
+			{
+				for (final ItemStack stack : a.getSecondaries().getItems())
+				{
+					stack.updateItemInfo(m);
+				}
+
+				// If it has a custom handler those items need to be prepared as well
+				final Secondaries.SecondaryHandler handler = a.getSecondaries().getCustomHandler();
+				if (handler != null)
+				{
+					for (final ItemStack stack : handler.getInfoItems())
+					{
+						stack.updateItemInfo(m);
+					}
+				}
+			}
 		}
 	}
 

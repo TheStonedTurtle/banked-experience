@@ -377,7 +377,7 @@ public class ModifyPanel extends JPanel
 			{
 				final int required = (int) (s.getQty() * amount);
 				final int available = this.calc.getItemQtyFromBank(s.getId());
-				container.add(createSecondaryItemLabel(s.getId(), available, required));
+				container.add(createSecondaryItemLabel(s, available, required));
 			}
 
 			if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
@@ -390,7 +390,9 @@ public class ModifyPanel extends JPanel
 					final int id = byDose.getItems()[i];
 					available += (this.calc.getItemQtyFromBank(id) * (i + 1));
 				}
-				container.add(createSecondaryItemLabel(byDose.getItems()[0], available, required));
+
+				assert byDose.getInfoItems().length > 0;
+				container.add(createSecondaryItemLabel(byDose.getInfoItems()[0], available, required));
 			}
 
 			adjustContainer.add(container, c);
@@ -398,10 +400,10 @@ public class ModifyPanel extends JPanel
 		}
 	}
 
-	private JLabel createSecondaryItemLabel(int itemID, int available, int required)
+	private JLabel createSecondaryItemLabel(ItemStack stack, int available, int required)
 	{
 		final JLabel l = new JLabel();
-		final AsyncBufferedImage img = itemManager.getImage(itemID, required, required > 1);
+		final AsyncBufferedImage img = itemManager.getImage(stack.getId(), required, required > 1);
 		final ImageIcon icon = new ImageIcon(img);
 		img.onLoaded(() ->
 		{
@@ -413,8 +415,9 @@ public class ModifyPanel extends JPanel
 		l.setHorizontalAlignment(JLabel.CENTER);
 
 		final int result = (available - required);
-		final String tooltip = "<html>" +
-			"Banked: " + FORMAT_COMMA.format(available) +
+		final String itemName = stack.getInfo() == null ? "" : stack.getInfo().getName();
+		final String tooltip = "<html>" + itemName +
+			"<br/>Banked: " + FORMAT_COMMA.format(available) +
 			"<br/>Needed: " + FORMAT_COMMA.format(required) +
 			"<br/>Result: " + (result > 0 ? "+" : "") + FORMAT_COMMA.format(result) +
 			"</html>";
