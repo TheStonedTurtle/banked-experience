@@ -30,6 +30,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Skill;
 import thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.data.modifiers.ui.ModifierPanel;
 
 /**
  * A modifier to the experience an {@link Activity} should reward

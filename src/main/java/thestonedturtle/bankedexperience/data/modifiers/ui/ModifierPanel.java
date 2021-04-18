@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package thestonedturtle.bankedexperience.data.modifiers;
+package thestonedturtle.bankedexperience.data.modifiers.ui;
 
 import java.util.function.BiConsumer;
 import javax.swing.JComponent;
@@ -30,6 +30,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import thestonedturtle.bankedexperience.components.LabeledCheckbox;
+import thestonedturtle.bankedexperience.data.modifiers.Modifier;
+import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
 
 /**
  * The default UI component for enable/disabling a {@link Modifier}
