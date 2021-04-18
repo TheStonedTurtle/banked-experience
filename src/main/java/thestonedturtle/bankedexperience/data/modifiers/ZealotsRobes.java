@@ -25,24 +25,18 @@
 package thestonedturtle.bankedexperience.data.modifiers;
 
 import com.google.common.collect.ImmutableSet;
-import com.google.common.primitives.Booleans;
-import java.awt.event.ItemListener;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import net.runelite.api.ItemComposition;
 import net.runelite.api.Skill;
-import net.runelite.client.ui.DynamicGridLayout;
-import thestonedturtle.bankedexperience.components.LabeledCheckbox;
+import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.Activity;
 
 @Slf4j
-public class ZealotsRobes extends ConsumptionModifier implements ModifierComponent
+public class ZealotsRobes extends SkillingOutfit
 {
 	private static final float CONSUME_AMT = 0.0125f;
-	private static final String TOOLTIP = "<html>1.25% chance to prevent bones and ensouled heads from being consumed</html>";
+	private static final String TOOLTIP = "1.25% chance to prevent bones and ensouled heads from being consumed";
 	private static final Set<Activity> EXCLUDED = ImmutableSet.of(
 		Activity.LOAR_REMAINS, Activity.PHRIN_REMAINS, Activity.RIYL_REMAINS, Activity.ASYN_REMAINS, Activity.FIYR_REMAINS,
 		Activity.SMALL_LIMBS, Activity.SMALL_SPINE, Activity.SMALL_RIBS, Activity.SMALL_PELVIS, Activity.SMALL_SKULL, Activity.SMALL_FOSSIL,
@@ -51,98 +45,21 @@ public class ZealotsRobes extends ConsumptionModifier implements ModifierCompone
 		Activity.RARE_LIMBS, Activity.RARE_SPINE, Activity.RARE_RIBS, Activity.RARE_PELVIS, Activity.RARE_SKULL, Activity.RARE_TUSK, Activity.RARE_FOSSIL
 	);
 
-	private final JPanel container;
-	private final LabeledCheckbox helm;
-	private final LabeledCheckbox top;
-	private final LabeledCheckbox bottom;
-	private final LabeledCheckbox boots;
-
-	@Setter
-	private BiConsumer<Modifier, Boolean> modifierConsumer;
-
-	ZealotsRobes()
+	ZealotsRobes(ItemManager itemManager, ItemComposition... items)
 	{
-		super(Skill.PRAYER, "Zealot's robes", 0, null, EXCLUDED);
+		super(Skill.PRAYER, "Zealot's robes", null, EXCLUDED, itemManager, items);
 
-		final ItemListener listener = (l) ->
-		{
-			if (modifierConsumer == null)
-			{
-				log.warn("Toggling ZealotsRobes modifier wth no consumer: {}", this);
-				return;
-			}
+		helm.setToolTipText("<html>" + items[0].getName() + "<br/>" + TOOLTIP + "</html>");
+		top.setToolTipText("<html>" + items[1].getName() + "<br/>" + TOOLTIP + "</html>");
+		bottom.setToolTipText("<html>" + items[2].getName() + "<br/>" + TOOLTIP + "</html>");
+		boots.setToolTipText("<html>" + items[3].getName() + "<br/>" + TOOLTIP + "</html>");
 
-			modifierConsumer.accept(this, isModifierEnabled());
-		};
-
-		helm = new LabeledCheckbox("Zealot's helm (1.25% Save)");
-		helm.setToolTipText(TOOLTIP);
-		helm.getButton().addItemListener(listener);
-
-		top = new LabeledCheckbox("Zealot's robe top (1.25% Save)");
-		top.setToolTipText(TOOLTIP);
-		top.getButton().addItemListener(listener);
-
-		bottom = new LabeledCheckbox("Zealot's robe bottom (1.25% Save)");
-		bottom.setToolTipText(TOOLTIP);
-		bottom.getButton().addItemListener(listener);
-
-		boots = new LabeledCheckbox("Zealot's boots (1.25% Save)");
-		boots.setToolTipText(TOOLTIP);
-		boots.getButton().addItemListener(listener);
-
-		container = new JPanel();
-		container.setLayout(new DynamicGridLayout(0, 1, 0, 5));
-		container.add(helm);
-		container.add(top);
-		container.add(bottom);
-		container.add(boots);
-	}
-
-	private int getEnabledButtonCount()
-	{
-		return Booleans.countTrue(
-			helm.getButton().isSelected(), top.getButton().isSelected(),
-			bottom.getButton().isSelected(), boots.getButton().isSelected()
-		);
+		panel.setToolTipText(TOOLTIP);
 	}
 
 	@Override
 	public float getSavePercentage()
 	{
 		return CONSUME_AMT * getEnabledButtonCount();
-	}
-
-	@Override
-	public Modifier getModifier()
-	{
-		return this;
-	}
-
-	@Override
-	public Boolean isModifierEnabled()
-	{
-		return getEnabledButtonCount() > 0;
-	}
-
-	@Override
-	public void setModifierEnabled(boolean enabled)
-	{
-		helm.getButton().setSelected(enabled);
-		top.getButton().setSelected(enabled);
-		bottom.getButton().setSelected(enabled);
-		boots.getButton().setSelected(enabled);
-	}
-
-	@Override
-	public JComponent getComponent()
-	{
-		return container;
-	}
-
-	@Override
-	public ModifierComponent generateModifierComponent()
-	{
-		return this;
 	}
 }

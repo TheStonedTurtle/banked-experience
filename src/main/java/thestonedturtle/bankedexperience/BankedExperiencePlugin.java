@@ -29,6 +29,7 @@ import net.runelite.client.util.ImageUtil;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.WidgetInventoryInfo;
+import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
 
 @Slf4j
 @PluginDescriptor(
@@ -102,6 +103,7 @@ public class BankedExperiencePlugin extends Plugin
 					case HOPPING:
 						ExperienceItem.prepareItemCompositions(itemManager);
 						Activity.prepareItemCompositions(itemManager);
+						Modifiers.prepare(itemManager);
 						prepared = true;
 						return true;
 					default:
