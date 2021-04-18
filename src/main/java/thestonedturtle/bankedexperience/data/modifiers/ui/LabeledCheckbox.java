@@ -22,7 +22,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package thestonedturtle.bankedexperience.components;
+package thestonedturtle.bankedexperience.data.modifiers.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
