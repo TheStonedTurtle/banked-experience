@@ -25,14 +25,12 @@
 package thestonedturtle.bankedexperience.data.modifiers;
 
 import java.util.Collection;
-import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Skill;
 import thestonedturtle.bankedexperience.data.Activity;
 
 /**
  * Modifies an {@link Activity} by a static {@link #xpModifier}. StaticModifiers are not compatible with other StaticModifiers
  */
-@Slf4j
 public class StaticModifier extends Modifier
 {
 	/**
