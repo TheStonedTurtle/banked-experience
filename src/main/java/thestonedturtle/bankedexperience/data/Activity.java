@@ -26,6 +26,8 @@ package thestonedturtle.bankedexperience.data;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedSet;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -37,6 +39,8 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
+import thestonedturtle.bankedexperience.data.modifiers.ConsumptionModifier;
+import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 
 /**
  * A specific in-game action that consumes bank-able item(s) and rewards {@link Skill} experience.
@@ -969,9 +973,39 @@ public enum Activity
 		}
 	}
 
-	public double getXpRate(final float modifier)
+	public double getXpRate(final Modifier modifier)
 	{
-		return experienceItem.isIgnoreBonus() ? xp : xp * modifier;
+		return modifier.appliesTo(this) ? modifier.appliedXpRate(this) : xp;
+	}
+
+	public double getXpRate(final Collection<Modifier> modifiers)
+	{
+		// Apply all modifiers
+		double tempXp = xp;
+		float savePercentage = 0;
+		for (final Modifier modifier : modifiers)
+		{
+			if (!modifier.appliesTo(this))
+			{
+				continue;
+			}
+
+			if (modifier instanceof ConsumptionModifier)
+			{
+				savePercentage += ((ConsumptionModifier) modifier).getSavePercentage();
+			}
+
+			tempXp += (modifier.appliedXpRate(this) - xp);
+		}
+
+		// Dividing the XP by the chance of consuming the item will give you the average xp per item
+		if (savePercentage != 0f)
+		{
+			tempXp = tempXp / (1 - savePercentage);
+		}
+
+		// Round to two decimal places
+		return BigDecimal.valueOf(tempXp).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	private static boolean isOneNull(final Object a, final Object b)

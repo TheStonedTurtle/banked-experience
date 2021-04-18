@@ -32,6 +32,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ItemEvent;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -200,7 +202,8 @@ public class ModifyPanel extends JPanel
 		labelName.setText(itemName);
 
 		final double xp = calc.getItemXpRate(bankedItem);
-		total = amount * xp;
+		// Round to two decimal places
+		total = BigDecimal.valueOf(amount * xp).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
 		final String value = FORMAT_COMMA.format(total) + "xp";
 		labelValue.setText(value);
@@ -231,8 +234,6 @@ public class ModifyPanel extends JPanel
 		adjustContainer.add(label, c);
 		c.gridy++;
 
-		final float xpFactor = this.calc.getXpFactor();
-
 		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
 		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level, calc.getConfig().includeRngActivities());
 		if (activities == null || activities.size() == 0)
@@ -253,7 +254,7 @@ public class ModifyPanel extends JPanel
 			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
-			final double xp = a.getXpRate(xpFactor);
+			final double xp = a.getXpRate(calc.getEnabledModifiers());
 			final JPanel container = createShadowedLabel(icon, a.getName(), FORMAT_COMMA.format(xp) + "xp");
 
 			img.onLoaded(() ->
@@ -278,7 +279,7 @@ public class ModifyPanel extends JPanel
 
 			for (final Activity option : activities)
 			{
-				final double xp = option.getXpRate(xpFactor);
+				final double xp = option.getXpRate(calc.getEnabledModifiers());
 				String name = option.getName();
 				if (xp > 0)
 				{

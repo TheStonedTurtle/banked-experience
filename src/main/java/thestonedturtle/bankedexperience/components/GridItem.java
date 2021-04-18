@@ -24,12 +24,10 @@
  */
 package thestonedturtle.bankedexperience.components;
 
-import thestonedturtle.bankedexperience.BankedCalculator;
-import thestonedturtle.bankedexperience.data.Activity;
-import thestonedturtle.bankedexperience.data.BankedItem;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Collection;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -40,6 +38,10 @@ import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.util.AsyncBufferedImage;
+import thestonedturtle.bankedexperience.BankedCalculator;
+import thestonedturtle.bankedexperience.data.Activity;
+import thestonedturtle.bankedexperience.data.BankedItem;
+import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 
 @Getter
 public class GridItem extends JLabel
@@ -71,7 +73,7 @@ public class GridItem extends JLabel
 
 	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
 
-	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final float xpFactor)
+	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final Collection<Modifier> modifiers)
 	{
 		super("");
 
@@ -85,7 +87,7 @@ public class GridItem extends JLabel
 		this.setHorizontalAlignment(SwingConstants.CENTER);
 
 		updateIcon(icon, amount);
-		updateToolTip(xpFactor);
+		updateToolTip(modifiers);
 
 		this.addMouseListener(new MouseAdapter()
 		{
@@ -167,9 +169,9 @@ public class GridItem extends JLabel
 		this.amount = amount;
 	}
 
-	public void updateToolTip(final float modifier)
+	public void updateToolTip(final Collection<Modifier> modifiers)
 	{
-		this.setToolTipText(buildToolTip(modifier));
+		this.setToolTipText(buildToolTip(modifiers));
 		final Activity selectedActivity = bankedItem.getItem().getSelectedActivity();
 		if (selectedActivity != null)
 		{
@@ -178,14 +180,14 @@ public class GridItem extends JLabel
 		}
 	}
 
-	private String buildToolTip(final float modifier)
+	private String buildToolTip(final Collection<Modifier> modifiers)
 	{
 		String tip = "<html>" + bankedItem.getItem().getItemInfo().getName();
 
 		final Activity a = bankedItem.getItem().getSelectedActivity();
 		if (a != null)
 		{
-			final double xp = a.getXpRate(modifier);
+			final double xp = a.getXpRate(modifiers);
 			tip += "<br/>Activity: " +  a.getName();
 			tip += "<br/>Xp/Action: " + BankedCalculator.XP_FORMAT_COMMA.format(xp);
 			tip += "<br/>Total Xp: " + BankedCalculator.XP_FORMAT_COMMA.format(xp * amount);

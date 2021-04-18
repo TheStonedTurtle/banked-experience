@@ -26,31 +26,27 @@ package thestonedturtle.bankedexperience;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ItemEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
-import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
-import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.AsyncBufferedImage;
+import thestonedturtle.bankedexperience.components.ExpandableSection;
 import thestonedturtle.bankedexperience.components.GridItem;
 import thestonedturtle.bankedexperience.components.ModifyPanel;
 import thestonedturtle.bankedexperience.components.SelectionGrid;
@@ -60,7 +56,9 @@ import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.ItemStack;
-import thestonedturtle.bankedexperience.data.XpModifiers;
+import thestonedturtle.bankedexperience.data.modifiers.Modifier;
+import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
+import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
 
 @Slf4j
 public class BankedCalculator extends JPanel
@@ -86,17 +84,18 @@ public class BankedCalculator extends JPanel
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
 	// keep sources separate for recreating currentMap when one updates
-	private Map<Integer, Map<Integer, Integer>> inventoryMap = new HashMap<>();
+	private final Map<Integer, Map<Integer, Integer>> inventoryMap = new HashMap<>();
+
+	// Keep a reference to enabled modifiers so recreating tooltips is faster.
+	@Getter
+	private final Set<Modifier> enabledModifiers = new HashSet<>();
+	private final List<ModifierComponent> modifierComponents = new ArrayList<>();
 
 	@Getter
 	private Skill currentSkill;
 
 	@Getter
 	private int skillLevel, skillExp, endLevel, endExp;
-
-	private final Collection<JCheckBox> xpModifierButtons = new ArrayList<>();
-	@Getter
-	private float xpFactor = 1.0f;
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config, ItemManager itemManager)
 	{
@@ -123,7 +122,8 @@ public class BankedCalculator extends JPanel
 
 		this.currentSkill = newSkill;
 		removeAll();
-		xpFactor = 1.0f;
+		modifierComponents.clear();
+		enabledModifiers.clear();
 
 		if (currentMap.size() <= 0)
 		{
@@ -145,45 +145,40 @@ public class BankedCalculator extends JPanel
 
 		recreateBankedItemMap();
 
-		for (final XpModifiers modifier : XpModifiers.getModifiersBySkill(this.currentSkill))
+		// Add XP modifiers
+		for (final Modifier modifier : Modifiers.getBySkill(this.currentSkill))
 		{
-			JPanel uiOption = new JPanel(new BorderLayout());
-			JLabel uiLabel = new JLabel(modifier.getName());
-			JCheckBox btn = new JCheckBox();
-
-			uiLabel.setForeground(Color.WHITE);
-			uiLabel.setFont(FontManager.getRunescapeSmallFont());
-			uiLabel.setHorizontalAlignment(SwingConstants.CENTER);
-
-			uiOption.setBorder(BorderFactory.createEmptyBorder(3, 3, 3, 0));
-			uiOption.setBackground(ColorScheme.DARKER_GRAY_COLOR);
-
-			btn.addItemListener((event) ->
-			{
-				switch (event.getStateChange())
+			final ModifierComponent c = modifier.generateModifierComponent();
+			c.setModifierConsumer((mod, newState) -> {
+				// Only need to check other modifiers if this one is enabled
+				if (newState)
 				{
-					case ItemEvent.DESELECTED:
-						xpFactor = 1.0f;
-						break;
-					case ItemEvent.SELECTED:
-						// Deselects all but the current item
-						final JCheckBox box = (JCheckBox) event.getItem();
-						xpModifierButtons.forEach(b -> b.setSelected(b.equals(box)));
+					// Disable any non-compatible modifications
+					modifierComponents.forEach(component -> {
+						// Modifier not enabled or modifiers are compatible with each other
+						if (!component.isModifierEnabled() || (component.getModifier().compatibleWith(mod) && mod.compatibleWith(component.getModifier())))
+						{
+							return;
+						}
 
-						xpFactor = modifier.getModifier();
-						break;
-					default:
-						return;
-
+						component.setModifierEnabled(false);
+					});
 				}
 
 				modifierUpdated();
 			});
-			xpModifierButtons.add(btn);
+			modifierComponents.add(c);
+		}
 
-			uiOption.add(uiLabel, BorderLayout.WEST);
-			uiOption.add(btn, BorderLayout.EAST);
-			add(uiOption);
+		if (modifierComponents.size() > 0)
+		{
+			add(new ExpandableSection(
+				"Modifiers",
+				"Toggles the different ways activity/experience gains can be modified",
+				modifierComponents.stream()
+					.map(ModifierComponent::getComponent)
+					.collect(Collectors.toList())
+			));
 		}
 
 		recreateItemGrid();
@@ -215,14 +210,14 @@ public class BankedCalculator extends JPanel
 
 		for (final ExperienceItem item : items)
 		{
+			// Convert to bankedItems
 			final BankedItem banked = new BankedItem(item, currentMap.getOrDefault(item.getItemID(), 0));
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();
-			final int level = config.limitToCurrentLevel() ? skillLevel : -1;
-			if (a == null || (level > 0 && level < a.getLevel()))
+			if (a == null || (config.limitToCurrentLevel() && skillLevel < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, level, config.includeRngActivities());
+				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? skillLevel : -1, config.includeRngActivities());
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);
@@ -233,6 +228,7 @@ public class BankedCalculator extends JPanel
 				a = activities.get(0);
 			}
 
+			// If this activity outputs another experienceItem they should be linked
 			if (a.getLinkedItem() != null)
 			{
 				linkedMap.put(a.getLinkedItem(), banked);
@@ -281,7 +277,7 @@ public class BankedCalculator extends JPanel
 			return 0;
 		}
 
-		return selected.getXpRate(xpFactor);
+		return selected.getXpRate(enabledModifiers);
 	}
 
 	/**
@@ -367,7 +363,7 @@ public class BankedCalculator extends JPanel
 		}
 
 		modifyPanel.setBankedItem(i);
-		itemGrid.getPanelMap().get(i).updateToolTip(xpFactor);
+		itemGrid.getPanelMap().get(i).updateToolTip(enabledModifiers);
 
 		// recalculate total xp
 		calculateBankedXpTotal();
@@ -384,8 +380,8 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
-		boolean foundSelected = false;
-		boolean panelAmountChange = false;
+		boolean foundSelected = false;		// Found an item currently being displayed in the ModifyPanel
+		boolean gridCountChanged = false;
 
 		ExperienceItem i = activity.getLinkedItem();
 		while (i != null)
@@ -397,16 +393,16 @@ public class BankedCalculator extends JPanel
 			}
 
 			final int qty = getItemQty(bi);
-			final boolean stackable = bi.getItem().getItemInfo().isStackable() || qty > 1;
+			final boolean stackable = qty > 1 || bi.getItem().getItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(bi.getItem().getItemID(), qty, stackable);
 
 			final GridItem gridItem = itemGrid.getPanelMap().get(bi);
 			final int oldQty = gridItem.getAmount();
-			panelAmountChange = panelAmountChange || ( (oldQty == 0 && qty > 0) || (oldQty > 0 && qty == 0) );
+			gridCountChanged |= ((oldQty == 0 && qty > 0) || (oldQty > 0 && qty == 0));
 			gridItem.updateIcon(img, qty);
-			gridItem.updateToolTip(xpFactor);
+			gridItem.updateToolTip(enabledModifiers);
 
-			foundSelected = foundSelected || itemGrid.getSelectedItem().equals(bi);
+			foundSelected |= itemGrid.getSelectedItem().equals(bi);
 
 			final Activity a = bi.getItem().getSelectedActivity();
 			if (a == null)
@@ -417,7 +413,7 @@ public class BankedCalculator extends JPanel
 			i = a.getLinkedItem();
 		}
 
-		if (panelAmountChange)
+		if (gridCountChanged)
 		{
 			itemGrid.refreshGridDisplay();
 		}
@@ -475,7 +471,14 @@ public class BankedCalculator extends JPanel
 
 	private void modifierUpdated()
 	{
-		itemGrid.getPanelMap().values().forEach(item -> item.updateToolTip(xpFactor));
+		enabledModifiers.clear();
+		enabledModifiers.addAll(modifierComponents.stream()
+			.filter(ModifierComponent::isModifierEnabled)
+			.map(ModifierComponent::getModifier)
+			.collect(Collectors.toSet())
+		);
+
+		itemGrid.getPanelMap().values().forEach(item -> item.updateToolTip(enabledModifiers));
 		modifyPanel.setBankedItem(modifyPanel.getBankedItem());
 		calculateBankedXpTotal();
 	}

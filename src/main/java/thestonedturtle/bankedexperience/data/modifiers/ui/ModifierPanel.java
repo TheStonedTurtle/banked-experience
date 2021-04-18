@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, TheStonedTurtle <https://github.com/TheStonedTurtle>
+ * Copyright (c) 2021, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,43 +22,59 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package thestonedturtle.bankedexperience.data;
+package thestonedturtle.bankedexperience.data.modifiers.ui;
 
-import com.google.common.collect.ImmutableMultimap;
-import com.google.common.collect.Multimap;
-import java.util.Collection;
-import lombok.AllArgsConstructor;
+import java.util.function.BiConsumer;
+import javax.swing.JComponent;
 import lombok.Getter;
-import net.runelite.api.Skill;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import thestonedturtle.bankedexperience.data.modifiers.Modifier;
+import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
 
-@AllArgsConstructor
-@Getter
-public enum XpModifiers
+/**
+ * The default UI component for enable/disabling a {@link Modifier}
+ */
+@Slf4j
+public class ModifierPanel extends LabeledCheckbox implements ModifierComponent
 {
-	LIT_GILDER_ALTAR(Skill.PRAYER, "Lit Gilded Altar (350%)", 3.5f),
-	ECTOFUNTUS(Skill.PRAYER, "Ectofuntus (400%)", 4),
-	WILDY_ALTAR(Skill.PRAYER, "Wildy Altar (700%)", 7),
+	@Getter
+	private final Modifier modifier;
 
-	FARMERS_OUTFIT(Skill.FARMING, "Farmer's Outfit (2.5%)", 1.025f),
-	;
+	@Setter
+	private BiConsumer<Modifier, Boolean> modifierConsumer;
 
-	private final Skill skill;
-	private final String name;
-	private final float modifier;
-
-	private final static Multimap<Skill, XpModifiers> MODIFIERS_MAP;
-	static
+	public ModifierPanel(final Modifier modifier)
 	{
-		final ImmutableMultimap.Builder<Skill, XpModifiers> map = ImmutableMultimap.builder();
-		for (final XpModifiers m : values())
-		{
-			map.put(m.skill, m);
-		}
-		MODIFIERS_MAP = map.build();
+		super(modifier.getName());
+		this.modifier = modifier;
+
+		getButton().addItemListener((l) -> {
+			if (modifierConsumer == null)
+			{
+				log.warn("Toggling a modifier wth no consumer: {}", modifier);
+				return;
+			}
+
+			modifierConsumer.accept(modifier, getButton().isSelected());
+		});
 	}
 
-	public static Collection<XpModifiers> getModifiersBySkill(final Skill skill)
+	@Override
+	public Boolean isModifierEnabled()
 	{
-		return MODIFIERS_MAP.get(skill);
+		return getButton().isSelected();
+	}
+
+	@Override
+	public void setModifierEnabled(boolean enabled)
+	{
+		getButton().setSelected(enabled);
+	}
+
+	@Override
+	public JComponent getComponent()
+	{
+		return this;
 	}
 }
