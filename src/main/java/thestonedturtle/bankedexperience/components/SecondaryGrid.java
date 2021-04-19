@@ -24,7 +24,7 @@
  */
 package thestonedturtle.bankedexperience.components;
 
-import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -55,7 +55,7 @@ public class SecondaryGrid extends JPanel
 	}
 
 	@Getter
-	private final Multimap<Integer, SecondaryInfo> secMap = ArrayListMultimap.create();
+	private final Multimap<Integer, SecondaryInfo> secMap = LinkedListMultimap.create();
 	private final Map<Integer, ItemInfo> infoMap = new HashMap<>();
 	private final Map<Integer, Integer> availableMap = new HashMap<>();
 	private final BankedCalculator calc;
