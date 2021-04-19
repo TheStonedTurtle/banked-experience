@@ -148,13 +148,6 @@ public enum Secondaries
 		this.customHandler = null;
 	}
 
-	// Needed to override Object constructor for single ItemStack entries
-	Secondaries(ItemStack item)
-	{
-		this.items = new ItemStack[]{ item };
-		this.customHandler = null;
-	}
-
 	Secondaries(SecondaryHandler customHandler)
 	{
 		this.items = new ItemStack[0];
