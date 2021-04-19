@@ -162,6 +162,8 @@ public enum Activity
 		ExperienceItem.TORSTOL, Secondaries.ANTIVENOM_PLUS, new ItemStack(ItemID.ANTIVENOM3_12915, 1)),
 	ZAMORAK_BREW(ItemID.ZAMORAK_BREW3, "Zamorak brew", 78, 175,
 		ExperienceItem.TORSTOL_POTION_UNF, Secondaries.ZAMORAK_BREW, new ItemStack(ItemID.ZAMORAK_BREW3, 1)),
+	SUPER_COMBAT_POTION_2(ItemID.SUPER_COMBAT_POTION4, "Super combat", 90, 150,
+		ExperienceItem.TORSTOL_POTION_UNF, Secondaries.SUPER_COMBAT_POTION, new ItemStack(ItemID.SUPER_COMBAT_POTION4, 1)),
 	// Cleaning Grimy Herbs
 	CLEAN_GUAM(ItemID.GUAM_LEAF, "Clean guam", 3, 2.5,
 		ExperienceItem.GRIMY_GUAM_LEAF, null, new ItemStack(ItemID.GUAM_LEAF, 1)),
