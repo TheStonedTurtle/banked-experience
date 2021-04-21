@@ -376,6 +376,21 @@ public enum ExperienceItem
 	H_YEW_LOGS(ItemID.YEW_LOGS, Skill.HUNTER, "Bird houses"),
 	H_MAGIC_LOGS(ItemID.MAGIC_LOGS, Skill.HUNTER, "Bird houses"),
 	H_REDWOOD_LOGS(ItemID.REDWOOD_LOGS, Skill.HUNTER, "Bird houses"),
+	/**
+	 * Firemaking
+	 */
+	FM_LOGS(ItemID.LOGS, Skill.FIREMAKING, "logs"),
+	FM_ACHEY_TREE_LOGS(ItemID.ACHEY_TREE_LOGS, Skill.FIREMAKING, "logs"),
+	FM_OAK_LOGS(ItemID.OAK_LOGS, Skill.FIREMAKING, "logs"),
+	FM_WILLOW_LOGS(ItemID.WILLOW_LOGS, Skill.FIREMAKING, "logs"),
+	FM_TEAK_LOGS(ItemID.TEAK_LOGS, Skill.FIREMAKING, "logs"),
+	FM_ARCTIC_PINE_LOGS(ItemID.ARCTIC_PINE_LOGS, Skill.FIREMAKING, "logs"),
+	FM_MAPLE_LOGS(ItemID.MAPLE_LOGS, Skill.FIREMAKING, "logs"),
+	FM_MAHOGANY_LOGS(ItemID.MAHOGANY_LOGS, Skill.FIREMAKING, "logs"),
+	FM_YEW_LOGS(ItemID.YEW_LOGS, Skill.FIREMAKING, "logs"),
+	FM_BLISTERWOOD_LOGS(ItemID.BLISTERWOOD_LOGS, Skill.FIREMAKING, "logs"),
+	FM_MAGIC_LOGS(ItemID.MAGIC_LOGS, Skill.FIREMAKING, "logs"),
+	FM_REDWOOD_LOGS(ItemID.REDWOOD_LOGS, Skill.FIREMAKING, "logs"),
 	;
 
 	private final int itemID;

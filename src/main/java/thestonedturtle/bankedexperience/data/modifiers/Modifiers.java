@@ -68,6 +68,9 @@ public final class Modifiers
 		final ItemComposition[] carpenters = asCompositions(manager, ItemID.CARPENTERS_HELMET, ItemID.CARPENTERS_SHIRT, ItemID.CARPENTERS_TROUSERS, ItemID.CARPENTERS_BOOTS);
 		compositions.put(carpenters[0].getId(), carpenters);
 
+		final ItemComposition[] pyromancer = asCompositions(manager, ItemID.PYROMANCER_HOOD, ItemID.PYROMANCER_GARB, ItemID.PYROMANCER_ROBE, ItemID.PYROMANCER_BOOTS);
+		compositions.put(pyromancer[0].getId(), pyromancer);
+
 		// Create modifiers on EDT thread as the UI components are created now
 		SwingUtilities.invokeLater(() -> createModifiers(manager, compositions));
 	}
@@ -117,6 +120,10 @@ public final class Modifiers
 		// Construction
 		addModifier(new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit",
 			null, Set.of(Activity.LONG_BONE, Activity.CURVED_BONE), manager, compositions.get(ItemID.CARPENTERS_HELMET)));
+
+		// Firemaking
+		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
+			null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
 	}
 
 	private static void addModifier(final Modifier modifier)

@@ -852,6 +852,21 @@ public enum Activity
 	YEW_BIRD_HOUSE(ItemID.YEW_BIRD_HOUSE, "Yew bird house", 59, 1020, ExperienceItem.H_YEW_LOGS, null, null),
 	MAGIC_BIRD_HOUSE(ItemID.MAGIC_BIRD_HOUSE, "Magic bird house", 74, 1140, ExperienceItem.H_MAGIC_LOGS, null, null),
 	REDWOOD_BIRD_HOUSE(ItemID.REDWOOD_BIRD_HOUSE, "Redwood bird house", 89, 1200, ExperienceItem.H_REDWOOD_LOGS, null, null),
+	/**
+	 * Firemaking
+	 */
+	BURN_LOGS(ItemID.LOGS, "Burn logs", 1, 40, ExperienceItem.FM_LOGS, null, null),
+	BURN_ACHEY_TREE(ItemID.ACHEY_TREE_LOGS, "Burn Achey Tree logs", 1, 40, ExperienceItem.FM_ACHEY_TREE_LOGS, null, null),
+	BURN_OAK(ItemID.OAK_LOGS, "Burn Oak logs", 15, 60, ExperienceItem.FM_OAK_LOGS, null, null),
+	BURN_WILLOW(ItemID.WILLOW_LOGS, "Burn Willow Logs", 30, 90, ExperienceItem.FM_WILLOW_LOGS, null, null),
+	BURN_TEAK(ItemID.TEAK_LOGS, "Burn Teak logs", 35, 105, ExperienceItem.FM_TEAK_LOGS, null, null),
+	BURN_ARCTIC_PINE(ItemID.ARCTIC_PINE_LOGS, "Burn Arctic Pine logs", 42, 125, ExperienceItem.FM_ARCTIC_PINE_LOGS, null, null),
+	BURN_MAPLE(ItemID.MAPLE_LOGS, "Burn Maple logs", 45, 135, ExperienceItem.FM_MAPLE_LOGS, null, null),
+	BURN_MAHOGANY(ItemID.MAHOGANY_LOGS, "Burn Mahogany logs", 50, 157.5, ExperienceItem.FM_MAHOGANY_LOGS, null, null),
+	BURN_YEW(ItemID.YEW_LOGS, "Burn Yew logs", 60, 202.5, ExperienceItem.FM_YEW_LOGS, null, null),
+	BURN_BLISTERWOOD(ItemID.BLISTERWOOD_LOGS, "Burn Blisterwood logs", 62, 96, ExperienceItem.FM_BLISTERWOOD_LOGS, null, null),
+	BURN_MAGIC(ItemID.MAGIC_LOGS, "Burn Magic logs", 75, 303.8, ExperienceItem.FM_MAGIC_LOGS, null, null),
+	BURN_REDWOOD(ItemID.REDWOOD_LOGS, "Burn Redwood logs", 90, 350, ExperienceItem.FM_REDWOOD_LOGS, null, null),
 	;
 
 	private final int icon;
