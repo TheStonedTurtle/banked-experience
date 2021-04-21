@@ -621,6 +621,15 @@ public enum Activity
 		ExperienceItem.ADAMANTITE_ORE, Secondaries.COAL_ORE_6, new ItemStack(ItemID.ADAMANTITE_BAR, 1)),
 	RUNITE_ORE(ItemID.RUNITE_BAR, "Runite bar", 85, 50,
 		ExperienceItem.RUNITE_ORE, Secondaries.COAL_ORE_8, new ItemStack(ItemID.RUNITE_BAR, 1)),
+	// Blast Furnace
+	BF_STEEL_ORE(ItemID.STEEL_BAR, "BF Steel Bar", 30, 17.5,
+		ExperienceItem.IRON_ORE, Secondaries.COAL_ORE, new ItemStack(ItemID.STEEL_BAR, 1)),
+	BF_MITHRIL_ORE(ItemID.MITHRIL_BAR, "BF Mithril Bar", 50, 30,
+		ExperienceItem.MITHRIL_ORE, Secondaries.COAL_ORE_2, new ItemStack(ItemID.MITHRIL_BAR, 1)),
+	BF_ADAMANTITE_ORE(ItemID.ADAMANTITE_BAR, "BF Adamantite bar", 70, 37.5,
+		ExperienceItem.ADAMANTITE_ORE, Secondaries.COAL_ORE_3, new ItemStack(ItemID.ADAMANTITE_BAR, 1)),
+	BF_RUNITE_ORE(ItemID.RUNITE_BAR, "BF Runite bar", 85, 50,
+		ExperienceItem.RUNITE_ORE, Secondaries.COAL_ORE_4, new ItemStack(ItemID.RUNITE_BAR, 1)),
 	// Smelting bars (Anvil)
 	BRONZE_BAR(ItemID.BRONZE_BAR, "Bronze products", 1, 12.5,
 		ExperienceItem.BRONZE_BAR, null, null),
