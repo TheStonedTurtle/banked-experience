@@ -118,8 +118,12 @@ public final class Modifiers
 			manager, compositions.get(ItemID.FARMERS_STRAWHAT)));
 
 		// Construction
+		final Collection<Activity> excludeCarpenters = ImmutableSet.of(
+			Activity.LONG_BONE, Activity.CURVED_BONE,
+			Activity.MAHOGANY_HOMES_PLANK, Activity.MAHOGANY_HOMES_OAK, Activity.MAHOGANY_HOMES_TEAK, Activity.MAHOGANY_HOMES_MAHOGANY
+		);
 		addModifier(new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit",
-			null, Set.of(Activity.LONG_BONE, Activity.CURVED_BONE), manager, compositions.get(ItemID.CARPENTERS_HELMET)));
+			null, excludeCarpenters, manager, compositions.get(ItemID.CARPENTERS_HELMET)));
 
 		// Firemaking
 		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
