@@ -24,6 +24,7 @@
  */
 package thestonedturtle.bankedexperience.components;
 
+import com.google.common.collect.ImmutableList;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
@@ -40,7 +41,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import lombok.Getter;
-import lombok.Setter;
 import net.runelite.client.plugins.config.ConfigPlugin;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.DynamicGridLayout;
@@ -71,9 +71,13 @@ public class ExpandableSection extends JPanel
 	private final JButton sectionToggle;
 	private final JPanel sectionContents;
 
-	@Setter
 	@Getter
 	private boolean isOpen = false;
+
+	public ExpandableSection(final String header, final String description, JComponent... components)
+	{
+		this(header, description, ImmutableList.copyOf(components));
+	}
 
 	public ExpandableSection(final String header, final String description, Collection<JComponent> components)
 	{
@@ -142,5 +146,15 @@ public class ExpandableSection extends JPanel
 		sectionToggle.setRolloverIcon(isOpen ? SECTION_RETRACT_ICON_HOVER : SECTION_EXPAND_ICON_HOVER);
 		sectionToggle.setToolTipText(isOpen ? "Retract" : "Expand");
 		sectionContents.setVisible(isOpen);
+	}
+
+	public void setOpen(final boolean open)
+	{
+		if (isOpen == open)
+		{
+			return;
+		}
+
+		toggle();
 	}
 }

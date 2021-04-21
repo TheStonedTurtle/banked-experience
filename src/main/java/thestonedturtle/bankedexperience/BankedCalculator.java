@@ -49,6 +49,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 import thestonedturtle.bankedexperience.components.ExpandableSection;
 import thestonedturtle.bankedexperience.components.GridItem;
 import thestonedturtle.bankedexperience.components.ModifyPanel;
+import thestonedturtle.bankedexperience.components.SecondaryGrid;
 import thestonedturtle.bankedexperience.components.SelectionGrid;
 import thestonedturtle.bankedexperience.components.SelectionListener;
 import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
@@ -69,6 +70,7 @@ public class BankedCalculator extends JPanel
 	@Getter
 	private final BankedExperienceConfig config;
 	private final UICalculatorInputArea uiInput;
+	@Getter
 	private final ItemManager itemManager;
 
 	// Some activities output a ExperienceItem and may need to be included in the calculable qty
@@ -80,6 +82,8 @@ public class BankedCalculator extends JPanel
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid;
+	private SecondaryGrid secondaryGrid;
+	private ExpandableSection secondarySection;
 
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
@@ -194,6 +198,22 @@ public class BankedCalculator extends JPanel
 			add(xpToNextLevelLabel);
 			add(modifyPanel);
 			add(itemGrid);
+
+			if (config.showSecondaries())
+			{
+				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values());
+				boolean wasOpened = secondarySection != null && secondarySection.isOpen();
+				secondarySection = new ExpandableSection(
+					"Secondaries",
+					"Shows a breakdown of how many secondaries are required for all enabled activities",
+					secondaryGrid
+				);
+
+				secondarySection.setOpen(wasOpened);
+				secondarySection.setVisible(secondaryGrid.getSecMap().size() > 0);
+
+				add(secondarySection);
+			}
 		}
 
 		revalidate();
@@ -329,6 +349,9 @@ public class BankedCalculator extends JPanel
 		final int nextLevel = Math.min(endLevel + 1, 126);
 		final int nextLevelXp = Experience.getXpForLevel(nextLevel) - endExp;
 		xpToNextLevelLabel.setText("Level " + nextLevel + " requires: " + XP_FORMAT_COMMA.format(nextLevelXp) + "xp");
+
+		// Refresh secondaries whenever the exp is updated
+		refreshSecondaries();
 
 		revalidate();
 		repaint();
@@ -505,5 +528,16 @@ public class BankedCalculator extends JPanel
 				currentMap.put(id, qty);
 			}
 		}
+	}
+
+	private void refreshSecondaries()
+	{
+		if (secondarySection == null || secondaryGrid == null)
+		{
+			return;
+		}
+
+		secondaryGrid.updateSecMap(itemGrid.getPanelMap().values());
+		secondarySection.setVisible(secondaryGrid.getSecMap().size() > 0);
 	}
 }
