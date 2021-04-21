@@ -791,6 +791,8 @@ public enum Activity
 	// Redwood Logs
 	F_REDWOOD_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 90, 35,
 		ExperienceItem.F_REDWOOD_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 105)),
+	F_REDWOOD_SHIELD(ItemID.REDWOOD_SHIELD, "Redwood shield", 92, 108,
+		ExperienceItem.F_REDWOOD_LOGS, null, new ItemStack(ItemID.REDWOOD_SHIELD, 0.5)),
 	// Strung Bows
 	F_SHORTBOW(ItemID.SHORTBOW, "Shortbow", 5, 5,
 		ExperienceItem.F_SHORTBOW_U, Secondaries.BOW_STRING, new ItemStack(ItemID.SHORTBOW, 1)),
