@@ -967,7 +967,7 @@ public enum Activity
 	 * @param rng boolean flag about whether to include RNG activities
 	 * @return an empty Collection if no activities
 	 */
-	public static List<Activity> getByExperienceItem(final ExperienceItem item, final int limitLevel, final boolean rng)
+	public static List<Activity> getByExperienceItem(final ExperienceItem item, final int limitLevel)
 	{
 		// Return as list to allow getting by index
 		final List<Activity> l = getByExperienceItem(item);
@@ -976,15 +976,7 @@ public enum Activity
 			return l;
 		}
 
-		return l.stream().filter(a ->
-		{
-			if (!rng && a.isRngActivity())
-			{
-				return false;
-			}
-
-			return a.getLevel() <= limitLevel;
-		}).collect(Collectors.toList());
+		return l.stream().filter(a -> a.getLevel() <= limitLevel).collect(Collectors.toList());
 	}
 
 	/**

@@ -74,21 +74,10 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "includeRngActivities",
-		name = "Include RNG activities",
-		description = "Toggles whether activities with exp values that are effected by RNG will be shown in the calculator",
-		position = 7
-	)
-	default boolean includeRngActivities()
-	{
-		return false;
-	}
-
-	@ConfigItem(
 		keyName = "grabFromFossilChest",
 		name = "Include Fossil Chest",
 		description = "Toggles whether the fossils stored inside your Fossil Island chest will be included in the calculations",
-		position = 8
+		position = 7
 	)
 	default boolean grabFromFossilChest()
 	{

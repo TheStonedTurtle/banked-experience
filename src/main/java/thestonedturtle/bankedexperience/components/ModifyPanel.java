@@ -235,7 +235,7 @@ public class ModifyPanel extends JPanel
 		c.gridy++;
 
 		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
-		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level, calc.getConfig().includeRngActivities());
+		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level);
 		if (activities == null || activities.size() == 0)
 		{
 			final JLabel unusable = new JLabel("Unusable at current level");

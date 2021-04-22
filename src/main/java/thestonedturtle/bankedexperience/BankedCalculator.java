@@ -237,7 +237,7 @@ public class BankedCalculator extends JPanel
 			Activity a = item.getSelectedActivity();
 			if (a == null || (config.limitToCurrentLevel() && skillLevel < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? skillLevel : -1, config.includeRngActivities());
+				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? skillLevel : -1);
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);
