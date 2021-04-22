@@ -46,6 +46,7 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.util.AsyncBufferedImage;
+import net.runelite.client.util.Text;
 import thestonedturtle.bankedexperience.components.ExpandableSection;
 import thestonedturtle.bankedexperience.components.GridItem;
 import thestonedturtle.bankedexperience.components.ModifyPanel;
@@ -96,6 +97,9 @@ public class BankedCalculator extends JPanel
 	private final List<ModifierComponent> modifierComponents = new ArrayList<>();
 
 	@Getter
+	private final Set<String> ignoredItems;
+
+	@Getter
 	private Skill currentSkill;
 
 	@Getter
@@ -107,6 +111,8 @@ public class BankedCalculator extends JPanel
 		this.client = client;
 		this.config = config;
 		this.itemManager = itemManager;
+
+		this.ignoredItems = new HashSet<>(Text.fromCSV(config.ignoredItems()));
 
 		setLayout(new DynamicGridLayout(0, 1, 0, 5));
 
@@ -279,6 +285,16 @@ public class BankedCalculator extends JPanel
 			{
 				updateLinkedItems(item.getItem().getSelectedActivity());
 				calculateBankedXpTotal();
+
+				// Save ignored status
+				final String name = item.getItem().name();
+				final boolean existed = ignoredItems.remove(name);
+				if (!existed)
+				{
+					ignoredItems.add(name);
+				}
+				config.ignoredItems(Text.toCSV(ignoredItems));
+
 				return true;
 			}
 		});

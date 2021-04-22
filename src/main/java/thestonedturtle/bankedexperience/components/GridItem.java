@@ -68,15 +68,16 @@ public class GridItem extends JLabel
 	private int amount;
 
 	private boolean selected = false;
-	private boolean ignored = false;
+	private boolean ignored;
 	private boolean rng;
 
 	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
 
-	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final Collection<Modifier> modifiers)
+	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final Collection<Modifier> modifiers, final boolean ignore)
 	{
 		super("");
 
+		this.ignored = ignore;
 		this.bankedItem = item;
 
 		this.setOpaque(true);

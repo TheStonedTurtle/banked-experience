@@ -83,4 +83,22 @@ public interface BankedExperienceConfig extends Config
 	{
 		return true;
 	}
+
+	@ConfigItem(
+		keyName = "ignoredItems",
+		name = "",
+		description = "",
+		hidden = true
+	)
+	default String ignoredItems()
+	{
+		return "";
+	}
+
+	@ConfigItem(
+		keyName = "ignoredItems",
+		name = "",
+		description = ""
+	)
+	void ignoredItems(String val);
 }
