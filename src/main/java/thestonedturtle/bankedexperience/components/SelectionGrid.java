@@ -63,7 +63,7 @@ public class SelectionGrid extends JPanel
 			final boolean stackable = item.getItem().isStackable() || qty > 1;
 			final AsyncBufferedImage img = itemManager.getImage(item.getItem().getItemID(), qty, stackable);
 
-			final GridItem gridItem = new GridItem(item, img, qty, calc.getEnabledModifiers());
+			final GridItem gridItem = new GridItem(item, img, qty, calc.getEnabledModifiers(), calc.getIgnoredItems().contains(item.getItem().name()));
 
 			gridItem.setSelectionListener(new SelectionListener()
 			{

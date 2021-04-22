@@ -37,13 +37,14 @@ import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
 )
 public class BankedExperiencePlugin extends Plugin
 {
-	private static final BufferedImage ICON = ImageUtil.getResourceStreamFromClass(BankedExperiencePlugin.class, "banked.png");
+	private static final BufferedImage ICON = ImageUtil.loadImageResource(BankedExperiencePlugin.class, "banked.png");
 	private static final Map<Integer, Integer> EMPTY_MAP = new HashMap<>();
-	private static final String CONFIG_GROUP = "bankedexperience";
+	public static final String CONFIG_GROUP = "bankedexperience";
 	private static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
 	private static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
 	private static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
 	private static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
+	public static final String ACTIVITY_CONFIG_KEY = "ITEM_";
 	private static final int LOOTING_BAG_ID = 516;
 
 	@Inject
@@ -54,6 +55,9 @@ public class BankedExperiencePlugin extends Plugin
 
 	@Inject
 	private ClientToolbar clientToolbar;
+
+	@Inject
+	private ConfigManager configManager;
 
 	@Inject
 	private ItemManager itemManager;
@@ -78,7 +82,7 @@ public class BankedExperiencePlugin extends Plugin
 	@Override
 	protected void startUp() throws Exception
 	{
-		panel = new BankedCalculatorPanel(client, config, skillIconManager, itemManager);
+		panel = new BankedCalculatorPanel(client, config, skillIconManager, itemManager, configManager);
 		navButton = NavigationButton.builder()
 			.tooltip("Banked XP")
 			.icon(ICON)
@@ -104,6 +108,7 @@ public class BankedExperiencePlugin extends Plugin
 						ExperienceItem.prepareItemCompositions(itemManager);
 						Activity.prepareItemCompositions(itemManager);
 						Modifiers.prepare(itemManager);
+						loadSavedActivities();
 						prepared = true;
 						return true;
 					default:
@@ -242,6 +247,27 @@ public class BankedExperiencePlugin extends Plugin
 		{
 			inventoryHashMap.put(inventoryId, curHash);
 			SwingUtilities.invokeLater(() -> panel.setInventoryMap(inventoryId, m));
+		}
+	}
+
+	private void loadSavedActivities()
+	{
+		for (final ExperienceItem item : ExperienceItem.values())
+		{
+			final String activityName = configManager.getConfiguration(CONFIG_GROUP, ACTIVITY_CONFIG_KEY + item.name());
+			if (activityName == null || activityName.equals(""))
+			{
+				continue;
+			}
+
+			for (final Activity activity : Activity.values())
+			{
+				if (activityName.equals(activity.name()))
+				{
+					item.setSelectedActivity(activity);
+					break;
+				}
+			}
 		}
 	}
 }

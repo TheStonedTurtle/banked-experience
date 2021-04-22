@@ -43,9 +43,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.Experience;
 import net.runelite.api.Skill;
+import net.runelite.client.config.ConfigManager;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.DynamicGridLayout;
 import net.runelite.client.util.AsyncBufferedImage;
+import net.runelite.client.util.Text;
 import thestonedturtle.bankedexperience.components.ExpandableSection;
 import thestonedturtle.bankedexperience.components.GridItem;
 import thestonedturtle.bankedexperience.components.ModifyPanel;
@@ -72,6 +74,7 @@ public class BankedCalculator extends JPanel
 	private final UICalculatorInputArea uiInput;
 	@Getter
 	private final ItemManager itemManager;
+	private final ConfigManager configManager;
 
 	// Some activities output a ExperienceItem and may need to be included in the calculable qty
 	// Using multimap for cases where there are multiple items linked directly to one item, use recursion for otherwise
@@ -96,17 +99,24 @@ public class BankedCalculator extends JPanel
 	private final List<ModifierComponent> modifierComponents = new ArrayList<>();
 
 	@Getter
+	private final Set<String> ignoredItems;
+
+	@Getter
 	private Skill currentSkill;
 
 	@Getter
 	private int skillLevel, skillExp, endLevel, endExp;
 
-	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config, ItemManager itemManager)
+	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
+					 ItemManager itemManager, ConfigManager configManager)
 	{
 		this.uiInput = uiInput;
 		this.client = client;
 		this.config = config;
 		this.itemManager = itemManager;
+		this.configManager = configManager;
+
+		this.ignoredItems = new HashSet<>(Text.fromCSV(config.ignoredItems()));
 
 		setLayout(new DynamicGridLayout(0, 1, 0, 5));
 
@@ -279,6 +289,16 @@ public class BankedCalculator extends JPanel
 			{
 				updateLinkedItems(item.getItem().getSelectedActivity());
 				calculateBankedXpTotal();
+
+				// Save ignored status
+				final String name = item.getItem().name();
+				final boolean existed = ignoredItems.remove(name);
+				if (!existed)
+				{
+					ignoredItems.add(name);
+				}
+				config.ignoredItems(Text.toCSV(ignoredItems));
+
 				return true;
 			}
 		});
@@ -372,6 +392,7 @@ public class BankedCalculator extends JPanel
 		}
 
 		item.setSelectedActivity(a);
+		saveActivity(i.getItem());
 
 		// Cascade activity changes if necessary.
 		if (config.cascadeBankedXp() && a.shouldUpdateLinked(old))
@@ -539,5 +560,10 @@ public class BankedCalculator extends JPanel
 
 		secondaryGrid.updateSecMap(itemGrid.getPanelMap().values());
 		secondarySection.setVisible(secondaryGrid.getSecMap().size() > 0);
+	}
+
+	private void saveActivity(final ExperienceItem item)
+	{
+		configManager.setConfiguration(BankedExperiencePlugin.CONFIG_GROUP, BankedExperiencePlugin.ACTIVITY_CONFIG_KEY + item.name(), item.getSelectedActivity().name());
 	}
 }
