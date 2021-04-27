@@ -91,7 +91,7 @@ public final class Modifiers
 	{
 		// Prayer Modifiers
 		addModifier(new ZealotsRobes(manager, compositions.get(ItemID.ZEALOTS_HELM)));
-		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f));
+		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null));
 		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null));
 		addModifier(new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp & 50% Save)", 0.5f, BONES, null)
 		{
