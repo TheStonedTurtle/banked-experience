@@ -287,9 +287,6 @@ public class BankedCalculator extends JPanel
 			@Override
 			public boolean ignored(BankedItem item)
 			{
-				updateLinkedItems(item.getItem().getSelectedActivity());
-				calculateBankedXpTotal();
-
 				// Save ignored status
 				final String name = item.getItem().name();
 				final boolean existed = ignoredItems.remove(name);
@@ -298,6 +295,10 @@ public class BankedCalculator extends JPanel
 					ignoredItems.add(name);
 				}
 				config.ignoredItems(Text.toCSV(ignoredItems));
+
+				// Update UI
+				updateLinkedItems(item.getItem().getSelectedActivity());
+				calculateBankedXpTotal();
 
 				return true;
 			}
@@ -493,13 +494,9 @@ public class BankedCalculator extends JPanel
 		for (final BankedItem linked : linkedBank)
 		{
 			// Check if the item is ignored in the grid
-			if (itemGrid != null)
+			if (ignoredItems.contains(linked.getItem().name()))
 			{
-				final GridItem grid = itemGrid.getPanelMap().get(linked);
-				if (grid != null && grid.isIgnored())
-				{
-					continue;
-				}
+				continue;
 			}
 
 			final int qty = linked.getQty();
