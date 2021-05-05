@@ -26,6 +26,8 @@ package thestonedturtle.bankedexperience;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import lombok.Getter;
@@ -87,6 +90,7 @@ public class BankedCalculator extends JPanel
 	private SelectionGrid itemGrid;
 	private SecondaryGrid secondaryGrid;
 	private ExpandableSection secondarySection;
+	private final JButton refreshBtn;
 
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
@@ -122,6 +126,20 @@ public class BankedCalculator extends JPanel
 
 		// Panel used to modify banked item values
 		this.modifyPanel = new ModifyPanel(this, itemManager);
+
+		this.refreshBtn = new JButton("Refresh Calculator");
+		refreshBtn.setFocusable(false);
+		refreshBtn.addMouseListener((new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				if (e.getButton() == MouseEvent.BUTTON1)
+				{
+					open(currentSkill, true);
+				}
+			}
+		}));
 	}
 
 	/**
@@ -129,7 +147,15 @@ public class BankedCalculator extends JPanel
 	 */
 	void open(final Skill newSkill)
 	{
-		if (newSkill.equals(currentSkill))
+		open(newSkill, false);
+	}
+
+	/**
+	 * opens the Banked Calculator for this skill
+	 */
+	void open(final Skill newSkill, final boolean refresh)
+	{
+		if (!refresh && newSkill.equals(currentSkill))
 		{
 			return;
 		}
@@ -138,6 +164,7 @@ public class BankedCalculator extends JPanel
 		removeAll();
 		modifierComponents.clear();
 		enabledModifiers.clear();
+		refreshBtn.setVisible(false);
 
 		if (currentMap.size() <= 0)
 		{
@@ -225,6 +252,8 @@ public class BankedCalculator extends JPanel
 				add(secondarySection);
 			}
 		}
+
+		add(refreshBtn);
 
 		revalidate();
 		repaint();
@@ -533,6 +562,7 @@ public class BankedCalculator extends JPanel
 	{
 		inventoryMap.put(inventoryId, map);
 		updateCurrentMap();
+		refreshBtn.setVisible(true);
 	}
 
 	private void updateCurrentMap()
