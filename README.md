@@ -32,11 +32,7 @@ See the relative section for each config option for an in-depth description.
 | [Include seed vault](#include-seed-vault)					| &check; |
 | [Include player inventory](#include-player-inventory)		| X |
 | [Include looting bag](#include-looting-bag)				| X |
-| [Include RNG activities](#include-rng-activities)			| X |
 
-<details>
-<summary>Click here to view config descriptions</summary>
-<p>
 
 ### Include output items
 <details>
@@ -118,20 +114,6 @@ This feature requires checking your looting bag, using items on it or picking up
 </p>
 </details>
 
-### Include RNG activities
-<details>
-<summary>Details</summary>
-<p>
-
-This option is **Disabled** by default
-
-Some Activities, such as making molten glass using the Superglass Make spell, do not have a fixed number of output items and are based on Random Number Generation (RNG). These Activities may cause the calculator to be inaccurate and are disabled by default, enabling this option will include them in the dropdown.
-</p>
-</details>
-
-</p>
-</details>
-
 
 ## F.A.Q.
 <details>
@@ -154,9 +136,7 @@ To limit the amount of a specific items you should withdraw all but the amount y
   <summary>Q: I visited my bank but the UI hasn't updated, what do I do?</summary>
   <p>
 
-The UI does not automatically update when your bank content changes, you must change skills for the updates to be applied. This was done intentionally to minimize performance issues from constantly refreshing the UI
-
-If selecting a new skill does not fix your problem please [report the issue](https://github.com/TheStonedTurtle/banked-experience/issues/new) so I can address it.
+The UI does not automatically update when your bank content changes, you must change skills for the updates to be applied or click the Refresh Button underneath the item grid. This was done intentionally to minimize performance issues from constantly refreshing the UI.
   </p>
 </details>
 
