@@ -72,7 +72,7 @@ public class ExpandableSection extends JPanel
 	private final JPanel sectionContents;
 
 	@Getter
-	private boolean isOpen = false;
+	private boolean isOpen = true;
 
 	public ExpandableSection(final String header, final String description, JComponent... components)
 	{
