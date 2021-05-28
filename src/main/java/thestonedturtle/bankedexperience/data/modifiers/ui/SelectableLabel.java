@@ -38,6 +38,9 @@ public class SelectableLabel extends JLabel
 	private static final Color SELECTED_BACKGROUND = new Color(0, 70, 0);
 	private static final Color SELECTED_HOVER_BACKGROUND =  new Color(0, 100, 0);
 
+	private static final Color BACKGROUND = ColorScheme.DARK_GRAY_COLOR;
+	private static final Color BACKGROUND_HOVER = ColorScheme.DARK_GRAY_HOVER_COLOR;
+
 	@Getter
 	private boolean selected = false;
 
@@ -49,6 +52,7 @@ public class SelectableLabel extends JLabel
 		this.setOpaque(true);
 		this.setVerticalAlignment(SwingConstants.CENTER);
 		this.setHorizontalAlignment(SwingConstants.CENTER);
+		this.setBackground(BACKGROUND);
 
 		this.addMouseListener(new MouseAdapter()
 		{
@@ -73,7 +77,7 @@ public class SelectableLabel extends JLabel
 				}
 				else
 				{
-					label.setBackground(ColorScheme.DARK_GRAY_HOVER_COLOR);
+					label.setBackground(BACKGROUND_HOVER);
 				}
 			}
 
@@ -87,7 +91,7 @@ public class SelectableLabel extends JLabel
 				}
 				else
 				{
-					label.setBackground(ColorScheme.DARK_GRAY_COLOR);
+					label.setBackground(BACKGROUND);
 				}
 			}
 		});
@@ -106,7 +110,7 @@ public class SelectableLabel extends JLabel
 		}
 
 		this.selected = selected;
-		this.setBackground(selected ? SELECTED_BACKGROUND : ColorScheme.DARK_GRAY_COLOR);
+		this.setBackground(selected ? SELECTED_BACKGROUND : BACKGROUND);
 
 		if (runCallback && callback != null)
 		{
