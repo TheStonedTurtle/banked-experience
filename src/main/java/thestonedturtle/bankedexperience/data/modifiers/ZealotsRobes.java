@@ -46,6 +46,7 @@ public class ZealotsRobes extends SkillingOutfit
 	ZealotsRobes(ItemManager itemManager, ItemComposition... items)
 	{
 		super(Skill.PRAYER, "Zealot's robes", null, EXCLUDED, itemManager, items);
+		additive = false;
 
 		helm.setToolTipText("<html>" + items[0].getName() + "<br/>" + TOOLTIP + "</html>");
 		top.setToolTipText("<html>" + items[1].getName() + "<br/>" + TOOLTIP + "</html>");
@@ -59,5 +60,17 @@ public class ZealotsRobes extends SkillingOutfit
 	public float getSavePercentage()
 	{
 		return CONSUME_AMT * getEnabledButtonCount();
+	}
+
+	// Zealots Robes don't provide bonus xp so the SkillingOutfit appliedXpRate is incorrect
+	@Override
+	public double appliedXpRate(final Activity activity)
+	{
+		if (!appliesTo(activity))
+		{
+			return 0;
+		}
+
+		return activity.getXp();
 	}
 }

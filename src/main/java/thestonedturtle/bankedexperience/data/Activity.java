@@ -1032,6 +1032,7 @@ public enum Activity
 		// Apply all modifiers
 		double tempXp = xp;
 		float savePercentage = 0;
+		float savePercentageMultiplicative = 1f;
 		for (final Modifier modifier : modifiers)
 		{
 			if (!modifier.appliesTo(this))
@@ -1041,16 +1042,27 @@ public enum Activity
 
 			if (modifier instanceof ConsumptionModifier)
 			{
-				savePercentage += ((ConsumptionModifier) modifier).getSavePercentage();
+				ConsumptionModifier consumptionModifier = (ConsumptionModifier) modifier;
+				if (consumptionModifier.isAdditive())
+				{
+					savePercentage += consumptionModifier.getSavePercentage();
+				}
+				else
+				{
+					// Multiplicative stacking is calculated using the chance to consume not the chance to save
+					// For example a 50% chance to save is .5 and a 5% chance to save is .95
+					savePercentageMultiplicative *= (1 - consumptionModifier.getSavePercentage());
+				}
 			}
 
 			tempXp += (modifier.appliedXpRate(this) - xp);
 		}
 
 		// Dividing the XP by the chance of consuming the item will give you the average xp per item
-		if (savePercentage != 0f)
+		if (savePercentage != 0f || savePercentageMultiplicative != 1f)
 		{
-			tempXp = tempXp / (1 - savePercentage);
+			float consumptionChance = (1 - savePercentage) * savePercentageMultiplicative;
+			tempXp = tempXp / consumptionChance;
 		}
 
 		// Round to two decimal places

@@ -38,6 +38,9 @@ public class ConsumptionModifier extends Modifier
 	// Percentage based scale where positive values reduce consumption and negative values increase consumption
 	@Getter
 	private final float savePercentage;
+	// If this stacks with other consumptions modifiers additively or multiplicatively.
+	@Getter
+	boolean additive = true;
 
 	ConsumptionModifier(Skill skill, String name, float savePercentage)
 	{
