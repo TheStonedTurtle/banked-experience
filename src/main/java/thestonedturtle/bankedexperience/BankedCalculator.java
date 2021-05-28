@@ -247,9 +247,11 @@ public class BankedCalculator extends JPanel
 				);
 
 				secondarySection.setOpen(wasOpened);
-				secondarySection.setVisible(secondaryGrid.getSecMap().size() > 0);
 
-				add(secondarySection);
+				if (secondaryGrid.getSecMap().size() > 0)
+				{
+					add(secondarySection);
+				}
 			}
 		}
 
@@ -585,8 +587,21 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
+		final boolean wasVisible = secondaryGrid.getSecMap().size() > 0;
 		secondaryGrid.updateSecMap(itemGrid.getPanelMap().values());
-		secondarySection.setVisible(secondaryGrid.getSecMap().size() > 0);
+		final boolean shouldBeVisible = secondaryGrid.getSecMap().size() > 0;
+
+		if (shouldBeVisible != wasVisible)
+		{
+			if (shouldBeVisible)
+			{
+				add(secondarySection, getComponentCount() - 1);
+			}
+			else
+			{
+				remove(secondarySection);
+			}
+		}
 	}
 
 	private void saveActivity(final ExperienceItem item)
