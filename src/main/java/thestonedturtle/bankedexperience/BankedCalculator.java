@@ -89,6 +89,7 @@ public class BankedCalculator extends JPanel
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid;
 	private SecondaryGrid secondaryGrid;
+	private ExpandableSection modifierSection;
 	private ExpandableSection secondarySection;
 	private final JButton refreshBtn;
 
@@ -213,13 +214,16 @@ public class BankedCalculator extends JPanel
 
 		if (modifierComponents.size() > 0)
 		{
-			add(new ExpandableSection(
+			boolean wasClosed = modifierSection != null && !modifierSection.isOpen();
+			modifierSection = new ExpandableSection(
 				"Modifiers",
 				"Toggles the different ways activity/experience gains can be modified",
 				modifierComponents.stream()
 					.map(ModifierComponent::getComponent)
 					.collect(Collectors.toList())
-			));
+			);
+			modifierSection.setOpen(!wasClosed);
+			add(modifierSection);
 		}
 
 		recreateItemGrid();
@@ -239,14 +243,14 @@ public class BankedCalculator extends JPanel
 			if (config.showSecondaries())
 			{
 				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values());
-				boolean wasOpened = secondarySection != null && secondarySection.isOpen();
+				boolean wasClosed = secondarySection != null && !secondarySection.isOpen();
 				secondarySection = new ExpandableSection(
 					"Secondaries",
 					"Shows a breakdown of how many secondaries are required for all enabled activities",
 					secondaryGrid
 				);
 
-				secondarySection.setOpen(wasOpened);
+				secondarySection.setOpen(!wasClosed);
 
 				if (secondaryGrid.getSecMap().size() > 0)
 				{
