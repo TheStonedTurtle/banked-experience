@@ -166,6 +166,7 @@ public class BankedCalculator extends JPanel
 		modifierComponents.clear();
 		enabledModifiers.clear();
 		refreshBtn.setVisible(false);
+		secondaryGrid = null; // prevents the Secondaries section from being added early by recreateItemGrid
 
 		if (currentMap.size() <= 0)
 		{
