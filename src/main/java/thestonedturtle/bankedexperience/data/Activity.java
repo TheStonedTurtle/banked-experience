@@ -831,6 +831,8 @@ public enum Activity
 		ExperienceItem.F_ADAMANT_DART_TIP, Secondaries.FEATHER, new ItemStack(ItemID.ADAMANT_DART, 1)),
 	F_RUNE_DARTS(ItemID.RUNE_DART, "Rune dart", 81, 18.8,
 		ExperienceItem.F_RUNE_DART_TIP, Secondaries.FEATHER, new ItemStack(ItemID.RUNE_DART, 1)),
+	F_AMETHYST_DARTS(ItemID.AMETHYST_DART, "Amethyst dart", 90, 21,
+			ExperienceItem.F_AMETHYST_DART_TIP, Secondaries.FEATHER, new ItemStack(ItemID.AMETHYST_DART, 1)),
 	F_DRAGON_DARTS(ItemID.DRAGON_DART, "Dragon dart", 95, 25,
 		ExperienceItem.F_DRAGON_DART_TIP, Secondaries.FEATHER, new ItemStack(ItemID.DRAGON_DART, 1)),
 	// Arrows
