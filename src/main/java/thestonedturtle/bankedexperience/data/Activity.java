@@ -301,7 +301,7 @@ public enum Activity
 		ExperienceItem.DAGANNOTH_BONES, null, null),
 	OURG_BONES(ItemID.OURG_BONES, "Ourg bones", 1, 140.0,
 		ExperienceItem.OURG_BONES, null, null),
-	SUPERIOR_DRAGON_BONES(ItemID.SUPERIOR_DRAGON_BONES, "Superior dragon bones", 1, 150.0,
+	SUPERIOR_DRAGON_BONES(ItemID.SUPERIOR_DRAGON_BONES, "Superior dragon bones", 70, 150.0,
 		ExperienceItem.SUPERIOR_DRAGON_BONES, null, null),
 	WYRM_BONES(ItemID.WYRM_BONES, "Wyrm bones", 1, 50.0,
 		ExperienceItem.WYRM_BONES, null, null),
