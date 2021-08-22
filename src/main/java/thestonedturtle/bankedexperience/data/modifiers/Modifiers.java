@@ -55,7 +55,7 @@ public final class Modifiers
 
 	static final Set<Activity> ASHES = ImmutableSet.of(
 		Activity.FIENDISH_ASHES, Activity.VILE_ASHES, Activity.MALICIOUS_ASHES, Activity.ABYSSAL_ASHES,
-			Activity.INFERNAL_ASHES
+		Activity.INFERNAL_ASHES
 	);
 
 	public static void prepare(ItemManager manager)
