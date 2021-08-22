@@ -53,6 +53,11 @@ public final class Modifiers
 		Activity.SUPERIOR_DRAGON_BONES, Activity.WYRM_BONES, Activity.DRAKE_BONES, Activity.HYDRA_BONES
 	);
 
+	static final Set<Activity> ASHES = ImmutableSet.of(
+		Activity.FIENDISH_ASHES, Activity.VILE_ASHES, Activity.MALICIOUS_ASHES, Activity.ABYSSAL_ASHES,
+		Activity.INFERNAL_ASHES
+	);
+
 	public static void prepare(ItemManager manager)
 	{
 		assert modifiers.size() == 0;
@@ -91,6 +96,7 @@ public final class Modifiers
 	{
 		// Prayer Modifiers
 		addModifier(new ZealotsRobes(manager, compositions.get(ItemID.ZEALOTS_HELM)));
+		addModifier(new StaticModifier(Skill.PRAYER, "Demonic Offering (300% xp)", 3, ASHES, null));
 		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null));
 		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null));
 		addModifier(new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp & 50% Save)", 0.5f, BONES, null)

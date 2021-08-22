@@ -416,6 +416,17 @@ public enum Activity
 		ExperienceItem.RARE_TUSK, null, new ItemStack(ItemID.UNIDENTIFIED_RARE_FOSSIL, 1)),
 	RARE_FOSSIL(ItemID.UNIDENTIFIED_RARE_FOSSIL, "Rare fossil", 1, 2500,
 		ExperienceItem.RARE_FOSSIL, null, null),
+	// Ashes
+	FIENDISH_ASHES(ItemID.FIENDISH_ASHES, "Fiendish ashes", 1, 10,
+		ExperienceItem.FIENDISH_ASHES, null, null),
+	VILE_ASHES(ItemID.VILE_ASHES, "Vile ashes", 1, 25,
+		ExperienceItem.VILE_ASHES, null, null),
+	MALICIOUS_ASHES(ItemID.MALICIOUS_ASHES, "Malicious ashes", 1, 65,
+		ExperienceItem.MALICIOUS_ASHES, null, null),
+	ABYSSAL_ASHES(ItemID.ABYSSAL_ASHES, "Abyssal ashes", 1, 85,
+		ExperienceItem.ABYSSAL_ASHES, null, null),
+	INFERNAL_ASHES(ItemID.INFERNAL_ASHES, "Infernal ashes", 1, 110,
+		ExperienceItem.INFERNAL_ASHES, null, null),
 	/**
 	 * Cooking
 	 */
