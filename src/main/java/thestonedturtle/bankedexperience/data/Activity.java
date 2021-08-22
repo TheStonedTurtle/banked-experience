@@ -894,6 +894,27 @@ public enum Activity
 		ExperienceItem.F_AMETHYST_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.AMETHYST_ARROW, 1)),
 	F_DRAGON_ARROW(ItemID.DRAGON_ARROW, "Dragon arrow", 90, 15,
 		ExperienceItem.F_DRAGON_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.DRAGON_ARROW, 1)),
+	// Bolts
+	BRONZE_BOLTS(ItemID.BRONZE_BOLTS, "Bronze bolts", 9, 0.5,
+		ExperienceItem.BRONZE_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.BRONZE_BOLTS, 1)),
+	BLURITE_BOLTS(ItemID.BLURITE_BOLTS, "Blurite bolts", 24, 1,
+		ExperienceItem.BLURITE_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.IRON_BOLTS, 1)),
+	IRON_BOLTS(ItemID.IRON_BOLTS, "Iron bolts", 39, 1.5,
+		ExperienceItem.IRON_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.IRON_BOLTS, 1)),
+	SILVER_BOLTS(ItemID.SILVER_BOLTS, "Silver bolts", 43, 2.5,
+		ExperienceItem.SILVER_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.SILVER_BOLTS, 1)),
+	STEEL_BOLTS(ItemID.STEEL_BOLTS, "Steel bolts", 46, 3.5,
+		ExperienceItem.STEEL_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.STEEL_BOLTS, 1)),
+	MITHRIL_BOLTS(ItemID.MITHRIL_BOLTS, "Mithril bolts", 54, 5,
+		ExperienceItem.MITHRIL_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.MITHRIL_BOLTS, 1)),
+	BROAD_BOLTS(ItemID.BROAD_BOLTS, "Broad bolts", 55, 3,
+		ExperienceItem.BROAD_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.BROAD_BOLTS, 1)),
+	ADAMANT_BOLTS(ItemID.ADAMANT_BOLTS, "Adamant bolts", 61, 7,
+		ExperienceItem.ADAMANT_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.ADAMANT_BOLTS, 1)),
+	RUNE_BOLTS(ItemID.RUNITE_BOLTS, "Runite bolts", 69, 10,
+		ExperienceItem.RUNE_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.RUNITE_BOLTS, 1)),
+	DRAGON_BOLTS(ItemID.DRAGON_BOLTS, "Dragon bolts", 84, 12,
+		ExperienceItem.DRAGON_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.DRAGON_BOLTS, 1)),
 	/**
 	 * Hunter
 	 */
