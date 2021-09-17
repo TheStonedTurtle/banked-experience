@@ -223,13 +223,29 @@ public enum ExperienceItem
 	/**
 	 * Cooking
 	 */
+	RAW_BEEF(ItemID.RAW_BEEF, Skill.COOKING, "Meat"),
+	RAW_RAT_MEAT(ItemID.RAW_RAT_MEAT, Skill.COOKING, "Meat"),
+	RAW_BEAR_MEAT(ItemID.RAW_BEAR_MEAT, Skill.COOKING, "Meat"),
+	RAW_YAK_MEAT(ItemID.RAW_YAK_MEAT, Skill.COOKING, "Meat"),
+	RAW_UGTHANKI_MEAT(ItemID.RAW_UGTHANKI_MEAT, Skill.COOKING, "Meat"),
+	RAW_CHICKEN(ItemID.RAW_CHICKEN, Skill.COOKING, "Meat"),
+	RAW_RABBIT(ItemID.RAW_RABBIT, Skill.COOKING, "Meat"),
+	RAW_SHRIMPS(ItemID.RAW_SHRIMPS, Skill.COOKING, "Fish"),
+	RAW_SARDINE(ItemID.RAW_SARDINE, Skill.COOKING, "Fish"),
+	RAW_ANCHOVIES(ItemID.RAW_ANCHOVIES, Skill.COOKING, "Fish"),
 	RAW_HERRING(ItemID.RAW_HERRING, Skill.COOKING, "Fish"),
 	RAW_MACKEREL(ItemID.RAW_MACKEREL, Skill.COOKING, "Fish"),
+	RAW_BIRD_MEAT(ItemID.RAW_BIRD_MEAT, Skill.COOKING, "Meat"),
+	THIN_SNAIL(ItemID.THIN_SNAIL, Skill.COOKING, "Meat"),
 	RAW_TROUT(ItemID.RAW_TROUT, Skill.COOKING, "Fish"),
+	LEAN_SNAIL(ItemID.LEAN_SNAIL, Skill.COOKING, "Meat"),
 	RAW_COD(ItemID.RAW_COD, Skill.COOKING, "Fish"),
 	RAW_PIKE(ItemID.RAW_PIKE, Skill.COOKING, "Fish"),
+	FAT_SNAIL(ItemID.FAT_SNAIL, Skill.COOKING, "Meat"),
+	RAW_BEAST_MEAT(ItemID.RAW_BEAST_MEAT, Skill.COOKING, "Meat"),
 	RAW_SALMON(ItemID.RAW_SALMON, Skill.COOKING, "Fish"),
 	RAW_TUNA(ItemID.RAW_TUNA, Skill.COOKING, "Fish"),
+	RAW_RAINBOW_FISH(ItemID.RAW_RAINBOW_FISH, Skill.COOKING, "Fish"),
 	RAW_KARAMBWAN(ItemID.RAW_KARAMBWAN, Skill.COOKING, "Fish"),
 	RAW_LOBSTER(ItemID.RAW_LOBSTER, Skill.COOKING, "Fish"),
 	RAW_BASS(ItemID.RAW_BASS, Skill.COOKING, "Fish"),
@@ -478,7 +494,7 @@ public enum ExperienceItem
 	{
 		return ITEM_ID_MAP.get(id);
 	}
-	
+
 	/**
 	 * Attaches the Item Composition to each ExperienceItem on client initial load
 	 * May be a better way to do this
