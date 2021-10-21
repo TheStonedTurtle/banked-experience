@@ -127,7 +127,14 @@ public enum Secondaries
 	/**
 	 * Prayer
 	 */
-	BUCKET_OF_SLIME(new ItemStack(ItemID.BUCKET_OF_SLIME, 1))
+	BUCKET_OF_SLIME(new ItemStack(ItemID.BUCKET_OF_SLIME, 1)),
+	/**
+	 * Thieving
+	 */
+	BEER_GLASS_5TH(new ItemStack(ItemID.BEER_GLASS, 0.2)),
+	BEER_GLASS_4TH(new ItemStack(ItemID.BEER_GLASS, 0.25)),
+	BEER_GLASS_3RD(new ItemStack(ItemID.BEER_GLASS, 1.0 / 3)),
+	BEER_GLASS_HALF(new ItemStack(ItemID.BEER_GLASS, 0.5)),
 	;
 	private final ItemStack[] items;
 	private final SecondaryHandler customHandler;

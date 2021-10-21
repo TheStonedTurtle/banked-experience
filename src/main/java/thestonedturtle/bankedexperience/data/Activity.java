@@ -1017,6 +1017,25 @@ public enum Activity
 	BURN_BLISTERWOOD(ItemID.BLISTERWOOD_LOGS, "Burn Blisterwood logs", 62, 96, ExperienceItem.FM_BLISTERWOOD_LOGS, null, null),
 	BURN_MAGIC(ItemID.MAGIC_LOGS, "Burn Magic logs", 75, 303.8, ExperienceItem.FM_MAGIC_LOGS, null, null),
 	BURN_REDWOOD(ItemID.REDWOOD_LOGS, "Burn Redwood logs", 90, 350, ExperienceItem.FM_REDWOOD_LOGS, null, null),
+	/**
+	 * Thieving
+	 */
+	WINTER_SQUIRK(ItemID.WINTER_SQIRKJUICE, "Make sq'irkjuice", 1, 0,
+		ExperienceItem.WINTER_SQIRK, Secondaries.BEER_GLASS_5TH, new ItemStack(ItemID.WINTER_SQIRKJUICE, 0.2)),
+	WINTER_SQUIRKJUICE(ItemID.WINTER_SQIRKJUICE, "Redeem sq'irkjuice", 1, 350,
+		ExperienceItem.WINTER_SQIRKJUICE, null, null),
+	SPRING_SQUIRK(ItemID.SPRING_SQIRKJUICE, "Make sq'irkjuice", 25, 0,
+		ExperienceItem.SPRING_SQIRK, Secondaries.BEER_GLASS_4TH, new ItemStack(ItemID.SPRING_SQIRKJUICE, 0.25)),
+	SPRING_SQUIRKJUICE(ItemID.SPRING_SQIRKJUICE, "Redeem sq'irkjuice", 25, 1350,
+		ExperienceItem.SPRING_SQIRKJUICE, null, null),
+	AUTUMN_SQUIRK(ItemID.AUTUMN_SQIRKJUICE, "Make sq'irkjuice", 45, 0,
+		ExperienceItem.AUTUMN_SQIRK, Secondaries.BEER_GLASS_3RD, new ItemStack(ItemID.AUTUMN_SQIRKJUICE, 1.0 / 3)),
+	AUTUMN_SQUIRKJUICE(ItemID.AUTUMN_SQIRKJUICE, "Redeem sq'irkjuice", 45, 2350,
+		ExperienceItem.AUTUMN_SQIRKJUICE, null, null),
+	SUMMER_SQUIRK(ItemID.SUMMER_SQIRKJUICE, "Make sq'irkjuice", 65, 0,
+		ExperienceItem.SUMMER_SQIRK, Secondaries.BEER_GLASS_HALF, new ItemStack(ItemID.SUMMER_SQIRKJUICE, 0.5)),
+	SUMMER_SQUIRKJUICE(ItemID.SUMMER_SQIRKJUICE, "Redeem sq'irkjuice", 65, 3000,
+		ExperienceItem.SUMMER_SQIRKJUICE, null, null),
 	;
 
 	private final int icon;
