@@ -347,7 +347,7 @@ public class ModifyPanel extends JPanel
 			final JLabel iconLabel = createImageLabel(icon);
 			iconLabel.setToolTipText(FORMAT_COMMA.format((int) qty) + " x " + a.getOutputItemInfo().getName());
 
-			final JPanel container = createShadowedLabel(iconLabel, a.getName(), null);
+			final JPanel container = createShadowedLabel(iconLabel, a.getOutputItemInfo().getName(), null);
 
 			img.onLoaded(() ->
 			{
