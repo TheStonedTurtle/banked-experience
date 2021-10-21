@@ -424,14 +424,23 @@ public enum ExperienceItem
 	 * Hunter
 	 */
 	H_LOGS(ItemID.LOGS, Skill.HUNTER, "Bird houses"),
+	BIRD_HOUSE(ItemID.BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_OAK_LOGS(ItemID.OAK_LOGS, Skill.HUNTER, "Bird houses"),
+	OAK_BIRD_HOUSE(ItemID.OAK_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_WILLOW_LOGS(ItemID.WILLOW_LOGS, Skill.HUNTER, "Bird houses"),
+	WILLOW_BIRD_HOUSE(ItemID.WILLOW_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_TEAK_LOGS(ItemID.TEAK_LOGS, Skill.HUNTER, "Bird houses"),
+	TEAK_BIRD_HOUSE(ItemID.TEAK_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_MAPLE_LOGS(ItemID.MAPLE_LOGS, Skill.HUNTER, "Bird houses"),
+	MAPLE_BIRD_HOUSE(ItemID.MAPLE_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_MAHOGANY_LOGS(ItemID.MAHOGANY_LOGS, Skill.HUNTER, "Bird houses"),
+	MAHOGANY_BIRD_HOUSE(ItemID.MAHOGANY_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_YEW_LOGS(ItemID.YEW_LOGS, Skill.HUNTER, "Bird houses"),
+	YEW_BIRD_HOUSE(ItemID.YEW_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_MAGIC_LOGS(ItemID.MAGIC_LOGS, Skill.HUNTER, "Bird houses"),
+	MAGIC_BIRD_HOUSE(ItemID.MAGIC_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	H_REDWOOD_LOGS(ItemID.REDWOOD_LOGS, Skill.HUNTER, "Bird houses"),
+	REDWOOD_BIRD_HOUSE(ItemID.REDWOOD_BIRD_HOUSE, Skill.HUNTER, "Bird houses"),
 	/**
 	 * Firemaking
 	 */
