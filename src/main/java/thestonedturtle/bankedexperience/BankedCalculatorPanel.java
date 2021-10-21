@@ -72,6 +72,7 @@ public class BankedCalculatorPanel extends PluginPanel
 		final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
 		dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
 		dropdown.setForeground(Color.WHITE);
+		dropdown.setMaximumRowCount(Activity.BANKABLE_SKILLS.size());
 		final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
 		renderer.setDefaultText("Select a Skill...");
 		dropdown.setRenderer(renderer);
