@@ -1121,7 +1121,6 @@ public enum Activity
 	 * Get all Activities for this ExperienceItem limited to level
 	 * @param item ExperienceItem to check for
 	 * @param limitLevel Level to check Activitiy requirements against. -1/0 value disables limits
-	 * @param rng boolean flag about whether to include RNG activities
 	 * @return an empty Collection if no activities
 	 */
 	public static List<Activity> getByExperienceItem(final ExperienceItem item, final int limitLevel)
