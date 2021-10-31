@@ -101,6 +101,11 @@ public enum Secondaries
 	AIR_ORB(new ItemStack(ItemID.AIR_ORB, 1)),
 	BUCKET_OF_SAND(new ItemStack(ItemID.BUCKET_OF_SAND, 1)),
 	BUCKET_OF_SAND_6(new ItemStack(ItemID.BUCKET_OF_SAND, 6)),
+	HARD_LEATHER_SHIELD(new ItemStack(ItemID.OAK_SHIELD, 1), new ItemStack(ItemID.BRONZE_NAILS, 15)),
+	COIN(new ItemStack(ItemID.COINS_995, 1)),
+	COIN_3(new ItemStack(ItemID.COINS_995, 3)),
+	LEATHER_BODY(new ItemStack(ItemID.LEATHER_BODY, 1)),
+	LEATHER_CHAPS(new ItemStack(ItemID.LEATHER_CHAPS, 1)),
 	/**
 	 * Construction
 	 */
