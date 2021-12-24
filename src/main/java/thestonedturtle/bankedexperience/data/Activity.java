@@ -982,7 +982,7 @@ public enum Activity
 	// Arrows
 	F_BRONZE_ARROW(ItemID.BRONZE_ARROW, "Bronze arrow", 1, 1,
 		ExperienceItem.F_BRONZE_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.BRONZE_ARROW, 1)),
-	F_IRON_ARROW(ItemID.IRON_ARROW, "Iron arrow", 1, 1.3,
+	F_IRON_ARROW(ItemID.IRON_ARROW, "Iron arrow", 1, 2.5,
 		ExperienceItem.F_IRON_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.IRON_ARROW, 1)),
 	F_STEEL_ARROW(ItemID.STEEL_ARROW, "Steel arrow", 30, 2.5,
 		ExperienceItem.F_STEEL_ARROWTIPS, Secondaries.HEADLESS_ARROW, new ItemStack(ItemID.STEEL_ARROW, 1)),
