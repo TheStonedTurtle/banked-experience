@@ -6,7 +6,7 @@ plugins {
 repositories {
 	mavenLocal()
 	maven {
-		url = 'http://repo.runelite.net'
+		url = 'https://repo.runelite.net'
 	}
 	mavenCentral()
 }
@@ -35,5 +35,5 @@ tasks.withType(JavaCompile) {
 }
 
 checkstyle {
-	configDir file('./')
+    configDirectory = file('./')
 }
