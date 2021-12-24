@@ -842,6 +842,8 @@ public enum Activity
 		ExperienceItem.REDWOOD_TREE_SEED, null, new ItemStack(ItemID.REDWOOD_SAPLING, 1)),
 	CRYSTAL_ACORN(ItemID.CRYSTAL_ACORN, "Crystal sapling", 74, 0,
 		ExperienceItem.CRYSTAL_ACORN, null, new ItemStack(ItemID.CRYSTAL_SAPLING, 1)),
+	HESPORI_SEED(ItemID.HESPORI_SEED, "Hespori", 65, 12662,
+			ExperienceItem.HESPORI_SEED, null, null),
 
 	OAK_SAPPLING(ItemID.OAK_SAPLING, "Oak tree", 15, 481.3,
 		ExperienceItem.OAK_SAPLING, null, null),
