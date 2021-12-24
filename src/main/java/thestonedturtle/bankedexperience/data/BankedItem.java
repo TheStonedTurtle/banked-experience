@@ -39,4 +39,14 @@ public class BankedItem
 	{
 		return item.name() + " x " + qty;
 	}
+
+	@Override
+	public boolean equals(final Object o) {
+		if (!(o instanceof BankedItem)) {
+			return false;
+		}
+
+		final BankedItem obj = (BankedItem) o;
+		return obj.getItem().equals(item) && obj.getQty() == qty;
+	}
 }

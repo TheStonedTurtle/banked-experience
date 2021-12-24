@@ -57,6 +57,7 @@ import thestonedturtle.bankedexperience.components.ModifyPanel;
 import thestonedturtle.bankedexperience.components.SecondaryGrid;
 import thestonedturtle.bankedexperience.components.SelectionGrid;
 import thestonedturtle.bankedexperience.components.SelectionListener;
+import thestonedturtle.bankedexperience.components.textinput.BoostInput;
 import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
@@ -87,7 +88,7 @@ public class BankedCalculator extends JPanel
 	private final JLabel totalXpLabel = new JLabel();
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
-	private SelectionGrid itemGrid;
+	private SelectionGrid itemGrid = new SelectionGrid();
 	private SecondaryGrid secondaryGrid;
 	private ExpandableSection modifierSection;
 	private ExpandableSection secondarySection;
@@ -111,6 +112,8 @@ public class BankedCalculator extends JPanel
 
 	@Getter
 	private int skillLevel, skillExp, endLevel, endExp;
+
+	private final BoostInput boostInput = new BoostInput(this::updateBoost);
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
 					ItemManager itemManager, ConfigManager configManager)
@@ -141,6 +144,35 @@ public class BankedCalculator extends JPanel
 				}
 			}
 		}));
+
+		itemGrid.setSelectionListener(new SelectionListener()
+		{
+			@Override
+			public boolean selected(BankedItem item)
+			{
+				modifyPanel.setBankedItem(item);
+				return true;
+			}
+
+			@Override
+			public boolean ignored(BankedItem item)
+			{
+				// Save ignored status
+				final String name = item.getItem().name();
+				final boolean existed = ignoredItems.remove(name);
+				if (!existed)
+				{
+					ignoredItems.add(name);
+				}
+				config.ignoredItems(Text.toCSV(ignoredItems));
+
+				// Update UI
+				updateLinkedItems(item.getItem().getSelectedActivity());
+				calculateBankedXpTotal();
+
+				return true;
+			}
+		});
 	}
 
 	/**
@@ -161,6 +193,10 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
+		if (!newSkill.equals(currentSkill)) {
+			boostInput.setInputValue(0);
+		}
+
 		this.currentSkill = newSkill;
 		removeAll();
 		modifierComponents.clear();
@@ -170,14 +206,15 @@ public class BankedCalculator extends JPanel
 
 		if (currentMap.size() <= 0)
 		{
-			add(new JLabel( "Please visit a bank!", JLabel.CENTER));
+			add(new JLabel("Please visit a bank!", JLabel.CENTER));
+			add(refreshBtn);
 			revalidate();
 			repaint();
 			return;
 		}
 
 		skillLevel = client.getRealSkillLevel(currentSkill);
-		skillExp =  client.getSkillExperience(currentSkill);
+		skillExp = client.getSkillExperience(currentSkill);
 		endLevel = skillLevel;
 		endExp = skillExp;
 
@@ -238,6 +275,10 @@ public class BankedCalculator extends JPanel
 		}
 		else
 		{
+			if (config.limitToCurrentLevel())
+			{
+				add(boostInput);
+			}
 			add(totalXpLabel);
 			add(xpToNextLevelLabel);
 			add(modifyPanel);
@@ -283,9 +324,9 @@ public class BankedCalculator extends JPanel
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();
-			if (a == null || (config.limitToCurrentLevel() && skillLevel < a.getLevel()))
+			if (a == null || (config.limitToCurrentLevel() && (skillLevel + boostInput.getInputValue()) < a.getLevel()))
 			{
-				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? skillLevel : -1);
+				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
 				if (activities.size() == 0)
 				{
 					item.setSelectedActivity(null);
@@ -312,35 +353,7 @@ public class BankedCalculator extends JPanel
 	private void recreateItemGrid()
 	{
 		// Selection grid will only display values with > 0 items
-		itemGrid = new SelectionGrid(this, bankedItemMap.values(), itemManager);
-		itemGrid.setSelectionListener(new SelectionListener()
-		{
-			@Override
-			public boolean selected(BankedItem item)
-			{
-				modifyPanel.setBankedItem(item);
-				return true;
-			}
-
-			@Override
-			public boolean ignored(BankedItem item)
-			{
-				// Save ignored status
-				final String name = item.getItem().name();
-				final boolean existed = ignoredItems.remove(name);
-				if (!existed)
-				{
-					ignoredItems.add(name);
-				}
-				config.ignoredItems(Text.toCSV(ignoredItems));
-
-				// Update UI
-				updateLinkedItems(item.getItem().getSelectedActivity());
-				calculateBankedXpTotal();
-
-				return true;
-			}
-		});
+		itemGrid.recreateGrid(this, bankedItemMap.values(), itemManager);
 
 		// Select the first item in the list
 		modifyPanel.setBankedItem(itemGrid.getSelectedItem());
@@ -614,5 +627,11 @@ public class BankedCalculator extends JPanel
 	private void saveActivity(final ExperienceItem item)
 	{
 		configManager.setConfiguration(BankedExperiencePlugin.CONFIG_GROUP, BankedExperiencePlugin.ACTIVITY_CONFIG_KEY + item.name(), item.getSelectedActivity().name());
+	}
+
+	private void updateBoost(Integer value) {
+		// If the item grid wasn't added then the boost input is not visible
+		recreateBankedItemMap();
+		recreateItemGrid();
 	}
 }

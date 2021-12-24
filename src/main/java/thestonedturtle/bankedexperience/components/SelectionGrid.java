@@ -24,6 +24,7 @@
  */
 package thestonedturtle.bankedexperience.components;
 
+import lombok.NoArgsConstructor;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import java.awt.GridLayout;
@@ -41,6 +42,7 @@ import net.runelite.client.util.AsyncBufferedImage;
 /**
  * A grid that supports mouse events
  */
+@NoArgsConstructor
 public class SelectionGrid extends JPanel
 {
 	private static final int ITEMS_PER_ROW = 5;
@@ -54,8 +56,9 @@ public class SelectionGrid extends JPanel
 	@Setter
 	private SelectionListener selectionListener;
 
-	public SelectionGrid(final BankedCalculator calc, final Collection<BankedItem> items, final ItemManager itemManager)
+	public void recreateGrid(final BankedCalculator calc, final Collection<BankedItem> items, final ItemManager itemManager)
 	{
+		panelMap.clear();
 		// Create a panel for every item
 		for (final BankedItem item : items)
 		{
@@ -114,6 +117,10 @@ public class SelectionGrid extends JPanel
 			{
 				gridItem.select();
 				selectedItem = gridItem.getBankedItem();
+			}
+			else if (gridItem.getBankedItem().equals(selectedItem))
+			{
+				gridItem.select();
 			}
 
 			this.add(gridItem);
