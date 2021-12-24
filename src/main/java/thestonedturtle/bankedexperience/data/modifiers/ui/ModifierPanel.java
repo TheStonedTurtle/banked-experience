@@ -49,7 +49,8 @@ public class ModifierPanel extends LabeledCheckbox implements ModifierComponent
 		super(modifier.getName());
 		this.modifier = modifier;
 
-		getButton().addItemListener((l) -> {
+		getButton().addItemListener((l) ->
+		{
 			if (modifierConsumer == null)
 			{
 				log.warn("Toggling a modifier wth no consumer: {}", modifier);

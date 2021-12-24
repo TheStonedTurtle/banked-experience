@@ -113,7 +113,7 @@ public class BankedCalculator extends JPanel
 	private int skillLevel, skillExp, endLevel, endExp;
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
-					 ItemManager itemManager, ConfigManager configManager)
+					ItemManager itemManager, ConfigManager configManager)
 	{
 		this.uiInput = uiInput;
 		this.client = client;
@@ -192,12 +192,14 @@ public class BankedCalculator extends JPanel
 		for (final Modifier modifier : Modifiers.getBySkill(this.currentSkill))
 		{
 			final ModifierComponent c = modifier.generateModifierComponent();
-			c.setModifierConsumer((mod, newState) -> {
+			c.setModifierConsumer((mod, newState) ->
+			{
 				// Only need to check other modifiers if this one is enabled
 				if (newState)
 				{
 					// Disable any non-compatible modifications
-					modifierComponents.forEach(component -> {
+					modifierComponents.forEach(component ->
+					{
 						// Modifier not enabled or modifiers are compatible with each other
 						if (!component.isModifierEnabled() || (component.getModifier().compatibleWith(mod) && mod.compatibleWith(component.getModifier())))
 						{

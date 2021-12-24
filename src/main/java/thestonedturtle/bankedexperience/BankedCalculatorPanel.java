@@ -52,7 +52,7 @@ public class BankedCalculatorPanel extends PluginPanel
 	private final BankedCalculator calculator;
 
 	public BankedCalculatorPanel(Client client, BankedExperienceConfig config, SkillIconManager skillIconManager,
-								 ItemManager itemManager, ConfigManager configManager)
+								ItemManager itemManager, ConfigManager configManager)
 	{
 		super();
 

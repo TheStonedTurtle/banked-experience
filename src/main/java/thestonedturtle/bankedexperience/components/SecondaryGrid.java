@@ -97,7 +97,7 @@ public class SecondaryGrid extends JPanel
 					.append(" x ")
 					.append(info.getBankedItem().getItem().getItemInfo().getName());
 			}
-			calc.getItemManager().getImage(itemID, (int) Math.round(qty),qty > 0).addTo(label);
+			calc.getItemManager().getImage(itemID, (int) Math.round(qty), qty > 0).addTo(label);
 
 			final ItemInfo info = infoMap.get(itemID);
 			final String itemName = info == null ? "" : info.getName();
