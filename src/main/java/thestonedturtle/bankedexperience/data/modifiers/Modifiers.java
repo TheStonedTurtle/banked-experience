@@ -112,7 +112,7 @@ public final class Modifiers
 			{
 				if (modifier instanceof StaticModifier)
 				{
-					return false;
+					return !this.touchesSameActivity(modifier);
 				}
 
 				return super.compatibleWith(modifier);

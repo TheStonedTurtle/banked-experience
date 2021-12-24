@@ -69,6 +69,11 @@ public class StaticModifier extends Modifier
 			return true;
 		}
 
-		return !(modifier instanceof StaticModifier);
+		// Static Modifiers can be compatible with each other if they do not affect the same activity
+		if (modifier instanceof StaticModifier) {
+			return !this.touchesSameActivity(modifier);
+		}
+
+		return true;
 	}
 }

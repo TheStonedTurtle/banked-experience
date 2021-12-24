@@ -116,4 +116,29 @@ public abstract class Modifier
 	{
 		return true;
 	}
+
+	/**
+	 * Determines if the current modifier and the passed modifier touch any of the same activities
+	 * @param modifier Other modifier to check included activities against
+	 * @return Whether the modifiers touch any of the same activities
+	 */
+	public boolean touchesSameActivity(final Modifier modifier) {
+		if (!modifier.getSkill().equals(this.getSkill())) {
+			return false;
+		}
+
+		// If either modifier includes all activities for this skill they are not compatible with any other modifier for the same skill
+		if (modifier.getIncludedActivities().size() == 0 || this.getIncludedActivities().size() == 0) {
+			return true;
+		}
+
+		// If they touch the same activity they are not compatible
+		for (Activity a : modifier.getIncludedActivities()) {
+			if (this.getIncludedActivities().contains(a)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
