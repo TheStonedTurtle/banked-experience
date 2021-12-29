@@ -195,6 +195,7 @@ public class BankedCalculator extends JPanel
 
 		if (!newSkill.equals(currentSkill)) {
 			boostInput.setInputValue(0);
+			itemGrid.setSelectedItem(null);
 		}
 
 		this.currentSkill = newSkill;

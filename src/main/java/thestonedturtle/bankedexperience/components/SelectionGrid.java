@@ -51,6 +51,7 @@ public class SelectionGrid extends JPanel
 	private final Map<BankedItem, GridItem> panelMap = new LinkedHashMap<>();
 
 	@Getter
+	@Setter
 	private BankedItem selectedItem;
 
 	@Setter
