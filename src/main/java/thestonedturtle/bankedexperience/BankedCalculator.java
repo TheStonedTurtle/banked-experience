@@ -113,6 +113,7 @@ public class BankedCalculator extends JPanel
 	@Getter
 	private int skillLevel, skillExp, endLevel, endExp;
 
+	@Getter
 	private final BoostInput boostInput = new BoostInput(this::updateBoost);
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,

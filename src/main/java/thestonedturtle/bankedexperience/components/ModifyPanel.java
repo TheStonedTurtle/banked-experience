@@ -234,7 +234,7 @@ public class ModifyPanel extends JPanel
 		adjustContainer.add(label, c);
 		c.gridy++;
 
-		final int level = calc.getConfig().limitToCurrentLevel() ? calc.getSkillLevel() : -1;
+		final int level = calc.getConfig().limitToCurrentLevel() ? (calc.getSkillLevel() + calc.getBoostInput().getInputValue()) : -1;
 		final List<Activity> activities = Activity.getByExperienceItem(bankedItem.getItem(), level);
 		if (activities == null || activities.size() == 0)
 		{
