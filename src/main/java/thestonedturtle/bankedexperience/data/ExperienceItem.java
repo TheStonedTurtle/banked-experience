@@ -307,6 +307,8 @@ public enum ExperienceItem
 	SEAWEED(ItemID.SEAWEED, Skill.CRAFTING, "Misc"),
 	SODA_ASH(ItemID.SODA_ASH, Skill.CRAFTING, "Misc"),
 	GIANT_SEAWEED(ItemID.GIANT_SEAWEED, Skill.CRAFTING, "Misc"),
+	// Other
+	SILVER_BAR(ItemID.SILVER_BAR, Skill.CRAFTING, "Other"),
 	/**
 	 * Smithing
 	 */
