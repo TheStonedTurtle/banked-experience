@@ -66,7 +66,7 @@ import thestonedturtle.bankedexperience.data.Secondaries;
 public class ModifyPanel extends JPanel
 {
 	private static final Dimension ICON_SIZE = new Dimension(Constants.ITEM_SPRITE_WIDTH + 4, Constants.ITEM_SPRITE_HEIGHT);
-	private static final DecimalFormat FORMAT_COMMA = new DecimalFormat("#,###.#");
+	private static final DecimalFormat FORMAT_COMMA = new DecimalFormat("#,###.##");
 
 	private static final Border PANEL_BORDER = new EmptyBorder(3, 0, 3, 0);
 	private static final Color BACKGROUND_COLOR = ColorScheme.DARKER_GRAY_COLOR;

@@ -129,6 +129,15 @@ public enum Secondaries
 	BOW_STRING(new ItemStack(ItemID.BOW_STRING, 1)),
 	FEATHER(new ItemStack(ItemID.FEATHER, 1)),
 	HEADLESS_ARROW(new ItemStack(ItemID.HEADLESS_ARROW, 1)),
+	CROSSBOW_STRING(new ItemStack(ItemID.CROSSBOW_STRING, 1)),
+	BRONZE_LIMBS(new ItemStack(ItemID.BRONZE_LIMBS, 1)),
+	BLURITE_LIMBS(new ItemStack(ItemID.BLURITE_LIMBS, 1)),
+	IRON_LIMBS(new ItemStack(ItemID.IRON_LIMBS, 1)),
+	STEEL_LIMBS(new ItemStack(ItemID.STEEL_LIMBS, 1)),
+	MITHRIL_LIMBS(new ItemStack(ItemID.MITHRIL_LIMBS, 1)),
+	ADAMANTITE_LIMBS(new ItemStack(ItemID.ADAMANTITE_LIMBS, 1)),
+	RUNITE_LIMBS(new ItemStack(ItemID.RUNITE_LIMBS, 1)),
+	DRAGON_LIMBS(new ItemStack(ItemID.DRAGON_LIMBS, 1)),
 	/**
 	 * Prayer
 	 */
