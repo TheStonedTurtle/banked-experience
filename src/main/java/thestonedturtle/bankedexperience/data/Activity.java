@@ -402,6 +402,8 @@ public enum Activity
 		ExperienceItem.ENSOULED_TZHAAR_HEAD, null, null),
 	ENSOULED_DEMON_HEAD(ItemID.ENSOULED_DEMON_HEAD_13502, "Ensouled demon head", 1, 1170.0,
 		ExperienceItem.ENSOULED_DEMON_HEAD, null, null),
+	ENSOULED_HELLHOUND_HEAD(ItemID.ENSOULED_HELLHOUND_HEAD_26997, "Ensouled hellhound head", 1, 1200,
+		ExperienceItem.ENSOULED_HELLHOUND_HEAD, null, null),
 	ENSOULED_AVIANSIE_HEAD(ItemID.ENSOULED_AVIANSIE_HEAD_13505, "Ensouled aviansie head", 1, 1234.0,
 		ExperienceItem.ENSOULED_AVIANSIE_HEAD, null, null),
 	ENSOULED_ABYSSAL_HEAD(ItemID.ENSOULED_ABYSSAL_HEAD_13508, "Ensouled abyssal head", 1, 1300.0,
