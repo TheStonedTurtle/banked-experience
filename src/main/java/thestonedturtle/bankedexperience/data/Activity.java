@@ -743,6 +743,15 @@ public enum Activity
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_BRACELET, 1)),
 	GOLD_AMULET_U(ItemID.GOLD_AMULET_U, "Gold amulet (u)", 8, 30,
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_AMULET_U, 1)),
+	//Amethyst
+	AMETHYST_BOLT_TIPS(ItemID.AMETHYST_BOLT_TIPS, "Amethyst bolt tips", 83, 60,
+			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 15)),
+	AMETHYST_ARROWTIPS(ItemID.AMETHYST_ARROWTIPS, "Amethyst arrowtips", 85, 60,
+			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_ARROWTIPS, 15)),
+	AMETHYST_JAVELIN_HEADS(ItemID.AMETHYST_JAVELIN_HEADS, "Amethyst javelin heads", 87, 60,
+			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 5)),
+	AMETHYST_DART_TIP(ItemID.AMETHYST_DART_TIP, "Amethyst dart tips", 89, 60,
+			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 8)),
 	// RNG section
 	// Soda Ash
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 20,
