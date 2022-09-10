@@ -745,6 +745,8 @@ public enum Activity
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_BRACELET, 1)),
 	GOLD_AMULET_U(ItemID.GOLD_AMULET_U, "Gold amulet (u)", 8, 30,
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_AMULET_U, 1)),
+	GOLD_TIARA(ItemID.GOLD_TIARA, "Gold tiara", 42, 35,
+			ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_TIARA, 1)),
 	//Amethyst
 	AMETHYST_BOLT_TIPS(ItemID.AMETHYST_BOLT_TIPS, "Amethyst bolt tips", 83, 60,
 			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 15)),
