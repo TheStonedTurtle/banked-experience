@@ -582,6 +582,19 @@ public class BankedCalculator extends JPanel
 		return currentMap.getOrDefault(id, 0);
 	}
 
+	public void resetInventoryMaps()
+	{
+		inventoryMap.clear();
+		updateCurrentMap();
+		open(currentSkill, true);
+
+		// Reset experience level stuff
+		uiInput.setCurrentLevelInput(1);
+		uiInput.setCurrentXPInput(0);
+		uiInput.setTargetLevelInput(1);
+		uiInput.setTargetXPInput(0);
+	}
+
 	void setInventoryMap(final int inventoryId, final Map<Integer, Integer> map)
 	{
 		inventoryMap.put(inventoryId, map);

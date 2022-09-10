@@ -12,6 +12,7 @@ import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.events.AccountHashChanged;
 import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.WidgetLoaded;
 import net.runelite.api.widgets.Widget;
@@ -78,6 +79,7 @@ public class BankedExperiencePlugin extends Plugin
 	private NavigationButton navButton;
 	private BankedCalculatorPanel panel;
 	private boolean prepared = false;
+	private long accountHash = -1;
 
 	@Override
 	protected void startUp() throws Exception
@@ -91,6 +93,8 @@ public class BankedExperiencePlugin extends Plugin
 			.build();
 
 		clientToolbar.addNavigation(navButton);
+
+		accountHash = client.getAccountHash();
 
 		if (!prepared)
 		{
@@ -125,6 +129,7 @@ public class BankedExperiencePlugin extends Plugin
 		panel = null;
 		navButton = null;
 		inventoryHashMap.clear();
+		accountHash = -1;
 	}
 
 	@Subscribe
@@ -202,6 +207,19 @@ public class BankedExperiencePlugin extends Plugin
 		}
 
 		updateInventoryMap(widgetInfo.getId(), m);
+	}
+
+	@Subscribe
+	public void onAccountHashChanged(AccountHashChanged e)
+	{
+		if (accountHash == client.getAccountHash())
+		{
+			return;
+		}
+		accountHash = client.getAccountHash();
+		inventoryHashMap.clear();
+
+		SwingUtilities.invokeLater(panel::resetInventoryMaps);
 	}
 
 	private void updateItemsFromItemContainer(final int inventoryId, final ItemContainer c)
