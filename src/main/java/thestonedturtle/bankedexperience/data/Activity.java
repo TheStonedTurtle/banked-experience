@@ -911,6 +911,9 @@ public enum Activity
 	// General
 	F_HEADLESS_ARROWS(ItemID.HEADLESS_ARROW, "Headless arrow", 1, 1,
 		ExperienceItem.F_ARROW_SHAFT, Secondaries.FEATHER, new ItemStack(ItemID.HEADLESS_ARROW, 1)),
+	F_BATTLESTAFF(ItemID.BATTLESTAFF, "Battlestaff", 40, 80,
+		ExperienceItem.F_CELASTRUS_BARK, null, new ItemStack(ItemID.CELASTRUS_BARK, 1)),
+	
 	// Logs
 	F_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 1, 5,
 		ExperienceItem.F_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 15)),
