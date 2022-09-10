@@ -184,7 +184,7 @@ public class BankedExperiencePlugin extends Plugin
 		}
 
 		final Widget w = client.getWidget(widgetInfo.getGroupId(), widgetInfo.getChildId());
-		if (w == null)
+		if (w == null || w.getChildren() == null)
 		{
 			return;
 		}
