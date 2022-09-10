@@ -1104,6 +1104,9 @@ public enum Activity
 		ExperienceItem.F_RUNITE_CROSSBOW_U, Secondaries.CROSSBOW_STRING, new ItemStack(ItemID.RUNE_CROSSBOW, 1)),
 	F_DRAGON_CROSSBOW(ItemID.DRAGON_CROSSBOW_U, "Dragon crossbow", 78, 70,
 		ExperienceItem.F_DRAGON_CROSSBOW_U, Secondaries.CROSSBOW_STRING, new ItemStack(ItemID.DRAGON_CROSSBOW, 1)),
+	// Other
+	F_BATTLESTAFF(ItemID.BATTLESTAFF, "Battlestaff", 40, 80,
+		ExperienceItem.F_CELASTRUS_BARK, null, new ItemStack(ItemID.BATTLESTAFF, 1)),
 	/**
 	 * Hunter
 	 */

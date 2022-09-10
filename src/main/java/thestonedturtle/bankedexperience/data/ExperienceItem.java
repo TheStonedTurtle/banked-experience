@@ -452,6 +452,8 @@ public enum ExperienceItem
 	F_ADAMANTITE_CROSSBOW_U(ItemID.ADAMANT_CROSSBOW_U, Skill.FLETCHING, "Unstrung Crossbow"),
 	F_RUNITE_CROSSBOW_U(ItemID.RUNITE_CROSSBOW_U, Skill.FLETCHING, "Unstrung Crossbow"),
 	F_DRAGON_CROSSBOW_U(ItemID.DRAGON_CROSSBOW_U, Skill.FLETCHING, "Unstrung Crossbow"),
+	// Battlestaves
+	F_CELASTRUS_BARK(ItemID.CELASTRUS_BARK, Skill.FLETCHING, "Other"),
 	/**
 	 * Hunter
 	 */
