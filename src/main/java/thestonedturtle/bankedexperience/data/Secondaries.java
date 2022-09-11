@@ -25,6 +25,7 @@
 package thestonedturtle.bankedexperience.data;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import net.runelite.api.ItemID;
 
 @Getter
@@ -81,6 +82,8 @@ public enum Secondaries
 	STAMINA_POTION(new ByDose(ItemID.SUPER_ENERGY1, ItemID.SUPER_ENERGY2, ItemID.SUPER_ENERGY3, ItemID.SUPER_ENERGY4)),
 	EXTENDED_ANTIFIRE(new ByDose(ItemID.ANTIFIRE_POTION1, ItemID.ANTIFIRE_POTION2, ItemID.ANTIFIRE_POTION3, ItemID.ANTIFIRE_POTION4)),
 	EXTENDED_SUPER_ANTIFIRE(new ByDose(ItemID.SUPER_ANTIFIRE_POTION1, ItemID.SUPER_ANTIFIRE_POTION2, ItemID.SUPER_ANTIFIRE_POTION3, ItemID.SUPER_ANTIFIRE_POTION4)),
+	// Degrime
+	DEGRIME(new Degrime()),
 	/**
 	 * Smithing
 	 */
@@ -170,6 +173,22 @@ public enum Secondaries
 		{
 			this.items = items;
 			this.infoItems =  new ItemStack[]{new ItemStack(items[0], 0)};
+		}
+	}
+
+	@NoArgsConstructor
+	public static class Degrime implements SecondaryHandler
+	{
+		@Getter
+		private final ItemStack[] infoItems = new ItemStack[0];
+
+		public int getTotalNaturesRequired(int itemCount)
+		{
+			// Assume each spell cast is being maximally efficient by using a earth staff, 1 slot of natures, and 27 for herbs
+			final int requiredCasts = (int) Math.ceil(itemCount / 27.0d);
+
+			// 1 spell cast requires at least 2 nature runes.
+			return requiredCasts * 2;
 		}
 	}
 

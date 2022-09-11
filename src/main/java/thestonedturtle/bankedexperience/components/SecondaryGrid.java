@@ -161,6 +161,12 @@ public class SecondaryGrid extends JPanel
 				qtyMap.merge(firstId, (double) bankedQty, Double::sum);
 				infoMap.put(firstId, byDose.getInfoItems()[0].getInfo());
 			}
+			else if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
+			{
+				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
+				qtyMap.merge(ItemID.NATURE_RUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
+				infoMap.put(ItemID.NATURE_RUNE, new ItemInfo("Nature rune", true));
+			}
 			else
 			{
 				for (final ItemStack stack : secondaries.getItems())
