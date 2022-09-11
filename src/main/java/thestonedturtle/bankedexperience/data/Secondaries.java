@@ -74,6 +74,7 @@ public enum Secondaries
 	MAGIC_POTION(new ItemStack(ItemID.POTATO_CACTUS, 1)),
 	// Dwarf Weed
 	RANGING_POTION(new ItemStack(ItemID.WINE_OF_ZAMORAK, 1)),
+	MENAPHITE_REMEDY(new ItemStack(ItemID.LILY_OF_THE_SANDS, 1)),
 	// Torstol
 	ZAMORAK_BREW(new ItemStack(ItemID.JANGERBERRIES, 1)),
 	SUPER_COMBAT_POTION(new ItemStack(ItemID.SUPER_ATTACK4, 1), new ItemStack(ItemID.SUPER_STRENGTH4, 1), new ItemStack(ItemID.SUPER_DEFENCE4, 1)),

@@ -153,6 +153,8 @@ public enum Activity
 		ExperienceItem.DWARF_WEED, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.DWARF_WEED_POTION_UNF, 1)),
 	RANGING_POTION(ItemID.RANGING_POTION3, "Ranging potion", 72, 162.5,
 		ExperienceItem.DWARF_WEED_POTION_UNF, Secondaries.RANGING_POTION, new ItemStack(ItemID.RANGING_POTION3, 1)),
+	MENAPHITE_REMEDY(ItemID.MENAPHITE_REMEDY3, "Menaphite remedy", 88, 200,
+		ExperienceItem.DWARF_WEED_POTION_UNF, Secondaries.MENAPHITE_REMEDY, new ItemStack(ItemID.MENAPHITE_REMEDY3, 1)),
 	// Torstol
 	TORSTOL_POTION_UNF(ItemID.TORSTOL_POTION_UNF, "Unfinished potion", 78, 0,
 		ExperienceItem.TORSTOL, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.TORSTOL_POTION_UNF, 1)),
