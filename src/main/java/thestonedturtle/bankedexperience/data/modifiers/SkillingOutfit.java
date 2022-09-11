@@ -170,4 +170,13 @@ public class SkillingOutfit extends ConsumptionModifier implements ModifierCompo
 	{
 		return this;
 	}
+
+	// Used to add additional text to the tooltip text
+	public void setTooltip(String tooltip)
+	{
+		panel.setToolTipText("<html>Increases xp gained while worn."
+			+ "<br/>The full set increases the bonus by 0.5% for 2.5% instead of 2% bonus xp"
+			+ "<br/>" + tooltip
+			+ "</html>");
+	}
 }

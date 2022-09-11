@@ -128,8 +128,10 @@ public final class Modifiers
 			Activity.LONG_BONE, Activity.CURVED_BONE,
 			Activity.MAHOGANY_HOMES_PLANK, Activity.MAHOGANY_HOMES_OAK, Activity.MAHOGANY_HOMES_TEAK, Activity.MAHOGANY_HOMES_MAHOGANY
 		);
-		addModifier(new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit",
-			null, excludeCarpenters, manager, compositions.get(ItemID.CARPENTERS_HELMET)));
+		final SkillingOutfit conOutfit = new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit",
+			null, excludeCarpenters, manager, compositions.get(ItemID.CARPENTERS_HELMET));
+		conOutfit.setTooltip("<br/>Does not work with Mahogany Homes, see github issue #53 for more info");
+		addModifier(conOutfit);
 
 		// Firemaking
 		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
