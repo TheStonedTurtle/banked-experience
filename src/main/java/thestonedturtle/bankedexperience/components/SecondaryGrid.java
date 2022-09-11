@@ -37,6 +37,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.Value;
+import net.runelite.api.ItemID;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
@@ -110,6 +111,7 @@ public class SecondaryGrid extends JPanel
 				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
 
+			label.setBackground(result > 0 ? GridItem.SELECTED_BACKGROUND : GridItem.IGNORED_BACKGROUND);
 			add(label);
 		}
 	}

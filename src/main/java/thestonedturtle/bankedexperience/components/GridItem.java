@@ -52,10 +52,10 @@ public class GridItem extends JLabel
 	private static final Color UNSELECTED_BACKGROUND = ColorScheme.DARKER_GRAY_COLOR;
 	private static final Color UNSELECTED_HOVER_BACKGROUND = ColorScheme.DARKER_GRAY_HOVER_COLOR;
 
-	private static final Color SELECTED_BACKGROUND = new Color(0, 70, 0);
+	public static final Color SELECTED_BACKGROUND = new Color(0, 70, 0);
 	private static final Color SELECTED_HOVER_BACKGROUND =  new Color(0, 100, 0);
 
-	private static final Color IGNORED_BACKGROUND = new Color(90, 0, 0);
+	public static final Color IGNORED_BACKGROUND = new Color(90, 0, 0);
 	private static final Color IGNORED_HOVER_BACKGROUND = new Color(120, 0, 0);
 
 	private static final Color RNG_BACKGROUND = new Color(140, 90, 0);
