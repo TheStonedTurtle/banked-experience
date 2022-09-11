@@ -586,6 +586,10 @@ public class BankedCalculator extends JPanel
 	{
 		inventoryMap.clear();
 		updateCurrentMap();
+		if (currentSkill == null)
+		{
+			return;
+		}
 		open(currentSkill, true);
 
 		// Reset experience level stuff
