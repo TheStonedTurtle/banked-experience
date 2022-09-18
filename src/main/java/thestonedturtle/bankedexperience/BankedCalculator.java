@@ -26,6 +26,8 @@ package thestonedturtle.bankedexperience;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -94,6 +96,9 @@ public class BankedCalculator extends JPanel
 	private ExpandableSection secondarySection;
 	private final JButton refreshBtn;
 
+	private final JButton ignoreAllBtn;
+	private final JButton includeAllBtn;
+
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
 	// keep sources separate for recreating currentMap when one updates
@@ -146,6 +151,35 @@ public class BankedCalculator extends JPanel
 			}
 		}));
 
+		this.ignoreAllBtn = new JButton("Ignore all");
+		ignoreAllBtn.setFocusable(false);
+		// setIgnoreAllItems
+		ignoreAllBtn.addMouseListener((new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				if (e.getButton() == MouseEvent.BUTTON1)
+				{
+					setIgnoreAllItems(true);
+				}
+			}
+		}));
+
+		this.includeAllBtn = new JButton("Include all");
+		includeAllBtn.setFocusable(false);
+		includeAllBtn.addMouseListener((new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				if (e.getButton() == MouseEvent.BUTTON1)
+				{
+					setIgnoreAllItems(false);
+				}
+			}
+		}));
+
 		itemGrid.setSelectionListener(new SelectionListener()
 		{
 			@Override
@@ -158,19 +192,10 @@ public class BankedCalculator extends JPanel
 			@Override
 			public boolean ignored(BankedItem item)
 			{
-				// Save ignored status
-				final String name = item.getItem().name();
-				final boolean existed = ignoredItems.remove(name);
-				if (!existed)
-				{
-					ignoredItems.add(name);
-				}
-				config.ignoredItems(Text.toCSV(ignoredItems));
-
+				addBankedItemToIgnore(item);
 				// Update UI
 				updateLinkedItems(item.getItem().getSelectedActivity());
 				calculateBankedXpTotal();
-
 				return true;
 			}
 		});
@@ -303,6 +328,13 @@ public class BankedCalculator extends JPanel
 					add(secondarySection);
 				}
 			}
+		}
+
+		if (config.showBulkActions()) {
+			JPanel bulkActionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+			bulkActionPanel.add(this.includeAllBtn);
+			bulkActionPanel.add(this.ignoreAllBtn);
+			add(bulkActionPanel);
 		}
 
 		add(refreshBtn);
@@ -652,5 +684,24 @@ public class BankedCalculator extends JPanel
 		// If the item grid wasn't added then the boost input is not visible
 		recreateBankedItemMap();
 		recreateItemGrid();
+	}
+
+	private void addBankedItemToIgnore(BankedItem item) {
+		final String name = item.getItem().name();
+		final boolean existed = ignoredItems.remove(name);
+		if (!existed)
+		{
+			ignoredItems.add(name);
+		}
+		config.ignoredItems(Text.toCSV(ignoredItems));
+	}
+
+	private void setIgnoreAllItems(Boolean ignored) {
+		for (final GridItem i : itemGrid.getPanelMap().values())
+		{
+			i.setIgnore(ignored);
+			updateLinkedItems(i.getBankedItem().getItem().getSelectedActivity());
+		}
+		calculateBankedXpTotal();
 	}
 }

@@ -200,4 +200,10 @@ public class GridItem extends JLabel
 
 		return tip + "</html>";
 	}
+
+	public void setIgnore(Boolean ignored) {
+		this.ignored = ignored;
+		IGNORE_OPTION.setText(ignored ? INCLUDE : IGNORE);
+		this.setBackground(this.getBackgroundColor());
+	}
 }
