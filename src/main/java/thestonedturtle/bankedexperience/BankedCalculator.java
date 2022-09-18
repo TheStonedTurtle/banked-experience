@@ -27,7 +27,7 @@ package thestonedturtle.bankedexperience;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import java.awt.*;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -153,7 +153,6 @@ public class BankedCalculator extends JPanel
 
 		this.ignoreAllBtn = new JButton("Ignore all");
 		ignoreAllBtn.setFocusable(false);
-		// setIgnoreAllItems
 		ignoreAllBtn.addMouseListener((new MouseAdapter()
 		{
 			@Override
@@ -328,13 +327,13 @@ public class BankedCalculator extends JPanel
 					add(secondarySection);
 				}
 			}
-		}
 
-		if (config.showBulkActions()) {
-			JPanel bulkActionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-			bulkActionPanel.add(this.includeAllBtn);
-			bulkActionPanel.add(this.ignoreAllBtn);
-			add(bulkActionPanel);
+			if (config.showBulkActions()) {
+				JPanel bulkActionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+				bulkActionPanel.add(this.includeAllBtn);
+				bulkActionPanel.add(this.ignoreAllBtn);
+				add(bulkActionPanel);
+			}
 		}
 
 		add(refreshBtn);
