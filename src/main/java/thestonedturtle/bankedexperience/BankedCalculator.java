@@ -151,7 +151,7 @@ public class BankedCalculator extends JPanel
 			}
 		}));
 
-		this.ignoreAllBtn = new JButton("Ignore all");
+		this.ignoreAllBtn = new JButton("Ignore All");
 		ignoreAllBtn.setFocusable(false);
 		ignoreAllBtn.addMouseListener((new MouseAdapter()
 		{
@@ -165,7 +165,7 @@ public class BankedCalculator extends JPanel
 			}
 		}));
 
-		this.includeAllBtn = new JButton("Include all");
+		this.includeAllBtn = new JButton("Include All");
 		includeAllBtn.setFocusable(false);
 		includeAllBtn.addMouseListener((new MouseAdapter()
 		{
