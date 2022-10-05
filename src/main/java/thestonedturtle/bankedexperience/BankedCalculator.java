@@ -96,9 +96,6 @@ public class BankedCalculator extends JPanel
 	private ExpandableSection secondarySection;
 	private final JButton refreshBtn;
 
-	private final JButton ignoreAllBtn;
-	private final JButton includeAllBtn;
-
 	// Store items from all sources in the same map
 	private final Map<Integer, Integer> currentMap = new HashMap<>();
 	// keep sources separate for recreating currentMap when one updates
@@ -151,34 +148,6 @@ public class BankedCalculator extends JPanel
 			}
 		}));
 
-		this.ignoreAllBtn = new JButton("Ignore All");
-		ignoreAllBtn.setFocusable(false);
-		ignoreAllBtn.addMouseListener((new MouseAdapter()
-		{
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				if (e.getButton() == MouseEvent.BUTTON1)
-				{
-					setIgnoreAllItems(true);
-				}
-			}
-		}));
-
-		this.includeAllBtn = new JButton("Include All");
-		includeAllBtn.setFocusable(false);
-		includeAllBtn.addMouseListener((new MouseAdapter()
-		{
-			@Override
-			public void mousePressed(MouseEvent e)
-			{
-				if (e.getButton() == MouseEvent.BUTTON1)
-				{
-					setIgnoreAllItems(false);
-				}
-			}
-		}));
-
 		itemGrid.setSelectionListener(new SelectionListener()
 		{
 			@Override
@@ -191,17 +160,12 @@ public class BankedCalculator extends JPanel
 			@Override
 			public boolean ignored(BankedItem item)
 			{
-				// Save ignored status
-				final String name = item.getItem().name();
-				final boolean existed = ignoredItems.remove(name);
-				if (!existed)
-				{
-					ignoredItems.add(name);
-				}
+				toggleIgnoreBankedItem(item);
+
+				// Update Config
 				config.ignoredItems(Text.toCSV(ignoredItems));
 
 				// Update UI
-				updateLinkedItems(item.getItem().getSelectedActivity());
 				calculateBankedXpTotal();
 
 				return true;
@@ -339,8 +303,6 @@ public class BankedCalculator extends JPanel
 
 			if (config.showBulkActions()) {
 				JPanel bulkActionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-				bulkActionPanel.add(this.includeAllBtn);
-				bulkActionPanel.add(this.ignoreAllBtn);
 				add(bulkActionPanel);
 			}
 		}
@@ -694,20 +656,42 @@ public class BankedCalculator extends JPanel
 		recreateItemGrid();
 	}
 
-	private void setIgnoreAllItems(Boolean ignored) {
-		for (final GridItem i : itemGrid.getPanelMap().values())
+	private void ignoreBankedItem(BankedItem item, boolean ignored)
+	{
+		final String name = item.getItem().name();
+		if (ignored)
 		{
-			i.setIgnore(ignored);
-
-			final String name = i.getBankedItem().getItem().name();
-			if (ignored) {
-				ignoredItems.add(name);
-			} else {
-				ignoredItems.remove(name);
-			}
-			updateLinkedItems(i.getBankedItem().getItem().getSelectedActivity());
+			ignoredItems.add(name);
 		}
+		else
+		{
+			ignoredItems.remove(name);
+		}
+
+		updateLinkedItems(item.getItem().getSelectedActivity());
+	}
+
+
+	private void toggleIgnoreBankedItem(BankedItem item)
+	{
+		boolean ignore = !ignoredItems.contains(item.getItem().name());
+		ignoreBankedItem(item, ignore);
+	}
+
+
+
+	public void setIgnoreAllItems(boolean ignored)
+	{
+		itemGrid.getPanelMap().values().forEach((i) ->
+		{
+			ignoreBankedItem(i.getBankedItem(), ignored);
+			i.setIgnore(ignored);
+		});
+
+		// Update Config
 		config.ignoredItems(Text.toCSV(ignoredItems));
+
+		// Update UI
 		calculateBankedXpTotal();
 	}
 }
