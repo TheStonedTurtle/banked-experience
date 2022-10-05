@@ -664,14 +664,11 @@ public class BankedCalculator extends JPanel
 		updateLinkedItems(item.getItem().getSelectedActivity());
 	}
 
-
 	private void toggleIgnoreBankedItem(BankedItem item)
 	{
 		boolean ignore = !ignoredItems.contains(item.getItem().name());
 		ignoreBankedItem(item, ignore);
 	}
-
-
 
 	public void setIgnoreAllItems(boolean ignored)
 	{

@@ -75,15 +75,11 @@ public class GridItem extends JLabel
 	private boolean rng;
 
 	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
-
 	private final JMenuItem IGNORE_ALL_OPTION = new JMenuItem(IGNORE_ALL);
-
 	private final JMenuItem INCLUDE_ALL_OPTION = new JMenuItem(INCLUDE_ALL);
 
-
 	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount,
-			 final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback,
-			 final boolean showBulkActions)
+			 final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback)
 	{
 		super("");
 
@@ -133,30 +129,29 @@ public class GridItem extends JLabel
 
 		IGNORE_OPTION.addActionListener(e ->
 		{
+			ignored = !ignored;
 			if (selectionListener != null && !selectionListener.ignored(item))
 			{
+				ignored = !ignored;
 				return;
 			}
 
-			setIgnore(!ignored);
+			setIgnore(ignored);
 		});
 
+		IGNORE_ALL_OPTION.addActionListener(e -> {
+			bulkIgnoreCallback.accept(true);
+		});
+
+		INCLUDE_ALL_OPTION.addActionListener(e -> {
+			bulkIgnoreCallback.accept(false);
+		});
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		popupMenu.add(IGNORE_OPTION);
-		if (showBulkActions) {
-			IGNORE_ALL_OPTION.addActionListener(e -> {
-				bulkIgnoreCallback.accept(true);
-			});
-
-			INCLUDE_ALL_OPTION.addActionListener(e -> {
-				bulkIgnoreCallback.accept(false);
-			});
-
-			popupMenu.add(INCLUDE_ALL_OPTION);
-			popupMenu.add(IGNORE_ALL_OPTION);
-		}
+		popupMenu.add(INCLUDE_ALL_OPTION);
+		popupMenu.add(IGNORE_ALL_OPTION);
 
 		this.setComponentPopupMenu(popupMenu);
 	}
