@@ -27,7 +27,6 @@ package thestonedturtle.bankedexperience;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
-import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -299,11 +298,6 @@ public class BankedCalculator extends JPanel
 				{
 					add(secondarySection);
 				}
-			}
-
-			if (config.showBulkActions()) {
-				JPanel bulkActionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-				add(bulkActionPanel);
 			}
 		}
 
