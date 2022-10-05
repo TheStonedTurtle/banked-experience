@@ -131,15 +131,12 @@ public class GridItem extends JLabel
 
 		IGNORE_OPTION.addActionListener(e ->
 		{
-			ignored = !ignored;
 			if (selectionListener != null && !selectionListener.ignored(item))
 			{
-				ignored = !ignored;
 				return;
 			}
 
-			IGNORE_OPTION.setText(ignored ? INCLUDE : IGNORE);
-			setBackground(getBackgroundColor());
+			setIgnore(!ignored);
 		});
 
 		IGNORE_ALL_OPTION.addActionListener(e -> {
