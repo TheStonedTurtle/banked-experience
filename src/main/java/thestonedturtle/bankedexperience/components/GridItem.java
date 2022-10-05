@@ -81,7 +81,9 @@ public class GridItem extends JLabel
 	private final JMenuItem INCLUDE_ALL_OPTION = new JMenuItem(INCLUDE_ALL);
 
 
-	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback, final boolean showBulkActions)
+	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount,
+			 final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback,
+			 final boolean showBulkActions)
 	{
 		super("");
 
