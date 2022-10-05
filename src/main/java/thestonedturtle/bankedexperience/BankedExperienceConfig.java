@@ -87,7 +87,7 @@ public interface BankedExperienceConfig extends Config
 	@ConfigItem(
 			keyName = "showBulkActions",
 			name = "Show Ignore/Include All Buttons",
-			description = "Toggles the Ignore All and Include All buttons",
+			description = "Toggles the Ignore All and Include All menu options",
 			position = 8
 	)
 	default boolean showBulkActions()
