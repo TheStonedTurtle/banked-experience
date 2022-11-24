@@ -40,28 +40,28 @@ public enum Secondaries
 	// Guam
 	ATTACK_POTION(new ItemStack(ItemID.EYE_OF_NEWT, 1)),
 	// Marrentil
-	ANTIPOISON(new ItemStack(ItemID.UNICORN_HORN_DUST, 1)),
+	ANTIPOISON(new Crushable(ItemID.UNICORN_HORN, ItemID.UNICORN_HORN_DUST)),
 	// Tarromin
 	STRENGTH_POTION(new ItemStack(ItemID.LIMPWURT_ROOT, 1)),
 	SERUM_207(new ItemStack(ItemID.ASHES, 1)),
 	// Harralander
 	COMPOST_POTION(new ItemStack(ItemID.VOLCANIC_ASH, 1)),
 	RESTORE_POTION(new ItemStack(ItemID.RED_SPIDERS_EGGS, 1)),
-	ENERGY_POTION(new ItemStack(ItemID.CHOCOLATE_DUST, 1)),
-	COMBAT_POTION(new ItemStack(ItemID.GOAT_HORN_DUST, 1)),
+	ENERGY_POTION(new Crushable(ItemID.CHOCOLATE_BAR, ItemID.CHOCOLATE_DUST)),
+	COMBAT_POTION(new Crushable(ItemID.DESERT_GOAT_HORN, ItemID.GOAT_HORN_DUST)),
 	// Ranarr Weed
 	DEFENCE_POTION(new ItemStack(ItemID.WHITE_BERRIES, 1)),
 	PRAYER_POTION(new ItemStack(ItemID.SNAPE_GRASS, 1)),
 	// Toadflax
 	AGILITY_POTION(new ItemStack(ItemID.TOADS_LEGS, 1)),
-	SARADOMIN_BREW(new ItemStack(ItemID.CRUSHED_NEST, 1)),
+	SARADOMIN_BREW(new Crushable(ItemID.BIRD_NEST_5075, ItemID.CRUSHED_NEST)),
 	// Irit
 	SUPER_ATTACK(new ItemStack(ItemID.EYE_OF_NEWT, 1)),
-	SUPERANTIPOISON(new ItemStack(ItemID.UNICORN_HORN_DUST, 1)),
+	SUPERANTIPOISON(new Crushable(ItemID.UNICORN_HORN, ItemID.UNICORN_HORN_DUST)),
 	// Avantoe
 	FISHING_POTION(new ItemStack(ItemID.SNAPE_GRASS, 1)),
 	SUPER_ENERGY_POTION(new ItemStack(ItemID.MORT_MYRE_FUNGUS, 1)),
-	HUNTER_POTION(new ItemStack(ItemID.KEBBIT_TEETH_DUST, 1)),
+	HUNTER_POTION(new Crushable(ItemID.KEBBIT_TEETH, ItemID.KEBBIT_TEETH_DUST)),
 	// Kwuarm
 	SUPER_STRENGTH(new ItemStack(ItemID.LIMPWURT_ROOT, 1)),
 	// Snapdragon
@@ -70,7 +70,7 @@ public enum Secondaries
 	// Cadantine
 	SUPER_DEFENCE_POTION(new ItemStack(ItemID.WHITE_BERRIES, 1)),
 	// Lantadyme
-	ANTIFIRE_POTION(new ItemStack(ItemID.DRAGON_SCALE_DUST, 1)),
+	ANTIFIRE_POTION(new Crushable(ItemID.BLUE_DRAGON_SCALE, ItemID.DRAGON_SCALE_DUST)),
 	MAGIC_POTION(new ItemStack(ItemID.POTATO_CACTUS, 1)),
 	// Dwarf Weed
 	RANGING_POTION(new ItemStack(ItemID.WINE_OF_ZAMORAK, 1)),
@@ -195,6 +195,20 @@ public enum Secondaries
 
 			// 1 spell cast requires at least 2 nature runes.
 			return requiredCasts * 2;
+		}
+	}
+
+	public static class Crushable implements SecondaryHandler
+	{
+		@Getter
+		private final int[] items;
+		@Getter
+		private final ItemStack[] infoItems;
+
+		// Final ID should be the crushed variant, assume that only 1 of the resource is needed per activity
+		private Crushable(final int... items) {
+			this.items = items;
+			this.infoItems = new ItemStack[]{new ItemStack(items[items.length - 1], 0)};
 		}
 	}
 

@@ -48,6 +48,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import lombok.Getter;
 import net.runelite.api.Constants;
+import net.runelite.api.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
@@ -402,6 +403,17 @@ public class ModifyPanel extends JPanel
 				final int required = handler.getTotalNaturesRequired(amount);
 				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURE_RUNE, 0), available, required));
 			}
+
+			if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)
+			{
+				Secondaries.Crushable crushable = (Secondaries.Crushable) secondaries.getCustomHandler();
+				int available = 0;
+				for (final int itemId : crushable.getItems()) {
+					available += this.calc.getItemQtyFromBank(itemId);
+				}
+				container.add(createSecondaryItemLabel(crushable.getInfoItems()[0], available, amount));
+			}
+
 			adjustContainer.add(container, c);
 			c.gridy++;
 		}

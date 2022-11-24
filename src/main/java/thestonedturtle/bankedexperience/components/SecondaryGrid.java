@@ -37,6 +37,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.Value;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
@@ -46,6 +47,7 @@ import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
 
+@Slf4j
 public class SecondaryGrid extends JPanel
 {
 	@Value
@@ -166,6 +168,20 @@ public class SecondaryGrid extends JPanel
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
 				qtyMap.merge(ItemID.NATURE_RUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
 				infoMap.put(ItemID.NATURE_RUNE, new ItemInfo("Nature rune", true));
+			}
+			else if (secondaries.getCustomHandler() instanceof Secondaries.Crushable) {
+				final Secondaries.Crushable crushable = (Secondaries.Crushable) secondaries.getCustomHandler();
+				final int crushedItemId = crushable.getInfoItems()[0].getId();
+				int available = 0;
+				for (final int itemId : crushable.getItems()) {
+					available += this.calc.getItemQtyFromBank(itemId);
+				}
+				availableMap.put(crushedItemId, available);
+				qtyMap.merge(crushedItemId, (double) bankedQty, Double::sum);
+				infoMap.put(crushedItemId, crushable.getInfoItems()[0].getInfo());
+			}
+			else if (secondaries.getCustomHandler() != null) {
+				log.warn("Unhandled secondaries custom handler: {}", secondaries.getCustomHandler().getClass());
 			}
 			else
 			{
