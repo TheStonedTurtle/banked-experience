@@ -259,6 +259,8 @@ public enum ExperienceItem
 	RAW_MANTA_RAY(ItemID.RAW_MANTA_RAY, Skill.COOKING, "Fish"),
 	GRAPES(ItemID.GRAPES, Skill.COOKING, "Other"),
 	SWEETCORN(ItemID.SWEETCORN, Skill.COOKING, "Other"),
+	UNCOOKED_STEW(ItemID.UNCOOKED_STEW, Skill.COOKING, "Other"),
+	UNCOOKED_CURRY(ItemID.UNCOOKED_CURRY, Skill.COOKING, "Other"),
 	/**
 	 * Crafting
 	 */

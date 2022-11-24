@@ -584,6 +584,10 @@ public enum Activity
 		ExperienceItem.GRAPES, Secondaries.JUG_OF_WATER, new ItemStack(ItemID.JUG_OF_WINE, 1)),
 	SWEETCORN(ItemID.COOKED_SWEETCORN, "Cooked sweetcorn", 28, 104,
 		ExperienceItem.SWEETCORN, null, new ItemStack(ItemID.COOKED_SWEETCORN, 1)),
+	STEW(ItemID.STEW, "Stew", 25, 117,
+		ExperienceItem.UNCOOKED_STEW, null, new ItemStack(ItemID.STEW, 1)),
+	CURRY(ItemID.CURRY, "Curry", 60, 280,
+		ExperienceItem.UNCOOKED_CURRY, null, new ItemStack(ItemID.CURRY, 1)),
 	/**
 	 * Crafting
 	 */
