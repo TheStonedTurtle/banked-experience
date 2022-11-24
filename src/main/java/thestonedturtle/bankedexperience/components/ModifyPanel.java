@@ -395,6 +395,13 @@ public class ModifyPanel extends JPanel
 				container.add(createSecondaryItemLabel(byDose.getInfoItems()[0], available, required));
 			}
 
+			if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
+			{
+				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
+				final int available = this.calc.getItemQtyFromBank(ItemID.NATURE_RUNE);
+				final int required = handler.getTotalNaturesRequired(amount);
+				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURE_RUNE, 0), available, required));
+			}
 			adjustContainer.add(container, c);
 			c.gridy++;
 		}

@@ -186,7 +186,7 @@ public enum Secondaries
 	public static class Degrime implements SecondaryHandler
 	{
 		@Getter
-		private final ItemStack[] infoItems = new ItemStack[0];
+		private final ItemStack[] infoItems = new ItemStack[]{new ItemStack(ItemID.NATURE_RUNE, 0)};
 
 		public int getTotalNaturesRequired(int itemCount)
 		{
