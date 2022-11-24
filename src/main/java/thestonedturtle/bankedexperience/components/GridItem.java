@@ -28,6 +28,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
+import java.util.function.Consumer;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -47,7 +48,9 @@ import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 public class GridItem extends JLabel
 {
 	private final static String IGNORE = "Ignore Item";
+	private final static String IGNORE_ALL = "Ignore All Items";
 	private final static String INCLUDE = "Include Item";
+	private final static String INCLUDE_ALL = "Include All Items";
 
 	private static final Color UNSELECTED_BACKGROUND = ColorScheme.DARKER_GRAY_COLOR;
 	private static final Color UNSELECTED_HOVER_BACKGROUND = ColorScheme.DARKER_GRAY_HOVER_COLOR;
@@ -72,16 +75,18 @@ public class GridItem extends JLabel
 	private boolean rng;
 
 	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
+	private final JMenuItem IGNORE_ALL_OPTION = new JMenuItem(IGNORE_ALL);
+	private final JMenuItem INCLUDE_ALL_OPTION = new JMenuItem(INCLUDE_ALL);
 
-	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount, final Collection<Modifier> modifiers, final boolean ignore)
+	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount,
+			 final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback)
 	{
 		super("");
 
-		this.ignored = ignore;
+		this.setIgnore(ignore);
 		this.bankedItem = item;
 
 		this.setOpaque(true);
-		this.setBackground(getBackgroundColor());
 		this.setBorder(BorderFactory.createEmptyBorder(5, 0, 2, 0));
 
 		this.setVerticalAlignment(SwingConstants.CENTER);
@@ -131,13 +136,22 @@ public class GridItem extends JLabel
 				return;
 			}
 
-			IGNORE_OPTION.setText(ignored ? INCLUDE : IGNORE);
-			setBackground(getBackgroundColor());
+			setIgnore(ignored);
+		});
+
+		IGNORE_ALL_OPTION.addActionListener(e -> {
+			bulkIgnoreCallback.accept(true);
+		});
+
+		INCLUDE_ALL_OPTION.addActionListener(e -> {
+			bulkIgnoreCallback.accept(false);
 		});
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
 		popupMenu.add(IGNORE_OPTION);
+		popupMenu.add(INCLUDE_ALL_OPTION);
+		popupMenu.add(IGNORE_ALL_OPTION);
 
 		this.setComponentPopupMenu(popupMenu);
 	}
@@ -199,5 +213,11 @@ public class GridItem extends JLabel
 		}
 
 		return tip + "</html>";
+	}
+
+	public void setIgnore(Boolean ignored) {
+		this.ignored = ignored;
+		IGNORE_OPTION.setText(ignored ? INCLUDE : IGNORE);
+		this.setBackground(this.getBackgroundColor());
 	}
 }
