@@ -38,6 +38,8 @@ public enum Secondaries
 	COCONUT_MILK(new ItemStack(ItemID.COCONUT_MILK, 1)),
 	SWAMP_TAR(new ItemStack(ItemID.SWAMP_TAR, 15)),
 	VIAL_OF_BLOOD(new ItemStack(ItemID.VIAL_OF_BLOOD, 1)),
+	WEAPON_POISON_PLUS(new ItemStack(ItemID.RED_SPIDERS_EGGS, 1)),
+	WEAPON_POISON_PLUS_PLUS(new ItemStack(ItemID.POISON_IVY_BERRIES, 1)),
 	// Guam
 	ATTACK_POTION(new ItemStack(ItemID.EYE_OF_NEWT, 1)),
 	// Marrentil
