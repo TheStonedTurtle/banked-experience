@@ -100,6 +100,10 @@ public enum Activity
 		ExperienceItem.TOADFLAX, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.TOADFLAX_POTION_UNF, 1)),
 	AGILITY_POTION(ItemID.AGILITY_POTION3, "Agility potion", 34, 80,
 		ExperienceItem.TOADFLAX_POTION_UNF, Secondaries.AGILITY_POTION, new ItemStack(ItemID.AGILITY_POTION3, 1)),
+	ANTIDOTE_PLUS_UNF(ItemID.ANTIDOTE_UNF, "Antidote+ (unf)", 68, 0,
+		ExperienceItem.TOADFLAX, Secondaries.COCONUT_MILK, new ItemStack(ItemID.ANTIDOTE_UNF, 1)),
+	ANTIDOTE_PLUS(ItemID.ANTIDOTE4, "Antidote+", 68, 155,
+		ExperienceItem.ANTIDOTE_PLUS_POTION_UNF, Secondaries.ANTIDOTE_PLUS, new ItemStack(ItemID.ANTIDOTE4, 1)),
 	SARADOMIN_BREW(ItemID.SARADOMIN_BREW3, "Saradomin brew", 81, 180,
 		ExperienceItem.TOADFLAX_POTION_UNF, Secondaries.SARADOMIN_BREW, new ItemStack(ItemID.SARADOMIN_BREW3, 1)),
 	// Irit
@@ -109,6 +113,10 @@ public enum Activity
 		ExperienceItem.IRIT_POTION_UNF, Secondaries.SUPER_ATTACK, new ItemStack(ItemID.SUPER_ATTACK3, 1)),
 	SUPERANTIPOISON(ItemID.SUPERANTIPOISON3, "Superantipoison", 48, 106.3,
 		ExperienceItem.IRIT_POTION_UNF, Secondaries.SUPERANTIPOISON, new ItemStack(ItemID.SUPERANTIPOISON3, 1)),
+	ANTIDOTE_PLUS_PlUS_UNF(ItemID.ANTIDOTE_UNF_5951, "Antidote++ (unf)", 79, 0,
+		ExperienceItem.IRIT_LEAF, Secondaries.COCONUT_MILK, new ItemStack(ItemID.ANTIDOTE_UNF_5951, 1)),
+	ANTIDOTE_PLUS_PLUS(ItemID.ANTIDOTE4_5952, "Antidote++", 79, 177.5,
+		ExperienceItem.ANTIDOTE_PLUS_PLUS_POTION_UNF, Secondaries.ANTIDOTE_PLUS_PLUS, new ItemStack(ItemID.ANTIDOTE4_5952, 1)),
 	// Avantoe
 	AVANTOE_POTION_UNF(ItemID.AVANTOE_POTION_UNF, "Unfinished potion", 50, 0,
 		ExperienceItem.AVANTOE, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.AVANTOE_POTION_UNF, 1)),

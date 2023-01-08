@@ -35,6 +35,7 @@ public enum Secondaries
 	 * Herblore
 	 */
 	UNFINISHED_POTION(new ItemStack(ItemID.VIAL_OF_WATER, 1)),
+	COCONUT_MILK(new ItemStack(ItemID.COCONUT_MILK, 1)),
 	SWAMP_TAR(new ItemStack(ItemID.SWAMP_TAR, 15)),
 	VIAL_OF_BLOOD(new ItemStack(ItemID.VIAL_OF_BLOOD, 1)),
 	// Guam
@@ -55,9 +56,11 @@ public enum Secondaries
 	// Toadflax
 	AGILITY_POTION(new ItemStack(ItemID.TOADS_LEGS, 1)),
 	SARADOMIN_BREW(new Crushable(ItemID.BIRD_NEST_5075, ItemID.CRUSHED_NEST)),
+	ANTIDOTE_PLUS(new ItemStack(ItemID.YEW_ROOTS, 1)),
 	// Irit
 	SUPER_ATTACK(new ItemStack(ItemID.EYE_OF_NEWT, 1)),
 	SUPERANTIPOISON(new Crushable(ItemID.UNICORN_HORN, ItemID.UNICORN_HORN_DUST)),
+	ANTIDOTE_PLUS_PLUS(new ItemStack(ItemID.MAGIC_ROOTS, 1)),
 	// Avantoe
 	FISHING_POTION(new ItemStack(ItemID.SNAPE_GRASS, 1)),
 	SUPER_ENERGY_POTION(new ItemStack(ItemID.MORT_MYRE_FUNGUS, 1)),

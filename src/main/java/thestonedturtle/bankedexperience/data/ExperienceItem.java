@@ -108,6 +108,9 @@ public enum ExperienceItem
 	LANTADYME_POTION_UNF(ItemID.LANTADYME_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	DWARF_WEED_POTION_UNF(ItemID.DWARF_WEED_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	TORSTOL_POTION_UNF(ItemID.TORSTOL_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
+	// Unfinished Coconut Potions
+	ANTIDOTE_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF, Skill.HERBLORE, "Unfinished Potions"),
+	ANTIDOTE_PLUS_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF_5951, Skill.HERBLORE, "Unfinished Potions"),
 	// Other
 	MARK_OF_GRACE(ItemID.MARK_OF_GRACE, Skill.HERBLORE, "Other"),
 	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, Skill.HERBLORE, "Other"),
