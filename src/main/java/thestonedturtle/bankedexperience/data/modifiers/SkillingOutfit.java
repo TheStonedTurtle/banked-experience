@@ -146,21 +146,26 @@ public class SkillingOutfit extends ConsumptionModifier implements ModifierCompo
 		return panel;
 	}
 
-	@Override
-	public double appliedXpRate(final Activity activity)
-	{
-		float bonusXP = 1.0f; // Default XP rate
+	protected double calculateBonusXPMultiplier(){
+		double bonusXP = 1d; // Default XP rate
 		if (getEnabledButtonCount() == 4)
 		{
 			bonusXP += SET_BONUS;
 		}
 		else
 		{
-			bonusXP += helm.isSelected() ? HELM_BONUS : 0f;
-			bonusXP += top.isSelected() ? TOP_BONUS : 0f;
-			bonusXP += bottom.isSelected() ? BOTTOM_BONUS : 0f;
-			bonusXP += boots.isSelected() ? BOOTS_BONUS : 0f;
+			bonusXP += helm.isSelected() ? HELM_BONUS : 0d;
+			bonusXP += top.isSelected() ? TOP_BONUS : 0d;
+			bonusXP += bottom.isSelected() ? BOTTOM_BONUS : 0d;
+			bonusXP += boots.isSelected() ? BOOTS_BONUS : 0d;
 		}
+		return bonusXP;
+	}
+
+	@Override
+	public double appliedXpRate(final Activity activity)
+	{
+		double bonusXP = calculateBonusXPMultiplier();
 
 		return super.appliedXpRate(activity) * bonusXP;
 	}
