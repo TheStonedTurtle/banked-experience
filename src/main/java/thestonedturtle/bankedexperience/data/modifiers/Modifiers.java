@@ -124,14 +124,7 @@ public final class Modifiers
 			manager, compositions.get(ItemID.FARMERS_STRAWHAT)));
 
 		// Construction
-		final Collection<Activity> excludeCarpenters = ImmutableSet.of(
-			Activity.LONG_BONE, Activity.CURVED_BONE,
-			Activity.MAHOGANY_HOMES_PLANK, Activity.MAHOGANY_HOMES_OAK, Activity.MAHOGANY_HOMES_TEAK, Activity.MAHOGANY_HOMES_MAHOGANY
-		);
-		final SkillingOutfit conOutfit = new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit",
-			null, excludeCarpenters, manager, compositions.get(ItemID.CARPENTERS_HELMET));
-		conOutfit.setTooltip("<br/>Does not work with Mahogany Homes, see github issue #53 for more info");
-		addModifier(conOutfit);
+		addModifier(new CarpentersOutfit(manager, compositions.get(ItemID.CARPENTERS_HELMET)));
 
 		// Firemaking
 		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
