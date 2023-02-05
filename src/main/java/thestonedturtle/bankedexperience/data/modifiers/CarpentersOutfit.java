@@ -16,7 +16,7 @@ public class CarpentersOutfit extends SkillingOutfit {
 	 * parameters calculated from here
 	 * https://docs.google.com/spreadsheets/d/1573_E5suKS7OY2E3utGpBkuaReiF86hTh0p8PLqi2II/edit?usp=sharing
 	 */
-	public final static double[] MAHOGANY_HOMES_PLANK_PARAMETERS = new double[]{39.92d, 53.54d};
+	public final static double[] MAHOGANY_HOMES_PLANK_PARAMETERS = new double[]{39.95d, 53.69d};
 	public final static double[] MAHOGANY_HOMES_OAK_PARAMETERS = new double[]{66.16d, 133.84d};
 	public final static double[] MAHOGANY_HOMES_TEAK_PARAMETERS = new double[]{87.73d, 200.12d};
 	public final static double[] MAHOGANY_HOMES_MAHOGANY_PARAMETERS = new double[]{127.26d, 218.86d};
