@@ -25,10 +25,10 @@ public class CarpentersOutfit extends SkillingOutfit {
 				null, EXCLUDED, itemManager, items);
 
 		xpPerMahoganyHomesActivityMap = ImmutableMap.<Activity, XpPerTask>builder()
-				.put(Activity.MAHOGANY_HOMES_PLANK, new XpPerTask(39.95f, 53.69f))
-				.put(Activity.MAHOGANY_HOMES_OAK, new XpPerTask(66.16f, 133.84f))
-				.put(Activity.MAHOGANY_HOMES_TEAK, new XpPerTask(87.73f, 200.12f))
-				.put(Activity.MAHOGANY_HOMES_MAHOGANY, new XpPerTask(127.26f, 218.86f))
+				.put(Activity.MAHOGANY_HOMES_PLANK, new XpPerTask(39.955f, 53.695f))
+				.put(Activity.MAHOGANY_HOMES_OAK, new XpPerTask(66.163f, 133.840f))
+				.put(Activity.MAHOGANY_HOMES_TEAK, new XpPerTask(87.735f, 200.117f))
+				.put(Activity.MAHOGANY_HOMES_MAHOGANY, new XpPerTask(127.259f, 218.861f))
 				.build();
 	}
 
