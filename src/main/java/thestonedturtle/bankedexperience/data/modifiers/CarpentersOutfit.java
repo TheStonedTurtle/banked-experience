@@ -1,26 +1,21 @@
 package thestonedturtle.bankedexperience.data.modifiers;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.Activity;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class CarpentersOutfit extends SkillingOutfit {
 
-	/**
-	 * parameters calculated from here
-	 * https://docs.google.com/spreadsheets/d/1573_E5suKS7OY2E3utGpBkuaReiF86hTh0p8PLqi2II/edit?usp=sharing
-	 */
-	public final static double[] MAHOGANY_HOMES_PLANK_PARAMETERS = new double[]{39.92d, 53.54d};
-	public final static double[] MAHOGANY_HOMES_OAK_PARAMETERS = new double[]{66.16d, 133.84d};
-	public final static double[] MAHOGANY_HOMES_TEAK_PARAMETERS = new double[]{87.73d, 200.12d};
-	public final static double[] MAHOGANY_HOMES_MAHOGANY_PARAMETERS = new double[]{127.26d, 218.86d};
-	private final Map<Activity, double[]> mahoganyHomesActivityToParametersMap;
+	private final Map<Activity, XpPerTask> xpPerMahoganyHomesActivityMap;
 
 
 	private static final Collection<Activity> EXCLUDED = ImmutableSet.of(
@@ -31,26 +26,43 @@ public class CarpentersOutfit extends SkillingOutfit {
 		super(Skill.CONSTRUCTION, "Carpenter's Outfit",
 				null, EXCLUDED, itemManager, items);
 
-		mahoganyHomesActivityToParametersMap = new HashMap<>(4);
-		mahoganyHomesActivityToParametersMap.put(Activity.MAHOGANY_HOMES_PLANK, MAHOGANY_HOMES_PLANK_PARAMETERS);
-		mahoganyHomesActivityToParametersMap.put(Activity.MAHOGANY_HOMES_OAK, MAHOGANY_HOMES_OAK_PARAMETERS);
-		mahoganyHomesActivityToParametersMap.put(Activity.MAHOGANY_HOMES_TEAK, MAHOGANY_HOMES_TEAK_PARAMETERS);
-		mahoganyHomesActivityToParametersMap.put(Activity.MAHOGANY_HOMES_MAHOGANY, MAHOGANY_HOMES_MAHOGANY_PARAMETERS);
+		xpPerMahoganyHomesActivityMap = ImmutableMap.<Activity, XpPerTask>builder()
+				.put(Activity.MAHOGANY_HOMES_PLANK, new XpPerTask(39.955f, 53.695f))
+				.put(Activity.MAHOGANY_HOMES_OAK, new XpPerTask(66.163f, 133.840f))
+				.put(Activity.MAHOGANY_HOMES_TEAK, new XpPerTask(87.735f, 200.117f))
+				.put(Activity.MAHOGANY_HOMES_MAHOGANY, new XpPerTask(127.259f, 218.861f))
+				.build();
+
+		final float PRECISION_LEVEL = 0.0001f;
+		for (Activity activity : xpPerMahoganyHomesActivityMap.keySet()){
+			XpPerTask xpPerTask = xpPerMahoganyHomesActivityMap.get(activity);
+
+			float baseXp = xpPerTask.averagePlankXp + xpPerTask.averageCompletionXpPerPlank;
+			boolean isBaseXpSame = Math.abs(baseXp - activity.getXp()) < PRECISION_LEVEL;
+			if (!isBaseXpSame){
+				log.warn(String.format("xp of Activity %s is %.3f but calculated base xp of carpenters Outfit is calculated to be %.3f", activity.getName(), activity.getXp(), baseXp));
+			}
+		}
 	}
 
 	@Override
 	public double appliedXpRate(Activity activity) {
-		double[] parameters = mahoganyHomesActivityToParametersMap.get(activity);
-		if (parameters != null && parameters.length == 2) {
+		XpPerTask xpPerTask = xpPerMahoganyHomesActivityMap.get(activity);
+		if (xpPerTask != null) {
 			double bonusXP = calculateBonusXPMultiplier();
-			//m is the average xp per plank excluding completion xp
-			//b is the average completion xp per plank
-			double m = parameters[0];
-			double b = parameters[1];
 
-			return m * bonusXP + b;
+			double averagePlankXp = xpPerTask.averagePlankXp;
+			double averageCompletionXpPerPlank = xpPerTask.averageCompletionXpPerPlank;
+
+			return averagePlankXp * bonusXP + averageCompletionXpPerPlank;
 		} else {
 			return super.appliedXpRate(activity);
 		}
+	}
+
+	@AllArgsConstructor
+	private static class XpPerTask {
+		private float averagePlankXp;
+		private float averageCompletionXpPerPlank;
 	}
 }
