@@ -41,8 +41,10 @@ public class BankedItem
 	}
 
 	@Override
-	public boolean equals(final Object o) {
-		if (!(o instanceof BankedItem)) {
+	public boolean equals(final Object o)
+	{
+		if (!(o instanceof BankedItem))
+		{
 			return false;
 		}
 

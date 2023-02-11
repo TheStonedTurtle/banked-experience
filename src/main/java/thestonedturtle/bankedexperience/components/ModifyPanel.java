@@ -408,7 +408,8 @@ public class ModifyPanel extends JPanel
 			{
 				Secondaries.Crushable crushable = (Secondaries.Crushable) secondaries.getCustomHandler();
 				int available = 0;
-				for (final int itemId : crushable.getItems()) {
+				for (final int itemId : crushable.getItems())
+				{
 					available += this.calc.getItemQtyFromBank(itemId);
 				}
 				container.add(createSecondaryItemLabel(crushable.getInfoItems()[0], available, amount));

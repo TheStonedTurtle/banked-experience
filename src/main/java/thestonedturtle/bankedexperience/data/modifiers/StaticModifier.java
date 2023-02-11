@@ -70,7 +70,8 @@ public class StaticModifier extends Modifier
 		}
 
 		// Static Modifiers can be compatible with each other if they do not affect the same activity
-		if (modifier instanceof StaticModifier) {
+		if (modifier instanceof StaticModifier)
+		{
 			return !this.touchesSameActivity(modifier);
 		}
 

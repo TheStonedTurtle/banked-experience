@@ -42,7 +42,8 @@ public class BoostInput extends JPanel
 {
 	private final JSpinner spinner;
 
-	public BoostInput(Consumer<Integer> callback) {
+	public BoostInput(Consumer<Integer> callback)
+	{
 		setLayout(new GridLayout(0, 1, 7, 7));
 		setBorder(new EmptyBorder(0, 0, 5, 0));
 
@@ -80,7 +81,8 @@ public class BoostInput extends JPanel
 		}
 	}
 
-	public void setInputValue(int value) {
+	public void setInputValue(int value)
+	{
 		spinner.getModel().setValue(value);
 		spinner.setValue(value);
 	}

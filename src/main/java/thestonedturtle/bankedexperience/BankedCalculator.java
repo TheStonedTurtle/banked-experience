@@ -189,7 +189,8 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
-		if (!newSkill.equals(currentSkill)) {
+		if (!newSkill.equals(currentSkill))
+		{
 			boostInput.setInputValue(0);
 			itemGrid.setSelectedItem(null);
 		}
@@ -643,7 +644,8 @@ public class BankedCalculator extends JPanel
 		configManager.setConfiguration(BankedExperiencePlugin.CONFIG_GROUP, BankedExperiencePlugin.ACTIVITY_CONFIG_KEY + item.name(), item.getSelectedActivity().name());
 	}
 
-	private void updateBoost(Integer value) {
+	private void updateBoost(Integer value)
+	{
 		// If the item grid wasn't added then the boost input is not visible
 		recreateBankedItemMap();
 		recreateItemGrid();
