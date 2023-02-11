@@ -13,16 +13,16 @@ import java.util.Collection;
 import java.util.Map;
 
 @Slf4j
-public class CarpentersOutfit extends SkillingOutfit {
-
+public class CarpentersOutfit extends SkillingOutfit
+{
 	private final Map<Activity, XpPerTask> xpPerMahoganyHomesActivityMap;
-
 
 	private static final Collection<Activity> EXCLUDED = ImmutableSet.of(
 			Activity.LONG_BONE, Activity.CURVED_BONE
 	);
 
-	CarpentersOutfit(ItemManager itemManager, ItemComposition... items) {
+	CarpentersOutfit(ItemManager itemManager, ItemComposition... items)
+	{
 		super(Skill.CONSTRUCTION, "Carpenter's Outfit",
 				null, EXCLUDED, itemManager, items);
 
@@ -34,34 +34,41 @@ public class CarpentersOutfit extends SkillingOutfit {
 				.build();
 
 		final float PRECISION_LEVEL = 0.0001f;
-		for (Activity activity : xpPerMahoganyHomesActivityMap.keySet()){
+		for (Activity activity : xpPerMahoganyHomesActivityMap.keySet())
+		{
 			XpPerTask xpPerTask = xpPerMahoganyHomesActivityMap.get(activity);
 
 			float baseXp = xpPerTask.averagePlankXp + xpPerTask.averageCompletionXpPerPlank;
 			boolean isBaseXpSame = Math.abs(baseXp - activity.getXp()) < PRECISION_LEVEL;
-			if (!isBaseXpSame){
+			if (!isBaseXpSame)
+			{
 				log.warn(String.format("xp of Activity %s is %.3f but calculated base xp of carpenters Outfit is calculated to be %.3f", activity.getName(), activity.getXp(), baseXp));
 			}
 		}
 	}
 
 	@Override
-	public double appliedXpRate(Activity activity) {
+	public double appliedXpRate(Activity activity)
+	{
 		XpPerTask xpPerTask = xpPerMahoganyHomesActivityMap.get(activity);
-		if (xpPerTask != null) {
+		if (xpPerTask != null)
+		{
 			double bonusXP = calculateBonusXPMultiplier();
 
 			double averagePlankXp = xpPerTask.averagePlankXp;
 			double averageCompletionXpPerPlank = xpPerTask.averageCompletionXpPerPlank;
 
 			return averagePlankXp * bonusXP + averageCompletionXpPerPlank;
-		} else {
+		}
+		else
+		{
 			return super.appliedXpRate(activity);
 		}
 	}
 
 	@AllArgsConstructor
-	private static class XpPerTask {
+	private static class XpPerTask
+	{
 		private float averagePlankXp;
 		private float averageCompletionXpPerPlank;
 	}

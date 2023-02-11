@@ -146,7 +146,8 @@ public class SkillingOutfit extends ConsumptionModifier implements ModifierCompo
 		return panel;
 	}
 
-	protected double calculateBonusXPMultiplier(){
+	protected double calculateBonusXPMultiplier()
+	{
 		float bonusXP = 1f; // Default XP rate
 		if (getEnabledButtonCount() == 4)
 		{
