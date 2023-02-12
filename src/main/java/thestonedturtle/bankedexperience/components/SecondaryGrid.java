@@ -113,7 +113,7 @@ public class SecondaryGrid extends JPanel
 				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
 
-			label.setBackground(result > 0 ? GridItem.SELECTED_BACKGROUND : GridItem.IGNORED_BACKGROUND);
+			label.setBackground(result >= 0 ? GridItem.SELECTED_BACKGROUND : GridItem.IGNORED_BACKGROUND);
 			add(label);
 		}
 	}
