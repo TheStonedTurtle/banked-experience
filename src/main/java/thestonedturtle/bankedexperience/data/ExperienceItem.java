@@ -228,6 +228,13 @@ public enum ExperienceItem
 	MALICIOUS_ASHES(ItemID.MALICIOUS_ASHES, Skill.PRAYER, "Ashes"),
 	ABYSSAL_ASHES(ItemID.ABYSSAL_ASHES, Skill.PRAYER, "Ashes"),
 	INFERNAL_ASHES(ItemID.INFERNAL_ASHES, Skill.PRAYER, "Ashes"),
+	// Bird Eggs
+	BIRD_EGG_NEST_RED(ItemID.BIRD_NEST, Skill.PRAYER),
+	BIRD_EGG_NEST_BLUE(ItemID.BIRD_NEST_5072, Skill.PRAYER),
+	BIRD_EGG_NEST_GREEN(ItemID.BIRD_NEST_5071, Skill.PRAYER),
+	BIRD_EGG_RED(ItemID.BIRDS_EGG, Skill.PRAYER),
+	BIRD_EGG_BLUE(ItemID.BIRDS_EGG_5077, Skill.PRAYER),
+	BIRD_EGG_GREEN(ItemID.BIRDS_EGG_5078, Skill.PRAYER),
 	/**
 	 * Cooking
 	 */
@@ -533,6 +540,13 @@ public enum ExperienceItem
 			SKILL_MAP.put(s, i);
 			ITEM_ID_MAP.put(i.getItemID(), i);
 		}
+	}
+
+	ExperienceItem(int itemID, Skill skill)
+	{
+		this.itemID = itemID;
+		this.category = "NA";
+		this.skill = skill;
 	}
 
 	ExperienceItem(int itemID, Skill skill, String category)

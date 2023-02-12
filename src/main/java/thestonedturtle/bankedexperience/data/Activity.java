@@ -528,6 +528,19 @@ public enum Activity
 		ExperienceItem.ABYSSAL_ASHES, null, null),
 	INFERNAL_ASHES(ItemID.INFERNAL_ASHES, "Infernal ashes", 1, 110,
 		ExperienceItem.INFERNAL_ASHES, null, null),
+	// Bird Eggs
+	BIRD_EGG_NEST_RED(ItemID.BIRD_NEST, "Bird's egg (Red)", 1, 0,
+		ExperienceItem.BIRD_EGG_NEST_RED, null, new ItemStack(ItemID.BIRDS_EGG, 1)),
+	BIRD_EGG_NEST_BLUE(ItemID.BIRD_NEST_5072, "Bird's egg (Blue)", 1, 0,
+		ExperienceItem.BIRD_EGG_NEST_BLUE, null, new ItemStack(ItemID.BIRDS_EGG_5077, 1)),
+	BIRD_EGG_NEST_GREEN(ItemID.BIRD_NEST_5071, "Bird's egg (Green)", 1, 0,
+		ExperienceItem.BIRD_EGG_NEST_GREEN, null, new ItemStack(ItemID.BIRDS_EGG_5078, 1)),
+	BIRD_EGG_RED(ItemID.BIRDS_EGG, "Offer bird's egg", 1, 100,
+		ExperienceItem.BIRD_EGG_RED, null, null),
+	BIRD_EGG_BLUE(ItemID.BIRDS_EGG_5077, "Offer bird's egg", 1, 100,
+		ExperienceItem.BIRD_EGG_BLUE, null, null),
+	BIRD_EGG_GREEN(ItemID.BIRDS_EGG_5078, "Offer bird's egg", 1, 100,
+		ExperienceItem.BIRD_EGG_GREEN, null, null),
 	/**
 	 * Cooking
 	 */
