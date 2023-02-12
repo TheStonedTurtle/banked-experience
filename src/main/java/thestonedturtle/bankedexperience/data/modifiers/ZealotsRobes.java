@@ -62,15 +62,10 @@ public class ZealotsRobes extends SkillingOutfit
 		return CONSUME_AMT * getEnabledButtonCount();
 	}
 
-	// Zealots Robes don't provide bonus xp so the SkillingOutfit appliedXpRate is incorrect
+	// Zealots Robes don't provide bonus xp so the SkillingOutfit xp multiplier is incorrect
 	@Override
-	public double appliedXpRate(final Activity activity)
+	protected double calculateBonusXPMultiplier()
 	{
-		if (!appliesTo(activity))
-		{
-			return 0;
-		}
-
-		return activity.getXp();
+		return 1d;
 	}
 }
