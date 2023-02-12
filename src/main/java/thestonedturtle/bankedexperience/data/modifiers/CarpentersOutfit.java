@@ -24,6 +24,12 @@ public class CarpentersOutfit extends SkillingOutfit
 		super(Skill.CONSTRUCTION, "Carpenter's Outfit",
 				null, EXCLUDED, itemManager, items);
 
+		// The average xp rates for a plank in the Activity class is based upon the total exp received from completing a contract
+		// Because the outfit does not apply to the bonus xp rewarded for completing the contract we need to separate the xp values
+		// The averagePlankXp is the average amount each plank rewards for fixing a hotspot within a contract
+		// The averageCompletionXpPerPlank is the average amount each plank is worth of the contract completion bonus xp
+		// These were calculated by @SeaifanAladdin <https://github.com/SeaifanAladdin> in PR#101
+		// REF: https://docs.google.com/spreadsheets/d/1573_E5suKS7OY2E3utGpBkuaReiF86hTh0p8PLqi2II/edit?usp=sharing
 		xpPerMahoganyHomesActivityMap = ImmutableMap.<Activity, XpPerTask>builder()
 				.put(Activity.MAHOGANY_HOMES_PLANK, new XpPerTask(39.955f, 53.695f))
 				.put(Activity.MAHOGANY_HOMES_OAK, new XpPerTask(66.163f, 133.840f))
@@ -36,19 +42,17 @@ public class CarpentersOutfit extends SkillingOutfit
 	public double appliedXpRate(Activity activity)
 	{
 		XpPerTask xpPerTask = xpPerMahoganyHomesActivityMap.get(activity);
-		if (xpPerTask != null)
-		{
-			double bonusXP = calculateBonusXPMultiplier();
-
-			double averagePlankXp = xpPerTask.averagePlankXp;
-			double averageCompletionXpPerPlank = xpPerTask.averageCompletionXpPerPlank;
-
-			return averagePlankXp * bonusXP + averageCompletionXpPerPlank;
-		}
-		else
+		if (xpPerTask == null)
 		{
 			return super.appliedXpRate(activity);
 		}
+
+		double bonusXP = calculateBonusXPMultiplier();
+
+		double averagePlankXp = xpPerTask.averagePlankXp;
+		double averageCompletionXpPerPlank = xpPerTask.averageCompletionXpPerPlank;
+
+		return (averagePlankXp * bonusXP) + averageCompletionXpPerPlank;
 	}
 
 	@AllArgsConstructor
