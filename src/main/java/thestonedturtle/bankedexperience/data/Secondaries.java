@@ -163,6 +163,28 @@ public enum Secondaries
 	BEER_GLASS_4TH(new ItemStack(ItemID.BEER_GLASS, 0.25)),
 	BEER_GLASS_3RD(new ItemStack(ItemID.BEER_GLASS, 1.0 / 3)),
 	BEER_GLASS_HALF(new ItemStack(ItemID.BEER_GLASS, 0.5)),
+	/**
+	 * Farming
+	 */
+	OAK_SAPLING(new ItemStack(ItemID.TOMATOES5, 1)),
+	WILLOW_SAPLING(new ItemStack(ItemID.APPLES5, 1)),
+	MAPLE_SAPLING(new ItemStack(ItemID.ORANGES5, 1)),
+	YEW_SAPLING(new ItemStack(ItemID.CACTUS_SPINE, 10)),
+	MAGIC_SAPLING(new ItemStack(ItemID.COCONUT, 25)),
+	APPLE_TREE_SAPLING(new ItemStack(ItemID.SWEETCORN, 9)),
+	BANANA_TREE_SAPLING(new ItemStack(ItemID.APPLES5, 3)),
+	ORANGE_TREE_SAPLING(new ItemStack(ItemID.STRAWBERRIES5, 3)),
+	CURRY_TREE_SAPLING(new ItemStack(ItemID.BANANAS5, 5)),
+	PINEAPPLE_SAPLING(new ItemStack(ItemID.WATERMELON, 10)),
+	PAPAYA_TREE_SAPLING(new ItemStack(ItemID.PINEAPPLE, 10)),
+	PALM_TREE_SAPLING(new ItemStack(ItemID.PAPAYA_FRUIT, 15)),
+	CALQUAT_TREE_SAPLING(new ItemStack(ItemID.POISON_IVY_BERRIES, 8)),
+	TEAK_SAPLING(new ItemStack(ItemID.LIMPWURT_ROOT, 15)),
+	MAHOGANY_SAPLING(new ItemStack(ItemID.YANILLIAN_HOPS, 25)),
+	SPIRIT_SAPLING(new ItemStack(ItemID.MONKEY_BAR, 1), new ItemStack(ItemID.SUQAH_TOOTH, 1), new ItemStack(ItemID.MONKEY_NUTS, 5)),
+	DRAGONFRUIT_SAPLING(new ItemStack(ItemID.COCONUT, 15)),
+	CELASTRUS_SAPLING(new ItemStack(ItemID.POTATO_CACTUS, 8)),
+	REDWOOD_SAPLING(new ItemStack(ItemID.DRAGONFRUIT, 6)),
 	;
 	private final ItemStack[] items;
 	private final SecondaryHandler customHandler;
