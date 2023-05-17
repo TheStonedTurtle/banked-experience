@@ -156,6 +156,10 @@ public enum Secondaries
 	 * Prayer
 	 */
 	BUCKET_OF_SLIME(new ItemStack(ItemID.BUCKET_OF_SLIME, 1)),
+	BASIC_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 2), new ItemStack(ItemID.BODY_RUNE, 4)),
+	ADEPT_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 3), new ItemStack(ItemID.BODY_RUNE, 4), new ItemStack(ItemID.SOUL_RUNE, 1)),
+	EXPERT_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 3), new ItemStack(ItemID.BLOOD_RUNE, 1), new ItemStack(ItemID.SOUL_RUNE, 2)),
+	MASTER_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 4), new ItemStack(ItemID.BLOOD_RUNE, 2), new ItemStack(ItemID.SOUL_RUNE, 4)),
 	/**
 	 * Thieving
 	 */
