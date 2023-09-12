@@ -39,8 +39,11 @@ import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
+import thestonedturtle.bankedexperience.BankedExperiencePlugin;
 import thestonedturtle.bankedexperience.config.SecondaryMode;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
@@ -64,7 +67,7 @@ public class SecondaryGrid extends JPanel
 	private final Map<Integer, Integer> availableMap = new HashMap<>();
 	private final BankedCalculator calc;
 
-	private final SecondaryMode mode;
+	private SecondaryMode mode;
 
 	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items, SecondaryMode mode)
 	{
@@ -75,9 +78,14 @@ public class SecondaryGrid extends JPanel
 		updateSecMap(items);
 	}
 
-	private void refreshUI()
+	public void refreshUI()
 	{
 		removeAll();
+
+		if(mode == SecondaryMode.NONE) {
+			return;
+		}
+
 		for (final int itemID : secMap.keySet())
 		{
 			final JLabel label = new JLabel();
@@ -222,6 +230,19 @@ public class SecondaryGrid extends JPanel
 			}
 		}
 
+		refreshUI();
+	}
+
+	@Subscribe
+	public void onConfigChanged(ConfigChanged event)
+	{
+		if (!event.getGroup().equals(BankedExperiencePlugin.CONFIG_GROUP)) {
+			return;
+		}
+		if (!event.getKey().equals(BankedExperiencePlugin.SECONDARY_SHOW_MODE_KEY)) {
+			return;
+		}
+		mode = SecondaryMode.valueOf(event.getNewValue());
 		refreshUI();
 	}
 }
