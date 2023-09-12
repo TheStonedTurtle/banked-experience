@@ -59,6 +59,7 @@ import thestonedturtle.bankedexperience.components.SelectionGrid;
 import thestonedturtle.bankedexperience.components.SelectionListener;
 import thestonedturtle.bankedexperience.components.textinput.BoostInput;
 import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
+import thestonedturtle.bankedexperience.config.SecondaryMode;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
@@ -282,9 +283,9 @@ public class BankedCalculator extends JPanel
 			add(modifyPanel);
 			add(itemGrid);
 
-			if (config.showSecondaries())
+			if (config.showWhatSecondaries() != SecondaryMode.NONE)
 			{
-				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values());
+				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values(), config.showWhatSecondaries());
 				boolean wasClosed = secondarySection != null && !secondarySection.isOpen();
 				secondarySection = new ExpandableSection(
 					"Secondaries",
