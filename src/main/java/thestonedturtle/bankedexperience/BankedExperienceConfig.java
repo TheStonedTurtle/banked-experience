@@ -3,6 +3,7 @@ package thestonedturtle.bankedexperience;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import thestonedturtle.bankedexperience.config.SecondaryMode;
 
 @ConfigGroup("bankedexperience")
 public interface BankedExperienceConfig extends Config
@@ -18,15 +19,27 @@ public interface BankedExperienceConfig extends Config
 		return true;
 	}
 
+	//No longer used, kept alive for migration purposes.
 	@ConfigItem(
 		keyName = "showSecondaries",
-		name = "Show required secondaries",
-		description = "Toggles whether the Secondaries will be displayed for the selected item",
-		position = 2
+		name = "",
+		description = "",
+		hidden = true
 	)
 	default boolean showSecondaries()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+			keyName = "showWhatSecondaries",
+			name = "Show secondaries",
+			description = "Toggles whether any, required or all secondaries will be displayed for the selected items",
+			position = 2
+	)
+	default SecondaryMode showWhatSecondaries()
+	{
+		return showSecondaries() ? SecondaryMode.ALL : SecondaryMode.NONE;
 	}
 
 	@ConfigItem(
