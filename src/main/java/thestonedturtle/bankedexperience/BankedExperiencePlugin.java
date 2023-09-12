@@ -41,10 +41,11 @@ public class BankedExperiencePlugin extends Plugin
 	private static final BufferedImage ICON = ImageUtil.loadImageResource(BankedExperiencePlugin.class, "banked.png");
 	private static final Map<Integer, Integer> EMPTY_MAP = new HashMap<>();
 	public static final String CONFIG_GROUP = "bankedexperience";
-	private static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
-	private static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
-	private static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
-	private static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
+	public static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
+	public static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
+	public static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
+	public static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
+	public static final String SECONDARY_SHOW_MODE_KEY = "showWhatSecondaries";
 	public static final String ACTIVITY_CONFIG_KEY = "ITEM_";
 	private static final int LOOTING_BAG_ID = 516;
 

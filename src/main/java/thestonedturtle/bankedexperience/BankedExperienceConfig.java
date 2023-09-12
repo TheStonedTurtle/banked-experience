@@ -32,7 +32,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-			keyName = "showWhatSecondaries",
+			keyName = BankedExperiencePlugin.SECONDARY_SHOW_MODE_KEY,
 			name = "Show secondaries",
 			description = "Toggles whether any, required or all secondaries will be displayed for the selected items",
 			position = 2
@@ -54,7 +54,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromSeedVault",
+		keyName = BankedExperiencePlugin.VAULT_CONFIG_KEY,
 		name = "Include seed vault",
 		description = "Toggles whether the items stored inside the Seed Vault at the Farming Guild will be included in the calculations",
 		position = 4
@@ -65,7 +65,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromInventory",
+		keyName = BankedExperiencePlugin.INVENTORY_CONFIG_KEY,
 		name = "Include player inventory",
 		description = "Toggles whether the items inside your inventory will be included in the calculations",
 		position = 5
@@ -76,7 +76,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromLootingBag",
+		keyName = BankedExperiencePlugin.LOOTING_BAG_CONFIG_KEY,
 		name = "Include looting bag",
 		description = "Toggles whether the items stored inside your Looting Bag will be included in the calculations",
 		position = 6
@@ -87,7 +87,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromFossilChest",
+		keyName = BankedExperiencePlugin.FOSSIL_CHEST_CONFIG_KEY,
 		name = "Include Fossil Chest",
 		description = "Toggles whether the fossils stored inside your Fossil Island chest will be included in the calculations",
 		position = 7
