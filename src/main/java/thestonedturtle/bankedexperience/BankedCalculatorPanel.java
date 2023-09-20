@@ -121,4 +121,8 @@ public class BankedCalculatorPanel extends PluginPanel
 	{
 		calculator.resetInventoryMaps();
 	}
+
+	void refreshCalculator() {
+		calculator.refresh();
+	}
 }

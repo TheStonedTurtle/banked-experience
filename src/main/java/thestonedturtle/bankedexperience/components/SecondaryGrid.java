@@ -233,17 +233,4 @@ public class SecondaryGrid extends JPanel
 
 		refreshUI();
 	}
-
-	@Subscribe
-	public void onConfigChanged(ConfigChanged event)
-	{
-		if (!event.getGroup().equals(BankedExperiencePlugin.CONFIG_GROUP)) {
-			return;
-		}
-		if (!event.getKey().equals(BankedExperiencePlugin.SECONDARY_SHOW_MODE_KEY)) {
-			return;
-		}
-		mode = SecondaryMode.valueOf(event.getNewValue());
-		refreshUI();
-	}
 }

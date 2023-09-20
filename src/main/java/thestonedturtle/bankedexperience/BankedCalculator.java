@@ -180,6 +180,10 @@ public class BankedCalculator extends JPanel
 		open(newSkill, false);
 	}
 
+	void refresh() {
+		open(currentSkill, true);
+	}
+
 	/**
 	 * opens the Banked Calculator for this skill
 	 */

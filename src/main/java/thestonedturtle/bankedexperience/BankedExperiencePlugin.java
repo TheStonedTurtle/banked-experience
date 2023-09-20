@@ -156,6 +156,9 @@ public class BankedExperiencePlugin extends Plugin
 			case FOSSIL_CHEST_CONFIG_KEY:
 				inventoryId = WidgetInventoryInfo.FOSSIL_CHEST.getId();
 				break;
+			case SECONDARY_SHOW_MODE_KEY:
+				panel.refreshCalculator();
+				return;
 			default:
 				return;
 		}
