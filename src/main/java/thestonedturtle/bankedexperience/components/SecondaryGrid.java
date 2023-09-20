@@ -132,6 +132,7 @@ public class SecondaryGrid extends JPanel
 
 			final String tooltip = "<html>" + itemName
 				+ "<br/>Banked: " + BankedCalculator.XP_FORMAT_COMMA.format(available)
+				+ (mode == SecondaryMode.MISSING ? "<br/>Needed: " + BankedCalculator.XP_FORMAT_COMMA.format(qty) : "")
 				+ "<br/>Result: " + (result > 0 ? "+" : "") + BankedCalculator.XP_FORMAT_COMMA.format(result)
 				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
