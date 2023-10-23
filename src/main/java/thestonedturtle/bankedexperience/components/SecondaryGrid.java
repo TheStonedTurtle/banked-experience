@@ -28,21 +28,30 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.text.html.HTMLDocument.Iterator;
+
 import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
+import thestonedturtle.bankedexperience.BankedExperienceConfig;
+import thestonedturtle.bankedexperience.components.textinput.BoostInput;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
+import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
@@ -62,10 +71,12 @@ public class SecondaryGrid extends JPanel
 	private final Map<Integer, ItemInfo> infoMap = new HashMap<>();
 	private final Map<Integer, Integer> availableMap = new HashMap<>();
 	private final BankedCalculator calc;
+	private final Collection<GridItem> items;
 
 	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
 	{
 		this.calc = calc;
+		this.items = items;
 		setLayout(new GridLayout(0, 5, 1, 1));
 
 		updateSecMap(items);
@@ -118,6 +129,48 @@ public class SecondaryGrid extends JPanel
 		}
 	}
 
+	public double getMissingXp(int skillLevel, BoostInput boostInput)
+	{
+		BankedExperienceConfig config = calc.getConfig();
+
+		double totalXp = 0;
+		// loop over all itemIds for secondaries
+		for (final int itemID : secMap.keySet()) {
+			// keeps track of how much is available to use
+			int banked = availableMap.getOrDefault(itemID, 0);
+			
+			final ExperienceItem experienceItem = ExperienceItem.getByItemId(itemID);
+			final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
+			final Activity highestActivity = activities.get(activities.size() - 1);
+			final double xpPerActivity = highestActivity.getXp();
+			
+			// We reverse the order of secMap to get the highest yielding xpRate first
+			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.values()).listIterator(secMap.size());
+			
+			// We exit early to save cycles if banked <= 0 since we've used up all available supplies
+			while (iterator.hasPrevious() && banked <= 0) 
+			{
+				SecondaryInfo info = iterator.previous();
+				final double qty = info.getQty();
+				if (qty == 0)
+				{
+					continue;
+				}	
+				
+				if (banked >= qty) {
+					// Use full qty
+					banked -= qty;
+					totalXp += xpPerActivity * qty;
+				} else if (banked < qty) {
+					// Use remainder, this will cause loop to exit
+					banked -= banked;
+					totalXp += xpPerActivity * banked;
+				}
+			}
+		}	
+		return totalXp;
+	}
+
 	// calculates the total required secondaries and links each secondary item by id to the banked items they come from
 	public void updateSecMap(final Collection<GridItem> items)
 	{
@@ -132,7 +185,7 @@ public class SecondaryGrid extends JPanel
 			}
 
 			// Check if the selected activity for the current item in the grid has any secondaries
-			final BankedItem banked =  item.getBankedItem();
+			final BankedItem banked = item.getBankedItem();
 			final Activity a = banked.getItem().getSelectedActivity();
 			if (a == null || a.getSecondaries() == null)
 			{

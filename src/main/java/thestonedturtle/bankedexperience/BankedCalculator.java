@@ -86,6 +86,7 @@ public class BankedCalculator extends JPanel
 
 	private final Map<ExperienceItem, BankedItem> bankedItemMap = new LinkedHashMap<>();
 	private final JLabel totalXpLabel = new JLabel();
+	private final JLabel totalXpWithoutSecondariesLabel = new JLabel();
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid = new SelectionGrid();
@@ -278,6 +279,7 @@ public class BankedCalculator extends JPanel
 				add(boostInput);
 			}
 			add(totalXpLabel);
+			add(totalXpWithoutSecondariesLabel);
 			add(xpToNextLevelLabel);
 			add(modifyPanel);
 			add(itemGrid);
@@ -398,6 +400,7 @@ public class BankedCalculator extends JPanel
 	private void calculateBankedXpTotal()
 	{
 		double total = 0.0;
+		double withoutSecondariesTotal = 0.0;
 		for (final GridItem i : itemGrid.getPanelMap().values())
 		{
 			if (i.isIgnored())
@@ -419,6 +422,10 @@ public class BankedCalculator extends JPanel
 		final int nextLevel = Math.min(endLevel + 1, 126);
 		final int nextLevelXp = Experience.getXpForLevel(nextLevel) - endExp;
 		xpToNextLevelLabel.setText("Level " + nextLevel + " requires: " + XP_FORMAT_COMMA.format(nextLevelXp) + "xp");
+
+		// Without secondaries 
+		double missingXp = secondaryGrid.getMissingXp(skillLevel, boostInput);
+		totalXpWithoutSecondariesLabel.setText("Without Secondaries: " + XP_FORMAT_COMMA.format(withoutSecondariesTotal) + "xp");
 
 		// Refresh secondaries whenever the exp is updated
 		refreshSecondaries();
