@@ -30,7 +30,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -39,7 +38,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 import lombok.Getter;
 import lombok.Value;
@@ -71,12 +69,10 @@ public class SecondaryGrid extends JPanel
 	private final Map<Integer, ItemInfo> infoMap = new HashMap<>();
 	private final Map<Integer, Integer> availableMap = new HashMap<>();
 	private final BankedCalculator calc;
-	private final Collection<GridItem> items;
 
 	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
 	{
 		this.calc = calc;
-		this.items = items;
 		setLayout(new GridLayout(0, 5, 1, 1));
 
 		updateSecMap(items);
@@ -139,15 +135,16 @@ public class SecondaryGrid extends JPanel
 			// keeps track of how much is available to use
 			int banked = availableMap.getOrDefault(itemID, 0);
 			
+			// Retrieve xp info for item
 			final ExperienceItem experienceItem = ExperienceItem.getByItemId(itemID);
 			final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
+			
+			// @TODO Implement option to allow switching between high->low
 			final Activity highestActivity = activities.get(activities.size() - 1);
 			final double xpPerActivity = highestActivity.getXp();
-			
+
 			// We reverse the order of secMap to get the highest yielding xpRate first
 			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.values()).listIterator(secMap.size());
-			
-			// We exit early to save cycles if banked <= 0 since we've used up all available supplies
 			while (iterator.hasPrevious() && banked <= 0) 
 			{
 				SecondaryInfo info = iterator.previous();
