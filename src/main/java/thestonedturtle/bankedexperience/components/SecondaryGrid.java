@@ -38,7 +38,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
 import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
