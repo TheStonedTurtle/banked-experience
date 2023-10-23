@@ -133,37 +133,41 @@ public class SecondaryGrid extends JPanel
 		for (final int itemID : secMap.keySet()) {
 			// keeps track of how much is available to use
 			int banked = availableMap.getOrDefault(itemID, 0);
-			
-			// Retrieve xp info for item
-			final ExperienceItem experienceItem = ExperienceItem.getByItemId(itemID);
-			final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
-			
-			// @TODO Implement option to allow switching between high->low
-			final Activity highestActivity = activities.get(activities.size() - 1);
-			final double xpPerActivity = highestActivity.getXp();
+			if (banked == 0)
+			{
+				continue;
+			}
 
-			// We reverse the order of secMap to get the highest yielding xpRate first
-			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.values()).listIterator(secMap.size());
-			while (iterator.hasPrevious() && banked <= 0) 
+			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.get(itemID)).listIterator(secMap.get(itemID).size());
+			while (iterator.hasPrevious() && banked > 0)
 			{
 				SecondaryInfo info = iterator.previous();
-				final double qty = info.getQty();
-				if (qty == 0)
-				{
+
+				// Retrieve xp info for item
+				final ExperienceItem experienceItem = ExperienceItem.getByItemId(info.getBankedItem().getItem().getItemID());
+				final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
+				if (activities.isEmpty()) {
 					continue;
-				}	
-				
+				}
+				// @TODO Implement option to allow switching between high->low
+				final Activity highestActivity = activities.get(activities.size() - 1);
+				final double xpPerActivity = highestActivity.getXp();
+				final double qty = info.getQty();
+				if (qty == 0) {
+					continue;
+				}
+
 				if (banked >= qty) {
 					// Use full qty
-					banked -= qty;
 					totalXp += xpPerActivity * qty;
+					banked -= qty;
 				} else if (banked < qty) {
 					// Use remainder, this will cause loop to exit
-					banked -= banked;
 					totalXp += xpPerActivity * banked;
+					banked -= banked;
 				}
 			}
-		}	
+		}
 		return totalXp;
 	}
 

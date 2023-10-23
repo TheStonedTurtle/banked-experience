@@ -422,8 +422,11 @@ public class BankedCalculator extends JPanel
 		final int nextLevelXp = Experience.getXpForLevel(nextLevel) - endExp;
 		xpToNextLevelLabel.setText("Level " + nextLevel + " requires: " + XP_FORMAT_COMMA.format(nextLevelXp) + "xp");
 
-		// Without secondaries 
-		double missingXp = secondaryGrid.getMissingXp(skillLevel, boostInput);
+		// Without secondaries
+		double missingXp = 0.0;
+		if (secondaryGrid != null) {
+			missingXp = secondaryGrid.getMissingXp(skillLevel, boostInput);
+		}
 		totalXpWithoutSecondariesLabel.setText("Without Secondaries: " + XP_FORMAT_COMMA.format(missingXp) + "xp");
 
 		// Refresh secondaries whenever the exp is updated
