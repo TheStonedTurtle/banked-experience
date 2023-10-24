@@ -124,7 +124,7 @@ public class SecondaryGrid extends JPanel
 		}
 	}
 
-	public double getMissingXp(int skillLevel, BoostInput boostInput)
+	public double getMissingXp(int skillLevel)
 	{
 		BankedExperienceConfig config = calc.getConfig();
 
@@ -138,14 +138,21 @@ public class SecondaryGrid extends JPanel
 				continue;
 			}
 
-			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.get(itemID)).listIterator(secMap.get(itemID).size());
-			while (iterator.hasPrevious() && banked > 0)
+			boolean isHighSort = config.withoutSecondaryXpSort().equals(BankedExperienceConfig.WithoutSecondaryXpSort.HIGH);
+			final int startingIndex = isHighSort ? secMap.get(itemID).size() : 0;
+			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.get(itemID)).listIterator(startingIndex);
+			while (((isHighSort && iterator.hasPrevious()) || (!isHighSort && iterator.hasNext())) && banked > 0)
 			{
-				SecondaryInfo info = iterator.previous();
+				SecondaryInfo info;
+				if (isHighSort) {
+					info = iterator.previous();
+				} else {
+					info = iterator.next();
+				}
 
 				// Retrieve xp info for item
 				final ExperienceItem experienceItem = ExperienceItem.getByItemId(info.getBankedItem().getItem().getItemID());
-				final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
+				final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel) : -1);
 				if (activities.isEmpty()) {
 					continue;
 				}

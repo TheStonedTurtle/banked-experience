@@ -101,4 +101,31 @@ public interface BankedExperienceConfig extends Config
 		description = ""
 	)
 	void ignoredItems(String val);
+
+	@ConfigItem(
+			keyName = "withoutSecondaryXp",
+			name = "Exclude missing secondaries.",
+			description = "Toggles whether or not to display XP from secondaries you do not currently have.",
+			position = 8
+	)
+	default boolean withoutSecondaryXp()
+	{
+		return true;
+	}
+
+	enum WithoutSecondaryXpSort
+	{
+		HIGH,
+		LOW,
+	}
+	@ConfigItem(
+			keyName = "withoutSecondaryXpSort",
+			name = "",
+			description = "Toggles whether or not to display XP from secondaries you do not currently have.",
+			position = 9
+	)
+	default WithoutSecondaryXpSort withoutSecondaryXpSort()
+	{
+		return WithoutSecondaryXpSort.HIGH;
+	}
 }
