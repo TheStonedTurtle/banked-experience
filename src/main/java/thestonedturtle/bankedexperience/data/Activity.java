@@ -1211,6 +1211,23 @@ public enum Activity
 	// Other
 	F_BATTLESTAFF(ItemID.BATTLESTAFF, "Battlestaff", 40, 80,
 		ExperienceItem.F_CELASTRUS_BARK, null, new ItemStack(ItemID.BATTLESTAFF, 1)),
+	// Javelin Heads
+	BRONZE_JAVELINS(ItemID.BRONZE_JAVELIN, "Bronze javelins", 3, 1,
+		ExperienceItem.BRONZE_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.BRONZE_JAVELIN, 1)),
+	IRON_JAVELINS(ItemID.IRON_JAVELIN, "Iron javelins", 17, 2,
+		ExperienceItem.IRON_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.IRON_JAVELIN, 1)),
+	STEEL_JAVELINS(ItemID.STEEL_JAVELIN, "Steel javelins", 32, 5,
+		ExperienceItem.STEEL_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.STEEL_JAVELIN, 1)),
+	MITHRIL_JAVELINS(ItemID.MITHRIL_JAVELIN, "Mithril javelins", 47, 8,
+		ExperienceItem.MITHRIL_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.MITHRIL_JAVELIN, 1)),
+	ADAMANT_JAVELINS(ItemID.ADAMANT_JAVELIN, "Adamant javelins", 62, 10,
+		ExperienceItem.ADAMANT_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.ADAMANT_JAVELIN, 1)),
+	RUNE_JAVELINS(ItemID.RUNE_JAVELIN, "Rune javelins", 77, 12.4,
+		ExperienceItem.RUNE_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.RUNE_JAVELIN, 1)),
+	AMETHYST_JAVELINS(ItemID.AMETHYST_JAVELIN, "Amethyst javelins", 84, 13.5,
+		ExperienceItem.AMETHYST_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.AMETHYST_JAVELIN, 1)),
+	DRAGON_JAVELINS(ItemID.DRAGON_JAVELIN, "Dragon javelins", 92, 15,
+		ExperienceItem.DRAGON_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.DRAGON_JAVELIN, 1)),
 	/**
 	 * Hunter
 	 */

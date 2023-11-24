@@ -154,6 +154,7 @@ public enum Secondaries
 	ADAMANTITE_LIMBS(new ItemStack(ItemID.ADAMANTITE_LIMBS, 1)),
 	RUNITE_LIMBS(new ItemStack(ItemID.RUNITE_LIMBS, 1)),
 	DRAGON_LIMBS(new ItemStack(ItemID.DRAGON_LIMBS, 1)),
+	JAVELIN_SHAFT(new ItemStack(ItemID.JAVELIN_SHAFT, 1)),
 	/**
 	 * Prayer
 	 */
