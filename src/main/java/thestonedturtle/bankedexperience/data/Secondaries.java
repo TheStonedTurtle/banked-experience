@@ -69,6 +69,7 @@ public enum Secondaries
 	HUNTER_POTION(new Crushable(ItemID.KEBBIT_TEETH, ItemID.KEBBIT_TEETH_DUST)),
 	// Kwuarm
 	SUPER_STRENGTH(new ItemStack(ItemID.LIMPWURT_ROOT, 1)),
+	WEAPON_POISON(new ItemStack(ItemID.DRAGON_SCALE_DUST, 1)),
 	// Snapdragon
 	SUPER_RESTORE(new ItemStack(ItemID.RED_SPIDERS_EGGS, 1)),
 	SANFEW_SERUM(new ItemStack(ItemID.SNAKE_WEED, 1), new ItemStack(ItemID.UNICORN_HORN_DUST, 1), new ItemStack(ItemID.SUPER_RESTORE4, 1), new ItemStack(ItemID.NAIL_BEAST_NAILS, 1)),

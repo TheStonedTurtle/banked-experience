@@ -131,7 +131,8 @@ public enum Activity
 		ExperienceItem.KWUARM, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.KWUARM_POTION_UNF, 1)),
 	SUPER_STRENGTH(ItemID.SUPER_STRENGTH3, "Super strength", 55, 125,
 		ExperienceItem.KWUARM_POTION_UNF, Secondaries.SUPER_STRENGTH, new ItemStack(ItemID.SUPER_STRENGTH3, 1)),
-	// Snapdragon
+	WEAPON_POISON(ItemID.WEAPON_POISON, "Weapon Poison", 60, 137.5,
+		ExperienceItem.KWUARM_POTION_UNF, Secondaries.WEAPON_POISON, new ItemStack(ItemID.WEAPON_POISON, 1)),
 	SNAPDRAGON_POTION_UNF(ItemID.SNAPDRAGON_POTION_UNF, "Unfinished potion", 63, 0,
 		ExperienceItem.SNAPDRAGON, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.SNAPDRAGON_POTION_UNF, 1)),
 	SUPER_RESTORE(ItemID.SUPER_RESTORE3, "Super restore", 63, 142.5,
@@ -819,16 +820,16 @@ public enum Activity
 	GOLD_AMULET_U(ItemID.GOLD_AMULET_U, "Gold amulet (u)", 8, 30,
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_AMULET_U, 1)),
 	GOLD_TIARA(ItemID.GOLD_TIARA, "Gold tiara", 42, 35,
-			ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_TIARA, 1)),
+		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_TIARA, 1)),
 	//Amethyst
 	AMETHYST_BOLT_TIPS(ItemID.AMETHYST_BOLT_TIPS, "Amethyst bolt tips", 83, 60,
-			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 15)),
+		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 15)),
 	AMETHYST_ARROWTIPS(ItemID.AMETHYST_ARROWTIPS, "Amethyst arrowtips", 85, 60,
-			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_ARROWTIPS, 15)),
+		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_ARROWTIPS, 15)),
 	AMETHYST_JAVELIN_HEADS(ItemID.AMETHYST_JAVELIN_HEADS, "Amethyst javelin heads", 87, 60,
-			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 5)),
+		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 5)),
 	AMETHYST_DART_TIP(ItemID.AMETHYST_DART_TIP, "Amethyst dart tips", 89, 60,
-			ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 8)),
+		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 8)),
 	// RNG section
 	// Soda Ash
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 20,
@@ -1377,6 +1378,7 @@ public enum Activity
 		}
 	}
 
+	// Never used, should it be removed?
 	public double getXpRate(final Modifier modifier)
 	{
 		return modifier.appliesTo(this) ? modifier.appliedXpRate(this) : xp;
