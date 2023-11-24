@@ -116,6 +116,7 @@ public enum Secondaries
 	COIN_3(new ItemStack(ItemID.COINS_995, 3)),
 	LEATHER_BODY(new ItemStack(ItemID.LEATHER_BODY, 1)),
 	LEATHER_CHAPS(new ItemStack(ItemID.LEATHER_CHAPS, 1)),
+	BALL_OF_WOOL(new ItemStack(ItemID.BALL_OF_WOOL, 1)),
 	/**
 	 * Construction
 	 */
