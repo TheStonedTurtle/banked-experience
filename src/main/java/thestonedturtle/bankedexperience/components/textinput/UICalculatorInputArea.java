@@ -53,8 +53,8 @@ public class UICalculatorInputArea extends JPanel
 		setLayout(new GridLayout(2, 2, 7, 7));
 		uiFieldCurrentLevel = addComponent("Current Level");
 		uiFieldCurrentXP = addComponent("Current Experience");
-		uiFieldTargetLevel = addComponent("Target Level");
-		uiFieldTargetXP = addComponent("Target Experience");
+		uiFieldTargetLevel = addComponent("Level Banked");
+		uiFieldTargetXP = addComponent("Ending Experience");
 	}
 
 	int getCurrentLevelInput()
