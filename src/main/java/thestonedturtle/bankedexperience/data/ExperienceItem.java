@@ -326,8 +326,8 @@ public enum ExperienceItem
 	GIANT_SEAWEED(ItemID.GIANT_SEAWEED, Skill.CRAFTING, "Misc"),
 	// Other
 	SILVER_BAR(ItemID.SILVER_BAR, Skill.CRAFTING, "Other"),
-
 	AMETHYST(ItemID.AMETHYST, Skill.CRAFTING, "Other"),
+	SINEW(ItemID.SINEW, Skill.CRAFTING),
 
 	// Stringing
 	UNSTRUNG_SYMBOL(ItemID.UNSTRUNG_SYMBOL, Skill.CRAFTING),

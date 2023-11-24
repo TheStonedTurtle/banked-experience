@@ -877,6 +877,9 @@ public enum Activity
 		ExperienceItem.ONYX_AMULET_U, Secondaries.BALL_OF_WOOL, new ItemStack(ItemID.ONYX_AMULET, 1)),
 	ZENYTE_AMULET(ItemID.ZENYTE_AMULET, "String zenyte amulet", 98, 200,
 		ExperienceItem.ZENYTE_AMULET_U, Secondaries.BALL_OF_WOOL, new ItemStack(ItemID.ZENYTE_AMULET, 1)),
+	// Other
+	CROSSBOW_STRING(ItemID.CROSSBOW_STRING, "Crossbow string", 10, 15,
+		ExperienceItem.SINEW, null, new ItemStack(ItemID.CROSSBOW_STRING, 1)),
 	/**
 	 * Smithing
 	 */
