@@ -26,14 +26,6 @@ package thestonedturtle.bankedexperience.data;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedSet;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
@@ -41,6 +33,15 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.modifiers.ConsumptionModifier;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
+
+import javax.annotation.Nullable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A specific in-game action that consumes bank-able item(s) and rewards {@link Skill} experience.
@@ -269,6 +270,8 @@ public enum Activity
 		ExperienceItem.WEAPON_POISON_PLUS_UNF, Secondaries.WEAPON_POISON_PLUS, new ItemStack(ItemID.WEAPON_POISON_5937, 1)),
 	WEAPON_POISON_PLUS_PLUS_UNF(ItemID.WEAPON_POISON_UNF_5939, "Weapon poison++ (unf)", 82, 0,
 		ExperienceItem.CAVE_NIGHTSHADE, Secondaries.COCONUT_MILK, new ItemStack(ItemID.WEAPON_POISON_UNF_5939, 1)),
+	WEAPON_POISON_PLUS_PLUS_UNF2(ItemID.WEAPON_POISON_UNF_5939, "Weapon poison++ (unf)", 82, 0,
+		ExperienceItem.NIGHTSHADE, Secondaries.COCONUT_MILK, new ItemStack(ItemID.WEAPON_POISON_UNF_5939, 1)),
 	WEAPON_POISON_PLUS_PLUS(ItemID.WEAPON_POISON_5940, "Weapon poison(++)", 82, 190,
 		ExperienceItem.WEAPON_POISON_PLUS_PLUS_UNF, Secondaries.WEAPON_POISON_PLUS_PLUS, new ItemStack(ItemID.WEAPON_POISON_5940, 1)),
 	// Other
