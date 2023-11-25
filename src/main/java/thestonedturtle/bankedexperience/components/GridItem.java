@@ -79,7 +79,7 @@ public class GridItem extends JLabel
 	private final JMenuItem INCLUDE_ALL_OPTION = new JMenuItem(INCLUDE_ALL);
 
 	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount,
-			 final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback)
+			final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback)
 	{
 		super("");
 
@@ -139,11 +139,13 @@ public class GridItem extends JLabel
 			setIgnore(ignored);
 		});
 
-		IGNORE_ALL_OPTION.addActionListener(e -> {
+		IGNORE_ALL_OPTION.addActionListener(e ->
+		{
 			bulkIgnoreCallback.accept(true);
 		});
 
-		INCLUDE_ALL_OPTION.addActionListener(e -> {
+		INCLUDE_ALL_OPTION.addActionListener(e ->
+		{
 			bulkIgnoreCallback.accept(false);
 		});
 
@@ -215,7 +217,8 @@ public class GridItem extends JLabel
 		return tip + "</html>";
 	}
 
-	public void setIgnore(Boolean ignored) {
+	public void setIgnore(Boolean ignored)
+	{
 		this.ignored = ignored;
 		IGNORE_OPTION.setText(ignored ? INCLUDE : IGNORE);
 		this.setBackground(this.getBackgroundColor());

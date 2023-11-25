@@ -108,17 +108,17 @@ public enum ExperienceItem
 	LANTADYME_POTION_UNF(ItemID.LANTADYME_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	DWARF_WEED_POTION_UNF(ItemID.DWARF_WEED_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	TORSTOL_POTION_UNF(ItemID.TORSTOL_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
-	// Unfinished Coconut Potions
-	ANTIDOTE_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF, Skill.HERBLORE, "Unfinished Potions"),
-	ANTIDOTE_PLUS_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF_5951, Skill.HERBLORE, "Unfinished Potions"),
-	WEAPON_POISON_PLUS_UNF(ItemID.WEAPON_POISON_UNF, Skill.HERBLORE, "Unfinished Potions"),
-	WEAPON_POISON_PLUS_PLUS_UNF(ItemID.WEAPON_POISON_UNF_5939, Skill.HERBLORE, "Unfinished Potions"),
 	// Other
 	MARK_OF_GRACE(ItemID.MARK_OF_GRACE, Skill.HERBLORE, "Other"),
 	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, Skill.HERBLORE, "Other"),
 	LAVA_SCALE_SHARD(ItemID.LAVA_SCALE_SHARD, Skill.HERBLORE, "Other"),
+	// Coconut Potions
+	ANTIDOTE_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF, Skill.HERBLORE, "Unfinished Potions"),
+	ANTIDOTE_PLUS_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF_5951, Skill.HERBLORE, "Unfinished Potions"),
 	CACTUS_SPINE(ItemID.CACTUS_SPINE, Skill.HERBLORE, "Other"),
+	WEAPON_POISON_PLUS_UNF(ItemID.WEAPON_POISON_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	CAVE_NIGHTSHADE(ItemID.CAVE_NIGHTSHADE, Skill.HERBLORE, "Other"),
+	WEAPON_POISON_PLUS_PLUS_UNF(ItemID.WEAPON_POISON_UNF_5939, Skill.HERBLORE, "Unfinished Potions"),
 	/**
 	 * Prayer
 	 */
@@ -228,6 +228,13 @@ public enum ExperienceItem
 	MALICIOUS_ASHES(ItemID.MALICIOUS_ASHES, Skill.PRAYER, "Ashes"),
 	ABYSSAL_ASHES(ItemID.ABYSSAL_ASHES, Skill.PRAYER, "Ashes"),
 	INFERNAL_ASHES(ItemID.INFERNAL_ASHES, Skill.PRAYER, "Ashes"),
+	// Bird Eggs
+	BIRD_EGG_NEST_RED(ItemID.BIRD_NEST, Skill.PRAYER),
+	BIRD_EGG_NEST_BLUE(ItemID.BIRD_NEST_5072, Skill.PRAYER),
+	BIRD_EGG_NEST_GREEN(ItemID.BIRD_NEST_5071, Skill.PRAYER),
+	BIRD_EGG_RED(ItemID.BIRDS_EGG, Skill.PRAYER),
+	BIRD_EGG_BLUE(ItemID.BIRDS_EGG_5077, Skill.PRAYER),
+	BIRD_EGG_GREEN(ItemID.BIRDS_EGG_5078, Skill.PRAYER),
 	/**
 	 * Cooking
 	 */
@@ -533,6 +540,13 @@ public enum ExperienceItem
 			SKILL_MAP.put(s, i);
 			ITEM_ID_MAP.put(i.getItemID(), i);
 		}
+	}
+
+	ExperienceItem(int itemID, Skill skill)
+	{
+		this.itemID = itemID;
+		this.category = "NA";
+		this.skill = skill;
 	}
 
 	ExperienceItem(int itemID, Skill skill, String category)

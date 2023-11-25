@@ -211,7 +211,8 @@ public enum Secondaries
 		private final ItemStack[] infoItems;
 
 		// Final ID should be the crushed variant, assume that only 1 of the resource is needed per activity
-		private Crushable(final int... items) {
+		private Crushable(final int... items)
+		{
 			this.items = items;
 			this.infoItems = new ItemStack[]{new ItemStack(items[items.length - 1], 0)};
 		}

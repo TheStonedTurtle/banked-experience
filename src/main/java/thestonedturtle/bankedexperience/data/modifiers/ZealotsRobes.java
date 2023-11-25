@@ -31,7 +31,8 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.Activity;
 
-public class ZealotsRobes extends SkillingOutfit {
+public class ZealotsRobes extends SkillingOutfit
+{
 	private static final float CONSUME_AMT = 0.0125f;
 	private static final String TOOLTIP = "1.25% chance to prevent bones and ensouled heads from being consumed";
 	private static final Set<Activity> EXCLUDED = ImmutableSet.of(
@@ -42,7 +43,8 @@ public class ZealotsRobes extends SkillingOutfit {
 		Activity.RARE_LIMBS, Activity.RARE_SPINE, Activity.RARE_RIBS, Activity.RARE_PELVIS, Activity.RARE_SKULL, Activity.RARE_TUSK, Activity.RARE_FOSSIL
 	);
 
-	ZealotsRobes(ItemManager itemManager, ItemComposition... items) {
+	ZealotsRobes(ItemManager itemManager, ItemComposition... items)
+	{
 		super(Skill.PRAYER, "Zealot's robes", null, EXCLUDED, itemManager, items);
 		additive = false;
 
@@ -62,7 +64,8 @@ public class ZealotsRobes extends SkillingOutfit {
 
 	// Zealots Robes don't provide bonus xp so the SkillingOutfit xp multiplier is incorrect
 	@Override
-	protected double calculateBonusXPMultiplier() {
+	protected double calculateBonusXPMultiplier()
+	{
 		return 1d;
 	}
 }

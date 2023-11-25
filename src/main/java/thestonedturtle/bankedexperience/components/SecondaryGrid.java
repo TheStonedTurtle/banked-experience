@@ -113,7 +113,7 @@ public class SecondaryGrid extends JPanel
 				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
 
-			label.setBackground(result > 0 ? GridItem.SELECTED_BACKGROUND : GridItem.IGNORED_BACKGROUND);
+			label.setBackground(result >= 0 ? GridItem.SELECTED_BACKGROUND : GridItem.IGNORED_BACKGROUND);
 			add(label);
 		}
 	}
@@ -169,18 +169,21 @@ public class SecondaryGrid extends JPanel
 				qtyMap.merge(ItemID.NATURE_RUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
 				infoMap.put(ItemID.NATURE_RUNE, new ItemInfo("Nature rune", true));
 			}
-			else if (secondaries.getCustomHandler() instanceof Secondaries.Crushable) {
+			else if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)
+			{
 				final Secondaries.Crushable crushable = (Secondaries.Crushable) secondaries.getCustomHandler();
 				final int crushedItemId = crushable.getInfoItems()[0].getId();
 				int available = 0;
-				for (final int itemId : crushable.getItems()) {
+				for (final int itemId : crushable.getItems())
+				{
 					available += this.calc.getItemQtyFromBank(itemId);
 				}
 				availableMap.put(crushedItemId, available);
 				qtyMap.merge(crushedItemId, (double) bankedQty, Double::sum);
 				infoMap.put(crushedItemId, crushable.getInfoItems()[0].getInfo());
 			}
-			else if (secondaries.getCustomHandler() != null) {
+			else if (secondaries.getCustomHandler() != null)
+			{
 				log.warn("Unhandled secondaries custom handler: {}", secondaries.getCustomHandler().getClass());
 			}
 			else
