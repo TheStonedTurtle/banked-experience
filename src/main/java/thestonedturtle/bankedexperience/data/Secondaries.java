@@ -69,6 +69,7 @@ public enum Secondaries
 	HUNTER_POTION(new Crushable(ItemID.KEBBIT_TEETH, ItemID.KEBBIT_TEETH_DUST)),
 	// Kwuarm
 	SUPER_STRENGTH(new ItemStack(ItemID.LIMPWURT_ROOT, 1)),
+	WEAPON_POISON(new ItemStack(ItemID.DRAGON_SCALE_DUST, 1)),
 	// Snapdragon
 	SUPER_RESTORE(new ItemStack(ItemID.RED_SPIDERS_EGGS, 1)),
 	SANFEW_SERUM(new ItemStack(ItemID.SNAKE_WEED, 1), new ItemStack(ItemID.UNICORN_HORN_DUST, 1), new ItemStack(ItemID.SUPER_RESTORE4, 1), new ItemStack(ItemID.NAIL_BEAST_NAILS, 1)),
@@ -88,6 +89,7 @@ public enum Secondaries
 	STAMINA_POTION(new ByDose(ItemID.SUPER_ENERGY1, ItemID.SUPER_ENERGY2, ItemID.SUPER_ENERGY3, ItemID.SUPER_ENERGY4)),
 	EXTENDED_ANTIFIRE(new ByDose(ItemID.ANTIFIRE_POTION1, ItemID.ANTIFIRE_POTION2, ItemID.ANTIFIRE_POTION3, ItemID.ANTIFIRE_POTION4)),
 	EXTENDED_SUPER_ANTIFIRE(new ByDose(ItemID.SUPER_ANTIFIRE_POTION1, ItemID.SUPER_ANTIFIRE_POTION2, ItemID.SUPER_ANTIFIRE_POTION3, ItemID.SUPER_ANTIFIRE_POTION4)),
+	CRUSHED_SUPERIOR_DRAGON_BONES(new Crushable(ItemID.SUPERIOR_DRAGON_BONES, ItemID.CRUSHED_SUPERIOR_DRAGON_BONES)),
 	// Degrime
 	DEGRIME(new Degrime()),
 	/**
@@ -115,6 +117,7 @@ public enum Secondaries
 	COIN_3(new ItemStack(ItemID.COINS_995, 3)),
 	LEATHER_BODY(new ItemStack(ItemID.LEATHER_BODY, 1)),
 	LEATHER_CHAPS(new ItemStack(ItemID.LEATHER_CHAPS, 1)),
+	BALL_OF_WOOL(new ItemStack(ItemID.BALL_OF_WOOL, 1)),
 	/**
 	 * Construction
 	 */
@@ -152,10 +155,15 @@ public enum Secondaries
 	ADAMANTITE_LIMBS(new ItemStack(ItemID.ADAMANTITE_LIMBS, 1)),
 	RUNITE_LIMBS(new ItemStack(ItemID.RUNITE_LIMBS, 1)),
 	DRAGON_LIMBS(new ItemStack(ItemID.DRAGON_LIMBS, 1)),
+	JAVELIN_SHAFT(new ItemStack(ItemID.JAVELIN_SHAFT, 1)),
 	/**
 	 * Prayer
 	 */
 	BUCKET_OF_SLIME(new ItemStack(ItemID.BUCKET_OF_SLIME, 1)),
+	BASIC_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 2), new ItemStack(ItemID.BODY_RUNE, 4)),
+	ADEPT_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 3), new ItemStack(ItemID.BODY_RUNE, 4), new ItemStack(ItemID.SOUL_RUNE, 1)),
+	EXPERT_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 3), new ItemStack(ItemID.BLOOD_RUNE, 1), new ItemStack(ItemID.SOUL_RUNE, 2)),
+	MASTER_REANIMATION(new ItemStack(ItemID.NATURE_RUNE, 4), new ItemStack(ItemID.BLOOD_RUNE, 2), new ItemStack(ItemID.SOUL_RUNE, 4)),
 	/**
 	 * Thieving
 	 */
