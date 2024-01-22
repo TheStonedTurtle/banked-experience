@@ -882,6 +882,7 @@ public enum Activity
 	// Other
 	CROSSBOW_STRING(ItemID.CROSSBOW_STRING, "Crossbow string", 10, 15,
 		ExperienceItem.SINEW, null, new ItemStack(ItemID.CROSSBOW_STRING, 1)),
+	PERFECT_sHELL(ItemID.PERFECT_sHELL, "Long Bone", 1, 500, ExperienceItem.PERFECT_sHELL, null, null),
 	/**
 	 * Smithing
 	 */
