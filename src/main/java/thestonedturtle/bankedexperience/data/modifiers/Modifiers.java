@@ -100,6 +100,7 @@ public final class Modifiers
 		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null));
 		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null));
 		addModifier(new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp & 50% Save)", 0.5f, BONES, null)
+		addModifier(new StaticModifier(Skill.PRAYER, "Sinister Offering (300% xp)", 3, BONES, null));
 		{
 			@Override
 			public double appliedXpRate(final Activity activity)
