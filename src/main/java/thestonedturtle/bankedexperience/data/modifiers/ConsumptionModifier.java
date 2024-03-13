@@ -53,4 +53,10 @@ public class ConsumptionModifier extends Modifier
 		super(skill, name, included, ignored);
 		this.savePercentage = savePercentage;
 	}
+
+	ConsumptionModifier(Skill skill, String name, float savePercentage, Collection<Activity> included, Collection<Activity> ignored, String tooltip)
+	{
+		super(skill, name, included, ignored, tooltip);
+		this.savePercentage = savePercentage;
+	}
 }

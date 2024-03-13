@@ -50,6 +50,12 @@ public class StaticModifier extends Modifier
 		this.xpModifier = xpModifier;
 	}
 
+	StaticModifier(Skill skill, String name, final float xpModifier, Collection<Activity> included, Collection<Activity> ignored, String tooltip)
+	{
+		super(skill, name, included, ignored, tooltip);
+		this.xpModifier = xpModifier;
+	}
+
 	/**
 	 * Applies the {@link #xpModifier} to the default xp rate of the passed activity, if applicable.
 	 * @param activity the {@link Activity} to apply this modifier to.

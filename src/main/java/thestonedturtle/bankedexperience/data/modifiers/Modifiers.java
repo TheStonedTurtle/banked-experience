@@ -43,6 +43,8 @@ import thestonedturtle.bankedexperience.data.Activity;
  */
 public final class Modifiers
 {
+	private static final String ASHES_TOOLTIP_TEXT = "Only applies to ashes";
+	private static final String BONES_TOOLTIP_TEXT = "Only applies to bones";
 	private static final Multimap<Skill, Modifier> modifiers = ArrayListMultimap.create();
 
 	static final Set<Activity> BONES = ImmutableSet.of(
@@ -60,7 +62,7 @@ public final class Modifiers
 
 	public static void prepare(ItemManager manager)
 	{
-		assert modifiers.size() == 0;
+		assert modifiers.isEmpty();
 
 		final Map<Integer, ItemComposition[]> compositions = new HashMap<>();
 
@@ -96,11 +98,11 @@ public final class Modifiers
 	{
 		// Prayer Modifiers
 		addModifier(new ZealotsRobes(manager, compositions.get(ItemID.ZEALOTS_HELM)));
-		addModifier(new StaticModifier(Skill.PRAYER, "Demonic Offering (300% xp)", 3, ASHES, null));
-		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null));
-		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null));
-		addModifier(new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp & 50% Save)", 0.5f, BONES, null)
-		addModifier(new StaticModifier(Skill.PRAYER, "Sinister Offering (300% xp)", 3, BONES, null));
+		addModifier(new StaticModifier(Skill.PRAYER, "Demonic Offering (300% xp)", 3, ASHES, null, ASHES_TOOLTIP_TEXT));
+		addModifier(new StaticModifier(Skill.PRAYER, "Sinister Offering (300% xp)", 3, BONES, null, BONES_TOOLTIP_TEXT));
+		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null, BONES_TOOLTIP_TEXT));
+		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null, BONES_TOOLTIP_TEXT));
+		addModifier(new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp & 50% Save)", 0.5f, BONES, null, BONES_TOOLTIP_TEXT)
 		{
 			@Override
 			public double appliedXpRate(final Activity activity)

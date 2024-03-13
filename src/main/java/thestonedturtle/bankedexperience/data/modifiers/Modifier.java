@@ -56,17 +56,29 @@ public abstract class Modifier
 	 */
 	private final ImmutableSet<Activity> ignoredActivities;
 
+	private final String tooltip;
+
 	Modifier(Skill skill, String name)
 	{
-		this(skill, name, null, null);
+		this(skill, name, null, null, null);
 	}
 
+	Modifier(Skill skill, String name, String tooltip)
+	{
+		this(skill, name, null, null, tooltip);
+	}
 	Modifier(Skill skill, String name, Collection<Activity> included, Collection<Activity> ignored)
+	{
+		this(skill, name, included, ignored, null);
+	}
+
+	Modifier(Skill skill, String name, Collection<Activity> included, Collection<Activity> ignored, String tooltip)
 	{
 		this.skill = skill;
 		this.name = name;
 		this.includedActivities = included == null ? ImmutableSet.of() : ImmutableSet.copyOf(included);
 		this.ignoredActivities = ignored == null ? ImmutableSet.of() : ImmutableSet.copyOf(ignored);
+		this.tooltip = tooltip;
 	}
 
 	/**

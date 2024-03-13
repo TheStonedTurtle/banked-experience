@@ -59,6 +59,11 @@ public class ModifierPanel extends LabeledCheckbox implements ModifierComponent
 
 			modifierConsumer.accept(modifier, getButton().isSelected());
 		});
+
+		if (modifier.getTooltip() != null)
+		{
+			this.setToolTipText(modifier.getTooltip());
+		}
 	}
 
 	@Override
