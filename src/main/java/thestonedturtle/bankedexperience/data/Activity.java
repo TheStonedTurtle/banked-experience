@@ -837,7 +837,7 @@ public enum Activity
 	// RNG section
 	// Soda Ash
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 20,
-		ExperienceItem.SODA_ASH, null, new ItemStack(ItemID.MOLTEN_GLASS, 1)),
+		ExperienceItem.SODA_ASH, Secondaries.BUCKET_OF_SAND, new ItemStack(ItemID.MOLTEN_GLASS, 1)),
 	MOLTEN_GLASS_SPELL(ItemID.MOLTEN_GLASS, "SGM [1.3x]", 1, 10, true,
 		ExperienceItem.SODA_ASH, Secondaries.BUCKET_OF_SAND, new ItemStack(ItemID.MOLTEN_GLASS, 1.3)),
 	// Seaweed
