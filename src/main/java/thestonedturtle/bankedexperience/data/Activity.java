@@ -546,6 +546,25 @@ public enum Activity
 		ExperienceItem.BIRD_EGG_BLUE, null, null),
 	BIRD_EGG_GREEN(ItemID.BIRDS_EGG_5078, "Offer bird's egg", 1, 100,
 		ExperienceItem.BIRD_EGG_GREEN, null, null),
+	// Slayer Trophies
+	CRAWLING_HAND(ItemID.CRAWLING_HAND, "Crawling hand", 1, 2500,
+		ExperienceItem.CRAWLING_HAND, null, null),
+	COCKATRICE_HEAD(ItemID.COCKATRICE_HEAD, "Cockatrice head", 1, 2500,
+		ExperienceItem.COCKATRICE_HEAD, null, null),
+	BASILISK_HEAD(ItemID.BASILISK_HEAD, "Basilisk head", 1, 2500,
+		ExperienceItem.BASILISK_HEAD, null, null),
+	KURASK_HEAD(ItemID.KURASK_HEAD, "Kurask head", 1, 2500,
+		ExperienceItem.KURASK_HEAD, null, null),
+	ABYSSAL_HEAD(ItemID.ABYSSAL_HEAD, "Abyssal head", 1, 2500,
+		ExperienceItem.ABYSSAL_HEAD, null, null),
+	KBD_HEADS(ItemID.KBD_HEADS, "Kbd heads", 1, 2500,
+		ExperienceItem.KBD_HEADS, null, null),
+	KQ_HEAD(ItemID.KQ_HEAD, "Kq head", 1, 2500,
+		ExperienceItem.KQ_HEAD, null, null),
+	VORKATHS_HEAD(ItemID.VORKATHS_HEAD, "Vorkaths head", 1, 1000,
+		ExperienceItem.VORKATHS_HEAD, null, null),
+	ALCHEMICAL_HYDRA_HEADS(ItemID.ALCHEMICAL_HYDRA_HEADS, "Alchemical hydra heads", 1, 2500,
+		ExperienceItem.ALCHEMICAL_HYDRA_HEADS, null, null),
 	/**
 	 * Cooking
 	 */
