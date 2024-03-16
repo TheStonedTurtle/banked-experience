@@ -26,11 +26,14 @@ package thestonedturtle.bankedexperience.data.modifiers.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
@@ -50,6 +53,19 @@ public class LabeledCheckbox extends JPanel
 		uiLabel.setForeground(Color.WHITE);
 		uiLabel.setFont(FontManager.getRunescapeSmallFont());
 		uiLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		uiLabel.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				if (!SwingUtilities.isLeftMouseButton(e))
+				{
+					return;
+				}
+
+				button.setSelected(!button.isSelected());
+			}
+		});
 
 		this.add(uiLabel, BorderLayout.WEST);
 		this.add(button, BorderLayout.EAST);
