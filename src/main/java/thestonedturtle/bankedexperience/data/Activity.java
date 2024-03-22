@@ -422,7 +422,7 @@ public enum Activity
 			ExperienceItem.WYRM_BONES, null, null),
 	WYRM_BONES_SUNFIRE_WINE(ItemID.WYRM_BONES, "Wyrm bones (libation bowl + blessed sunfire wine)", 30, 252.0,
 			ExperienceItem.WYRM_BONES, null, null),
-	WYRMLING_BONES(ItemID.WYRMLING_BONES, "Wyrmling bones", 1, 110.0,
+	WYRMLING_BONES(ItemID.WYRMLING_BONES, "Wyrmling bones", 1, 21.0,
 			ExperienceItem.WYRMLING_BONES, null, null),
 	WYRMLING_BONES_WINE(ItemID.WYRMLING_BONES, "Wyrmling bones (libation bowl + blessed wine)", 30, 105.0,
 			ExperienceItem.WYRMLING_BONES, null, null),
