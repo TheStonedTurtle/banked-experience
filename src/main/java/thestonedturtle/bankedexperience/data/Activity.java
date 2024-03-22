@@ -800,6 +800,24 @@ public enum Activity
 		ExperienceItem.UNCOOKED_STEW, null, new ItemStack(ItemID.STEW, 1)),
 	CURRY(ItemID.CURRY, "Curry", 60, 280,
 		ExperienceItem.UNCOOKED_CURRY, null, new ItemStack(ItemID.CURRY, 1)),
+	COOK_WILD_KEBBIT(ItemID.COOKED_WILD_KEBBIT, "Cooked wild kebbit", 23, 73.0,
+			ExperienceItem.RAW_WILD_KEBBIT, null, new ItemStack(ItemID.COOKED_WILD_KEBBIT, 1)),
+	COOK_LARUPIA(ItemID.COOKED_LARUPIA, "Cooked larupia", 31, 92.0,
+			ExperienceItem.RAW_LARUPIA, null, new ItemStack(ItemID.COOKED_LARUPIA, 1)),
+	COOK_BARBTAILED_KEBBIT(ItemID.COOKED_BARBTAILED_KEBBIT, "Cooked barb-tailed kebbit", 32, 106.0,
+			ExperienceItem.RAW_BARBTAILED_KEBBIT, null, new ItemStack(ItemID.COOKED_BARBTAILED_KEBBIT, 1)),
+	COOK_GRAAHK(ItemID.COOKED_GRAAHK, "Cooked graahk", 41, 0.0, // TODO: xp is unknown on wiki
+			ExperienceItem.RAW_GRAAHK, null, new ItemStack(ItemID.COOKED_GRAAHK, 1)),
+	COOK_KYATT(ItemID.COOKED_KYATT, "Cooked kyatt", 51, 143.0,
+			ExperienceItem.RAW_KYATT, null, new ItemStack(ItemID.COOKED_KYATT, 1)),
+	COOK_PYRE_FOX(ItemID.COOKED_PYRE_FOX, "Cooked pyre fox", 59, 154.0,
+			ExperienceItem.RAW_PYRE_FOX, null, new ItemStack(ItemID.COOKED_PYRE_FOX, 1)),
+	COOK_SUNLIGHT_ANTELOPE(ItemID.COOKED_SUNLIGHT_ANTELOPE, "Cooked sunlight antelope", 68, 175.0,
+			ExperienceItem.RAW_SUNLIGHT_ANTELOPE, null, new ItemStack(ItemID.COOKED_SUNLIGHT_ANTELOPE, 1)),
+	COOK_DASHING_KEBBIT(ItemID.COOKED_DASHING_KEBBIT, "Cooked dashing kebbit", 82, 215.0,
+			ExperienceItem.RAW_DASHING_KEBBIT, null, new ItemStack(ItemID.COOKED_DASHING_KEBBIT, 1)),
+	COOK_MOONLIGHT_ANTELOPE(ItemID.COOKED_MOONLIGHT_ANTELOPE, "Cooked moonlight antelope", 92, 220.0,
+			ExperienceItem.RAW_MOONLIGHT_ANTELOPE, null, new ItemStack(ItemID.COOKED_MOONLIGHT_ANTELOPE, 1)),
 	/**
 	 * Crafting
 	 */
