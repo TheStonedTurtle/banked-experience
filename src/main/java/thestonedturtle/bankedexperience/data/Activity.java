@@ -806,7 +806,7 @@ public enum Activity
 			ExperienceItem.RAW_LARUPIA, null, new ItemStack(ItemID.COOKED_LARUPIA, 1)),
 	COOK_BARBTAILED_KEBBIT(ItemID.COOKED_BARBTAILED_KEBBIT, "Cooked barb-tailed kebbit", 32, 106.0,
 			ExperienceItem.RAW_BARBTAILED_KEBBIT, null, new ItemStack(ItemID.COOKED_BARBTAILED_KEBBIT, 1)),
-	COOK_GRAAHK(ItemID.COOKED_GRAAHK, "Cooked graahk", 41, 0.0, // TODO: xp is unknown on wiki
+	COOK_GRAAHK(ItemID.COOKED_GRAAHK, "Cooked graahk", 41, 124,
 			ExperienceItem.RAW_GRAAHK, null, new ItemStack(ItemID.COOKED_GRAAHK, 1)),
 	COOK_KYATT(ItemID.COOKED_KYATT, "Cooked kyatt", 51, 143.0,
 			ExperienceItem.RAW_KYATT, null, new ItemStack(ItemID.COOKED_KYATT, 1)),
