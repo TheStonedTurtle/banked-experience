@@ -373,16 +373,12 @@ public enum Activity
 	// Wyrmling bones behave slightly differently than other bones, so modifiers cannot apply correctly
 	WYRMLING_BONES_BURY(ItemID.WYRMLING_BONES, "Wyrmling bones (bury)", 1, 21.0,
 			ExperienceItem.WYRMLING_BONES, null, null),
-
 	WYRMLING_BONES_SINISTER(ItemID.WYRMLING_BONES, "Wyrmling bones (sinister offering/sacred bone burner)", 1, 63.0,
 			ExperienceItem.WYRMLING_BONES, null, null),
-
 	WYRMLING_BONES_GILDED(ItemID.WYRMLING_BONES, "Wyrmling bones (gilded altar)", 1, 73.5,
 			ExperienceItem.WYRMLING_BONES, null, null),
-
 	WYRMLING_BONES_ECTOFUNTUS(ItemID.WYRMLING_BONES, "Wyrmling bones (ectofuntus)", 1, 120.0,
 			ExperienceItem.WYRMLING_BONES, null, null),
-
 	WYRMLING_BONES_WILDERNESS(ItemID.WYRMLING_BONES, "Wyrmling bones (wilderness altar)", 1, 147.0,
 			ExperienceItem.WYRMLING_BONES, null, null),
 	// Libation bowl (blessed bone shards + bless/sunfire wine)
