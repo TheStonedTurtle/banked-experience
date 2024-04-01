@@ -370,6 +370,98 @@ public enum Activity
 		ExperienceItem.DRAKE_BONES, null, null),
 	HYDRA_BONES(ItemID.HYDRA_BONES, "Hydra bones", 1, 110.0,
 		ExperienceItem.HYDRA_BONES, null, null),
+	// Wyrmling bones behave slightly differently than other bones, so modifiers cannot apply correctly
+	WYRMLING_BONES_BURY(ItemID.WYRMLING_BONES, "Bury", 1, 21.0,
+			ExperienceItem.WYRMLING_BONES, null, null),
+	WYRMLING_BONES_SINISTER(ItemID.WYRMLING_BONES, "Sinister offering", 1, 63.0,
+			ExperienceItem.WYRMLING_BONES, null, null),
+	WYRMLING_BONES_GILDED(ItemID.WYRMLING_BONES, "Lit Gilded altar", 1, 73.5,
+			ExperienceItem.WYRMLING_BONES, null, null),
+	WYRMLING_BONES_ECTOFUNTUS(ItemID.WYRMLING_BONES, "Ectofuntus", 1, 120.0,
+			ExperienceItem.WYRMLING_BONES, null, null),
+	WYRMLING_BONES_WILDERNESS(ItemID.WYRMLING_BONES, "Wildy altar", 1, 147.0,
+			ExperienceItem.WYRMLING_BONES, null, null),
+	// Libation bowl (blessed bone shards + bless/sunfire wine)
+	WYRMLING_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.WYRMLING_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 21)),
+	BLESSED_WYRMLING_BONES_TO_SHARDS(ItemID.BLESSED_BABYWYRM_BONES, "Blessed bone shards", 1, 0.0,
+			ExperienceItem.BLESSED_BABYWYRM_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 21)),
+	BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 4)),
+	BLESSED_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 4)),
+	BAT_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BAT_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 5)),
+	BLESSED_BAT_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSD_BAT_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 5)),
+	BIG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BIG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 12)),
+	BLESSED_BIG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_BIG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 12)),
+	ZOGRE_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.ZOGRE_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 18)),
+	BLESSED_ZOGRE_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_ZOGRE_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 18)),
+	BABYDRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BABYDRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 24)),
+	BLESSED_BABYDRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_BABYDRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 24)),
+	WYRM_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.WYRM_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 42)),
+	BLESSED_WYRM_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_WYRM_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 42)),
+	WYVERN_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.WYVERN_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 58)),
+	BLESSED_WYVERN_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_WYVERN_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 58)),
+	DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 58)),
+	BLESSED_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 58)),
+	DRAKE_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.DRAKE_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 64)),
+	BLESSED_DRAKE_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_DRAKE_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 64)),
+	FAYRG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.FAYRG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 67)),
+	BLESSED_FAYRG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_FAYRG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 67)),
+	LAVA_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.LAVA_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 68)),
+	BLESSED_LAVA_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_LAVA_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 68)),
+	RAURG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.RAURG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 77)),
+	BLESSED_RAURG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_RAURG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 77)),
+	HYDRA_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.HYDRA_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 93)),
+	BLESSED_HYDRA_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_HYDRA_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 93)),
+	DAGANNOTH_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.DAGANNOTH_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 100)),
+	BLESSED_DAGANNOTH_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.DAGANNOTH_BONES_29376, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 100)),
+	OURG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.OURG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 115)),
+	BLESSED_OURG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_OURG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 115)),
+	SUPERIOR_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.SUPERIOR_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 121)),
+	BLESSED_SUPERIOR_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.BLESSED_SUPERIOR_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 121)),
+	SUNKISSED_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
+			ExperienceItem.SUNKISSED_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 45)),
+	BLESSED_BONE_STATUETTE(ItemID.BLESSED_BONE_STATUETTE, "Bone statuette", 0, 0.0,
+			ExperienceItem.BLESSED_BONE_STATUETTE, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 125)),
+	BLESSED_BONE_STATUETTE_29340(ItemID.BLESSED_BONE_STATUETTE_29340, "Bone statuette", 0, 0.0,
+			ExperienceItem.BLESSED_BONE_STATUETTE_29340, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 125)),
+	BLESSED_BONE_STATUETTE_29342(ItemID.BLESSED_BONE_STATUETTE_29342, "Bone statuette", 0, 0.0,
+			ExperienceItem.BLESSED_BONE_STATUETTE_29342, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 125)),
+	BLESSED_BONE_SHARDS_WINE(ItemID.JUG_OF_BLESSED_WINE, "Blessed wine", 30, 5.0,
+			ExperienceItem.BLESSED_BONE_SHARDS, Secondaries.BLESSED_BONE_SHARDS_JUG_OF_BLESSED_WINE, null),
+	BLESSED_BONE_SHARDS_SUNFIRE_WINE(ItemID.JUG_OF_BLESSED_SUNFIRE_WINE, "Sunfire wine", 30, 6.0,
+			ExperienceItem.BLESSED_BONE_SHARDS, Secondaries.BLESSED_BONE_SHARDS_JUG_OF_BLESSED_SUNFIRE_WINE, null),
 	// Bonemeal
 	BONEMEAL(ItemID.BONEMEAL, "Bonemeal", 1, 18,
 		ExperienceItem.BONEMEAL, Secondaries.BUCKET_OF_SLIME, null),
@@ -642,6 +734,24 @@ public enum Activity
 		ExperienceItem.UNCOOKED_STEW, null, new ItemStack(ItemID.STEW, 1)),
 	CURRY(ItemID.CURRY, "Curry", 60, 280,
 		ExperienceItem.UNCOOKED_CURRY, null, new ItemStack(ItemID.CURRY, 1)),
+	COOK_WILD_KEBBIT(ItemID.COOKED_WILD_KEBBIT, "Cooked wild kebbit", 23, 73.0,
+			ExperienceItem.RAW_WILD_KEBBIT, null, new ItemStack(ItemID.COOKED_WILD_KEBBIT, 1)),
+	COOK_LARUPIA(ItemID.COOKED_LARUPIA, "Cooked larupia", 31, 92.0,
+			ExperienceItem.RAW_LARUPIA, null, new ItemStack(ItemID.COOKED_LARUPIA, 1)),
+	COOK_BARBTAILED_KEBBIT(ItemID.COOKED_BARBTAILED_KEBBIT, "Cooked barb-tailed kebbit", 32, 106.0,
+			ExperienceItem.RAW_BARBTAILED_KEBBIT, null, new ItemStack(ItemID.COOKED_BARBTAILED_KEBBIT, 1)),
+	COOK_GRAAHK(ItemID.COOKED_GRAAHK, "Cooked graahk", 41, 124,
+			ExperienceItem.RAW_GRAAHK, null, new ItemStack(ItemID.COOKED_GRAAHK, 1)),
+	COOK_KYATT(ItemID.COOKED_KYATT, "Cooked kyatt", 51, 143.0,
+			ExperienceItem.RAW_KYATT, null, new ItemStack(ItemID.COOKED_KYATT, 1)),
+	COOK_PYRE_FOX(ItemID.COOKED_PYRE_FOX, "Cooked pyre fox", 59, 154.0,
+			ExperienceItem.RAW_PYRE_FOX, null, new ItemStack(ItemID.COOKED_PYRE_FOX, 1)),
+	COOK_SUNLIGHT_ANTELOPE(ItemID.COOKED_SUNLIGHT_ANTELOPE, "Cooked sunlight antelope", 68, 175.0,
+			ExperienceItem.RAW_SUNLIGHT_ANTELOPE, null, new ItemStack(ItemID.COOKED_SUNLIGHT_ANTELOPE, 1)),
+	COOK_DASHING_KEBBIT(ItemID.COOKED_DASHING_KEBBIT, "Cooked dashing kebbit", 82, 215.0,
+			ExperienceItem.RAW_DASHING_KEBBIT, null, new ItemStack(ItemID.COOKED_DASHING_KEBBIT, 1)),
+	COOK_MOONLIGHT_ANTELOPE(ItemID.COOKED_MOONLIGHT_ANTELOPE, "Cooked moonlight antelope", 92, 220.0,
+			ExperienceItem.RAW_MOONLIGHT_ANTELOPE, null, new ItemStack(ItemID.COOKED_MOONLIGHT_ANTELOPE, 1)),
 	/**
 	 * Crafting
 	 */
@@ -1413,20 +1523,6 @@ public enum Activity
 	{
 		for (Activity a : values())
 		{
-			final ItemStack output = a.getOutput();
-			if (output == null)
-			{
-				continue;
-			}
-
-			if (a.getOutputItemInfo() != null)
-			{
-				return;
-			}
-
-			final ItemComposition c = m.getItemComposition(output.getId());
-			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
-
 			// Attach names to all ItemStacks (secondaries)
 			if (a.getSecondaries() != null)
 			{
@@ -1445,6 +1541,20 @@ public enum Activity
 					}
 				}
 			}
+
+			final ItemStack output = a.getOutput();
+			if (output == null)
+			{
+				continue;
+			}
+
+			if (a.getOutputItemInfo() != null)
+			{
+				return;
+			}
+
+			final ItemComposition c = m.getItemComposition(output.getId());
+			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
 		}
 	}
 

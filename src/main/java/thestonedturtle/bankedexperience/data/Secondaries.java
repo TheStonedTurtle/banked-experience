@@ -137,6 +137,11 @@ public enum Secondaries
 	STEEL_BAR_TEAK(new ItemStack(ItemID.STEEL_BAR, 0.042)),
 	STEEL_BAR_MAHOGANY(new ItemStack(ItemID.STEEL_BAR, 0.040)),
 	/**
+	 * Prayer
+	 */
+	BLESSED_BONE_SHARDS_JUG_OF_BLESSED_WINE(new ItemStack(ItemID.JUG_OF_BLESSED_WINE, 0.0025)),
+	BLESSED_BONE_SHARDS_JUG_OF_BLESSED_SUNFIRE_WINE(new ItemStack(ItemID.JUG_OF_BLESSED_SUNFIRE_WINE, 0.0025)),
+	/**
 	 * Cooking
 	 */
 	JUG_OF_WATER(new ItemStack(ItemID.JUG_OF_WATER, 1)),
