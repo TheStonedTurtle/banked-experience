@@ -287,7 +287,10 @@ public class ModifyPanel extends JPanel
 					name += " (" + FORMAT_COMMA.format(xp) + "xp)";
 				}
 
-				final AsyncBufferedImage img = itemManager.getImage(option.getIcon());
+				// Use the output quantity if its stackable
+				final int iconQty = option.getOutput() != null && option.getOutput().getId() == option.getIcon() ? (int) option.getOutput().getQty() : 1;
+				final boolean iconStackable = option.getOutputItemInfo() == null ? iconQty > 1 : option.getOutputItemInfo().isStackable();
+				final AsyncBufferedImage img = itemManager.getImage(option.getIcon(), iconQty, iconStackable);
 				final ImageIcon icon = new ImageIcon(img);
 				final ComboBoxIconEntry entry = new ComboBoxIconEntry(icon, name, option);
 				dropdown.addItem(entry);
