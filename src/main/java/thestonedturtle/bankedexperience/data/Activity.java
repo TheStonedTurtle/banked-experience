@@ -1523,20 +1523,6 @@ public enum Activity
 	{
 		for (Activity a : values())
 		{
-			final ItemStack output = a.getOutput();
-			if (output == null)
-			{
-				continue;
-			}
-
-			if (a.getOutputItemInfo() != null)
-			{
-				return;
-			}
-
-			final ItemComposition c = m.getItemComposition(output.getId());
-			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
-
 			// Attach names to all ItemStacks (secondaries)
 			if (a.getSecondaries() != null)
 			{
@@ -1555,6 +1541,20 @@ public enum Activity
 					}
 				}
 			}
+
+			final ItemStack output = a.getOutput();
+			if (output == null)
+			{
+				continue;
+			}
+
+			if (a.getOutputItemInfo() != null)
+			{
+				return;
+			}
+
+			final ItemComposition c = m.getItemComposition(output.getId());
+			a.outputItemInfo = new ItemInfo(c.getName(), c.isStackable());
 		}
 	}
 
