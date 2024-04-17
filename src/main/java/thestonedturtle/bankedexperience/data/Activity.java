@@ -393,7 +393,7 @@ public enum Activity
 	BAT_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
 			ExperienceItem.BAT_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 5)),
 	BLESSED_BAT_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
-			ExperienceItem.BLESSD_BAT_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 5)),
+			ExperienceItem.BLESSED_BAT_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 5)),
 	BIG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
 			ExperienceItem.BIG_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARDS, 12)),
 	BLESSED_BIG_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARDS, "Blessed bone shards", 0, 0.0,
