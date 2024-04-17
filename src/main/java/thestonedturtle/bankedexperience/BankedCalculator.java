@@ -86,6 +86,7 @@ public class BankedCalculator extends JPanel
 
 	private final Map<ExperienceItem, BankedItem> bankedItemMap = new LinkedHashMap<>();
 	private final JLabel totalXpLabel = new JLabel();
+	private final JLabel totalXpWithoutSecondariesLabel = new JLabel();
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
 	private SelectionGrid itemGrid = new SelectionGrid();
@@ -278,6 +279,10 @@ public class BankedCalculator extends JPanel
 				add(boostInput);
 			}
 			add(totalXpLabel);
+			if (config.withoutSecondaryXp())
+			{
+				add(totalXpWithoutSecondariesLabel);
+			}
 			add(xpToNextLevelLabel);
 			add(modifyPanel);
 			add(itemGrid);
@@ -302,7 +307,7 @@ public class BankedCalculator extends JPanel
 		}
 
 		add(refreshBtn);
-
+		calculateMissingSecondaryXp();
 		revalidate();
 		repaint();
 	}
@@ -637,6 +642,7 @@ public class BankedCalculator extends JPanel
 				remove(secondarySection);
 			}
 		}
+		calculateMissingSecondaryXp();
 	}
 
 	private void saveActivity(final ExperienceItem item)
@@ -685,5 +691,18 @@ public class BankedCalculator extends JPanel
 
 		// Update UI
 		calculateBankedXpTotal();
+	}
+
+	private void calculateMissingSecondaryXp()
+	{
+		if (config.withoutSecondaryXp() && secondaryGrid != null)
+		{
+			double missingXp = secondaryGrid.getMissingXp(skillLevel + boostInput.getInputValue());
+			totalXpWithoutSecondariesLabel.setText("Without Secondaries: " + XP_FORMAT_COMMA.format(missingXp) + "xp");
+		}
+		else
+		{
+			remove(totalXpWithoutSecondariesLabel);
+		}
 	}
 }

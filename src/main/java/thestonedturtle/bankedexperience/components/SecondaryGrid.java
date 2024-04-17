@@ -28,8 +28,11 @@ import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -41,8 +44,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
+import thestonedturtle.bankedexperience.BankedExperienceConfig;
+import thestonedturtle.bankedexperience.components.textinput.BoostInput;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
+import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
@@ -118,6 +124,60 @@ public class SecondaryGrid extends JPanel
 		}
 	}
 
+	public double getMissingXp(int skillLevel)
+	{
+		BankedExperienceConfig config = calc.getConfig();
+
+		double totalXp = 0;
+		// loop over all itemIds for secondaries
+		for (final int itemID : secMap.keySet()) {
+			// keeps track of how much is available to use
+			int banked = availableMap.getOrDefault(itemID, 0);
+			if (banked == 0)
+			{
+				continue;
+			}
+
+			boolean isHighSort = config.withoutSecondaryXpSort().equals(BankedExperienceConfig.WithoutSecondaryXpSort.HIGH);
+			final int startingIndex = isHighSort ? secMap.get(itemID).size() : 0;
+			ListIterator<SecondaryInfo> iterator = new ArrayList<SecondaryInfo>(secMap.get(itemID)).listIterator(startingIndex);
+			while (((isHighSort && iterator.hasPrevious()) || (!isHighSort && iterator.hasNext())) && banked > 0)
+			{
+				SecondaryInfo info;
+				if (isHighSort) {
+					info = iterator.previous();
+				} else {
+					info = iterator.next();
+				}
+
+				// Retrieve xp info for item
+				final ExperienceItem experienceItem = ExperienceItem.getByItemId(info.getBankedItem().getItem().getItemID());
+				final List<Activity> activities = Activity.getByExperienceItem(experienceItem, config.limitToCurrentLevel() ? (skillLevel) : -1);
+				if (activities.isEmpty()) {
+					continue;
+				}
+				// @TODO Implement option to allow switching between high->low
+				final Activity highestActivity = activities.get(activities.size() - 1);
+				final double xpPerActivity = highestActivity.getXp();
+				final double qty = info.getQty();
+				if (qty == 0) {
+					continue;
+				}
+
+				if (banked >= qty) {
+					// Use full qty
+					totalXp += xpPerActivity * qty;
+					banked -= qty;
+				} else if (banked < qty) {
+					// Use remainder, this will cause loop to exit
+					totalXp += xpPerActivity * banked;
+					banked -= banked;
+				}
+			}
+		}
+		return totalXp;
+	}
+
 	// calculates the total required secondaries and links each secondary item by id to the banked items they come from
 	public void updateSecMap(final Collection<GridItem> items)
 	{
@@ -132,7 +192,7 @@ public class SecondaryGrid extends JPanel
 			}
 
 			// Check if the selected activity for the current item in the grid has any secondaries
-			final BankedItem banked =  item.getBankedItem();
+			final BankedItem banked = item.getBankedItem();
 			final Activity a = banked.getItem().getSelectedActivity();
 			if (a == null || a.getSecondaries() == null)
 			{
