@@ -1162,7 +1162,7 @@ public enum Activity
 	// Oak Logs
 	F_OAK_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 15, 10,
 		ExperienceItem.F_OAK_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 30)),
-	F_OAK_SHORTBOW_U(ItemID.OAK_SHORTBOW_U, "Oak shortbow (u)", 25, 16.5,
+	F_OAK_SHORTBOW_U(ItemID.OAK_SHORTBOW_U, "Oak shortbow (u)", 20, 16.5,
 		ExperienceItem.F_OAK_LOGS, null, new ItemStack(ItemID.OAK_SHORTBOW_U, 1)),
 	F_OAK_STOCK(ItemID.OAK_STOCK, "Oak stock", 24, 16,
 		ExperienceItem.F_OAK_LOGS, null, new ItemStack(ItemID.OAK_STOCK, 1)),
