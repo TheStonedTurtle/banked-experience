@@ -3,6 +3,7 @@ package thestonedturtle.bankedexperience;
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
+import thestonedturtle.bankedexperience.config.SecondaryMode;
 
 @ConfigGroup("bankedexperience")
 public interface BankedExperienceConfig extends Config
@@ -18,15 +19,27 @@ public interface BankedExperienceConfig extends Config
 		return true;
 	}
 
+	//No longer used, kept alive for migration purposes.
 	@ConfigItem(
 		keyName = "showSecondaries",
-		name = "Show required secondaries",
-		description = "Toggles whether the Secondaries will be displayed for the selected item",
-		position = 2
+		name = "",
+		description = "",
+		hidden = true
 	)
 	default boolean showSecondaries()
 	{
 		return false;
+	}
+
+	@ConfigItem(
+			keyName = BankedExperiencePlugin.SECONDARY_SHOW_MODE_KEY,
+			name = "Show secondaries",
+			description = "Toggles whether any, required or all secondaries will be displayed for the selected items",
+			position = 2
+	)
+	default SecondaryMode showWhatSecondaries()
+	{
+		return showSecondaries() ? SecondaryMode.ALL : SecondaryMode.NONE;
 	}
 
 	@ConfigItem(
@@ -41,7 +54,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromSeedVault",
+		keyName = BankedExperiencePlugin.VAULT_CONFIG_KEY,
 		name = "Include seed vault",
 		description = "Toggles whether the items stored inside the Seed Vault at the Farming Guild will be included in the calculations",
 		position = 4
@@ -52,7 +65,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromInventory",
+		keyName = BankedExperiencePlugin.INVENTORY_CONFIG_KEY,
 		name = "Include player inventory",
 		description = "Toggles whether the items inside your inventory will be included in the calculations",
 		position = 5
@@ -63,7 +76,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromLootingBag",
+		keyName = BankedExperiencePlugin.LOOTING_BAG_CONFIG_KEY,
 		name = "Include looting bag",
 		description = "Toggles whether the items stored inside your Looting Bag will be included in the calculations",
 		position = 6
@@ -74,7 +87,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromFossilChest",
+		keyName = BankedExperiencePlugin.FOSSIL_CHEST_CONFIG_KEY,
 		name = "Include Fossil Chest",
 		description = "Toggles whether the fossils stored inside your Fossil Island chest will be included in the calculations",
 		position = 7

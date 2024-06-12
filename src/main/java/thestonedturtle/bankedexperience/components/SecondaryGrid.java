@@ -39,8 +39,12 @@ import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ItemID;
+import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
+import thestonedturtle.bankedexperience.BankedExperiencePlugin;
+import thestonedturtle.bankedexperience.config.SecondaryMode;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ItemInfo;
@@ -63,17 +67,25 @@ public class SecondaryGrid extends JPanel
 	private final Map<Integer, Integer> availableMap = new HashMap<>();
 	private final BankedCalculator calc;
 
-	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
+	private SecondaryMode mode;
+
+	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items, SecondaryMode mode)
 	{
 		this.calc = calc;
+		this.mode = mode;
 		setLayout(new GridLayout(0, 5, 1, 1));
 
 		updateSecMap(items);
 	}
 
-	private void refreshUI()
+	public void refreshUI()
 	{
 		removeAll();
+
+		if(mode == SecondaryMode.NONE) {
+			return;
+		}
+
 		for (final int itemID : secMap.keySet())
 		{
 			final JLabel label = new JLabel();
@@ -100,15 +112,27 @@ public class SecondaryGrid extends JPanel
 					.append(" x ")
 					.append(info.getBankedItem().getItem().getItemInfo().getName());
 			}
-			calc.getItemManager().getImage(itemID, (int) Math.round(qty), qty > 0).addTo(label);
 
 			final ItemInfo info = infoMap.get(itemID);
 			final String itemName = info == null ? "" : info.getName();
 			final int available = availableMap.getOrDefault(itemID, 0);
 			final double result = available - qty;
 
+			if (mode == SecondaryMode.ALL) {
+				calc.getItemManager().getImage(itemID, (int) Math.round(qty), qty > 0).addTo(label);
+			} else {
+				if(result < 0) {
+					//use the flipped result such that the right icon gets applied and text styling gets applied.
+					calc.getItemManager().getImage(itemID, -1 * (int) Math.round(result), true).addTo(label);
+				} else {
+					//skip if we don't need this secondary.
+					continue;
+				}
+			}
+
 			final String tooltip = "<html>" + itemName
 				+ "<br/>Banked: " + BankedCalculator.XP_FORMAT_COMMA.format(available)
+				+ (mode == SecondaryMode.MISSING ? "<br/>Needed: " + BankedCalculator.XP_FORMAT_COMMA.format(qty) : "")
 				+ "<br/>Result: " + (result > 0 ? "+" : "") + BankedCalculator.XP_FORMAT_COMMA.format(result)
 				+ "<br/>" + resources.toString() + "</html>";
 			label.setToolTipText(tooltip);
