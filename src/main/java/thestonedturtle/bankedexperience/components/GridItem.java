@@ -78,8 +78,10 @@ public class GridItem extends JLabel
 	private final JMenuItem IGNORE_ALL_OPTION = new JMenuItem(IGNORE_ALL);
 	private final JMenuItem INCLUDE_ALL_OPTION = new JMenuItem(INCLUDE_ALL);
 
+	private final int xpRateModifier;
+
 	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount,
-			final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback)
+			final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback, final int xpRateModifier)
 	{
 		super("");
 
@@ -91,6 +93,8 @@ public class GridItem extends JLabel
 
 		this.setVerticalAlignment(SwingConstants.CENTER);
 		this.setHorizontalAlignment(SwingConstants.CENTER);
+
+		this.xpRateModifier = xpRateModifier;
 
 		updateIcon(icon, amount);
 		updateToolTip(modifiers);
@@ -204,7 +208,7 @@ public class GridItem extends JLabel
 		final Activity a = bankedItem.getItem().getSelectedActivity();
 		if (a != null)
 		{
-			final double xp = a.getXpRate(modifiers);
+			final double xp = a.getXpRate(modifiers) * xpRateModifier;
 			tip += "<br/>Activity: " +  a.getName();
 			tip += "<br/>Xp/Action: " + BankedCalculator.XP_FORMAT_COMMA.format(xp);
 			tip += "<br/>Total Xp: " + BankedCalculator.XP_FORMAT_COMMA.format(xp * amount);

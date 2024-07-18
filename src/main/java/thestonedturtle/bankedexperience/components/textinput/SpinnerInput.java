@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, TheStonedTurtle <https://github.com/TheStonedTurtle>
+ * Copyright (c) 2024, TheStonedTurtle <https://github.com/TheStonedTurtle>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,11 +38,21 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
-public class BoostInput extends JPanel
+public class SpinnerInput extends JPanel
 {
 	private final JSpinner spinner;
 
-	public BoostInput(Consumer<Integer> callback)
+	public SpinnerInput(final String label, final String tooltip, Consumer<Integer> callback)
+	{
+		this(label, tooltip, 0, 0, 99, 1, callback);
+	}
+
+	public SpinnerInput(final String label, final String tooltip, final int start, final int min, Consumer<Integer> callback)
+	{
+		this(label, tooltip, start, min, 99, 1, callback);
+	}
+
+	public SpinnerInput(final String label, final String tooltip, final int start, final int min, final int max, final int stepSize, Consumer<Integer> callback)
 	{
 		setLayout(new GridLayout(0, 1, 7, 7));
 		setBorder(new EmptyBorder(0, 0, 5, 0));
@@ -50,13 +60,13 @@ public class BoostInput extends JPanel
 		final JPanel container = new JPanel();
 		container.setLayout(new BorderLayout());
 
-		final JLabel uiLabel = new JLabel("Temporary Boost:");
+		final JLabel uiLabel = new JLabel(label);
 		uiLabel.setForeground(Color.WHITE);
-		uiLabel.setToolTipText("Enable activities that are this many levels above your current level");
+		uiLabel.setToolTipText(tooltip);
 
 		container.add(uiLabel, BorderLayout.CENTER);
 
-		final SpinnerModel model = new SpinnerNumberModel(0, 0, 99, 1);
+		final SpinnerModel model = new SpinnerNumberModel(start, min, max, stepSize);
 		spinner = new JSpinner(model);
 		final Component editor = spinner.getEditor();
 		final JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();

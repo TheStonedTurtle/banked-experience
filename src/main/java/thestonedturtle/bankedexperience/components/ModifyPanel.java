@@ -255,7 +255,7 @@ public class ModifyPanel extends JPanel
 			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
-			final double xp = a.getXpRate(calc.getEnabledModifiers());
+			final double xp = a.getXpRate(calc.getEnabledModifiers()) * calc.getXpRateModifier();
 			final JPanel container = createShadowedLabel(icon, a.getName(), FORMAT_COMMA.format(xp) + "xp");
 
 			img.onLoaded(() ->
@@ -280,7 +280,7 @@ public class ModifyPanel extends JPanel
 
 			for (final Activity option : activities)
 			{
-				final double xp = option.getXpRate(calc.getEnabledModifiers());
+				final double xp = option.getXpRate(calc.getEnabledModifiers()) * calc.getXpRateModifier();
 				String name = option.getName();
 				if (xp > 0)
 				{

@@ -57,7 +57,7 @@ import thestonedturtle.bankedexperience.components.ModifyPanel;
 import thestonedturtle.bankedexperience.components.SecondaryGrid;
 import thestonedturtle.bankedexperience.components.SelectionGrid;
 import thestonedturtle.bankedexperience.components.SelectionListener;
-import thestonedturtle.bankedexperience.components.textinput.BoostInput;
+import thestonedturtle.bankedexperience.components.textinput.SpinnerInput;
 import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputArea;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
@@ -114,7 +114,20 @@ public class BankedCalculator extends JPanel
 	private int skillLevel, skillExp, endLevel, endExp;
 
 	@Getter
-	private final BoostInput boostInput = new BoostInput(this::updateBoost);
+	private final SpinnerInput boostInput = new SpinnerInput(
+		"Temporary Boost:",
+		"Enables activities that are this many levels above your current level",
+		this::updateBoost
+	);
+
+	@Getter
+	private final SpinnerInput xpRateModifierInput = new SpinnerInput(
+		"XP Rate Multiplier:",
+		"Used for alternative game modes such as DMM and leagues. 1 = default OSRS experience rates.",
+		1,
+		1,
+		this::updateXpRateModifier
+	);
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
 					ItemManager itemManager, ConfigManager configManager)
@@ -193,6 +206,7 @@ public class BankedCalculator extends JPanel
 		{
 			boostInput.setInputValue(0);
 			itemGrid.setSelectedItem(null);
+			// intentionally not resetting the xp rate modifier
 		}
 
 		this.currentSkill = newSkill;
@@ -260,6 +274,7 @@ public class BankedCalculator extends JPanel
 			{
 				add(boostInput);
 			}
+			add(xpRateModifierInput);
 			add(totalXpLabel);
 			add(xpToNextLevelLabel);
 			add(modifyPanel);
@@ -379,7 +394,7 @@ public class BankedCalculator extends JPanel
 			return 0;
 		}
 
-		return selected.getXpRate(enabledModifiers);
+		return selected.getXpRate(enabledModifiers) * getXpRateModifier();
 	}
 
 	/**
@@ -697,5 +712,15 @@ public class BankedCalculator extends JPanel
 
 		// Update UI
 		calculateBankedXpTotal();
+	}
+
+	public int getXpRateModifier()
+	{
+		return xpRateModifierInput.getInputValue();
+	}
+
+	private void updateXpRateModifier(Integer value)
+	{
+		recreateItemGrid();
 	}
 }
