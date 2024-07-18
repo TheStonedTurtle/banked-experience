@@ -88,7 +88,7 @@ public class BankedCalculator extends JPanel
 	private final JLabel totalXpLabel = new JLabel();
 	private final JLabel xpToNextLevelLabel = new JLabel();
 	private final ModifyPanel modifyPanel;
-	private SelectionGrid itemGrid = new SelectionGrid();
+	private final SelectionGrid itemGrid = new SelectionGrid();
 	private SecondaryGrid secondaryGrid;
 	private ExpandableSection modifierSection;
 	private ExpandableSection secondarySection;
@@ -205,7 +205,7 @@ public class BankedCalculator extends JPanel
 		refreshBtn.setVisible(false);
 		secondaryGrid = null; // prevents the Secondaries section from being added early by recreateItemGrid
 
-		if (currentMap.size() <= 0)
+		if (currentMap.isEmpty())
 		{
 			add(new JLabel("Please visit a bank!", JLabel.CENTER));
 			add(refreshBtn);
@@ -233,7 +233,7 @@ public class BankedCalculator extends JPanel
 			populateModifierComponents();
 		}
 
-		if (modifierComponents.size() > 0)
+		if (!modifierComponents.isEmpty())
 		{
 			boolean wasClosed = modifierSection != null && !modifierSection.isOpen();
 			modifierSection = new ExpandableSection(
@@ -277,7 +277,7 @@ public class BankedCalculator extends JPanel
 
 				secondarySection.setOpen(!wasClosed);
 
-				if (secondaryGrid.getSecMap().size() > 0)
+				if (!secondaryGrid.getSecMap().isEmpty())
 				{
 					add(secondarySection);
 				}
@@ -337,7 +337,7 @@ public class BankedCalculator extends JPanel
 			if (a == null || (config.limitToCurrentLevel() && (skillLevel + boostInput.getInputValue()) < a.getLevel()))
 			{
 				final List<Activity> activities = Activity.getByExperienceItem(item, config.limitToCurrentLevel() ? (skillLevel + boostInput.getInputValue()) : -1);
-				if (activities.size() == 0)
+				if (activities.isEmpty())
 				{
 					item.setSelectedActivity(null);
 					continue;
@@ -547,7 +547,7 @@ public class BankedCalculator extends JPanel
 		}
 
 		final Collection<BankedItem> linkedBank = linkedMap.get(item.getItem());
-		if (linkedBank == null || linkedBank.size() == 0)
+		if (linkedBank == null || linkedBank.isEmpty())
 		{
 			return qtyMap;
 		}
@@ -634,9 +634,9 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
-		final boolean wasVisible = secondaryGrid.getSecMap().size() > 0;
+		final boolean wasVisible = !secondaryGrid.getSecMap().isEmpty();
 		secondaryGrid.updateSecMap(itemGrid.getPanelMap().values());
-		final boolean shouldBeVisible = secondaryGrid.getSecMap().size() > 0;
+		final boolean shouldBeVisible = !secondaryGrid.getSecMap().isEmpty();
 
 		if (shouldBeVisible != wasVisible)
 		{
