@@ -211,7 +211,7 @@ public class ModifyPanel extends JPanel
 
 		labelContainer.setToolTipText("<html>" + itemName
 			+ "<br/>xp: " +  xp
-			+ "<br/>Total: " + total +	"</html");
+			+ "<br/>Total: " + total +	"</html>");
 
 		labelContainer.revalidate();
 		labelContainer.repaint();
