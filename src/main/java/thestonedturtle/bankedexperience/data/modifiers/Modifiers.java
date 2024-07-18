@@ -60,6 +60,10 @@ public final class Modifiers
 		Activity.INFERNAL_ASHES
 	);
 
+	private static final Collection<Activity> CONSTRUCTION_BONES = ImmutableSet.of(
+		Activity.LONG_BONE, Activity.CURVED_BONE
+	);
+
 	public static void prepare(ItemManager manager)
 	{
 		assert modifiers.isEmpty();
@@ -127,7 +131,7 @@ public final class Modifiers
 			manager, compositions.get(ItemID.FARMERS_STRAWHAT)));
 
 		// Construction
-		addModifier(new CarpentersOutfit(manager, compositions.get(ItemID.CARPENTERS_HELMET)));
+		addModifier(new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit", null, CONSTRUCTION_BONES, manager, compositions.get(ItemID.CARPENTERS_HELMET)));
 
 		// Firemaking
 		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
