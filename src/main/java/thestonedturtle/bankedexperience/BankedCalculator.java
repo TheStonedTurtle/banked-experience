@@ -197,8 +197,11 @@ public class BankedCalculator extends JPanel
 
 		this.currentSkill = newSkill;
 		removeAll();
-		modifierComponents.clear();
-		enabledModifiers.clear();
+		if (!refresh)
+		{
+			modifierComponents.clear();
+			enabledModifiers.clear();
+		}
 		refreshBtn.setVisible(false);
 		secondaryGrid = null; // prevents the Secondaries section from being added early by recreateItemGrid
 
@@ -223,31 +226,11 @@ public class BankedCalculator extends JPanel
 
 		recreateBankedItemMap();
 
-		// Add XP modifiers
-		for (final Modifier modifier : Modifiers.getBySkill(this.currentSkill))
+		// to preserve modifiers between refreshes only attempt to populate if no modifiers are currently displayed
+		if (!refresh || modifierComponents.isEmpty())
 		{
-			final ModifierComponent c = modifier.generateModifierComponent();
-			c.setModifierConsumer((mod, newState) ->
-			{
-				// Only need to check other modifiers if this one is enabled
-				if (newState)
-				{
-					// Disable any non-compatible modifications
-					modifierComponents.forEach(component ->
-					{
-						// Modifier not enabled or modifiers are compatible with each other
-						if (!component.isModifierEnabled() || (component.getModifier().compatibleWith(mod) && mod.compatibleWith(component.getModifier())))
-						{
-							return;
-						}
-
-						component.setModifierEnabled(false);
-					});
-				}
-
-				modifierUpdated();
-			});
-			modifierComponents.add(c);
+			// Add XP modifiers
+			populateModifierComponents();
 		}
 
 		if (modifierComponents.size() > 0)
@@ -305,6 +288,35 @@ public class BankedCalculator extends JPanel
 
 		revalidate();
 		repaint();
+	}
+
+	private void populateModifierComponents()
+	{
+		for (final Modifier modifier : Modifiers.getBySkill(this.currentSkill))
+		{
+			final ModifierComponent c = modifier.generateModifierComponent();
+			c.setModifierConsumer((mod, newState) ->
+			{
+				// Only need to check other modifiers if this one is enabled
+				if (newState)
+				{
+					// Disable any non-compatible modifications
+					modifierComponents.forEach(component ->
+					{
+						// Modifier not enabled or modifiers are compatible with each other
+						if (!component.isModifierEnabled() || (component.getModifier().compatibleWith(mod) && mod.compatibleWith(component.getModifier())))
+						{
+							return;
+						}
+
+						component.setModifierEnabled(false);
+					});
+				}
+
+				modifierUpdated();
+			});
+			modifierComponents.add(c);
+		}
 	}
 
 	private void recreateBankedItemMap()
