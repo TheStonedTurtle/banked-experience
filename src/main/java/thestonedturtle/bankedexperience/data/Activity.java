@@ -265,7 +265,7 @@ public enum Activity
 	// Weapon Poison
 	WEAPON_POISON_PLUS_UNF(ItemID.WEAPON_POISON_UNF, "Weapon poison+ (unf)", 73, 0,
 		ExperienceItem.CACTUS_SPINE, Secondaries.COCONUT_MILK, new ItemStack(ItemID.WEAPON_POISON_UNF, 1)),
-	WEAPON_POISON_PLUS(ItemID.WEAPON_POISON_5937, "Weapon poison(+)", 73, 165,
+	WEAPON_POISON_PLUS(ItemID.WEAPON_POISON_5937, "Weapon poison(+)", 73, 190,
 		ExperienceItem.WEAPON_POISON_PLUS_UNF, Secondaries.WEAPON_POISON_PLUS, new ItemStack(ItemID.WEAPON_POISON_5937, 1)),
 	WEAPON_POISON_PLUS_PLUS_UNF(ItemID.WEAPON_POISON_UNF_5939, "Weapon poison++ (unf)", 82, 0,
 		ExperienceItem.CAVE_NIGHTSHADE, Secondaries.COCONUT_MILK, new ItemStack(ItemID.WEAPON_POISON_UNF_5939, 1)),
