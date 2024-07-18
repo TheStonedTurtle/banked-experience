@@ -1013,6 +1013,8 @@ public enum Activity
 	// Other
 	CROSSBOW_STRING(ItemID.CROSSBOW_STRING, "Crossbow string", 10, 15,
 		ExperienceItem.SINEW, null, new ItemStack(ItemID.CROSSBOW_STRING, 1)),
+	PERFECT_SHELL(ItemID.PERFECT_SHELL, "Perfect Shell", 1, 500,
+		ExperienceItem.PERFECT_SHELL, null, null),
 	/**
 	 * Smithing
 	 */
