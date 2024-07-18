@@ -163,7 +163,7 @@ public enum Activity
 	RANGING_POTION(ItemID.RANGING_POTION3, "Ranging potion", 72, 162.5,
 		ExperienceItem.DWARF_WEED_POTION_UNF, Secondaries.RANGING_POTION, new ItemStack(ItemID.RANGING_POTION3, 1)),
 	ANCIENT_BREW(ItemID.ANCIENT_BREW3, "Ancient Brew", 85, 190,
-			ExperienceItem.DWARF_WEED_POTION_UNF, Secondaries.ANCIENT_BREW, new ItemStack(ItemID.ANCIENT_BREW3, 1)),
+		ExperienceItem.DWARF_WEED_POTION_UNF, Secondaries.ANCIENT_BREW, new ItemStack(ItemID.ANCIENT_BREW3, 1)),
 	MENAPHITE_REMEDY(ItemID.MENAPHITE_REMEDY3, "Menaphite remedy", 88, 200,
 		ExperienceItem.DWARF_WEED_POTION_UNF, Secondaries.MENAPHITE_REMEDY, new ItemStack(ItemID.MENAPHITE_REMEDY3, 1)),
 	// Torstol
@@ -278,9 +278,7 @@ public enum Activity
 	// Other
 	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, "Convert to crystals", 0, 0,
 		ExperienceItem.MARK_OF_GRACE, null , new ItemStack(ItemID.AMYLASE_CRYSTAL, 10)),
-	NIHIL_DUST(ItemID.NIHIL_DUST, "Convert to dust", 0, 0,
-		ExperienceItem.NIHIL_SHARD, null, new ItemStack(ItemID.NIHIL_DUST, 1)),
-	FORGOTTEN_BREW(ItemID.FORGOTTEN_BREW1,"Forgotten Brew", 91, 36,
+	FORGOTTEN_BREW(ItemID.FORGOTTEN_BREW1, "Forgotten Brew", 91, 36,
 		ExperienceItem.ANCIENT_ESSENCE, Secondaries.FORGOTTEN_BREW, new ItemStack(ItemID.FORGOTTEN_BREW1, 1)),
 	STAMINA_POTION(ItemID.STAMINA_POTION1, "Stamina potion", 77, 25.5,
 		ExperienceItem.AMYLASE_CRYSTAL, Secondaries.STAMINA_POTION , new ItemStack(ItemID.STAMINA_POTION1, 1)),
