@@ -88,7 +88,7 @@ public enum Secondaries
 	ANTIVENOM_PLUS(new ItemStack(ItemID.ANTIVENOM4, 1)),
 	// Other
 	STAMINA_POTION(new ByDose(ItemID.SUPER_ENERGY1, ItemID.SUPER_ENERGY2, ItemID.SUPER_ENERGY3, ItemID.SUPER_ENERGY4)),
-	FORGOTTEN_BREW(new ByDose(ItemID.ANCIENT_BREW1, ItemID.ANCIENT_BREW2, ItemID.ANCIENT_BREW3, ItemID.ANCIENT_BREW4)),
+	FORGOTTEN_BREW(new ItemStack(ItemID.ANCIENT_ESSENCE, 20)),
 	EXTENDED_ANTIFIRE(new ByDose(ItemID.ANTIFIRE_POTION1, ItemID.ANTIFIRE_POTION2, ItemID.ANTIFIRE_POTION3, ItemID.ANTIFIRE_POTION4)),
 	EXTENDED_SUPER_ANTIFIRE(new ByDose(ItemID.SUPER_ANTIFIRE_POTION1, ItemID.SUPER_ANTIFIRE_POTION2, ItemID.SUPER_ANTIFIRE_POTION3, ItemID.SUPER_ANTIFIRE_POTION4)),
 	CRUSHED_SUPERIOR_DRAGON_BONES(new Crushable(ItemID.SUPERIOR_DRAGON_BONES, ItemID.CRUSHED_SUPERIOR_DRAGON_BONES)),
@@ -195,10 +195,10 @@ public enum Secondaries
 		@Getter
 		private final ItemStack[] infoItems;
 
-		private ByDose(final int... items)
+		public ByDose(final int... items)
 		{
 			this.items = items;
-			this.infoItems =  new ItemStack[]{new ItemStack(items[0], 0)};
+			this.infoItems = new ItemStack[]{new ItemStack(items[0], 0)};
 		}
 	}
 

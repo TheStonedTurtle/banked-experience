@@ -130,7 +130,7 @@ public class BankedCalculator extends JPanel
 	);
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
-					ItemManager itemManager, ConfigManager configManager)
+					 ItemManager itemManager, ConfigManager configManager)
 	{
 		this.uiInput = uiInput;
 		this.client = client;
@@ -266,7 +266,7 @@ public class BankedCalculator extends JPanel
 		// This should only be null if there are no items in their bank for this skill
 		if (itemGrid.getSelectedItem() == null)
 		{
-			add(new JLabel( "Couldn't find any items for this skill.", JLabel.CENTER));
+			add(new JLabel("Couldn't find any items for this skill.", JLabel.CENTER));
 		}
 		else
 		{
@@ -399,6 +399,7 @@ public class BankedCalculator extends JPanel
 
 	/**
 	 * Calculates total item quantity accounting for backwards linked items
+	 *
 	 * @param item starting item
 	 * @return item qty including linked items
 	 */
@@ -456,6 +457,7 @@ public class BankedCalculator extends JPanel
 
 	/**
 	 * Used to select an Activity for an item
+	 *
 	 * @param i BankedItem item the activity is tied to
 	 * @param a Activity the selected activity
 	 */
@@ -492,6 +494,7 @@ public class BankedCalculator extends JPanel
 
 	/**
 	 * Updates the item quantities of all forward linked items
+	 *
 	 * @param activity the starting {@link Activity} to start the cascade from
 	 */
 	private void updateLinkedItems(final Activity activity)
@@ -501,7 +504,7 @@ public class BankedCalculator extends JPanel
 			return;
 		}
 
-		boolean foundSelected = false;		// Found an item currently being displayed in the ModifyPanel
+		boolean foundSelected = false;        // Found an item currently being displayed in the ModifyPanel
 		boolean gridCountChanged = false;
 
 		ExperienceItem i = activity.getLinkedItem();
@@ -548,6 +551,7 @@ public class BankedCalculator extends JPanel
 
 	/**
 	 * Creates a Map of ExperienceItem to bank qty for all items that are being linked to this one
+	 *
 	 * @param item starting item
 	 * @return Map of ExperienceItem to bank qty
 	 */

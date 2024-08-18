@@ -646,6 +646,7 @@ public enum ExperienceItem
 	/**
 	 * Attaches the Item Composition to each ExperienceItem on client initial load
 	 * May be a better way to do this
+	 *
 	 * @param m ItemManager
 	 */
 	public static void prepareItemCompositions(ItemManager m)
