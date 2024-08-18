@@ -344,8 +344,15 @@ public class BankedCalculator extends JPanel
 
 		for (final ExperienceItem item : items)
 		{
+			int qty = 0;
+			for (int i = 0; i < item.getItemIds().length; i++)
+			{
+				final int multiplier = item.isByDose() ? i + 1 : 1;
+				qty += getItemQtyFromBank(item.getItemIds()[i]) * multiplier;
+			}
+
 			// Convert to bankedItems
-			final BankedItem banked = new BankedItem(item, currentMap.getOrDefault(item.getItemID(), 0));
+			final BankedItem banked = new BankedItem(item, qty);
 			bankedItemMap.put(item, banked);
 
 			Activity a = item.getSelectedActivity();

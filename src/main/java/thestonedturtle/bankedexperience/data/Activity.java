@@ -279,7 +279,7 @@ public enum Activity
 	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, "Convert to crystals", 0, 0,
 		ExperienceItem.MARK_OF_GRACE, null, new ItemStack(ItemID.AMYLASE_CRYSTAL, 10)),
 	FORGOTTEN_BREW(ItemID.FORGOTTEN_BREW1, "Forgotten Brew", 91, 36,
-		ExperienceItem.ANCIENT_ESSENCE, Secondaries.FORGOTTEN_BREW, new ItemStack(ItemID.FORGOTTEN_BREW1, 1)),
+		ExperienceItem.ANCIENT_BREW, Secondaries.FORGOTTEN_BREW, new ItemStack(ItemID.FORGOTTEN_BREW1, 1)),
 	STAMINA_POTION(ItemID.STAMINA_POTION1, "Stamina potion", 77, 25.5,
 		ExperienceItem.AMYLASE_CRYSTAL, Secondaries.STAMINA_POTION, new ItemStack(ItemID.STAMINA_POTION1, 1)),
 	EXTENDED_ANTIFIRE(ItemID.EXTENDED_ANTIFIRE1, "Extended antifire", 84, 27.5,

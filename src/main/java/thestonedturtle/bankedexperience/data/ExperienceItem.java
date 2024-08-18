@@ -111,9 +111,9 @@ public enum ExperienceItem
 	// Other
 	MARK_OF_GRACE(ItemID.MARK_OF_GRACE, Skill.HERBLORE, "Other"),
 	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, Skill.HERBLORE, "Other"),
-	ANCIENT_ESSENCE(ItemID.ANCIENT_ESSENCE, Skill.HERBLORE, "Other"),
 	LAVA_SCALE_SHARD(ItemID.LAVA_SCALE_SHARD, Skill.HERBLORE, "Other"),
 	EXTENDED_ANTIFIRE4(ItemID.EXTENDED_ANTIFIRE4, Skill.HERBLORE),
+	ANCIENT_BREW(Skill.HERBLORE, true, ItemID.ANCIENT_BREW1, ItemID.ANCIENT_BREW2, ItemID.ANCIENT_BREW3, ItemID.ANCIENT_BREW4),
 	// Coconut Potions
 	ANTIDOTE_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	ANTIDOTE_PLUS_PLUS_POTION_UNF(ItemID.ANTIDOTE_UNF_5951, Skill.HERBLORE, "Unfinished Potions"),
@@ -593,6 +593,8 @@ public enum ExperienceItem
 	private final int itemID;
 	private final Skill skill;
 	private final String category;
+	private final int[] itemIds;
+	private final boolean byDose;
 
 	@Setter
 	// Stores the item composition info we use since we don't operate on the game thread
@@ -603,21 +605,23 @@ public enum ExperienceItem
 
 	private static final Multimap<Skill, ExperienceItem> SKILL_MAP = ArrayListMultimap.create();
 	private static final Map<Integer, ExperienceItem> ITEM_ID_MAP = new HashMap<>();
+
 	static
 	{
 		for (ExperienceItem i : values())
 		{
 			Skill s = i.getSkill();
 			SKILL_MAP.put(s, i);
-			ITEM_ID_MAP.put(i.getItemID(), i);
+			for (final int id : i.itemIds)
+			{
+				ITEM_ID_MAP.put(id, i);
+			}
 		}
 	}
 
 	ExperienceItem(int itemID, Skill skill)
 	{
-		this.itemID = itemID;
-		this.category = "NA";
-		this.skill = skill;
+		this(itemID, skill, "NA");
 	}
 
 	ExperienceItem(int itemID, Skill skill, String category)
@@ -625,6 +629,17 @@ public enum ExperienceItem
 		this.itemID = itemID;
 		this.category = category;
 		this.skill = skill;
+		this.itemIds = new int[]{itemID};
+		this.byDose = false;
+	}
+
+	ExperienceItem(Skill skill, boolean byDose, int... itemIds)
+	{
+		this.category = "NA";
+		this.skill = skill;
+		this.itemIds = itemIds;
+		this.itemID = itemIds[0];
+		this.byDose = byDose;
 	}
 
 	public static Collection<ExperienceItem> getBySkill(Skill skill)
