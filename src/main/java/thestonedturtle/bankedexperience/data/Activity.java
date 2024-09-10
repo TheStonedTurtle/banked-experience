@@ -288,6 +288,9 @@ public enum Activity
 		ExperienceItem.LAVA_SCALE_SHARD, Secondaries.EXTENDED_SUPER_ANTIFIRE, new ItemStack(ItemID.EXTENDED_SUPER_ANTIFIRE1, 1)),
 	EXTENDED_SUPER_ANTIFIRE_4_DOSE(ItemID.EXTENDED_ANTIFIRE4, "Extended super antifire", 98, 180,
 		ExperienceItem.EXTENDED_ANTIFIRE4, Secondaries.CRUSHED_SUPERIOR_DRAGON_BONES, new ItemStack(ItemID.EXTENDED_SUPER_ANTIFIRE4, 1)),
+	// Barbarian Herblore
+	MAGIC_MIX(ItemID.MAGIC_MIX2, "Magic mix", 86, 57,
+			ExperienceItem.MAGIC_POTION2, Secondaries.CAVIAR, new ItemStack(ItemID.MAGIC_MIX2, 1)),
 	/**
 	 * Construction
 	 */
@@ -732,6 +735,8 @@ public enum Activity
 		ExperienceItem.RAW_MANTA_RAY, null, new ItemStack(ItemID.MANTA_RAY, 1)),
 	WINE(ItemID.JUG_OF_WINE, "Jug of wine", 35, 200,
 		ExperienceItem.GRAPES, Secondaries.JUG_OF_WATER, new ItemStack(ItemID.JUG_OF_WINE, 1)),
+	ZAMORAK_WINE(ItemID.WINE_OF_ZAMORAK, "Wine of Zamorak", 65, 200,
+			ExperienceItem.GRAPES, Secondaries.JUG_OF_WATER, new ItemStack(ItemID.WINE_OF_ZAMORAK, 1)),
 	SWEETCORN(ItemID.COOKED_SWEETCORN, "Cooked sweetcorn", 28, 104,
 		ExperienceItem.SWEETCORN, null, new ItemStack(ItemID.COOKED_SWEETCORN, 1)),
 	STEW(ItemID.STEW, "Stew", 25, 117,
