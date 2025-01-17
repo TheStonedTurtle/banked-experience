@@ -244,10 +244,9 @@ public enum Activity
 		ExperienceItem.GRIMY_DWARF_WEED, null, new ItemStack(ItemID.DWARF_WEED, 1)),
 	NARDAH_CLEAN_TORSTOL(ItemID.TORSTOL, "Nardah clean torstol", 75, 0,
 		ExperienceItem.GRIMY_TORSTOL, null, new ItemStack(ItemID.TORSTOL, 1)),
-	// Currently Zahur will not clean Huasca
-	//NARDAH_CLEAN_HUASCA(ItemID.HUASCA, "Nardah clean huasca", 58, 0,
-	//	  ExperienceItem.GRIMY_HUASCA, null, new ItemStack(ItemID.HUASCA, 1)),
-	// Degrime SPell
+	NARDAH_CLEAN_HUASCA(ItemID.HUASCA, "Nardah clean huasca", 58, 0,
+		ExperienceItem.GRIMY_HUASCA, null, new ItemStack(ItemID.HUASCA, 1)),
+	// Degrime Spell
 	DEGRIME_GUAM(ItemID.GUAM_LEAF, "Degrime guam", 3, 1.2,
 		ExperienceItem.GRIMY_GUAM_LEAF, Secondaries.DEGRIME, new ItemStack(ItemID.GUAM_LEAF, 1)),
 	DEGRIME_MARRENTILL(ItemID.MARRENTILL, "Degrime marrentill", 5, 1.9,
