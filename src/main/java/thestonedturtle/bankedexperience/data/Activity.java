@@ -88,6 +88,8 @@ public enum Activity
 		ExperienceItem.HARRALANDER_POTION_UNF, Secondaries.ENERGY_POTION, new ItemStack(ItemID.ENERGY_POTION3, 1)),
 	COMBAT_POTION(ItemID.COMBAT_POTION3, "Combat potion", 36, 84,
 		ExperienceItem.HARRALANDER_POTION_UNF, Secondaries.COMBAT_POTION, new ItemStack(ItemID.COMBAT_POTION3, 1)),
+	GOADING_POTION(ItemID.GOADING_POTION3, "Goading potion", 54, 132,
+		ExperienceItem.HARRALANDER_POTION_UNF, Secondaries.GOADING_POTION, new ItemStack(ItemID.GOADING_POTION3, 1)),
 	// Ranarr Weed
 	RANARR_POTION_UNF(ItemID.RANARR_POTION_UNF, "Unfinished potion", 30, 0,
 		ExperienceItem.RANARR_WEED, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.RANARR_POTION_UNF, 1)),
@@ -177,6 +179,11 @@ public enum Activity
 		ExperienceItem.TORSTOL_POTION_UNF, Secondaries.ZAMORAK_BREW, new ItemStack(ItemID.ZAMORAK_BREW3, 1)),
 	SUPER_COMBAT_POTION_2(ItemID.SUPER_COMBAT_POTION4, "Super combat", 90, 150,
 		ExperienceItem.TORSTOL_POTION_UNF, Secondaries.SUPER_COMBAT_POTION, new ItemStack(ItemID.SUPER_COMBAT_POTION4, 1)),
+	// Huasca
+	HUASCA_POTION_UNF(ItemID.HUASCA_POTION_UNF, "Unfinished potion", 58, 0,
+		ExperienceItem.HUASCA, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.HUASCA_POTION_UNF, 1)),
+	PRAYER_REGENERATION(ItemID.PRAYER_REGENERATION_POTION3, "Prayer regeneration", 58, 132,
+		ExperienceItem.HUASCA_POTION_UNF, Secondaries.PRAYER_REGENERATION_POTION, new ItemStack(ItemID.PRAYER_REGENERATION_POTION3, 1)),
 	// Cleaning Grimy Herbs
 	CLEAN_GUAM(ItemID.GUAM_LEAF, "Clean guam", 3, 2.5,
 		ExperienceItem.GRIMY_GUAM_LEAF, null, new ItemStack(ItemID.GUAM_LEAF, 1)),
@@ -206,6 +213,8 @@ public enum Activity
 		ExperienceItem.GRIMY_DWARF_WEED, null, new ItemStack(ItemID.DWARF_WEED, 1)),
 	CLEAN_TORSTOL(ItemID.TORSTOL, "Clean torstol", 75, 15,
 		ExperienceItem.GRIMY_TORSTOL, null, new ItemStack(ItemID.TORSTOL, 1)),
+	CLEAN_HUASCA(ItemID.HUASCA, "Clean huasca", 58, 11.8,
+		ExperienceItem.GRIMY_HUASCA, null, new ItemStack(ItemID.HUASCA, 1)),
 	// Cleaning Grimy Herbs but no XP (Nardah)
 	NARDAH_CLEAN_GUAM(ItemID.GUAM_LEAF, "Nardah clean guam", 3, 0,
 		ExperienceItem.GRIMY_GUAM_LEAF, null, new ItemStack(ItemID.GUAM_LEAF, 1)),
@@ -235,6 +244,9 @@ public enum Activity
 		ExperienceItem.GRIMY_DWARF_WEED, null, new ItemStack(ItemID.DWARF_WEED, 1)),
 	NARDAH_CLEAN_TORSTOL(ItemID.TORSTOL, "Nardah clean torstol", 75, 0,
 		ExperienceItem.GRIMY_TORSTOL, null, new ItemStack(ItemID.TORSTOL, 1)),
+	// Currently Zahur will not clean Huasca
+	//NARDAH_CLEAN_HUASCA(ItemID.HUASCA, "Nardah clean huasca", 58, 0,
+	//	  ExperienceItem.GRIMY_HUASCA, null, new ItemStack(ItemID.HUASCA, 1)),
 	// Degrime SPell
 	DEGRIME_GUAM(ItemID.GUAM_LEAF, "Degrime guam", 3, 1.2,
 		ExperienceItem.GRIMY_GUAM_LEAF, Secondaries.DEGRIME, new ItemStack(ItemID.GUAM_LEAF, 1)),
@@ -264,6 +276,8 @@ public enum Activity
 		ExperienceItem.GRIMY_DWARF_WEED, Secondaries.DEGRIME, new ItemStack(ItemID.DWARF_WEED, 1)),
 	DEGRIME_TORSTOL(ItemID.TORSTOL, "Degrime torstol", 75, 7.5,
 		ExperienceItem.GRIMY_TORSTOL, Secondaries.DEGRIME, new ItemStack(ItemID.TORSTOL, 1)),
+	DEGRIME_HUASCA(ItemID.HUASCA, "Degrime huasca", 58, 5.9,
+		ExperienceItem.GRIMY_HUASCA, Secondaries.DEGRIME, new ItemStack(ItemID.HUASCA, 1)),
 	// Weapon Poison
 	WEAPON_POISON_PLUS_UNF(ItemID.WEAPON_POISON_UNF, "Weapon poison+ (unf)", 73, 0,
 		ExperienceItem.CACTUS_SPINE, Secondaries.COCONUT_MILK, new ItemStack(ItemID.WEAPON_POISON_UNF, 1)),

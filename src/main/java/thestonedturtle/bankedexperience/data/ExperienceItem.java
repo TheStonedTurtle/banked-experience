@@ -77,6 +77,7 @@ public enum ExperienceItem
 	GRIMY_LANTADYME(ItemID.GRIMY_LANTADYME, Skill.HERBLORE, "Grimy Herbs"),
 	GRIMY_DWARF_WEED(ItemID.GRIMY_DWARF_WEED, Skill.HERBLORE, "Grimy Herbs"),
 	GRIMY_TORSTOL(ItemID.GRIMY_TORSTOL, Skill.HERBLORE, "Grimy Herbs"),
+	GRIMY_HUASCA(ItemID.GRIMY_HUASCA, Skill.HERBLORE, "Grimy Herbs"),
 	// Clean Herbs
 	GUAM_LEAF(ItemID.GUAM_LEAF, Skill.HERBLORE, "Cleaned Herbs"),
 	MARRENTILL(ItemID.MARRENTILL, Skill.HERBLORE, "Cleaned Herbs"),
@@ -92,6 +93,7 @@ public enum ExperienceItem
 	LANTADYME(ItemID.LANTADYME, Skill.HERBLORE, "Cleaned Herbs"),
 	DWARF_WEED(ItemID.DWARF_WEED, Skill.HERBLORE, "Cleaned Herbs"),
 	TORSTOL(ItemID.TORSTOL, Skill.HERBLORE, "Cleaned Herbs"),
+	HUASCA(ItemID.HUASCA, Skill.HERBLORE, "Cleaned Herbs"),
 	// Unfinished Potions
 	GUAM_LEAF_POTION_UNF(ItemID.GUAM_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	MARRENTILL_POTION_UNF(ItemID.MARRENTILL_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
@@ -108,6 +110,7 @@ public enum ExperienceItem
 	LANTADYME_POTION_UNF(ItemID.LANTADYME_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	DWARF_WEED_POTION_UNF(ItemID.DWARF_WEED_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	TORSTOL_POTION_UNF(ItemID.TORSTOL_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
+	HUASCA_POTION_UNF(ItemID.HUASCA_POTION_UNF, Skill.HERBLORE, "Unfinished Potions"),
 	// Other
 	MARK_OF_GRACE(ItemID.MARK_OF_GRACE, Skill.HERBLORE, "Other"),
 	AMYLASE_CRYSTAL(ItemID.AMYLASE_CRYSTAL, Skill.HERBLORE, "Other"),
