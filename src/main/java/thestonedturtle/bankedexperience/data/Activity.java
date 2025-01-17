@@ -998,8 +998,8 @@ public enum Activity
 		ExperienceItem.GIANT_SEAWEED, null, new ItemStack(ItemID.SODA_ASH, 6)),
 	MOLTEN_GLASS_SPELL_18_PICKUP(ItemID.MOLTEN_GLASS, "SGM 18:3 Pickup [1.6x]", 1, 60, true, // XP per seaweed
 		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 9.6)),
-	MOLTEN_GLASS_SPELL_18(ItemID.MOLTEN_GLASS, "SGM 18:3 [1.488x]", 1, 60, true, // XP per seaweed
-		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 8.928)),
+	MOLTEN_GLASS_SPELL_18(ItemID.MOLTEN_GLASS, "SGM 18:3 [1.45x]", 1, 60, true, // XP per seaweed
+		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 8.7)),
 	MOLTEN_GLASS_SPELL_12(ItemID.MOLTEN_GLASS, "SGM 12:2 [1.45x]", 1, 60, true, // XP per seaweed
 		ExperienceItem.GIANT_SEAWEED, Secondaries.BUCKET_OF_SAND_6, new ItemStack(ItemID.MOLTEN_GLASS, 8.7)),
 	// String Jewlery
