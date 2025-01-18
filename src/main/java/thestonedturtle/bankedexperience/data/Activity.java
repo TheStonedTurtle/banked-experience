@@ -1333,7 +1333,7 @@ public enum Activity
 	RUNE_BOLTS(ItemID.RUNITE_BOLTS, "Runite bolts", 69, 10,
 		ExperienceItem.RUNE_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.RUNITE_BOLTS, 1)),
 	MOONLIGHT_ANTLER_BOLTS(ItemID.MOONLIGHT_ANTLER_BOLTS, "Moonlight antler bolts", 72, 12,
-		ExperienceItem.MOONLIGHT_ANTLER_BOLTS, null, new ItemStack(ItemID.SUNLIGHT_ANTLER_BOLTS, 12)),
+		ExperienceItem.MOONLIGHT_ANTLER_BOLTS, null, new ItemStack(ItemID.MOONLIGHT_ANTLER_BOLTS, 12)),
 	DRAGON_BOLTS(ItemID.DRAGON_BOLTS, "Dragon bolts", 84, 12,
 		ExperienceItem.DRAGON_BOLTS, Secondaries.FEATHER, new ItemStack(ItemID.DRAGON_BOLTS, 1)),
 	// Unstrung Crossbows
