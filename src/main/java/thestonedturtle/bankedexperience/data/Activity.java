@@ -303,7 +303,7 @@ public enum Activity
 		ExperienceItem.LAVA_SCALE_SHARD, Secondaries.EXTENDED_SUPER_ANTIFIRE, new ItemStack(ItemID.EXTENDED_SUPER_ANTIFIRE1, 1)),
 	EXTENDED_SUPER_ANTIFIRE_4_DOSE(ItemID.EXTENDED_ANTIFIRE4, "Extended super antifire", 98, 180,
 		ExperienceItem.EXTENDED_ANTIFIRE4, Secondaries.CRUSHED_SUPERIOR_DRAGON_BONES, new ItemStack(ItemID.EXTENDED_SUPER_ANTIFIRE4, 1)),
-	ANTIVENOM(ItemID.ANTIVENOM1, "Antivenom", 98, 30,
+	ANTIVENOM(ItemID.ANTIVENOM1, "Antivenom", 87, 30,
 		ExperienceItem.ANTIVENOM, Secondaries.ANTIVENOM, new ItemStack(ItemID.ANTIVENOM1, 1)),
 	/**
 	 * Construction
