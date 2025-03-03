@@ -2,19 +2,29 @@ package thestonedturtle.bankedexperience;
 
 import com.google.inject.Provides;
 import java.awt.image.BufferedImage;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
+import net.runelite.api.EnumComposition;
+import net.runelite.api.EnumID;
 import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
+import net.runelite.api.ScriptID;
 import net.runelite.api.events.AccountHashChanged;
+import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ItemContainerChanged;
+import net.runelite.api.events.ScriptPostFired;
+import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
+import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -27,6 +37,7 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
+import static thestonedturtle.bankedexperience.BankedExperienceConfig.POTION_STORAGE_KEY;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.WidgetInventoryInfo;
@@ -47,6 +58,8 @@ public class BankedExperiencePlugin extends Plugin
 	private static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
 	public static final String ACTIVITY_CONFIG_KEY = "ITEM_";
 	private static final int LOOTING_BAG_ID = 516;
+
+	private static final int POTION_STORAGE_FAKE_INVENTORY_ID = -420;
 
 	@Inject
 	private Client client;
@@ -81,6 +94,9 @@ public class BankedExperiencePlugin extends Plugin
 	private boolean prepared = false;
 	private long accountHash = -1;
 
+	private boolean rebuildPotions = false;
+	private Set<Integer> potionStoreVars;
+
 	@Override
 	protected void startUp() throws Exception
 	{
@@ -96,30 +112,35 @@ public class BankedExperiencePlugin extends Plugin
 
 		accountHash = client.getAccountHash();
 
-		if (!prepared)
+		clientThread.invoke(() ->
 		{
-			clientThread.invoke(() ->
+			switch (client.getGameState())
 			{
-				switch (client.getGameState())
-				{
-					case LOGIN_SCREEN:
-					case LOGIN_SCREEN_AUTHENTICATOR:
-					case LOGGING_IN:
-					case LOADING:
-					case LOGGED_IN:
-					case CONNECTION_LOST:
-					case HOPPING:
+				case LOGGED_IN:
+					if (config.grabFromPotionStorage() && client.getItemContainer(InventoryID.BANK) != null)
+					{
+						rebuildPotions = true;
+					}
+					// intentional fall through
+				case LOGIN_SCREEN:
+				case LOGIN_SCREEN_AUTHENTICATOR:
+				case LOGGING_IN:
+				case LOADING:
+				case CONNECTION_LOST:
+				case HOPPING:
+					if (!prepared)
+					{
 						ExperienceItem.prepareItemCompositions(itemManager);
 						Activity.prepareItemCompositions(itemManager);
 						Modifiers.prepare(itemManager);
 						loadSavedActivities();
 						prepared = true;
-						return true;
-					default:
-						return false;
-				}
-			});
-		}
+					}
+					return true;
+				default:
+					return false;
+			}
+		});
 	}
 
 	@Override
@@ -154,6 +175,19 @@ public class BankedExperiencePlugin extends Plugin
 				break;
 			case FOSSIL_CHEST_CONFIG_KEY:
 				inventoryId = WidgetInventoryInfo.FOSSIL_CHEST.getId();
+				break;
+			case POTION_STORAGE_KEY:
+				inventoryId = POTION_STORAGE_FAKE_INVENTORY_ID;
+				if (config.grabFromPotionStorage())
+				{
+					clientThread.invoke(() ->
+					{
+						if (client.getItemContainer(InventoryID.BANK) != null)
+						{
+							rebuildPotions = true;
+						}
+					});
+				}
 				break;
 			default:
 				return;
@@ -287,5 +321,70 @@ public class BankedExperiencePlugin extends Plugin
 				}
 			}
 		}
+	}
+
+	@Subscribe
+	public void onScriptPostFired(ScriptPostFired event)
+	{
+		if (event.getScriptId() == ScriptID.BANKMAIN_FINISHBUILDING && config.grabFromPotionStorage())
+		{
+			rebuildPotions = true;
+		}
+	}
+
+	@Subscribe
+	public void onClientTick(ClientTick event)
+	{
+		if (rebuildPotions)
+		{
+			updatePotionStorageMap();
+			rebuildPotions = false;
+
+			Widget w = client.getWidget(ComponentID.BANK_POTIONSTORE_CONTENT);
+			if (w != null && potionStoreVars == null)
+			{
+				// cache varps that the potion store rebuilds on
+				int[] trigger = w.getVarTransmitTrigger();
+				potionStoreVars = new HashSet<>();
+				Arrays.stream(trigger).forEach(potionStoreVars::add);
+			}
+		}
+	}
+
+	@Subscribe
+	public void onVarbitChanged(VarbitChanged varbitChanged)
+	{
+		if (potionStoreVars != null && potionStoreVars.contains(varbitChanged.getVarpId()))
+		{
+			rebuildPotions = true;
+		}
+	}
+
+	// Copied mostly from BankPlugin:getPotionStoragePrice
+	private void updatePotionStorageMap()
+	{
+		final Map<Integer, Integer> potionQtyMap = new HashMap<>();
+
+		EnumComposition potionStorePotions = client.getEnum(EnumID.POTIONSTORE_POTIONS);
+		EnumComposition potionStoreUnfinishedPotions = client.getEnum(EnumID.POTIONSTORE_UNFINISHED_POTIONS);
+		for (EnumComposition e : new EnumComposition[]{potionStorePotions, potionStoreUnfinishedPotions})
+		{
+			for (int potionEnumId : e.getIntVals())
+			{
+				EnumComposition potionEnum = client.getEnum(potionEnumId);
+				client.runScript(ScriptID.POTIONSTORE_DOSES, potionEnumId);
+				int doses = client.getIntStack()[0];
+				client.runScript(ScriptID.POTIONSTORE_WITHDRAW_DOSES, potionEnumId);
+				int withdrawDoses = client.getIntStack()[0];
+
+				if (doses > 0 && withdrawDoses > 0)
+				{
+					final int itemId = potionEnum.getIntValue(withdrawDoses);
+					potionQtyMap.put(itemId, doses);
+				}
+			}
+		}
+
+		updateInventoryMap(POTION_STORAGE_FAKE_INVENTORY_ID, potionQtyMap);
 	}
 }

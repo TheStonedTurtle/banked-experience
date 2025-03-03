@@ -7,6 +7,8 @@ import net.runelite.client.config.ConfigItem;
 @ConfigGroup("bankedexperience")
 public interface BankedExperienceConfig extends Config
 {
+	String POTION_STORAGE_KEY = "grabFromPotionStorage";
+
 	@ConfigItem(
 		keyName = "cascadeBankedXp",
 		name = "Include output items",
@@ -80,6 +82,17 @@ public interface BankedExperienceConfig extends Config
 		position = 7
 	)
 	default boolean grabFromFossilChest()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+		keyName = POTION_STORAGE_KEY,
+		name = "Include Potion Storage",
+		description = "Toggles whether items in your potion storage should be included in the calculations",
+		position = 7
+	)
+	default boolean grabFromPotionStorage()
 	{
 		return true;
 	}
