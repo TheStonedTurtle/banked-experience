@@ -719,7 +719,7 @@ public enum Activity
 		ExperienceItem.RAW_PIKE, null, new ItemStack(ItemID.PIKE, 1)),
 	COOK_FAT_SNAIL(ItemID.FAT_SNAIL_MEAT, "Fat snail meat", 22, 95.0,
 		ExperienceItem.FAT_SNAIL, null, new ItemStack(ItemID.FAT_SNAIL_MEAT, 1)),
-	COOK_BEAST_MEAT(ItemID.ROAST_BEAST_MEAT, "Roast beast meat", 21, 62.0,
+	COOK_BEAST_MEAT(ItemID.ROAST_BEAST_MEAT, "Roast beast meat", 21, 82.5,
 		ExperienceItem.RAW_BEAST_MEAT, null, new ItemStack(ItemID.ROAST_BEAST_MEAT, 1)),
 	COOK_SALMON(ItemID.SALMON, "Salmon", 25, 90.0,
 		ExperienceItem.RAW_SALMON, null, new ItemStack(ItemID.SALMON, 1)),
