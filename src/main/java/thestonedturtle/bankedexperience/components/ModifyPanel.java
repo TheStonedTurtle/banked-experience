@@ -123,6 +123,7 @@ public class ModifyPanel extends JPanel
 		labelName = new JShadowedLabel();
 		labelName.setForeground(Color.WHITE);
 		labelName.setVerticalAlignment(SwingUtilities.BOTTOM);
+		labelName.setPreferredSize(new Dimension(PluginPanel.PANEL_WIDTH - 55, 20));
 
 		labelValue = new JShadowedLabel();
 		labelValue.setFont(FontManager.getRunescapeSmallFont());
@@ -210,8 +211,8 @@ public class ModifyPanel extends JPanel
 		labelValue.setText(value);
 
 		labelContainer.setToolTipText("<html>" + itemName
-			+ "<br/>xp: " +  xp
-			+ "<br/>Total: " + total +	"</html>");
+			+ "<br/>xp: " + xp
+			+ "<br/>Total: " + total + "</html>");
 
 		labelContainer.revalidate();
 		labelContainer.repaint();
@@ -251,7 +252,7 @@ public class ModifyPanel extends JPanel
 		{
 			final Activity a = activities.get(0);
 
-			final int qty =  a.getOutput() == null ? 1 : (int) a.getOutput().getQty();
+			final int qty = a.getOutput() == null ? 1 : (int) a.getOutput().getQty();
 			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
