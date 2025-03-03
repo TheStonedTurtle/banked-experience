@@ -36,7 +36,7 @@ public class ZealotsRobes extends SkillingOutfit
 	private static final float CONSUME_AMT = 0.0125f;
 	private static final String TOOLTIP = "1.25% chance to prevent bones and ensouled heads from being consumed";
 	private static final Set<Activity> EXCLUDED = ImmutableSet.of(
-		Activity.LOAR_REMAINS, Activity.PHRIN_REMAINS, Activity.RIYL_REMAINS, Activity.ASYN_REMAINS, Activity.FIYR_REMAINS,
+//		Activity.LOAR_REMAINS, Activity.PHRIN_REMAINS, Activity.RIYL_REMAINS, Activity.ASYN_REMAINS, Activity.FIYR_REMAINS,
 		Activity.SMALL_LIMBS, Activity.SMALL_SPINE, Activity.SMALL_RIBS, Activity.SMALL_PELVIS, Activity.SMALL_SKULL, Activity.SMALL_FOSSIL,
 		Activity.MEDIUM_LIMBS, Activity.MEDIUM_SPINE, Activity.MEDIUM_RIBS, Activity.MEDIUM_PELVIS, Activity.MEDIUM_SKULL, Activity.MEDIUM_FOSSIL,
 		Activity.LARGE_LIMBS, Activity.LARGE_SPINE, Activity.LARGE_RIBS, Activity.LARGE_PELVIS, Activity.LARGE_SKULL, Activity.LARGE_FOSSIL,
