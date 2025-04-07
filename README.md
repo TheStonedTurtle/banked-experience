@@ -24,14 +24,15 @@ Items that take multiple steps have their Activities split between the different
 Like most plugins the Banked Experience plugin includes some config options to help customize its functionality.
 See the relative section for each config option for an in-depth description.
 
-| Name 														| Enabled by Default|
-| :--- 														| :-----: |
-| [Include output items](#include-output-items)				| &check; |
-| [Show required secondaries](#show-required-secondaries)	| X |
-| [Respect level requirements](#respect-level-requirements)	| &check; |
-| [Include seed vault](#include-seed-vault)					| &check; |
-| [Include player inventory](#include-player-inventory)		| X |
-| [Include looting bag](#include-looting-bag)				| X |
+| Name 														                                        | Enabled by Default|
+|:-----------------------------------------------------------| :-----: |
+| [Include output items](#include-output-items)				          | &check; |
+| [Show required secondaries](#show-required-secondaries)	   | X |
+| [Respect level requirements](#respect-level-requirements)	 | &check; |
+| [Include seed vault](#include-seed-vault)					             | &check; |
+| [Include player inventory](#include-player-inventory)		    | X |
+| [Include looting bag](#include-looting-bag)				            | X |
+| [Show maxed level skills](#show-maxed-level-skills)				    | &check; |
 
 
 ### Include output items
@@ -111,6 +112,18 @@ This option is **Disabled** by default
 
 Controls whether the items stored inside your Looting Bag will be included in the calculations.
 This feature requires checking your looting bag, using items on it or picking up items while its opened does not work.
+</p>
+</details>
+
+### Show maxed level skills
+<details>
+<summary>Details</summary>
+<p>
+
+This option is **Enabled** by default
+
+Toggles whether to show skills that are level 99 in the menu of selectable skills. 
+If enabled it will show these skills, if disabled it will hide these skills. 
 </p>
 </details>
 

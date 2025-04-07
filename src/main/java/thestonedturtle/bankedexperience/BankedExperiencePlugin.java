@@ -10,14 +10,7 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.Client;
-import net.runelite.api.EnumComposition;
-import net.runelite.api.EnumID;
-import net.runelite.api.InventoryID;
-import net.runelite.api.Item;
-import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemContainer;
-import net.runelite.api.ScriptID;
+import net.runelite.api.*;
 import net.runelite.api.events.AccountHashChanged;
 import net.runelite.api.events.ClientTick;
 import net.runelite.api.events.ItemContainerChanged;
@@ -38,6 +31,8 @@ import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
 import static thestonedturtle.bankedexperience.BankedExperienceConfig.POTION_STORAGE_KEY;
+import static thestonedturtle.bankedexperience.BankedExperienceConfig.SHOW_MAXED_LEVELS_CONFIG_KEY;
+
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.WidgetInventoryInfo;
@@ -95,6 +90,7 @@ public class BankedExperiencePlugin extends Plugin
 	private long accountHash = -1;
 
 	private boolean rebuildPotions = false;
+	private boolean rebuildSkills = false;
 	private Set<Integer> potionStoreVars;
 
 	@Override
@@ -120,6 +116,9 @@ public class BankedExperiencePlugin extends Plugin
 					if (config.grabFromPotionStorage() && client.getItemContainer(InventoryID.BANK) != null)
 					{
 						rebuildPotions = true;
+					}
+					if (!rebuildSkills) {
+						rebuildSkills = true;
 					}
 					// intentional fall through
 				case LOGIN_SCREEN:
@@ -189,6 +188,11 @@ public class BankedExperiencePlugin extends Plugin
 					});
 				}
 				break;
+		case SHOW_MAXED_LEVELS_CONFIG_KEY:
+				clientThread.invoke(() ->
+        {
+	        rebuildSkills = true;
+        });
 			default:
 				return;
 		}
@@ -347,6 +351,22 @@ public class BankedExperiencePlugin extends Plugin
 				int[] trigger = w.getVarTransmitTrigger();
 				potionStoreVars = new HashSet<>();
 				Arrays.stream(trigger).forEach(potionStoreVars::add);
+			}
+		}
+
+		if (rebuildSkills) {
+			rebuildSkills = false;
+			if (config.showMaxedLevelSkills()) {
+				SwingUtilities.invokeLater(() -> panel.showSkills(Activity.BANKABLE_SKILLS));
+			} else {
+				final Set<Skill> nonMaxedSkills = new HashSet<>();
+				for (final Skill skill : Activity.BANKABLE_SKILLS) {
+					final int realSkillLevel = client.getRealSkillLevel(skill);
+					if (realSkillLevel < 99) {
+						nonMaxedSkills.add(skill);
+					}
+				}
+				SwingUtilities.invokeLater(() -> panel.showSkills(nonMaxedSkills));
 			}
 		}
 	}
