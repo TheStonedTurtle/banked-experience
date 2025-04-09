@@ -332,6 +332,8 @@ public enum ExperienceItem
 	WOOL(ItemID.WOOL, Skill.CRAFTING, "Misc"),
 	FLAX(ItemID.FLAX, Skill.CRAFTING, "Misc"),
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, Skill.CRAFTING, "Misc"),
+	LIGHT_ORB(ItemID.LIGHT_ORB, Skill.CRAFTING, "Misc"),
+	EMPTY_LIGHT_ORB(ItemID.EMPTY_LIGHT_ORB, Skill.CRAFTING, "Misc"),
 	BATTLESTAFF(ItemID.BATTLESTAFF, Skill.CRAFTING, "Misc"),
 	GOLD_BAR(ItemID.GOLD_BAR, Skill.CRAFTING, "Misc"),
 	// Leather
