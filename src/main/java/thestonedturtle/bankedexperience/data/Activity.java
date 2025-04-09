@@ -799,7 +799,7 @@ public enum Activity
 		ExperienceItem.MOLTEN_GLASS, null, new ItemStack(ItemID.LANTERN_LENS, 1)),
 	EMPTY_LIGHT_ORB(ItemID.EMPTY_LIGHT_ORB, "Empty light orb", 87, 70,
 		ExperienceItem.MOLTEN_GLASS, null, new ItemStack(ItemID.EMPTY_LIGHT_ORB, 1)),
-    LIGHT_ORB(ItemID.LIGHT_ORB, "Light orb", 87, 104,
+	LIGHT_ORB(ItemID.LIGHT_ORB, "Light orb", 87, 104,
 		ExperienceItem.EMPTY_LIGHT_ORB, Secondaries.CAVE_GOBLIN_WIRE, new ItemStack(ItemID.LIGHT_ORB, 1)),
 	DORGESH_KAAN_LAMPS(ItemID.LIGHT_ORB, "Dorgesh-Kaan lamps", 52, 550,
 		ExperienceItem.LIGHT_ORB, null, null),
