@@ -344,7 +344,7 @@ public enum Activity
 	// Mastering Mixology
 	// XP rates are calculated assuming the lowest xp potions are made e.g. MMM, AAA, LLL
 	// https://oldschool.runescape.wiki/w/Mastering_Mixology#Depositing
-	MASTERING_MIXOLOGY_MOX_PASTE(ItemID.MIXALOT, "Mastering Mixology", 60, 6.33, true,
+	MASTERING_MIXOLOGY_MOX_PASTE(ItemID.MIXALOT, "Mastering Mixology", 60, 5.5, true,
 		ExperienceItem.MOX_PASTE, null, null),
 	MASTERING_MIXOLOGY_AGA_PASTE(ItemID.MIXALOT, "Mastering Mixology", 60, 6.33, true,
 		ExperienceItem.AGA_PASTE, null, null),
