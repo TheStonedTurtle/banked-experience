@@ -30,6 +30,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ItemEvent;
 import java.awt.image.BufferedImage;
 import java.util.Map;
+import java.util.Set;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.border.EmptyBorder;
@@ -50,11 +51,15 @@ import thestonedturtle.bankedexperience.data.Activity;
 public class BankedCalculatorPanel extends PluginPanel
 {
 	private final BankedCalculator calculator;
+	private final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
+	private final SkillIconManager skillIconManager;
 
 	public BankedCalculatorPanel(Client client, BankedExperienceConfig config, SkillIconManager skillIconManager,
 								ItemManager itemManager, ConfigManager configManager)
 	{
 		super();
+
+		this.skillIconManager = skillIconManager;
 
 		setBorder(new EmptyBorder(10, 10, 10, 10));
 		setLayout(new GridBagLayout());
@@ -68,36 +73,7 @@ public class BankedCalculatorPanel extends PluginPanel
 
 		calculator = new BankedCalculator(inputs, client, config, itemManager, configManager);
 
-		// Create the Skill dropdown with icons
-		final JComboBox<ComboBoxIconEntry> dropdown = new JComboBox<>();
-		dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
-		dropdown.setForeground(Color.WHITE);
-		dropdown.setMaximumRowCount(Activity.BANKABLE_SKILLS.size());
-		final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
-		renderer.setDefaultText("Select a Skill...");
-		dropdown.setRenderer(renderer);
-
-		for (final Skill skill : Activity.BANKABLE_SKILLS)
-		{
-			final BufferedImage img = skillIconManager.getSkillImage(skill, true);
-			final ComboBoxIconEntry entry = new ComboBoxIconEntry(new ImageIcon(img), skill.getName(), skill);
-			dropdown.addItem(entry);
-		}
-
-		dropdown.addItemListener(e ->
-		{
-			if (e.getStateChange() == ItemEvent.SELECTED)
-			{
-				final ComboBoxIconEntry source = (ComboBoxIconEntry) e.getItem();
-				if (source.getData() instanceof Skill)
-				{
-					final Skill skill = (Skill) source.getData();
-					this.calculator.open(skill);
-				}
-			}
-		});
-
-		dropdown.setSelectedIndex(-1);
+		showSkills(Activity.BANKABLE_SKILLS);
 
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -120,5 +96,44 @@ public class BankedCalculatorPanel extends PluginPanel
 	void resetInventoryMaps()
 	{
 		calculator.resetInventoryMaps();
+	}
+
+	/**
+	 * Create the Skill dropdown with icons
+	 * @param skills
+	 */
+	public void showSkills(final Set<Skill> skills) {
+		dropdown.removeAll();
+		dropdown.setFocusable(false); // To prevent an annoying "focus paint" effect
+		dropdown.setForeground(Color.WHITE);
+		dropdown.setMaximumRowCount(skills.size());
+		final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
+		renderer.setDefaultText("Select a Skill...");
+		dropdown.setRenderer(renderer);
+
+		for (final Skill skill : skills)
+		{
+			final BufferedImage img = skillIconManager.getSkillImage(skill, true);
+			final ComboBoxIconEntry entry = new ComboBoxIconEntry(new ImageIcon(img), skill.getName(), skill);
+			dropdown.addItem(entry);
+		}
+
+		dropdown.addItemListener(e ->
+    {
+      if (e.getStateChange() == ItemEvent.SELECTED)
+      {
+        final ComboBoxIconEntry source = (ComboBoxIconEntry) e.getItem();
+        if (source.getData() instanceof Skill)
+        {
+          final Skill skill = (Skill) source.getData();
+          this.calculator.open(skill);
+        }
+      }
+    });
+
+		dropdown.setSelectedIndex(-1);
+
+		revalidate();
+		repaint();
 	}
 }

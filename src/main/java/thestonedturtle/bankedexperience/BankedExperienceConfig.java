@@ -8,6 +8,8 @@ import net.runelite.client.config.ConfigItem;
 public interface BankedExperienceConfig extends Config
 {
 	String POTION_STORAGE_KEY = "grabFromPotionStorage";
+	String SHOW_MAXED_LEVELS_CONFIG_KEY = "showMaxedLevels";
+
 
 	@ConfigItem(
 		keyName = "cascadeBankedXp",
@@ -93,6 +95,16 @@ public interface BankedExperienceConfig extends Config
 		position = 7
 	)
 	default boolean grabFromPotionStorage()
+	{
+		return true;
+	}
+
+	@ConfigItem(
+			keyName = SHOW_MAXED_LEVELS_CONFIG_KEY,
+			name = "Show maxed level skills",
+			description = "Toggles whether skills that are level 99 should be shown in the list of banked skills"
+	)
+	default boolean showMaxedLevelSkills()
 	{
 		return true;
 	}

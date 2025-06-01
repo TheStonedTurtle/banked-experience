@@ -1,6 +1,5 @@
 plugins {
     id 'java'
-    id 'checkstyle'
 }
 
 repositories {
@@ -16,8 +15,8 @@ def runeLiteVersion = 'latest.release'
 dependencies {
     compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
 
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
 
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.slf4j:slf4j-simple:1.7.12'
@@ -34,6 +33,3 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-checkstyle {
-    configDirectory = file('./')
-}
