@@ -1,14 +1,6 @@
 package thestonedturtle.bankedexperience;
 
 import com.google.inject.Provides;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.swing.SwingUtilities;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.EnumComposition;
@@ -37,15 +29,25 @@ import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.NavigationButton;
 import net.runelite.client.util.ImageUtil;
-import static thestonedturtle.bankedexperience.BankedExperienceConfig.POTION_STORAGE_KEY;
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.WidgetInventoryInfo;
 import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
 
+import javax.inject.Inject;
+import javax.swing.SwingUtilities;
+import java.awt.image.BufferedImage;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import static thestonedturtle.bankedexperience.BankedExperienceConfig.POTION_STORAGE_KEY;
+
 @Slf4j
 @PluginDescriptor(
-	name = "Banked Experience"
+		name = "Banked Experience"
 )
 public class BankedExperiencePlugin extends Plugin
 {
@@ -102,11 +104,11 @@ public class BankedExperiencePlugin extends Plugin
 	{
 		panel = new BankedCalculatorPanel(client, config, skillIconManager, itemManager, configManager);
 		navButton = NavigationButton.builder()
-			.tooltip("Banked XP")
-			.icon(ICON)
-			.priority(6)
-			.panel(panel)
-			.build();
+				.tooltip("Banked XP")
+				.icon(ICON)
+				.priority(6)
+				.panel(panel)
+				.build();
 
 		clientToolbar.addNavigation(navButton);
 
@@ -200,9 +202,9 @@ public class BankedExperiencePlugin extends Plugin
 	public void onItemContainerChanged(ItemContainerChanged ev)
 	{
 		if (ev.getContainerId() == InventoryID.BANK.getId()
-			|| (ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
-			|| (ev.getContainerId() == InventoryID.INVENTORY.getId() && config.grabFromInventory())
-			|| (ev.getContainerId() == LOOTING_BAG_ID && config.grabFromLootingBag()))
+				|| (ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
+				|| (ev.getContainerId() == InventoryID.INVENTORY.getId() && config.grabFromInventory())
+				|| (ev.getContainerId() == LOOTING_BAG_ID && config.grabFromLootingBag()))
 		{
 			updateItemsFromItemContainer(ev.getContainerId(), ev.getItemContainer());
 		}
