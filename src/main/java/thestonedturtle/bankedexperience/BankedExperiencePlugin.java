@@ -376,12 +376,11 @@ public class BankedExperiencePlugin extends Plugin
 				EnumComposition potionEnum = client.getEnum(potionEnumId);
 				client.runScript(ScriptID.POTIONSTORE_DOSES, potionEnumId);
 				int doses = client.getIntStack()[0];
-				client.runScript(ScriptID.POTIONSTORE_WITHDRAW_DOSES, potionEnumId);
-				int withdrawDoses = client.getIntStack()[0];
 
-				if (doses > 0 && withdrawDoses > 0)
+				if (doses > 0)
 				{
-					final int itemId = potionEnum.getIntValue(withdrawDoses);
+					// Always pull the item ID for 1-dose potions
+					final int itemId = potionEnum.getIntValue(1);
 					potionQtyMap.put(itemId, doses);
 				}
 			}
