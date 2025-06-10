@@ -26,21 +26,6 @@ package thestonedturtle.bankedexperience;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -66,6 +51,22 @@ import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
 import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class BankedCalculator extends JPanel
@@ -115,22 +116,22 @@ public class BankedCalculator extends JPanel
 
 	@Getter
 	private final SpinnerInput boostInput = new SpinnerInput(
-		"Temporary Boost:",
-		"Enables activities that are this many levels above your current level",
-		this::updateBoost
+			"Temporary Boost:",
+			"Enables activities that are this many levels above your current level",
+			this::updateBoost
 	);
 
 	@Getter
 	private final SpinnerInput xpRateModifierInput = new SpinnerInput(
-		"XP Rate Multiplier:",
-		"Used for alternative game modes such as DMM and leagues. 1 = default OSRS experience rates.",
-		1,
-		1,
-		this::updateXpRateModifier
+			"XP Rate Multiplier:",
+			"Used for alternative game modes such as DMM and leagues. 1 = default OSRS experience rates.",
+			1,
+			1,
+			this::updateXpRateModifier
 	);
 
 	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
-					 ItemManager itemManager, ConfigManager configManager)
+			ItemManager itemManager, ConfigManager configManager)
 	{
 		this.uiInput = uiInput;
 		this.client = client;
@@ -251,11 +252,11 @@ public class BankedCalculator extends JPanel
 		{
 			boolean wasClosed = modifierSection != null && !modifierSection.isOpen();
 			modifierSection = new ExpandableSection(
-				"Modifiers",
-				"Toggles the different ways activity/experience gains can be modified",
-				modifierComponents.stream()
-					.map(ModifierComponent::getComponent)
-					.collect(Collectors.toList())
+					"Modifiers",
+					"Toggles the different ways activity/experience gains can be modified",
+					modifierComponents.stream()
+							.map(ModifierComponent::getComponent)
+							.collect(Collectors.toList())
 			);
 			modifierSection.setOpen(!wasClosed);
 			add(modifierSection);
@@ -285,9 +286,9 @@ public class BankedCalculator extends JPanel
 				secondaryGrid = new SecondaryGrid(this, itemGrid.getPanelMap().values());
 				boolean wasClosed = secondarySection != null && !secondarySection.isOpen();
 				secondarySection = new ExpandableSection(
-					"Secondaries",
-					"Shows a breakdown of how many secondaries are required for all enabled activities",
-					secondaryGrid
+						"Secondaries",
+						"Shows a breakdown of how many secondaries are required for all enabled activities",
+						secondaryGrid
 				);
 
 				secondarySection.setOpen(!wasClosed);
@@ -420,14 +421,25 @@ public class BankedCalculator extends JPanel
 		}
 
 		final Map<ExperienceItem, Integer> linked = createLinksMap(item);
-		final int linkedQty = linked.entrySet().stream().mapToInt((entry) ->
-		{
-			// Account for activities that output multiple of a specific item per action
-			final ItemStack output = entry.getKey().getSelectedActivity().getOutput();
-			return (int) (entry.getValue() * (output != null ? output.getQty() : 1));
-		}).sum();
+		ExperienceItem nextItem = linked.keySet().stream()
+				.filter((entry) -> !linkedMap.containsKey(entry))
+				.findFirst()
+				.orElse(null);
 
-		return qty + linkedQty;
+		// We need to account for activities near the end of the "chain" of cascading items
+		// that produce more than 1x output item per input item
+		double runningCascadeTotal = 0;
+		while (nextItem != null && !nextItem.equals(item.getItem()))
+		{
+			int count = linked.getOrDefault(nextItem, 0);
+			final ItemStack output = nextItem.getSelectedActivity().getOutput();
+
+			runningCascadeTotal = (runningCascadeTotal + count) * (output != null ? output.getQty() : 1);
+
+			nextItem = ExperienceItem.getByItemId(output == null ? -1 : output.getId());
+		}
+
+		return qty + (int) runningCascadeTotal;
 	}
 
 	private void calculateBankedXpTotal()
@@ -601,9 +613,9 @@ public class BankedCalculator extends JPanel
 	{
 		enabledModifiers.clear();
 		enabledModifiers.addAll(modifierComponents.stream()
-			.filter(ModifierComponent::isModifierEnabled)
-			.map(ModifierComponent::getModifier)
-			.collect(Collectors.toSet())
+				.filter(ModifierComponent::isModifierEnabled)
+				.map(ModifierComponent::getModifier)
+				.collect(Collectors.toSet())
 		);
 
 		itemGrid.getPanelMap().values().forEach(item -> item.updateToolTip(enabledModifiers));
