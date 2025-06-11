@@ -47,7 +47,6 @@ import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputAr
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
-import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
 import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
@@ -405,6 +404,50 @@ public class BankedCalculator extends JPanel
 		return selected.getXpRate(enabledModifiers) * getXpRateModifier();
 	}
 
+	private int getConsolidatedTotal(Map<ExperienceItem, Integer> original, ExperienceItem goalItem)
+	{
+		// Create a copy to enable deleting entries during the loop without concurrent errors
+		Map<ExperienceItem, Integer> linked = new HashMap<>(original);
+
+		double runningCascadeTotal = 0;
+		for (final ExperienceItem experienceItem : original.keySet())
+		{
+			Activity a = experienceItem.getSelectedActivity();
+			assert a != null;
+
+			// subTotal should always include this item regardless of activity.
+			// If the activity for this item is the goalActivity than the while loop will never run
+			double subTotal = 0;
+			ExperienceItem linkedItem = experienceItem;
+			while (linkedItem != null && !linkedItem.equals(goalItem))
+			{
+				Activity linkedActivity = linkedItem.getSelectedActivity();
+				// We update instead of concat to this value as items can be mapped to multiples of another
+				// Example: Item 1 -> 5 of Item 2 -> 10 of Item 3
+				// So if we have 5, 10, and 50 of each item we should end up with
+				// 5 * 2 = 10 of Item 2 added to `subTotal.
+				// Next, when Item 2 is processed we should calculate `10 + the 10 original` items for 20 * 3 for 60 of Item 3 in the subtotal
+				// Finally, we should get `60 + 50 of the original` of Item 3 for 110 total.
+				subTotal = (subTotal + linked.getOrDefault(linkedItem, 0)) * (linkedActivity.getOutput() == null ? 1 : linkedActivity.getOutput().getQty());
+				linked.remove(linkedItem);
+
+				linkedItem = linkedActivity.getLinkedItem();
+			}
+
+			// Once we get here linkedItem should be equal to goalItem and never null, but better safe than sorry
+			if (linkedItem != null)
+			{
+				Activity linkedActivity = linkedItem.getSelectedActivity();
+				subTotal += linked.getOrDefault(linkedItem, 0) * (linkedActivity.getOutput() == null ? 1 : linkedActivity.getOutput().getQty());
+				linked.remove(linkedItem);
+			}
+
+			runningCascadeTotal += subTotal;
+		}
+
+		return (int) runningCascadeTotal;
+	}
+
 	/**
 	 * Calculates total item quantity accounting for backwards linked items
 	 *
@@ -421,25 +464,9 @@ public class BankedCalculator extends JPanel
 		}
 
 		final Map<ExperienceItem, Integer> linked = createLinksMap(item);
-		ExperienceItem nextItem = linked.keySet().stream()
-				.filter((entry) -> !linkedMap.containsKey(entry))
-				.findFirst()
-				.orElse(null);
+		final int cascadeTotal = getConsolidatedTotal(linked, item.getItem());
 
-		// We need to account for activities near the end of the "chain" of cascading items
-		// that produce more than 1x output item per input item
-		double runningCascadeTotal = 0;
-		while (nextItem != null && !nextItem.equals(item.getItem()))
-		{
-			int count = linked.getOrDefault(nextItem, 0);
-			final ItemStack output = nextItem.getSelectedActivity().getOutput();
-
-			runningCascadeTotal = (runningCascadeTotal + count) * (output != null ? output.getQty() : 1);
-
-			nextItem = ExperienceItem.getByItemId(output == null ? -1 : output.getId());
-		}
-
-		return qty + (int) runningCascadeTotal;
+		return qty + cascadeTotal;
 	}
 
 	private void calculateBankedXpTotal()
