@@ -42,7 +42,10 @@ public class ZealotsRobes extends SkillingOutfit
 			Activity.MEDIUM_LIMBS, Activity.MEDIUM_SPINE, Activity.MEDIUM_RIBS, Activity.MEDIUM_PELVIS, Activity.MEDIUM_SKULL, Activity.MEDIUM_FOSSIL,
 			Activity.LARGE_LIMBS, Activity.LARGE_SPINE, Activity.LARGE_RIBS, Activity.LARGE_PELVIS, Activity.LARGE_SKULL, Activity.LARGE_FOSSIL,
 			Activity.RARE_LIMBS, Activity.RARE_SPINE, Activity.RARE_RIBS, Activity.RARE_PELVIS, Activity.RARE_SKULL, Activity.RARE_TUSK, Activity.RARE_FOSSIL,
-			Activity.FIENDISH_ASHES, Activity.VILE_ASHES, Activity.MALICIOUS_ASHES, Activity.ABYSSAL_ASHES, Activity.INFERNAL_ASHES
+			Activity.FIENDISH_ASHES, Activity.VILE_ASHES, Activity.MALICIOUS_ASHES, Activity.ABYSSAL_ASHES, Activity.INFERNAL_ASHES,
+			Activity.BIRD_EGG_RED, Activity.BIRD_EGG_GREEN, Activity.BIRD_EGG_BLUE,
+			Activity.CRAWLING_HAND, Activity.COCKATRICE_HEAD, Activity.BASILISK_HEAD, Activity.KURASK_HEAD, Activity.ABYSSAL_HEAD,
+			Activity.KBD_HEADS, Activity.KQ_HEAD, Activity.VORKATHS_HEAD, Activity.ALCHEMICAL_HYDRA_HEADS
 	);
 
 	ZealotsRobes(ItemManager itemManager, ItemComposition... items)
