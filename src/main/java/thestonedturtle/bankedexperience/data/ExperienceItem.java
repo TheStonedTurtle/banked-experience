@@ -365,6 +365,7 @@ public enum ExperienceItem
 	UNCUT_ONYX(ItemID.UNCUT_ONYX, Skill.CRAFTING, "Gems"),
 	UNCUT_ZENYTE(ItemID.UNCUT_ZENYTE, Skill.CRAFTING, "Gems"),
 	// Cut Gems
+	ENCHANTED_GEM(ItemID.ENCHANTED_GEM, Skill.CRAFTING, "Gems"),
 	OPAL(ItemID.OPAL, Skill.CRAFTING, "Gems"),
 	JADE(ItemID.JADE, Skill.CRAFTING, "Gems"),
 	RED_TOPAZ(ItemID.RED_TOPAZ, Skill.CRAFTING, "Gems"),
