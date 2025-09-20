@@ -30,12 +30,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
+import thestonedturtle.bankedexperience.BankedExperienceConfig;
 
 /**
  *
@@ -337,6 +340,10 @@ public enum ExperienceItem
 	FLAX(ItemID.FLAX, Skill.CRAFTING, "Misc"),
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, Skill.CRAFTING, "Misc"),
 	BATTLESTAFF(ItemID.BATTLESTAFF, Skill.CRAFTING, "Misc"),
+	AIR_ORB(ItemID.AIR_ORB, Skill.CRAFTING, "Misc"),
+	WATER_ORB(ItemID.WATER_ORB, Skill.CRAFTING, "Misc"),
+	EARTH_ORB(ItemID.EARTH_ORB, Skill.CRAFTING, "Misc"),
+	FIRE_ORB(ItemID.FIRE_ORB, Skill.CRAFTING, "Misc"),
 	GOLD_BAR(ItemID.GOLD_BAR, Skill.CRAFTING, "Misc"),
 	// Leather
 	COW_HIDE(ItemID.COWHIDE, Skill.CRAFTING, "Leather"),
@@ -654,7 +661,7 @@ public enum ExperienceItem
 		this.byDose = byDose;
 	}
 
-	public static Collection<ExperienceItem> getBySkill(Skill skill)
+	public static Collection<ExperienceItem> getBySkill(Skill skill, BankedExperienceConfig config)
 	{
 		Collection<ExperienceItem> items = SKILL_MAP.get(skill);
 		if (items == null)
@@ -662,7 +669,15 @@ public enum ExperienceItem
 			items = new ArrayList<>();
 		}
 
-		return items;
+		return items.stream().filter(ei -> {
+			if(ei == ExperienceItem.AIR_ORB || ei == ExperienceItem.EARTH_ORB || ei == ExperienceItem.FIRE_ORB || ei == ExperienceItem.WATER_ORB) {
+				return !config.useBattlestaffsAsExperinceItems();
+			} else if(ei == ExperienceItem.BATTLESTAFF) {
+				return config.useBattlestaffsAsExperinceItems();
+			} else {
+				return true;
+			}
+		}).collect(Collectors.toList());
 	}
 
 	public static ExperienceItem getByItemId(int id)

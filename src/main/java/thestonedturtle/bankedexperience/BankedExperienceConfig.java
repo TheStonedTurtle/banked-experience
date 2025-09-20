@@ -98,6 +98,17 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "useBattlestaffsAsExperinceItems",
+		name = "Use Battlestaffs as Experience Items",
+		description = "Toggles whether battlestaffs or fire/water/earth/air orbs are used as the primary ingredient",
+		position = 21
+	)
+	default boolean useBattlestaffsAsExperinceItems()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		keyName = "ignoredItems",
 		name = "",
 		description = "",

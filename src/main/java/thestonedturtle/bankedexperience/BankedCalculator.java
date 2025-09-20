@@ -339,7 +339,7 @@ public class BankedCalculator extends JPanel
 		bankedItemMap.clear();
 		linkedMap.clear();
 
-		final Collection<ExperienceItem> items = ExperienceItem.getBySkill(currentSkill);
+		final Collection<ExperienceItem> items = ExperienceItem.getBySkill(currentSkill, config);
 		log.debug("Experience items for the {} Skill: {}", currentSkill.getName(), items);
 
 		for (final ExperienceItem item : items)
