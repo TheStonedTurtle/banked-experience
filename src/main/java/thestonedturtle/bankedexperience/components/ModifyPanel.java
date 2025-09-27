@@ -48,7 +48,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import lombok.Getter;
 import net.runelite.api.Constants;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
@@ -403,9 +403,9 @@ public class ModifyPanel extends JPanel
 			if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
 			{
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
-				final int available = this.calc.getItemQtyFromBank(ItemID.NATURE_RUNE);
+				final int available = this.calc.getItemQtyFromBank(ItemID.NATURERUNE);
 				final int required = handler.getTotalNaturesRequired(amount);
-				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURE_RUNE, 0), available, required));
+				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURERUNE, 0), available, required));
 			}
 
 			if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)

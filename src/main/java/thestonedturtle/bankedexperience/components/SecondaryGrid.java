@@ -38,7 +38,7 @@ import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
@@ -166,8 +166,8 @@ public class SecondaryGrid extends JPanel
 			else if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
 			{
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
-				qtyMap.merge(ItemID.NATURE_RUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
-				infoMap.put(ItemID.NATURE_RUNE, new ItemInfo("Nature rune", true));
+				qtyMap.merge(ItemID.NATURERUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
+				infoMap.put(ItemID.NATURERUNE, new ItemInfo("Nature rune", true));
 			}
 			else if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)
 			{
