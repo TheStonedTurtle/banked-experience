@@ -972,16 +972,18 @@ public enum Activity
 	{
 		for (Activity a : values())
 		{
+			final Secondaries activitySecondaries = a.getSecondaries();
+
 			// Attach names to all ItemStacks (secondaries)
-			if (a.getSecondaries() != null)
+			if (activitySecondaries != null)
 			{
-				for (final ItemStack stack : a.getSecondaries().getItems())
+				for (final ItemStack stack : activitySecondaries.getItems())
 				{
 					stack.updateItemInfo(m);
 				}
 
 				// If it has a custom handler those items need to be prepared as well
-				final Secondaries.SecondaryHandler handler = a.getSecondaries().getCustomHandler();
+				final Secondaries.SecondaryHandler handler = activitySecondaries.getCustomHandler();
 				if (handler != null)
 				{
 					for (final ItemStack stack : handler.getInfoItems())
@@ -1080,6 +1082,17 @@ public enum Activity
 			return true;
 		}
 
-		return oldOutput.getQty() != output.getQty() || oldOutput.getId() != output.getId();
+		// This indirection with copying the nullable typed values helps prove
+		// to the compiler that we cannot dereference a nullable type
+
+		final ItemStack oldOutput_copy = oldOutput;
+		final ItemStack newOutput_copy = output;
+		
+		if (oldOutput_copy == null || newOutput_copy == null) 
+		{
+			return false;
+		}
+
+		return oldOutput_copy.getQty() != newOutput_copy.getQty() || oldOutput_copy.getId() != newOutput_copy.getId();
 	}
 }

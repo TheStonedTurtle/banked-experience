@@ -148,8 +148,12 @@ public class SecondaryGrid extends JPanel
 			// Ensure all items are stacked properly
 			final Secondaries secondaries = a.getSecondaries();
 			final Map<Integer, Double> qtyMap = new HashMap<>();
-
-			if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
+			
+			if (secondaries == null) 
+			{
+				continue;
+			}
+			else if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
 			{
 				final Secondaries.ByDose byDose = ((Secondaries.ByDose) secondaries.getCustomHandler());
 				final int firstId = byDose.getItems()[0];

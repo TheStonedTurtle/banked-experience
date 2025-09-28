@@ -46,6 +46,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+
 import lombok.Getter;
 import net.runelite.api.Constants;
 import net.runelite.api.gameval.ItemID;
@@ -61,6 +62,7 @@ import thestonedturtle.bankedexperience.components.combobox.ComboBoxIconListRend
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
 
@@ -75,14 +77,6 @@ public class ModifyPanel extends JPanel
 	private final BankedCalculator calc;
 	private final ItemManager itemManager;
 
-	@Getter
-	private BankedItem bankedItem;
-	private Map<ExperienceItem, Integer> linkedMap;
-	@Getter
-	private int amount = 0;
-	@Getter
-	private double total = 0;
-
 	// Banked item information display
 	private final JPanel labelContainer;
 	private final JLabel image;
@@ -91,6 +85,15 @@ public class ModifyPanel extends JPanel
 
 	// Elements used to adjust banked item
 	private final JPanel adjustContainer;
+
+	@Getter
+	private BankedItem bankedItem;
+	@Getter
+	private int amount = 0;
+	@Getter
+	private double total = 0;
+
+	private Map<ExperienceItem, Integer> linkedMap;
 
 	public ModifyPanel(final BankedCalculator calc, final ItemManager itemManager)
 	{
@@ -251,9 +254,12 @@ public class ModifyPanel extends JPanel
 		else if (activities.size() == 1)
 		{
 			final Activity a = activities.get(0);
+			assert a != null;
+			final ItemStack output = a.getOutput();
+			final ItemInfo info = a.getOutputItemInfo();
+			final int qty = (output == null) ? 1 : (int) output.getQty();
+			final boolean stackable = (info == null) ? qty > 1 : info.isStackable();
 
-			final int qty = a.getOutput() == null ? 1 : (int) a.getOutput().getQty();
-			final boolean stackable = a.getOutputItemInfo() == null ? qty > 1 : a.getOutputItemInfo().isStackable();
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
 			final double xp = a.getXpRate(calc.getEnabledModifiers()) * calc.getXpRateModifier();
@@ -276,7 +282,7 @@ public class ModifyPanel extends JPanel
 			dropdown.setForeground(Color.WHITE);
 			dropdown.setBorder(new EmptyBorder(2, 0, 0, 0));
 
-			final ComboBoxIconListRenderer renderer = new ComboBoxIconListRenderer();
+			final ComboBoxIconListRenderer<ComboBoxIconEntry> renderer = new ComboBoxIconListRenderer<>();
 			dropdown.setRenderer(renderer);
 
 			for (final Activity option : activities)
@@ -287,9 +293,10 @@ public class ModifyPanel extends JPanel
 				{
 					name += " (" + FORMAT_COMMA.format(xp) + "xp)";
 				}
-
+				
+				final ItemStack output = option.getOutput();
 				// Use the output quantity if its stackable
-				final int iconQty = option.getOutput() != null && option.getOutput().getId() == option.getIcon() ? (int) option.getOutput().getQty() : 1;
+				final int iconQty = (output != null && output.getId() == option.getIcon()) ? (int) output.getQty() : 1;
 				final boolean iconStackable = option.getOutputItemInfo() == null ? iconQty > 1 : option.getOutputItemInfo().isStackable();
 				final AsyncBufferedImage img = itemManager.getImage(option.getIcon(), iconQty, iconStackable);
 				final ImageIcon icon = new ImageIcon(img);
@@ -335,7 +342,9 @@ public class ModifyPanel extends JPanel
 			return;
 		}
 
-		if (a.getOutput() != null && a.getOutput().getQty() != 1)
+		final ItemStack output = a.getOutput();
+
+		if (output != null && output.getQty() != 1)
 		{
 			final JLabel secondaryLabel = new JLabel("Outputs:");
 			secondaryLabel.setVerticalAlignment(JLabel.CENTER);
@@ -345,7 +354,7 @@ public class ModifyPanel extends JPanel
 			c.gridy++;
 
 			// Create Icon
-			final double qty = amount * a.getOutput().getQty();
+			final double qty = amount * output.getQty();
 			final boolean stackable = qty > 1 || (a.getOutputItemInfo() != null && a.getOutputItemInfo().isStackable());
 			final AsyncBufferedImage img = itemManager.getImage(a.getIcon(), (int) qty, stackable);
 			final ImageIcon icon = new ImageIcon(img);
@@ -439,7 +448,9 @@ public class ModifyPanel extends JPanel
 		l.setHorizontalAlignment(JLabel.CENTER);
 
 		final int result = (available - required);
-		final String itemName = stack.getInfo() == null ? "" : stack.getInfo().getName();
+		final ItemInfo stackInfo = stack.getInfo();
+
+		final String itemName = stackInfo == null ? "" : stackInfo.getName();
 		final String tooltip = "<html>" + itemName +
 			"<br/>Banked: " + FORMAT_COMMA.format(available) +
 			"<br/>Needed: " + FORMAT_COMMA.format(required) +

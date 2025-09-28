@@ -47,6 +47,7 @@ import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputAr
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
 import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
@@ -287,11 +288,14 @@ public class BankedCalculator extends JPanel
 				secondarySection = new ExpandableSection(
 						"Secondaries",
 						"Shows a breakdown of how many secondaries are required for all enabled activities",
-						secondaryGrid
+						List.of(secondaryGrid)
 				);
 
 				secondarySection.setOpen(!wasClosed);
 
+				//The gui list should be nonempty if the data is non empty, and empty if it is empty
+				assert secondaryGrid.getSecMap().isEmpty() == itemGrid.getPanelMap().values().isEmpty();
+				
 				if (!secondaryGrid.getSecMap().isEmpty())
 				{
 					add(secondarySection);
@@ -407,38 +411,44 @@ public class BankedCalculator extends JPanel
 	private int getConsolidatedTotal(Map<ExperienceItem, Integer> original, ExperienceItem goalItem)
 	{
 		// Create a copy to enable deleting entries during the loop without concurrent errors
-		Map<ExperienceItem, Integer> linked = new HashMap<>(original);
+		final Map<ExperienceItem, Integer> linked = new HashMap<>(original);
 
-		double runningCascadeTotal = 0;
-		for (final ExperienceItem experienceItem : original.keySet())
+		final Set<ExperienceItem> original_keys = original.keySet();
+		
+		double runningCascadeTotal = 0.0;
+		for (final ExperienceItem experienceItem : original_keys)
 		{
-			Activity a = experienceItem.getSelectedActivity();
+			final Activity a = experienceItem.getSelectedActivity();
 			assert a != null;
 
 			// subTotal should always include this item regardless of activity.
 			// If the activity for this item is the goalActivity than the while loop will never run
-			double subTotal = 0;
+			double subTotal = 0.0;
 			ExperienceItem linkedItem = experienceItem;
 			while (linkedItem != null && !linkedItem.equals(goalItem))
 			{
-				Activity linkedActivity = linkedItem.getSelectedActivity();
+				final Activity linkedActivity = linkedItem.getSelectedActivity();
+				final ItemStack output = linkedActivity.getOutput();
 				// We update instead of concat to this value as items can be mapped to multiples of another
 				// Example: Item 1 -> 5 of Item 2 -> 10 of Item 3
 				// So if we have 5, 10, and 50 of each item we should end up with
 				// 5 * 2 = 10 of Item 2 added to `subTotal.
 				// Next, when Item 2 is processed we should calculate `10 + the 10 original` items for 20 * 3 for 60 of Item 3 in the subtotal
 				// Finally, we should get `60 + 50 of the original` of Item 3 for 110 total.
-				subTotal = (subTotal + linked.getOrDefault(linkedItem, 0)) * (linkedActivity.getOutput() == null ? 1 : linkedActivity.getOutput().getQty());
+				subTotal = (subTotal + linked.getOrDefault(linkedItem, 0)) * (output == null ? 1.0 : output.getQty());
 				linked.remove(linkedItem);
 
 				linkedItem = linkedActivity.getLinkedItem();
 			}
+			
+			assert linkedItem != null;
 
 			// Once we get here linkedItem should be equal to goalItem and never null, but better safe than sorry
 			if (linkedItem != null)
 			{
-				Activity linkedActivity = linkedItem.getSelectedActivity();
-				subTotal += linked.getOrDefault(linkedItem, 0) * (linkedActivity.getOutput() == null ? 1 : linkedActivity.getOutput().getQty());
+				final Activity linkedActivity = linkedItem.getSelectedActivity();
+				final ItemStack output = linkedActivity.getOutput();
+				subTotal += linked.getOrDefault(linkedItem, 0) * (output == null ? 1.0 : output.getQty());
 				linked.remove(linkedItem);
 			}
 

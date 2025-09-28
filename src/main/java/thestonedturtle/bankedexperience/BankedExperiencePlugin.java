@@ -225,16 +225,22 @@ public class BankedExperiencePlugin extends Plugin
 		}
 
 		final Widget w = client.getWidget(widgetInfo.getGroupId(), widgetInfo.getChildId());
-		if (w == null || w.getChildren() == null)
+		if (w == null)
+		{
+			return;
+		}
+		
+		final Widget[] clientChildren = w.getChildren();
+		if (clientChildren == null) 
 		{
 			return;
 		}
 
 		final Map<Integer, Integer> m = new HashMap<>();
-		for (int i = 0; i < w.getChildren().length; i++)
+		for (int i = 0; i < clientChildren.length; i++)
 		{
-			final Widget childWidget = w.getChild(i);
-			if (childWidget.getItemId() <= 0 || childWidget.getItemQuantity() <= 0)
+			final Widget childWidget = clientChildren[i];
+			if (childWidget == null || childWidget.getItemId() <= 0 || childWidget.getItemQuantity() <= 0)
 			{
 				continue;
 			}

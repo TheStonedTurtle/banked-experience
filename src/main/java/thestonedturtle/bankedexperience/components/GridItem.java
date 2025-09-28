@@ -25,10 +25,13 @@
 package thestonedturtle.bankedexperience.components;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -47,16 +50,16 @@ import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 @Getter
 public class GridItem extends JLabel
 {
-	private final static String IGNORE = "Ignore Item";
-	private final static String IGNORE_ALL = "Ignore All Items";
-	private final static String INCLUDE = "Include Item";
-	private final static String INCLUDE_ALL = "Include All Items";
+	private final static String IGNORE_TEXT = "Ignore Item";
+	private final static String INCLUDE_TEXT = "Include Item";
+	private final static String IGNORE_ALL_TEXT = "Ignore All Items";
+	private final static String INCLUDE_ALL_TEXT = "Include All Items";
 
 	private static final Color UNSELECTED_BACKGROUND = ColorScheme.DARKER_GRAY_COLOR;
 	private static final Color UNSELECTED_HOVER_BACKGROUND = ColorScheme.DARKER_GRAY_HOVER_COLOR;
 
 	public static final Color SELECTED_BACKGROUND = new Color(0, 70, 0);
-	private static final Color SELECTED_HOVER_BACKGROUND =  new Color(0, 100, 0);
+	private static final Color SELECTED_HOVER_BACKGROUND = new Color(0, 100, 0);
 
 	public static final Color IGNORED_BACKGROUND = new Color(90, 0, 0);
 	private static final Color IGNORED_HOVER_BACKGROUND = new Color(120, 0, 0);
@@ -64,29 +67,84 @@ public class GridItem extends JLabel
 	private static final Color RNG_BACKGROUND = new Color(140, 90, 0);
 	private static final Color RNG_HOVER_BACKGROUND = new Color(186, 120, 0);
 
+	@Nonnull
+	private static final JMenuItem createMenuItem(@Nonnull final String text, @Nonnull final ActionListener listener)
+	{
+		final JMenuItem menuItem = new JMenuItem(text);
+		menuItem.addActionListener(listener);
+		
+		return menuItem;
+	}
+
+	private final MouseAdapter defaultMouseAdapter = new MouseAdapter()
+	{
+		public void mousePressed(final MouseEvent mouseEvent)
+		{
+			if (mouseEvent.getButton() == MouseEvent.BUTTON1)
+			{
+				if (selectionListener != null && !selectionListener.selected(bankedItem))
+				{
+					return;
+				}
+				select();
+			}
+		}
+
+		public void mouseEntered(final MouseEvent e)
+		{
+			final GridItem source = (GridItem) e.getSource();
+			source.setBackground(getHoverBackgroundColor());
+		}
+
+		public void mouseExited(final MouseEvent e)
+		{
+			final GridItem source = (GridItem) e.getSource();
+			source.setBackground(getBackgroundColor());
+		}
+	};
+
+	private final JMenuItem IGNORE_OPTION, IGNORE_ALL_OPTION, INCLUDE_ALL_OPTION;
+	private final BankedItem bankedItem;
+	private final int xpRateModifier;
+
 	@Setter
 	private SelectionListener selectionListener;
 
-	private final BankedItem bankedItem;
 	private int amount;
 
 	private boolean selected = false;
 	private boolean ignored;
 	private boolean rng;
 
-	private final JMenuItem IGNORE_OPTION = new JMenuItem(IGNORE);
-	private final JMenuItem IGNORE_ALL_OPTION = new JMenuItem(IGNORE_ALL);
-	private final JMenuItem INCLUDE_ALL_OPTION = new JMenuItem(INCLUDE_ALL);
-
-	private final int xpRateModifier;
-
-	GridItem(final BankedItem item, final AsyncBufferedImage icon, final int amount,
+	GridItem(@Nonnull final BankedItem item, final AsyncBufferedImage icon, final int amount,
 			final Collection<Modifier> modifiers, final boolean ignore, Consumer<Boolean> bulkIgnoreCallback, final int xpRateModifier)
 	{
 		super("");
-
-		this.setIgnore(ignore);
 		this.bankedItem = item;
+
+		IGNORE_OPTION = createMenuItem(IGNORE_TEXT, e -> 
+		{
+			ignored = !ignored;
+			if (selectionListener != null && !selectionListener.ignored(item)) 
+			{
+				ignored = !ignored;
+				return;
+			}
+
+			setIgnore(ignored);
+		});
+
+		IGNORE_ALL_OPTION = createMenuItem(IGNORE_ALL_TEXT, e -> 
+		{
+			bulkIgnoreCallback.accept(true);
+		});
+
+		INCLUDE_ALL_OPTION = createMenuItem(INCLUDE_ALL_TEXT, e -> 
+		{
+			bulkIgnoreCallback.accept(false);
+		});
+
+		setIgnore(ignore);
 
 		this.setOpaque(true);
 		this.setBorder(BorderFactory.createEmptyBorder(5, 0, 2, 0));
@@ -99,59 +157,7 @@ public class GridItem extends JLabel
 		updateIcon(icon, amount);
 		updateToolTip(modifiers);
 
-		this.addMouseListener(new MouseAdapter()
-		{
-			@Override
-			public void mousePressed(MouseEvent mouseEvent)
-			{
-				if (mouseEvent.getButton() == MouseEvent.BUTTON1)
-				{
-
-					if (selectionListener != null && !selectionListener.selected(item))
-					{
-						return;
-					}
-
-					select();
-				}
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e)
-			{
-				final GridItem item = (GridItem) e.getSource();
-				item.setBackground(getHoverBackgroundColor());
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e)
-			{
-				final GridItem item = (GridItem) e.getSource();
-				item.setBackground(getBackgroundColor());
-			}
-		});
-
-		IGNORE_OPTION.addActionListener(e ->
-		{
-			ignored = !ignored;
-			if (selectionListener != null && !selectionListener.ignored(item))
-			{
-				ignored = !ignored;
-				return;
-			}
-
-			setIgnore(ignored);
-		});
-
-		IGNORE_ALL_OPTION.addActionListener(e ->
-		{
-			bulkIgnoreCallback.accept(true);
-		});
-
-		INCLUDE_ALL_OPTION.addActionListener(e ->
-		{
-			bulkIgnoreCallback.accept(false);
-		});
+		this.addMouseListener(defaultMouseAdapter);
 
 		final JPopupMenu popupMenu = new JPopupMenu();
 		popupMenu.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -160,16 +166,6 @@ public class GridItem extends JLabel
 		popupMenu.add(IGNORE_ALL_OPTION);
 
 		this.setComponentPopupMenu(popupMenu);
-	}
-
-	private Color getBackgroundColor()
-	{
-		return ignored ? IGNORED_BACKGROUND : (rng ? RNG_BACKGROUND : (selected ? SELECTED_BACKGROUND : UNSELECTED_BACKGROUND));
-	}
-
-	private Color getHoverBackgroundColor()
-	{
-		return ignored ? IGNORED_HOVER_BACKGROUND : (rng ? RNG_HOVER_BACKGROUND : (selected ? SELECTED_HOVER_BACKGROUND : UNSELECTED_HOVER_BACKGROUND));
 	}
 
 	void select()
@@ -201,30 +197,58 @@ public class GridItem extends JLabel
 		}
 	}
 
+	public void setIgnore(Boolean ignored) 
+	{
+		assert IGNORE_OPTION != null : "Ignore menu items must be initialized before calls to setIgnore";
+
+		this.ignored = ignored;
+		IGNORE_OPTION.setText(ignored ? INCLUDE_TEXT : IGNORE_TEXT);
+		this.setBackground(this.getBackgroundColor());
+	}
+
+	private Color getBackgroundColor() 
+	{
+		return ignored ? IGNORED_BACKGROUND
+				: (rng ? RNG_BACKGROUND
+				: (selected ? SELECTED_BACKGROUND
+				: UNSELECTED_BACKGROUND));
+	}
+
+	private Color getHoverBackgroundColor() 
+	{
+		return ignored ? IGNORED_HOVER_BACKGROUND
+				: (rng ? RNG_HOVER_BACKGROUND
+				: (selected ? SELECTED_HOVER_BACKGROUND
+				: UNSELECTED_HOVER_BACKGROUND));
+	}
+
 	private String buildToolTip(final Collection<Modifier> modifiers)
 	{
-		String tip = "<html>" + bankedItem.getItem().getItemInfo().getName();
+		final StringBuilder tooltipBuilder = new StringBuilder("<html>");
+
+		tooltipBuilder.append(bankedItem.getItem().getItemInfo().getName());
 
 		final Activity a = bankedItem.getItem().getSelectedActivity();
 		if (a != null)
 		{
-			final double xp = a.getXpRate(modifiers) * xpRateModifier;
-			tip += "<br/>Activity: " +  a.getName();
-			tip += "<br/>Xp/Action: " + BankedCalculator.XP_FORMAT_COMMA.format(xp);
-			tip += "<br/>Total Xp: " + BankedCalculator.XP_FORMAT_COMMA.format(xp * amount);
+			final double xp = a.getXpRate(modifiers) * (double) xpRateModifier;
+			
+			tooltipBuilder.append("<br/>Activity: ");
+			tooltipBuilder.append(a.getName());
+
+			tooltipBuilder.append("<br/>Xp/Action: ");
+			tooltipBuilder.append(BankedCalculator.XP_FORMAT_COMMA.format(xp));
+
+			tooltipBuilder.append("<br/>Total Xp: ");
+			tooltipBuilder.append(BankedCalculator.XP_FORMAT_COMMA.format(xp * amount));
 		}
 		else
 		{
-			tip += "<br/>Unusable at current level";
+			tooltipBuilder.append("<br/>Unusable at current level");
 		}
 
-		return tip + "</html>";
-	}
+		tooltipBuilder.append("</html>");
 
-	public void setIgnore(Boolean ignored)
-	{
-		this.ignored = ignored;
-		IGNORE_OPTION.setText(ignored ? INCLUDE : IGNORE);
-		this.setBackground(this.getBackgroundColor());
+		return tooltipBuilder.toString();
 	}
 }

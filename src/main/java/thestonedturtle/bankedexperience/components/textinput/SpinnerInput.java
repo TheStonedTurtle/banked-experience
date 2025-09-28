@@ -30,6 +30,8 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import java.text.ParseException;
 import java.util.function.Consumer;
+
+import javax.annotation.Nonnull;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -52,7 +54,11 @@ public class SpinnerInput extends JPanel
 		this(label, tooltip, start, min, 99, 1, callback);
 	}
 
-	public SpinnerInput(final String label, final String tooltip, final int start, final int min, final int max, final int stepSize, Consumer<Integer> callback)
+	public SpinnerInput(
+			@Nonnull final String label, 
+			@Nonnull final String tooltip,
+			final int start, final int min, final int max, final int stepSize, 
+			@Nonnull Consumer<Integer> callback)
 	{
 		setLayout(new GridLayout(0, 1, 7, 7));
 		setBorder(new EmptyBorder(0, 0, 5, 0));
@@ -72,7 +78,6 @@ public class SpinnerInput extends JPanel
 		final JFormattedTextField spinnerTextField = ((JSpinner.DefaultEditor) editor).getTextField();
 		spinnerTextField.setColumns(6);
 		spinner.addChangeListener(ce -> callback.accept(getInputValue()));
-
 		container.add(spinner, BorderLayout.EAST);
 
 		add(container);
@@ -83,7 +88,7 @@ public class SpinnerInput extends JPanel
 		try
 		{
 			spinner.commitEdit();
-			return (Integer) spinner.getValue();
+			return (int) spinner.getValue();
 		}
 		catch (NumberFormatException | ParseException e)
 		{
