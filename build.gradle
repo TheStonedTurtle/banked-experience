@@ -1,5 +1,5 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'checkstyle'
 }
 
@@ -16,8 +16,8 @@ def runeLiteVersion = 'latest.release'
 dependencies {
     compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
 
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    compileOnly 'org.projectlombok:lombok:1.18.42'
+    annotationProcessor 'org.projectlombok:lombok:1.18.42'
 
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.slf4j:slf4j-simple:1.7.12'
@@ -28,12 +28,27 @@ dependencies {
 
 group = 'thestonedturtle.bankedexperience'
 version = '2.7.3'
-sourceCompatibility = '1.8'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-checkstyle {
-    configDirectory = file('./')
+tasks.withType(Checkstyle) {
+    configFile = file("${rootDir}/checkstyle.xml") 
+}
+
+checkstyleMain {
+    source ='src/main/java'
+}
+
+checkstyleTest {
+    source ='src/test/java'
 }

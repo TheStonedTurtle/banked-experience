@@ -10,3 +10,4 @@ nbproject/
 *.iml
 out/
 bin/
+.vscode/
