@@ -24,6 +24,7 @@
  */
 package thestonedturtle.bankedexperience.data;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.runelite.api.gameval.ItemID;
@@ -168,6 +169,15 @@ public enum Secondaries
 	RUNITE_LIMBS(new ItemStack(ItemID.XBOWS_CROSSBOW_LIMBS_RUNITE, 1)),
 	DRAGON_LIMBS(new ItemStack(ItemID.XBOWS_CROSSBOW_LIMBS_DRAGON, 1)),
 	JAVELIN_SHAFT(new ItemStack(ItemID.JAVELIN_SHAFT, 1)),
+
+	// Vale Totem Offerings
+	OAK_VALE_TOTEM_OFFERING( new ValeTotemOfferable(ValeTotemOfferable.WOOD_TYPE.OAK)),
+	WILLOW_VALE_TOTEM_OFFERING( new ValeTotemOfferable(ValeTotemOfferable.WOOD_TYPE.WILLOW)),
+	MAPLE_VALE_TOTEM_OFFERING( new ValeTotemOfferable(ValeTotemOfferable.WOOD_TYPE.MAPLE)),
+	YEW_VALE_TOTEM_OFFERING( new ValeTotemOfferable(ValeTotemOfferable.WOOD_TYPE.YEW)),
+	MAGIC_VALE_TOTEM_OFFERING( new ValeTotemOfferable(ValeTotemOfferable.WOOD_TYPE.MAGIC)),
+	REDWOOD_VALE_TOTEM_OFFERING( new ValeTotemOfferable(ValeTotemOfferable.WOOD_TYPE.REDWOOD)),
+
 	/**
 	 * Prayer
 	 */
@@ -236,6 +246,64 @@ public enum Secondaries
 			this.items = items;
 			this.infoItems = new ItemStack[]{new ItemStack(items[items.length - 1], 0)};
 		}
+	}
+
+	@AllArgsConstructor
+	public static class ValeTotemOfferable implements SecondaryHandler 
+	{
+		public static enum WOOD_TYPE 
+		{
+			OAK(ItemID.UNSTRUNG_OAK_SHORTBOW, ItemID.OAK_SHORTBOW, ItemID.UNSTRUNG_OAK_LONGBOW,
+					ItemID.OAK_LONGBOW, ItemID.OAK_SHIELD, ItemID.XBOWS_CROSSBOW_STOCK_OAK),
+							
+			WILLOW(ItemID.UNSTRUNG_WILLOW_SHORTBOW, ItemID.WILLOW_SHORTBOW, ItemID.UNSTRUNG_WILLOW_LONGBOW,
+					ItemID.WILLOW_LONGBOW, ItemID.WILLOW_SHIELD, ItemID.XBOWS_CROSSBOW_STOCK_WILLOW),
+							
+			MAPLE(ItemID.UNSTRUNG_MAPLE_SHORTBOW, ItemID.MAPLE_SHORTBOW, ItemID.UNSTRUNG_MAPLE_LONGBOW,
+					ItemID.MAPLE_LONGBOW, ItemID.MAPLE_SHIELD, ItemID.XBOWS_CROSSBOW_STOCK_MAPLE),
+							
+			YEW(ItemID.UNSTRUNG_YEW_SHORTBOW, ItemID.YEW_SHORTBOW, ItemID.UNSTRUNG_YEW_LONGBOW,
+					ItemID.YEW_LONGBOW, ItemID.YEW_SHIELD, ItemID.XBOWS_CROSSBOW_STOCK_YEW),
+							
+			MAGIC(ItemID.UNSTRUNG_MAGIC_SHORTBOW, ItemID.MAGIC_SHORTBOW, ItemID.UNSTRUNG_MAGIC_LONGBOW,
+					ItemID.MAGIC_LONGBOW, ItemID.MAGIC_SHIELD, ItemID.XBOWS_CROSSBOW_STOCK_MAGIC),
+							
+			REDWOOD(ItemID.REDWOOD_HIKING_STAFF, ItemID.REDWOOD_SHIELD);
+
+			@Getter
+			private final String displayName;
+
+			@Getter
+			private final int[] items;
+
+			@SafeVarargs
+			private WOOD_TYPE(int... itemArgs) 
+			{
+				items = itemArgs.clone();
+				assert items.length >= 2
+						: "The info item is the 2nd position in the item array, so arrays must have minimum size";
+
+				assert name().length() > 0;
+				char[] titleCase = name().toLowerCase().toCharArray();
+				titleCase[0] = Character.toUpperCase(titleCase[0]);
+				displayName = String.copyValueOf(titleCase);
+			}
+		}
+		
+		@Getter
+		final WOOD_TYPE woodType;
+
+		@Override
+		public ItemStack[] getInfoItems() 
+		{
+			return new ItemStack[] { new ItemStack(woodType.items[1], 4) };
+		}
+
+		public int[] getItems() 
+		{
+			return woodType.getItems().clone();
+		}
+
 	}
 
 	Secondaries(ItemStack... items)

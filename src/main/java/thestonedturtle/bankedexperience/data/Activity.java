@@ -813,6 +813,17 @@ public enum Activity
 	RUNE_JAVELINS(ItemID.RUNE_JAVELIN, "Rune javelins", 77, 12.4, ExperienceItem.RUNE_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.RUNE_JAVELIN, 1)),
 	AMETHYST_JAVELINS(ItemID.AMETHYST_JAVELIN, "Amethyst javelins", 84, 13.5, ExperienceItem.AMETHYST_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.AMETHYST_JAVELIN, 1)),
 	DRAGON_JAVELINS(ItemID.DRAGON_JAVELIN, "Dragon javelins", 92, 15, ExperienceItem.DRAGON_JAVELIN_HEADS, Secondaries.JAVELIN_SHAFT, new ItemStack(ItemID.DRAGON_JAVELIN, 1)),
+	// Carve Vale Totems
+	// TODO: Create support for activities with variable xp yields to begin
+	//  counting the construction XP from building a vale totem which generates
+	//  1*(Construction lvl) xp per action
+	F_VALE_TOTEM_OAK(ItemID.ENT_TOTEMS_LOOT, "Carve Oak Vale Totem", 20, 225, ExperienceItem.F_OAK_LOGS, Secondaries.OAK_VALE_TOTEM_OFFERING, new ItemStack(ItemID.ENT_TOTEMS_LOOT, 20)),
+	F_VALE_TOTEM_WILLOW(ItemID.ENT_TOTEMS_LOOT, "Carve Willow Vale Totem", 35, 628, ExperienceItem.F_WILLOW_LOGS, Secondaries.WILLOW_VALE_TOTEM_OFFERING, new ItemStack(ItemID.ENT_TOTEMS_LOOT, 30)),
+	F_VALE_TOTEM_MAPLE(ItemID.ENT_TOTEMS_LOOT, "Carve Maple Vale Totem", 50, 1008, ExperienceItem.F_MAPLE_LOGS, Secondaries.MAPLE_VALE_TOTEM_OFFERING, new ItemStack(ItemID.ENT_TOTEMS_LOOT, 40)),
+	F_VALE_TOTEM_YEW(ItemID.ENT_TOTEMS_LOOT, "Carve Yew Vale Totem", 65, 1632, ExperienceItem.F_YEW_LOGS, Secondaries.YEW_VALE_TOTEM_OFFERING, new ItemStack(ItemID.ENT_TOTEMS_LOOT, 65)),
+	F_VALE_TOTEM_MAGIC(ItemID.ENT_TOTEMS_LOOT, "Carve Magic Vale Totem", 80, 3104, ExperienceItem.F_MAGIC_LOGS, Secondaries.MAGIC_VALE_TOTEM_OFFERING, new ItemStack(ItemID.ENT_TOTEMS_LOOT, 90)),
+	F_VALE_TOTEM_REDWOOD(ItemID.ENT_TOTEMS_LOOT, "Carve Redwood Vale Totem", 90, 3788, ExperienceItem.F_REDWOOD_LOGS, Secondaries.REDWOOD_VALE_TOTEM_OFFERING, new ItemStack(ItemID.ENT_TOTEMS_LOOT, 105)),
+
 	/**
 	 * Hunter
 	 */

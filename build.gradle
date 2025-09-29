@@ -42,13 +42,13 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Checkstyle) {
-    configFile = file("${rootDir}/checkstyle.xml") 
+    configFile = file("${rootDir}/checkstyle.xml")
 }
 
 checkstyleMain {
-    source ='src/main/java'
+    source = 'src/main/java'
 }
 
 checkstyleTest {
-    source ='src/test/java'
+    source = 'src/test/java'
 }

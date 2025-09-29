@@ -77,7 +77,8 @@ public class ExpandableSection extends JPanel
 				final BufferedImage baseImage = ImageUtil.loadImageResource(ConfigPlugin.class, "/util/arrow_right.png");
 				final BufferedImage modifiedImage = ImageUtil.luminanceOffset(baseImage, -121);
 
-				if (baseImage == null || modifiedImage == null) {
+				if (baseImage == null || modifiedImage == null) 
+				{
 					throw new AssertionError("The icon failed to load!");
 				}
 
@@ -174,7 +175,8 @@ public class ExpandableSection extends JPanel
 
 		if (components != null)
 		{
-			for (final JComponent c : components) {
+			for (final JComponent c : components) 
+			{
 				sectionContents.add(c);
 			}
 		}

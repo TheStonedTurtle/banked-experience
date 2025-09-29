@@ -178,13 +178,26 @@ public class SecondaryGrid extends JPanel
 				final Secondaries.Crushable crushable = (Secondaries.Crushable) secondaries.getCustomHandler();
 				final int crushedItemId = crushable.getInfoItems()[0].getId();
 				int available = 0;
-				for (final int itemId : crushable.getItems())
+				for (final int itemId : crushable.getItems()) 
 				{
 					available += this.calc.getItemQtyFromBank(itemId);
 				}
 				availableMap.put(crushedItemId, available);
 				qtyMap.merge(crushedItemId, (double) bankedQty, Double::sum);
 				infoMap.put(crushedItemId, crushable.getInfoItems()[0].getInfo());
+			}
+			else if (secondaries.getCustomHandler() instanceof Secondaries.ValeTotemOfferable)
+			{
+				final Secondaries.ValeTotemOfferable offerable = (Secondaries.ValeTotemOfferable) secondaries.getCustomHandler();
+				int total_offerable_items = 0;
+				final int infoItemID = offerable.getInfoItems()[0].getId();
+				for (final int offerable_item : offerable.getItems()) 
+				{
+					total_offerable_items += this.calc.getItemQtyFromBank(offerable_item);
+				}
+				availableMap.put(infoItemID, total_offerable_items);
+				qtyMap.merge(infoItemID, (double) bankedQty * 4.0, Double::sum);
+				infoMap.put(infoItemID, new ItemInfo("Vale Totem Resources: " + offerable.getWoodType().getDisplayName(), true));
 			}
 			else if (secondaries.getCustomHandler() != null)
 			{
