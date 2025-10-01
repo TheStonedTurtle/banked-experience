@@ -43,6 +43,7 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.client.plugins.config.ConfigPlugin;
@@ -56,6 +57,7 @@ import net.runelite.client.util.SwingUtil;
 /**
  * Copy of RuneLite's ConfigPanel Sections
  */
+@SuppressFBWarnings(value = { "SE_BAD_FIELD" }, justification = "Plugin usage does not involve serialization")
 public class ExpandableSection extends JPanel
 {
 
@@ -63,11 +65,11 @@ public class ExpandableSection extends JPanel
 	private static final class ExpandableSectionIconConstants 
 	{
 
-		private final ImageIcon EXPAND = new ImageIcon();
-		private final ImageIcon EXPAND_HOVER = new ImageIcon();
+		final ImageIcon EXPAND = new ImageIcon();
+		final ImageIcon EXPAND_HOVER = new ImageIcon();
 
-		private final ImageIcon RETRACT = new ImageIcon();
-		private final ImageIcon RETRACT_HOVER = new ImageIcon();
+		final ImageIcon RETRACT = new ImageIcon();
+		final ImageIcon RETRACT_HOVER = new ImageIcon();
 
 		@Nullable
 		private static final BufferedImage loadArrowRightImage() 

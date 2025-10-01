@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.swing.JPanel;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.game.ItemManager;
@@ -43,6 +45,7 @@ import net.runelite.client.util.AsyncBufferedImage;
  * A grid that supports mouse events
  */
 @NoArgsConstructor
+@SuppressFBWarnings(value = { "SE_BAD_FIELD" }, justification = "Plugin usage does not involve serialization")
 public class SelectionGrid extends JPanel
 {
 	private static final int ITEMS_PER_ROW = 5;

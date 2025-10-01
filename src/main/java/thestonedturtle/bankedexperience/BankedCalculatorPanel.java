@@ -97,7 +97,7 @@ public class BankedCalculatorPanel extends PluginPanel
 			}
 		});
 
-		dropdown.setSelectedIndex(-1);
+		dropdown.setSelectedItem(null);
 
 		final GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;

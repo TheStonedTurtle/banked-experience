@@ -102,7 +102,7 @@ public final class Modifiers
 	private static void createModifiers(final ItemManager manager, final Map<Integer, ItemComposition[]> compositions)
 	{
 		// Prayer Modifiers
-		addModifier(new ZealotsRobes(manager, compositions.get(ItemID.SHADES_PRAYER_HELM)));
+		addModifier(ZealotsRobes.FromArray.create(manager, compositions.get(ItemID.SHADES_PRAYER_HELM)));
 		addModifier(new StaticModifier(Skill.PRAYER, "Demonic Offering (300% xp)", 3, ASHES, null, ASHES_TOOLTIP_TEXT));
 		addModifier(new StaticModifier(Skill.PRAYER, "Sinister Offering (300% xp)", 3, BONES, null, BONES_TOOLTIP_TEXT));
 		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null, BONES_TOOLTIP_TEXT));
@@ -128,14 +128,13 @@ public final class Modifiers
 		});
 
 		// Farming
-		addModifier(new SkillingOutfit(Skill.FARMING, "Farmer's Outfit", null, null,
-			manager, compositions.get(ItemID.TITHE_REWARD_HAT_MALE)));
+		addModifier(SkillingOutfit.FromArray.create(Skill.FARMING, "Farmer's Outfit", null, null, manager, compositions.get(ItemID.TITHE_REWARD_HAT_MALE)));
 
 		// Construction
-		addModifier(new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit", null, CONSTRUCTION_BONES, manager, compositions.get(ItemID.CONSTRUCTION_HAT)));
+		addModifier(SkillingOutfit.FromArray.create(Skill.CONSTRUCTION, "Carpenter's Outfit", null, CONSTRUCTION_BONES, manager, compositions.get(ItemID.CONSTRUCTION_HAT)));
 
 		// Firemaking
-		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit", null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
+		addModifier(SkillingOutfit.FromArray.create(Skill.FIREMAKING, "Pyromancer Outfit", null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
 	}
 
 	private static void addModifier(final Modifier modifier)

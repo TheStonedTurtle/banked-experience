@@ -38,6 +38,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.client.ui.ColorScheme;
@@ -48,6 +50,7 @@ import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 
 @Getter
+@SuppressFBWarnings(value = { "SE_BAD_FIELD" }, justification = "Plugin usage does not involve serialization")
 public class GridItem extends JLabel
 {
 	private final static String IGNORE_TEXT = "Ignore Item";
@@ -68,9 +71,9 @@ public class GridItem extends JLabel
 	private static final Color RNG_HOVER_BACKGROUND = new Color(186, 120, 0);
 
 	@Nonnull
-	private static final JMenuItem createMenuItem(@Nonnull final String text, @Nonnull final ActionListener listener)
+	private static final JMenuItem setupMenuItem(@Nonnull JMenuItem menuItem, @Nonnull final String text, @Nonnull final ActionListener listener)
 	{
-		final JMenuItem menuItem = new JMenuItem(text);
+		menuItem.setText(text);
 		menuItem.addActionListener(listener);
 		
 		return menuItem;
@@ -103,7 +106,7 @@ public class GridItem extends JLabel
 		}
 	};
 
-	private final JMenuItem IGNORE_OPTION, IGNORE_ALL_OPTION, INCLUDE_ALL_OPTION;
+	private final JMenuItem IGNORE_OPTION = new JMenuItem(), IGNORE_ALL_OPTION = new JMenuItem(), INCLUDE_ALL_OPTION = new JMenuItem();
 	private final BankedItem bankedItem;
 	private final int xpRateModifier;
 
@@ -122,7 +125,7 @@ public class GridItem extends JLabel
 		super("");
 		this.bankedItem = item;
 
-		IGNORE_OPTION = createMenuItem(IGNORE_TEXT, e -> 
+		setupMenuItem(IGNORE_OPTION, IGNORE_TEXT, e -> 
 		{
 			ignored = !ignored;
 			if (selectionListener != null && !selectionListener.ignored(item)) 
@@ -134,12 +137,12 @@ public class GridItem extends JLabel
 			setIgnore(ignored);
 		});
 
-		IGNORE_ALL_OPTION = createMenuItem(IGNORE_ALL_TEXT, e -> 
+		setupMenuItem(IGNORE_ALL_OPTION, IGNORE_ALL_TEXT, e -> 
 		{
 			bulkIgnoreCallback.accept(true);
 		});
 
-		INCLUDE_ALL_OPTION = createMenuItem(INCLUDE_ALL_TEXT, e -> 
+		setupMenuItem(INCLUDE_ALL_OPTION, INCLUDE_ALL_TEXT, e -> 
 		{
 			bulkIgnoreCallback.accept(false);
 		});
@@ -197,10 +200,8 @@ public class GridItem extends JLabel
 		}
 	}
 
-	public void setIgnore(Boolean ignored) 
+	public void setIgnore(boolean ignored) 
 	{
-		assert IGNORE_OPTION != null : "Ignore menu items must be initialized before calls to setIgnore";
-
 		this.ignored = ignored;
 		IGNORE_OPTION.setText(ignored ? INCLUDE_TEXT : IGNORE_TEXT);
 		this.setBackground(this.getBackgroundColor());

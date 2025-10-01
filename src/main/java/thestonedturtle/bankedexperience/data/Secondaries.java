@@ -24,6 +24,8 @@
  */
 package thestonedturtle.bankedexperience.data;
 
+import java.util.Locale;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -284,8 +286,8 @@ public enum Secondaries
 						: "The info item is the 2nd position in the item array, so arrays must have minimum size";
 
 				assert name().length() > 0;
-				char[] titleCase = name().toLowerCase().toCharArray();
-				titleCase[0] = Character.toUpperCase(titleCase[0]);
+				char[] titleCase = name().toLowerCase(Locale.US).toCharArray();
+				titleCase[0] = name().toUpperCase(Locale.US).charAt(0);
 				displayName = String.copyValueOf(titleCase);
 			}
 		}

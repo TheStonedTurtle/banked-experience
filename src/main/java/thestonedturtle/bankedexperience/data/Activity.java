@@ -26,6 +26,8 @@ package thestonedturtle.bankedexperience.data;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedSet;
+import com.google.common.math.DoubleMath;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -47,7 +49,7 @@ import thestonedturtle.bankedexperience.data.modifiers.Modifier;
  * An `Activity` is linked to an {@link ExperienceItem} and the {@link Skill} it requires.
  */
 @Getter
-public enum Activity
+public enum Activity 
 {
 	/**
 	 * Herblore
@@ -345,16 +347,16 @@ public enum Activity
 	HYDRA_BONEMEAL(ItemID.POT_BONEMEAL_HYDRA, "Hydra bonemeal", 1, 440, ExperienceItem.HYDRA_BONEMEAL, Secondaries.BUCKET_OF_SLIME, null),
 	// Shade Remains (Pyre Logs)
 	// TODO: Fix this for the different log types and the mory hard diary
-//	LOAR_REMAINS(ItemID.LOAR_REMAINS, "Loar remains", 1, 33.0,
-//		ExperienceItem.LOAR_REMAINS, null, null),
-//	PHRIN_REMAINS(ItemID.PHRIN_REMAINS, "Phrin remains", 1, 46.5,
-//		ExperienceItem.PHRIN_REMAINS, null, null),
-//	RIYL_REMAINS(ItemID.RIYL_REMAINS, "Riyl remains", 1, 59.5,
-//		ExperienceItem.RIYL_REMAINS, null, null),
-//	ASYN_REMAINS(ItemID.ASYN_REMAINS, "Asyn remains", 1, 82.5,
-//		ExperienceItem.ASYN_REMAINS, null, null),
-//	FIYR_REMAINS(ItemID.FIYR_REMAINS, "Fiyre remains", 1, 84.0,
-//		ExperienceItem.FIYR_REMAINS, null, null),
+	//	LOAR_REMAINS(ItemID.LOAR_REMAINS, "Loar remains", 1, 33.0,
+	//		ExperienceItem.LOAR_REMAINS, null, null),
+	//	PHRIN_REMAINS(ItemID.PHRIN_REMAINS, "Phrin remains", 1, 46.5,
+	//		ExperienceItem.PHRIN_REMAINS, null, null),
+	//	RIYL_REMAINS(ItemID.RIYL_REMAINS, "Riyl remains", 1, 59.5,
+	//		ExperienceItem.RIYL_REMAINS, null, null),
+	//	ASYN_REMAINS(ItemID.ASYN_REMAINS, "Asyn remains", 1, 82.5,
+	//		ExperienceItem.ASYN_REMAINS, null, null),
+	//	FIYR_REMAINS(ItemID.FIYR_REMAINS, "Fiyre remains", 1, 84.0,
+	//		ExperienceItem.FIYR_REMAINS, null, null),
 	// Ensouled Heads
 	ENSOULED_GOBLIN_HEAD(ItemID.ARCEUUS_CORPSE_GOBLIN, "Ensouled goblin head", 1, 130.0, ExperienceItem.ENSOULED_GOBLIN_HEAD, Secondaries.BASIC_REANIMATION, null),
 	ENSOULED_MONKEY_HEAD(ItemID.ARCEUUS_CORPSE_MONKEY, "Ensouled monkey head", 1, 182.0, ExperienceItem.ENSOULED_MONKEY_HEAD, Secondaries.BASIC_REANIMATION, null),
@@ -870,8 +872,7 @@ public enum Activity
 	AUTUMN_SQUIRK(ItemID.OSMAN_SQUIRK_J_AUTUMN, "Make sq'irkjuice", 45, 0, ExperienceItem.AUTUMN_SQUIRK, Secondaries.BEER_GLASS_3RD, new ItemStack(ItemID.OSMAN_SQUIRK_J_AUTUMN, 1.0 / 3)),
 	AUTUMN_SQUIRKJUICE(ItemID.OSMAN_SQUIRK_J_AUTUMN, "Redeem sq'irkjuice", 45, 2350, ExperienceItem.AUTUMN_SQUIRK, null, null),
 	SUMMER_SQUIRK(ItemID.OSMAN_SQUIRK_J_SUMMER, "Make sq'irkjuice", 65, 0, ExperienceItem.SUMMER_SQUIRK, Secondaries.BEER_GLASS_HALF, new ItemStack(ItemID.OSMAN_SQUIRK_J_SUMMER, 0.5)),
-	SUMMER_SQUIRKJUICE(ItemID.OSMAN_SQUIRK_J_SUMMER, "Redeem sq'irkjuice", 65, 3000, ExperienceItem.SUMMER_SQUIRK, null, null),
-	;
+	SUMMER_SQUIRKJUICE(ItemID.OSMAN_SQUIRK_J_SUMMER, "Redeem sq'irkjuice", 65, 3000, ExperienceItem.SUMMER_SQUIRK, null, null),;
 
 	private final int icon;
 	private final String name;
@@ -887,6 +888,13 @@ public enum Activity
 	private ItemInfo outputItemInfo = null;
 	@Nullable
 	private final ExperienceItem linkedItem;
+
+	/*
+	 * Used to define how close two quantities must be in order to be considered
+	 * equal. Uses Math.ulp to get the minimum difference between two adjacent double 
+	 * values.
+	 */
+	private static final double UPDATE_CHECK_EPSILON = 2.0 * Math.ulp(1.0);
 
 	private static final ImmutableMultimap<ExperienceItem, Activity> ITEM_MAP;
 	public static final ImmutableSortedSet<Skill> BANKABLE_SKILLS;
@@ -947,7 +955,7 @@ public enum Activity
 	public static List<Activity> getByExperienceItem(ExperienceItem item)
 	{
 		final Collection<Activity> activities = ITEM_MAP.get(item);
-		if (activities == null)
+		if (activities == null) 
 		{
 			return new ArrayList<>();
 		}
@@ -966,7 +974,7 @@ public enum Activity
 	{
 		// Return as list to allow getting by index
 		final List<Activity> l = getByExperienceItem(item);
-		if (limitLevel <= 0)
+		if (limitLevel <= 0) 
 		{
 			return l;
 		}
@@ -1068,11 +1076,6 @@ public enum Activity
 		return BigDecimal.valueOf(tempXp).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 
-	private static boolean isOneNull(final Object a, final Object b)
-	{
-		return (a == null && b != null) || (a != null && b == null);
-	}
-
 	public boolean shouldUpdateLinked(final Activity old)
 	{
 		if (old.getLinkedItem() != linkedItem)
@@ -1081,29 +1084,29 @@ public enum Activity
 		}
 
 		final ItemStack oldOutput = old.getOutput();
-		// If both are null and the item hasn't change it shouldn't be updated
-		if (oldOutput == null && output == null)
+		final ItemStack newOutput = output;
+		
+		// If both are null we can skip any expensive test because no update is needed
+		if (oldOutput == null && newOutput == null)
 		{
 			return false;
 		}
-
-		// If one was null an update should happen
-		if (isOneNull(oldOutput, output))
+		
+		// If exactly one was null, but not both, then an update should happen
+		if ((oldOutput == null) != (newOutput == null))
 		{
 			return true;
 		}
-
-		// This indirection with copying the nullable typed values helps prove
-		// to the compiler that we cannot dereference a nullable type
-
-		final ItemStack oldOutput_copy = oldOutput;
-		final ItemStack newOutput_copy = output;
 		
-		if (oldOutput_copy == null || newOutput_copy == null) 
+		// Re-check that neither are null. Technically we only need to check one variable
+		// for nullness to know both are null at this point, but checking both
+		// helps keep the compiler happy about null dereference warnings
+		if ((oldOutput == null) || (newOutput == null))
 		{
 			return false;
 		}
-
-		return oldOutput_copy.getQty() != newOutput_copy.getQty() || oldOutput_copy.getId() != newOutput_copy.getId();
+		
+		// Return if the int id is equal and the double values are "equal"
+		return oldOutput.getId() != newOutput.getId() || DoubleMath.fuzzyEquals(oldOutput.getQty(), newOutput.getQty(), UPDATE_CHECK_EPSILON);
 	}
 }

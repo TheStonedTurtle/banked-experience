@@ -47,6 +47,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import net.runelite.api.Constants;
 import net.runelite.api.gameval.ItemID;
@@ -66,6 +67,7 @@ import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
 
+@SuppressFBWarnings(value = { "SE_BAD_FIELD" }, justification = "Plugin usage does not involve serialization")
 public class ModifyPanel extends JPanel
 {
 	private static final Dimension ICON_SIZE = new Dimension(Constants.ITEM_SPRITE_WIDTH + 4, Constants.ITEM_SPRITE_HEIGHT);
@@ -74,7 +76,7 @@ public class ModifyPanel extends JPanel
 	private static final Border PANEL_BORDER = new EmptyBorder(3, 0, 3, 0);
 	private static final Color BACKGROUND_COLOR = ColorScheme.DARKER_GRAY_COLOR;
 
-	private final BankedCalculator calc;
+	//private final BankedCalculator calc;
 	private final ItemManager itemManager;
 
 	// Banked item information display
@@ -97,7 +99,6 @@ public class ModifyPanel extends JPanel
 
 	public ModifyPanel(final BankedCalculator calc, final ItemManager itemManager)
 	{
-		this.calc = calc;
 		this.itemManager = itemManager;
 
 		this.setLayout(new GridBagLayout());
@@ -157,7 +158,7 @@ public class ModifyPanel extends JPanel
 	}
 
 	// Updates the UI for the selected item
-	public void setBankedItem(final BankedItem bankedItem)
+	public void setBankedItem(final BankedItem bankedItem, final BankedCalculator calc)
 	{
 		if (bankedItem == null)
 		{
@@ -165,12 +166,12 @@ public class ModifyPanel extends JPanel
 		}
 
 		this.bankedItem = bankedItem;
-		this.amount = this.calc.getItemQty(bankedItem);
-		this.linkedMap = this.calc.getConfig().cascadeBankedXp() ? this.calc.createLinksMap(bankedItem) : new HashMap<>();
+		this.amount = calc.getItemQty(bankedItem);
+		this.linkedMap = calc.getConfig().cascadeBankedXp() ? calc.createLinksMap(bankedItem) : new HashMap<>();
 
 		updateImageTooltip();
-		updateLabelContainer();
-		updateAdjustContainer();
+		updateLabelContainer(calc);
+		updateAdjustContainer(calc);
 	}
 
 	private void updateImageTooltip()
@@ -192,7 +193,7 @@ public class ModifyPanel extends JPanel
 		this.image.setToolTipText(b.toString());
 	}
 
-	private void updateLabelContainer()
+	private void updateLabelContainer(final BankedCalculator calc)
 	{
 		final ExperienceItem item = bankedItem.getItem();
 
@@ -221,7 +222,7 @@ public class ModifyPanel extends JPanel
 		labelContainer.repaint();
 	}
 
-	private void updateAdjustContainer()
+	private void updateAdjustContainer(final BankedCalculator calc)
 	{
 		adjustContainer.removeAll();
 
@@ -327,7 +328,7 @@ public class ModifyPanel extends JPanel
 					{
 						final Activity selectedActivity = ((Activity) source.getData());
 						calc.activitySelected(bankedItem, selectedActivity);
-						updateLabelContainer();
+						updateLabelContainer(calc);
 					}
 				}
 			});
@@ -374,7 +375,7 @@ public class ModifyPanel extends JPanel
 		}
 
 		final Secondaries secondaries = a.getSecondaries();
-		if (secondaries != null && this.calc.getConfig().showSecondaries())
+		if (secondaries != null && calc.getConfig().showSecondaries())
 		{
 			final JLabel secondaryLabel = new JLabel("Secondaries:");
 			secondaryLabel.setVerticalAlignment(JLabel.CENTER);
@@ -390,7 +391,7 @@ public class ModifyPanel extends JPanel
 			for (final ItemStack s : secondaries.getItems())
 			{
 				final int required = (int) (s.getQty() * amount);
-				final int available = this.calc.getItemQtyFromBank(s.getId());
+				final int available = calc.getItemQtyFromBank(s.getId());
 				container.add(createSecondaryItemLabel(s, available, required));
 			}
 
@@ -402,7 +403,7 @@ public class ModifyPanel extends JPanel
 				for (int i = 0; i < byDose.getItems().length; i++)
 				{
 					final int id = byDose.getItems()[i];
-					available += (this.calc.getItemQtyFromBank(id) * (i + 1));
+					available += (calc.getItemQtyFromBank(id) * (i + 1));
 				}
 
 				assert byDose.getInfoItems().length > 0;
@@ -412,7 +413,7 @@ public class ModifyPanel extends JPanel
 			if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
 			{
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
-				final int available = this.calc.getItemQtyFromBank(ItemID.NATURERUNE);
+				final int available = calc.getItemQtyFromBank(ItemID.NATURERUNE);
 				final int required = handler.getTotalNaturesRequired(amount);
 				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURERUNE, 0), available, required));
 			}
@@ -423,7 +424,7 @@ public class ModifyPanel extends JPanel
 				int available = 0;
 				for (final int itemId : crushable.getItems())
 				{
-					available += this.calc.getItemQtyFromBank(itemId);
+					available += calc.getItemQtyFromBank(itemId);
 				}
 				container.add(createSecondaryItemLabel(crushable.getInfoItems()[0], available, amount));
 			}
