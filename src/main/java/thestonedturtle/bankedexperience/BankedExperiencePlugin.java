@@ -1,11 +1,15 @@
 package thestonedturtle.bankedexperience;
 
 import com.google.inject.Provides;
+
+import joptsimple.internal.Strings;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.EnumComposition;
 import net.runelite.api.EnumID;
-import net.runelite.api.InventoryID;
+import net.runelite.api.gameval.InterfaceID;
+import net.runelite.api.gameval.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
@@ -16,7 +20,6 @@ import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
-import net.runelite.api.widgets.ComponentID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -41,27 +44,23 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import static thestonedturtle.bankedexperience.BankedExperienceConfig.POTION_STORAGE_KEY;
 
 @Slf4j
-@PluginDescriptor(
-		name = "Banked Experience"
-)
+@PluginDescriptor(name = "Banked Experience")
 public class BankedExperiencePlugin extends Plugin
 {
 	private static final BufferedImage ICON = ImageUtil.loadImageResource(BankedExperiencePlugin.class, "banked.png");
-	private static final Map<Integer, Integer> EMPTY_MAP = new HashMap<>();
-	public static final String CONFIG_GROUP = "bankedexperience";
-	private static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
-	private static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
-	private static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
-	private static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
-	public static final String ACTIVITY_CONFIG_KEY = "ITEM_";
-	private static final int LOOTING_BAG_ID = 516;
+	
+	public static final String ACTIVITY_CONFIG_KEY_PREFIX = "ITEM_";
 
-	private static final int POTION_STORAGE_FAKE_INVENTORY_ID = -420;
+	public static final int POTION_STORAGE_FAKE_INVENTORY_ID = -420;
+
+	public static final String generateItemConfigKey(@NonNull final ExperienceItem item)
+	{
+		return ACTIVITY_CONFIG_KEY_PREFIX + item.name();
+	}
 
 	@Inject
 	private Client client;
@@ -90,14 +89,15 @@ public class BankedExperiencePlugin extends Plugin
 		return configManager.getConfig(BankedExperienceConfig.class);
 	}
 
-	private final Map<Integer, Integer> inventoryHashMap = new HashMap<>();
-	private NavigationButton navButton;
-	private BankedCalculatorPanel panel;
+	private final HashMap<Integer, Integer> inventoryHashMap = new HashMap<>();
+	private NavigationButton navButton = null;
+
+	private BankedCalculatorPanel panel = null;
 	private boolean prepared = false;
 	private long accountHash = -1;
 
 	private boolean rebuildPotions = false;
-	private Set<Integer> potionStoreVars;
+	private HashSet<Integer> potionStoreVars = new HashSet<>();
 
 	@Override
 	protected void startUp() throws Exception
@@ -125,10 +125,15 @@ public class BankedExperiencePlugin extends Plugin
 					}
 					// intentional fall through
 				case LOGIN_SCREEN:
+					// intentional fall through
 				case LOGIN_SCREEN_AUTHENTICATOR:
+					// intentional fall through
 				case LOGGING_IN:
+					// intentional fall through
 				case LOADING:
+					// intentional fall through
 				case CONNECTION_LOST:
+					// intentional fall through
 				case HOPPING:
 					if (!prepared)
 					{
@@ -152,13 +157,14 @@ public class BankedExperiencePlugin extends Plugin
 		panel = null;
 		navButton = null;
 		inventoryHashMap.clear();
+		potionStoreVars.clear();
 		accountHash = -1;
 	}
 
 	@Subscribe
 	public void onConfigChanged(ConfigChanged event)
 	{
-		if (!event.getGroup().equals(CONFIG_GROUP))
+		if (!event.getGroup().equals(BankedExperienceConfig.CONFIG_GROUP))
 		{
 			return;
 		}
@@ -166,16 +172,16 @@ public class BankedExperiencePlugin extends Plugin
 		final int inventoryId;
 		switch (event.getKey())
 		{
-			case VAULT_CONFIG_KEY:
-				inventoryId = InventoryID.SEED_VAULT.getId();
+			case BankedExperienceConfig.VAULT_CONFIG_KEY:
+				inventoryId = InventoryID.SEED_VAULT;
 				break;
-			case INVENTORY_CONFIG_KEY:
-				inventoryId = InventoryID.INVENTORY.getId();
+			case BankedExperienceConfig.INVENTORY_CONFIG_KEY:
+				inventoryId = InventoryID.INV;
 				break;
-			case LOOTING_BAG_CONFIG_KEY:
-				inventoryId = LOOTING_BAG_ID;
+			case BankedExperienceConfig.LOOTING_BAG_CONFIG_KEY:
+				inventoryId = InventoryID.LOOTING_BAG;
 				break;
-			case FOSSIL_CHEST_CONFIG_KEY:
+			case BankedExperienceConfig.FOSSIL_CHEST_CONFIG_KEY:
 				inventoryId = WidgetInventoryInfo.FOSSIL_CHEST.getId();
 				break;
 			case POTION_STORAGE_KEY:
@@ -195,16 +201,16 @@ public class BankedExperiencePlugin extends Plugin
 				return;
 		}
 
-		SwingUtilities.invokeLater(() -> panel.setInventoryMap(inventoryId, EMPTY_MAP));
+		SwingUtilities.invokeLater(() -> panel.setInventoryMap(inventoryId, Map.of()));
 	}
 
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged ev)
 	{
-		if (ev.getContainerId() == InventoryID.BANK.getId()
-				|| (ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
-				|| (ev.getContainerId() == InventoryID.INVENTORY.getId() && config.grabFromInventory())
-				|| (ev.getContainerId() == LOOTING_BAG_ID && config.grabFromLootingBag()))
+		if (ev.getContainerId() == InventoryID.BANK
+				|| (ev.getContainerId() == InventoryID.SEED_VAULT && config.grabFromSeedVault())
+				|| (ev.getContainerId() == InventoryID.INV && config.grabFromInventory())
+				|| (ev.getContainerId() == InventoryID.LOOTING_BAG && config.grabFromLootingBag()))
 		{
 			updateItemsFromItemContainer(ev.getContainerId(), ev.getItemContainer());
 		}
@@ -225,16 +231,22 @@ public class BankedExperiencePlugin extends Plugin
 		}
 
 		final Widget w = client.getWidget(widgetInfo.getGroupId(), widgetInfo.getChildId());
-		if (w == null || w.getChildren() == null)
+		if (w == null)
+		{
+			return;
+		}
+		
+		final Widget[] clientChildren = w.getChildren();
+		if (clientChildren == null) 
 		{
 			return;
 		}
 
 		final Map<Integer, Integer> m = new HashMap<>();
-		for (int i = 0; i < w.getChildren().length; i++)
+		for (int i = 0; i < clientChildren.length; i++)
 		{
-			final Widget childWidget = w.getChild(i);
-			if (childWidget.getItemId() <= 0 || childWidget.getItemQuantity() <= 0)
+			final Widget childWidget = clientChildren[i];
+			if (childWidget == null || childWidget.getItemId() <= 0 || childWidget.getItemQuantity() <= 0)
 			{
 				continue;
 			}
@@ -300,6 +312,7 @@ public class BankedExperiencePlugin extends Plugin
 		if (curHash != inventoryHashMap.getOrDefault(inventoryId, -1))
 		{
 			inventoryHashMap.put(inventoryId, curHash);
+			
 			SwingUtilities.invokeLater(() -> panel.setInventoryMap(inventoryId, m));
 		}
 	}
@@ -308,15 +321,17 @@ public class BankedExperiencePlugin extends Plugin
 	{
 		for (final ExperienceItem item : ExperienceItem.values())
 		{
-			final String activityName = configManager.getConfiguration(CONFIG_GROUP, ACTIVITY_CONFIG_KEY + item.name());
-			if (activityName == null || activityName.equals(""))
+			final String activityNameForItem = configManager.getConfiguration(BankedExperienceConfig.CONFIG_GROUP, generateItemConfigKey(item));
+			if (Strings.isNullOrEmpty(activityNameForItem))
 			{
 				continue;
 			}
 
+			Arrays.stream(Activity.values()).filter(a -> a.name().equals(activityNameForItem)).findFirst().ifPresent(item::setSelectedActivity);
+
 			for (final Activity activity : Activity.values())
 			{
-				if (activityName.equals(activity.name()))
+				if (activityNameForItem.equals(activity.name()))
 				{
 					item.setSelectedActivity(activity);
 					break;
@@ -341,13 +356,12 @@ public class BankedExperiencePlugin extends Plugin
 		{
 			updatePotionStorageMap();
 			rebuildPotions = false;
-
-			Widget w = client.getWidget(ComponentID.BANK_POTIONSTORE_CONTENT);
-			if (w != null && potionStoreVars == null)
+			
+			Widget w = client.getWidget(InterfaceID.Bankmain.POTIONSTORE_ITEMS);
+			if (w != null && potionStoreVars.isEmpty())
 			{
 				// cache varps that the potion store rebuilds on
 				int[] trigger = w.getVarTransmitTrigger();
-				potionStoreVars = new HashSet<>();
 				Arrays.stream(trigger).forEach(potionStoreVars::add);
 			}
 		}
@@ -356,7 +370,7 @@ public class BankedExperiencePlugin extends Plugin
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged varbitChanged)
 	{
-		if (potionStoreVars != null && potionStoreVars.contains(varbitChanged.getVarpId()))
+		if (potionStoreVars.contains(varbitChanged.getVarpId()))
 		{
 			rebuildPotions = true;
 		}

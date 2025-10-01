@@ -26,11 +26,14 @@ package thestonedturtle.bankedexperience.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 public class ItemInfo
 {
+	@NonNull
 	private String name;
+	
 	private boolean stackable;
 }

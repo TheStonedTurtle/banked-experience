@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id 'checkstyle'
+    id 'com.github.spotbugs' version '6.4.2'
 }
 
 repositories {
@@ -12,12 +13,16 @@ repositories {
 }
 
 def runeLiteVersion = 'latest.release'
+def lombokVersion = '1.18.42'
 
 dependencies {
     compileOnly group: 'net.runelite', name: 'client', version: runeLiteVersion
 
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    compileOnly "com.github.spotbugs:spotbugs-annotations:${spotbugs.toolVersion.get()}"
+    spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.6.14'
 
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.slf4j:slf4j-simple:1.7.12'
@@ -28,12 +33,45 @@ dependencies {
 
 group = 'thestonedturtle.bankedexperience'
 version = '2.7.3'
-sourceCompatibility = '1.8'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+test {
+    // Gradle 9 considers it an error to have test sources set, but not
+    // to run any tests within those sources. However, an empty test set
+    // is not an error, only a non-empty test set that does not run a test.
+    // By excluding this manual integration test class we create an empty
+    // test sourceset and gradle 9 will not complain. This also stops the
+    // Gradle 8 deprecation warnings as well.
+    exclude '**/BankedExperiencePluginTest.class'
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    options.release = 11
+    options.deprecation = true
+    options.compilerArgs = ['-Xlint:unchecked']
 }
 
 checkstyle {
-    configDirectory = file('./')
+    configFile = file("${rootDir}/checkstyle.xml")
+}
+
+spotbugsMain {
+    showStackTraces = true
+    showProgress = true
+    ignoreFailures = true
+    jvmArgs = [
+        "-Dfindbugs.sf.comment=true", //Ignores switch fallthroughs with comments
+        "-Dfindbugs.maskedfields.locals=true", //Warns if a local field hides a parent class field
+    ]
+    reports.create("html") {
+        required = true
+        setStylesheet("default.xsl") //Possible stylesheets: default, plain, fancy, fancy-hist
+        reportLevel = com.github.spotbugs.snom.Confidence.valueOf("LOW")
+    }
 }

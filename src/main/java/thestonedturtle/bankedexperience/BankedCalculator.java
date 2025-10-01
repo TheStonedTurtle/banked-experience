@@ -26,6 +26,8 @@ package thestonedturtle.bankedexperience;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
@@ -47,6 +49,7 @@ import thestonedturtle.bankedexperience.components.textinput.UICalculatorInputAr
 import thestonedturtle.bankedexperience.data.Activity;
 import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
+import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
 import thestonedturtle.bankedexperience.data.modifiers.ModifierComponent;
 import thestonedturtle.bankedexperience.data.modifiers.Modifiers;
@@ -56,6 +59,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -64,112 +68,31 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
+@SuppressFBWarnings(value = { "SE_BAD_FIELD" }, justification = "Plugin usage does not involve serialization")
 public class BankedCalculator extends JPanel
 {
 	public static final DecimalFormat XP_FORMAT_COMMA = new DecimalFormat("#,###.#");
-
-	private final Client client;
-	@Getter
-	private final BankedExperienceConfig config;
-	private final UICalculatorInputArea uiInput;
-	@Getter
-	private final ItemManager itemManager;
-	private final ConfigManager configManager;
-
-	// Some activities output a ExperienceItem and may need to be included in the calculable qty
-	// Using multimap for cases where there are multiple items linked directly to one item, use recursion for otherwise
-	private final Multimap<ExperienceItem, BankedItem> linkedMap = ArrayListMultimap.create();
-
-	private final Map<ExperienceItem, BankedItem> bankedItemMap = new LinkedHashMap<>();
-	private final JLabel totalXpLabel = new JLabel();
-	private final JLabel xpToNextLevelLabel = new JLabel();
-	private final ModifyPanel modifyPanel;
-	private final SelectionGrid itemGrid = new SelectionGrid();
-	private SecondaryGrid secondaryGrid;
-	private ExpandableSection modifierSection;
-	private ExpandableSection secondarySection;
-	private final JButton refreshBtn;
-
-	// Store items from all sources in the same map
-	private final Map<Integer, Integer> currentMap = new HashMap<>();
-	// keep sources separate for recreating currentMap when one updates
-	private final Map<Integer, Map<Integer, Integer>> inventoryMap = new HashMap<>();
-
-	// Keep a reference to enabled modifiers so recreating tooltips is faster.
-	@Getter
-	private final Set<Modifier> enabledModifiers = new HashSet<>();
-	private final List<ModifierComponent> modifierComponents = new ArrayList<>();
-
-	@Getter
-	private final Set<String> ignoredItems;
-
-	@Getter
-	private Skill currentSkill;
-
-	@Getter
-	private int skillLevel, skillExp, endLevel, endExp;
-
-	@Getter
-	private final SpinnerInput boostInput = new SpinnerInput(
-			"Temporary Boost:",
-			"Enables activities that are this many levels above your current level",
-			this::updateBoost
-	);
-
-	@Getter
-	private final SpinnerInput xpRateModifierInput = new SpinnerInput(
-			"XP Rate Multiplier:",
-			"Used for alternative game modes such as DMM and leagues. 1 = default OSRS experience rates.",
-			1,
-			1,
-			this::updateXpRateModifier
-	);
-
-	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
-			ItemManager itemManager, ConfigManager configManager)
+	
+	private final SelectionListener createItemGridSelectionListener()
 	{
-		this.uiInput = uiInput;
-		this.client = client;
-		this.config = config;
-		this.itemManager = itemManager;
-		this.configManager = configManager;
+		final BankedCalculator outerThis = this;
 
-		this.ignoredItems = new HashSet<>(Text.fromCSV(config.ignoredItems()));
-
-		setLayout(new DynamicGridLayout(0, 1, 0, 5));
-
-		// Panel used to modify banked item values
-		this.modifyPanel = new ModifyPanel(this, itemManager);
-
-		this.refreshBtn = new JButton("Refresh Calculator");
-		refreshBtn.setFocusable(false);
-		refreshBtn.addMouseListener((new MouseAdapter()
+		return new SelectionListener() 
 		{
 			@Override
-			public void mousePressed(MouseEvent e)
+			public boolean selected(BankedItem item) 
 			{
-				if (e.getButton() == MouseEvent.BUTTON1)
-				{
-					open(currentSkill, true);
-				}
-			}
-		}));
-
-		itemGrid.setSelectionListener(new SelectionListener()
-		{
-			@Override
-			public boolean selected(BankedItem item)
-			{
-				modifyPanel.setBankedItem(item);
+				modifyPanel.setBankedItem(item, outerThis);
 				return true;
 			}
 
 			@Override
-			public boolean ignored(BankedItem item)
+			public boolean ignored(BankedItem item) 
 			{
 				toggleIgnoreBankedItem(item);
 
@@ -181,9 +104,107 @@ public class BankedCalculator extends JPanel
 
 				return true;
 			}
-		});
+		};
+	}
+	
+	private final MouseListener createRefreshButtonMouseListener() 
+	{
+		return new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				if (e.getButton() == MouseEvent.BUTTON1)
+				{
+					open(currentSkill, true);
+				}
+			}
+		};
 	}
 
+	private final Client client;
+	@Getter
+	private final BankedExperienceConfig config;
+	private final UICalculatorInputArea uiInput;
+	@Getter
+	private final ItemManager itemManager;
+	private final ConfigManager configManager;
+
+	/** 
+	 * Some activities output a ExperienceItem and may need to be included in the calculable qty.
+	 * Using multimap for cases where there are multiple items linked directly to one item, use
+	 * recursion for otherwise
+	*/
+	private final Multimap<ExperienceItem, BankedItem> linkedMap = ArrayListMultimap.create();
+	
+	private final LinkedHashMap<ExperienceItem, BankedItem> bankedItemMap = new LinkedHashMap<>();
+	private final JLabel totalXpLabel = new JLabel();
+	private final JLabel xpToNextLevelLabel = new JLabel();
+	private final ModifyPanel modifyPanel;
+	private final SelectionGrid itemGrid = new SelectionGrid();
+	private SecondaryGrid secondaryGrid;
+	private ExpandableSection modifierSection;
+	private ExpandableSection secondarySection;
+	private final JButton refreshBtn;
+	
+	// Store items from all sources in the same map
+	private final Map<Integer, Integer> currentMap = new HashMap<>();
+	// keep sources separate for recreating currentMap when one updates
+	private final Map<Integer, Map<Integer, Integer>> inventoryMap = new HashMap<>();
+	
+	// Keep a reference to enabled modifiers so recreating tooltips is faster.
+	@Getter
+	private final HashSet<Modifier> enabledModifiers = new HashSet<>();
+	private final ArrayList<ModifierComponent> modifierComponents = new ArrayList<>();
+	
+	@Getter
+	private final Set<String> ignoredItems;
+	
+	@Getter
+	private Skill currentSkill;
+	
+	@Getter
+	private int skillLevel, skillExp, endLevel, endExp;
+	
+	@Getter
+	private final SpinnerInput boostInput = new SpinnerInput(
+			"Temporary Boost:",
+			"Enables activities that are this many levels above your current level",
+			this::updateBoost
+	);
+	
+	@Getter
+	private final SpinnerInput xpRateModifierInput = new SpinnerInput(
+			"XP Rate Multiplier:",
+			"Used for alternative game modes such as DMM and leagues. 1 = default OSRS experience rates.",
+			1,
+			1,
+			this::updateXpRateModifier
+	);
+	
+	BankedCalculator(UICalculatorInputArea uiInput, Client client, BankedExperienceConfig config,
+			ItemManager itemManager, ConfigManager configManager)
+	{
+		this.uiInput = uiInput;
+		this.client = client;
+		this.config = config;
+		this.itemManager = itemManager;
+		this.configManager = configManager;
+	
+		this.ignoredItems = new HashSet<>(Text.fromCSV(config.ignoredItems()));
+	
+		setLayout(new DynamicGridLayout(0, 1, 0, 5));
+	
+		// Panel used to modify banked item values
+		this.modifyPanel = new ModifyPanel(this, itemManager);
+	
+		this.refreshBtn = new JButton("Refresh Calculator");
+		refreshBtn.setFocusable(false);
+		refreshBtn.addMouseListener(createRefreshButtonMouseListener());
+	
+		itemGrid.setSelectionListener(createItemGridSelectionListener());
+	}
+	
 	/**
 	 * opens the Banked Calculator for this skill
 	 */
@@ -287,11 +308,11 @@ public class BankedCalculator extends JPanel
 				secondarySection = new ExpandableSection(
 						"Secondaries",
 						"Shows a breakdown of how many secondaries are required for all enabled activities",
-						secondaryGrid
+						List.of(secondaryGrid)
 				);
 
 				secondarySection.setOpen(!wasClosed);
-
+				
 				if (!secondaryGrid.getSecMap().isEmpty())
 				{
 					add(secondarySection);
@@ -388,7 +409,7 @@ public class BankedCalculator extends JPanel
 		itemGrid.recreateGrid(this, bankedItemMap.values(), itemManager);
 
 		// Select the first item in the list
-		modifyPanel.setBankedItem(itemGrid.getSelectedItem());
+		modifyPanel.setBankedItem(itemGrid.getSelectedItem(), this);
 
 		calculateBankedXpTotal();
 	}
@@ -407,40 +428,42 @@ public class BankedCalculator extends JPanel
 	private int getConsolidatedTotal(Map<ExperienceItem, Integer> original, ExperienceItem goalItem)
 	{
 		// Create a copy to enable deleting entries during the loop without concurrent errors
-		Map<ExperienceItem, Integer> linked = new HashMap<>(original);
+		final Map<ExperienceItem, Integer> linked = new HashMap<>(original);
 
-		double runningCascadeTotal = 0;
-		for (final ExperienceItem experienceItem : original.keySet())
+		final Set<ExperienceItem> original_keys = original.keySet();
+		
+		double runningCascadeTotal = 0.0;
+		for (final ExperienceItem experienceItem : original_keys)
 		{
-			Activity a = experienceItem.getSelectedActivity();
+			final Activity a = experienceItem.getSelectedActivity();
 			assert a != null;
 
 			// subTotal should always include this item regardless of activity.
 			// If the activity for this item is the goalActivity than the while loop will never run
-			double subTotal = 0;
+			double subTotal = 0.0;
 			ExperienceItem linkedItem = experienceItem;
 			while (linkedItem != null && !linkedItem.equals(goalItem))
 			{
-				Activity linkedActivity = linkedItem.getSelectedActivity();
+				final Activity linkedActivity = linkedItem.getSelectedActivity();
+				final ItemStack output = linkedActivity.getOutput();
 				// We update instead of concat to this value as items can be mapped to multiples of another
 				// Example: Item 1 -> 5 of Item 2 -> 10 of Item 3
 				// So if we have 5, 10, and 50 of each item we should end up with
 				// 5 * 2 = 10 of Item 2 added to `subTotal.
 				// Next, when Item 2 is processed we should calculate `10 + the 10 original` items for 20 * 3 for 60 of Item 3 in the subtotal
 				// Finally, we should get `60 + 50 of the original` of Item 3 for 110 total.
-				subTotal = (subTotal + linked.getOrDefault(linkedItem, 0)) * (linkedActivity.getOutput() == null ? 1 : linkedActivity.getOutput().getQty());
+				subTotal = (subTotal + linked.getOrDefault(linkedItem, 0)) * (output == null ? 1.0 : output.getQty());
 				linked.remove(linkedItem);
 
 				linkedItem = linkedActivity.getLinkedItem();
 			}
-
-			// Once we get here linkedItem should be equal to goalItem and never null, but better safe than sorry
-			if (linkedItem != null)
-			{
-				Activity linkedActivity = linkedItem.getSelectedActivity();
-				subTotal += linked.getOrDefault(linkedItem, 0) * (linkedActivity.getOutput() == null ? 1 : linkedActivity.getOutput().getQty());
-				linked.remove(linkedItem);
-			}
+			
+			// Once we get here linkedItem should be equal to goalItem and will never be null
+			assert linkedItem != null;
+			final Activity linkedActivity = linkedItem.getSelectedActivity();
+			final ItemStack output = linkedActivity.getOutput();
+			subTotal += linked.getOrDefault(linkedItem, 0) * (output == null ? 1.0 : output.getQty());
+			linked.remove(linkedItem);
 
 			runningCascadeTotal += subTotal;
 		}
@@ -531,7 +554,7 @@ public class BankedCalculator extends JPanel
 			updateLinkedItems(a);
 		}
 
-		modifyPanel.setBankedItem(i);
+		modifyPanel.setBankedItem(i, this);
 		itemGrid.getPanelMap().get(i).updateToolTip(enabledModifiers);
 
 		// recalculate total xp
@@ -591,7 +614,7 @@ public class BankedCalculator extends JPanel
 		if (foundSelected)
 		{
 			// Refresh current modify panel if the cascade effects it
-			modifyPanel.setBankedItem(itemGrid.getSelectedItem());
+			modifyPanel.setBankedItem(itemGrid.getSelectedItem(), this);
 		}
 	}
 
@@ -646,7 +669,7 @@ public class BankedCalculator extends JPanel
 		);
 
 		itemGrid.getPanelMap().values().forEach(item -> item.updateToolTip(enabledModifiers));
-		modifyPanel.setBankedItem(modifyPanel.getBankedItem());
+		modifyPanel.setBankedItem(modifyPanel.getBankedItem(), this);
 		calculateBankedXpTotal();
 	}
 
@@ -684,9 +707,10 @@ public class BankedCalculator extends JPanel
 		currentMap.clear();
 		for (final Map<Integer, Integer> map : inventoryMap.values())
 		{
-			for (final int id : map.keySet())
+			for (final Entry<Integer, Integer> entry : map.entrySet())
 			{
-				final int qty = map.get(id) + currentMap.getOrDefault(id, 0);
+				final int id = entry.getKey();
+				final int qty = entry.getValue() + currentMap.getOrDefault(id, 0);
 				currentMap.put(id, qty);
 			}
 		}
@@ -700,7 +724,7 @@ public class BankedCalculator extends JPanel
 		}
 
 		final boolean wasVisible = !secondaryGrid.getSecMap().isEmpty();
-		secondaryGrid.updateSecMap(itemGrid.getPanelMap().values());
+		secondaryGrid.updateSecMap(this, itemGrid.getPanelMap().values());
 		final boolean shouldBeVisible = !secondaryGrid.getSecMap().isEmpty();
 
 		if (shouldBeVisible != wasVisible)
@@ -718,7 +742,8 @@ public class BankedCalculator extends JPanel
 
 	private void saveActivity(final ExperienceItem item)
 	{
-		configManager.setConfiguration(BankedExperiencePlugin.CONFIG_GROUP, BankedExperiencePlugin.ACTIVITY_CONFIG_KEY + item.name(), item.getSelectedActivity().name());
+		final String itemSpecificConfigKey = BankedExperiencePlugin.ACTIVITY_CONFIG_KEY_PREFIX + item.name();
+		configManager.setConfiguration(BankedExperienceConfig.CONFIG_GROUP, itemSpecificConfigKey, item.getSelectedActivity().name());
 	}
 
 	private void updateBoost(Integer value)

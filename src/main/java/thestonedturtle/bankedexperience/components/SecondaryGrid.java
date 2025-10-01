@@ -26,6 +26,9 @@ package thestonedturtle.bankedexperience.components;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.Collection;
@@ -38,7 +41,8 @@ import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
+import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
@@ -48,6 +52,7 @@ import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
 
 @Slf4j
+@SuppressFBWarnings(value = { "SE_BAD_FIELD" }, justification = "Plugin usage does not involve serialization")
 public class SecondaryGrid extends JPanel
 {
 	@Value
@@ -61,17 +66,15 @@ public class SecondaryGrid extends JPanel
 	private final Multimap<Integer, SecondaryInfo> secMap = LinkedListMultimap.create();
 	private final Map<Integer, ItemInfo> infoMap = new HashMap<>();
 	private final Map<Integer, Integer> availableMap = new HashMap<>();
-	private final BankedCalculator calc;
 
 	public SecondaryGrid(final BankedCalculator calc, final Collection<GridItem> items)
 	{
-		this.calc = calc;
 		setLayout(new GridLayout(0, 5, 1, 1));
 
-		updateSecMap(items);
+		updateSecMap(calc, items);
 	}
 
-	private void refreshUI()
+	private void refreshUI(final ItemManager items)
 	{
 		removeAll();
 		for (final int itemID : secMap.keySet())
@@ -100,7 +103,8 @@ public class SecondaryGrid extends JPanel
 					.append(" x ")
 					.append(info.getBankedItem().getItem().getItemInfo().getName());
 			}
-			calc.getItemManager().getImage(itemID, (int) Math.round(qty), qty > 0).addTo(label);
+			
+			items.getImage(itemID, (int) Math.round(qty), qty > 0).addTo(label);
 
 			final ItemInfo info = infoMap.get(itemID);
 			final String itemName = info == null ? "" : info.getName();
@@ -119,7 +123,7 @@ public class SecondaryGrid extends JPanel
 	}
 
 	// calculates the total required secondaries and links each secondary item by id to the banked items they come from
-	public void updateSecMap(final Collection<GridItem> items)
+	public void updateSecMap(final BankedCalculator calc, final Collection<GridItem> items)
 	{
 		secMap.clear();
 		infoMap.clear();
@@ -148,8 +152,12 @@ public class SecondaryGrid extends JPanel
 			// Ensure all items are stacked properly
 			final Secondaries secondaries = a.getSecondaries();
 			final Map<Integer, Double> qtyMap = new HashMap<>();
-
-			if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
+			
+			if (secondaries == null) 
+			{
+				continue;
+			}
+			else if (secondaries.getCustomHandler() instanceof Secondaries.ByDose)
 			{
 				final Secondaries.ByDose byDose = ((Secondaries.ByDose) secondaries.getCustomHandler());
 				final int firstId = byDose.getItems()[0];
@@ -157,7 +165,7 @@ public class SecondaryGrid extends JPanel
 				for (int i = 0; i < byDose.getItems().length; i++)
 				{
 					final int id = byDose.getItems()[i];
-					available += (this.calc.getItemQtyFromBank(id) * (i + 1));
+					available += (calc.getItemQtyFromBank(id) * (i + 1));
 				}
 				availableMap.put(firstId, available);
 				qtyMap.merge(firstId, (double) bankedQty, Double::sum);
@@ -166,21 +174,34 @@ public class SecondaryGrid extends JPanel
 			else if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
 			{
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
-				qtyMap.merge(ItemID.NATURE_RUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
-				infoMap.put(ItemID.NATURE_RUNE, new ItemInfo("Nature rune", true));
+				qtyMap.merge(ItemID.NATURERUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
+				infoMap.put(ItemID.NATURERUNE, new ItemInfo("Nature rune", true));
 			}
 			else if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)
 			{
 				final Secondaries.Crushable crushable = (Secondaries.Crushable) secondaries.getCustomHandler();
 				final int crushedItemId = crushable.getInfoItems()[0].getId();
 				int available = 0;
-				for (final int itemId : crushable.getItems())
+				for (final int itemId : crushable.getItems()) 
 				{
-					available += this.calc.getItemQtyFromBank(itemId);
+					available += calc.getItemQtyFromBank(itemId);
 				}
 				availableMap.put(crushedItemId, available);
 				qtyMap.merge(crushedItemId, (double) bankedQty, Double::sum);
 				infoMap.put(crushedItemId, crushable.getInfoItems()[0].getInfo());
+			}
+			else if (secondaries.getCustomHandler() instanceof Secondaries.ValeTotemOfferable)
+			{
+				final Secondaries.ValeTotemOfferable offerable = (Secondaries.ValeTotemOfferable) secondaries.getCustomHandler();
+				int total_offerable_items = 0;
+				final int infoItemID = offerable.getInfoItems()[0].getId();
+				for (final int offerable_item : offerable.getItems()) 
+				{
+					total_offerable_items += calc.getItemQtyFromBank(offerable_item);
+				}
+				availableMap.put(infoItemID, total_offerable_items);
+				qtyMap.merge(infoItemID, (double) bankedQty * 4.0, Double::sum);
+				infoMap.put(infoItemID, new ItemInfo("Vale Totem Resources: " + offerable.getWoodType().getDisplayName(), true));
 			}
 			else if (secondaries.getCustomHandler() != null)
 			{
@@ -207,6 +228,6 @@ public class SecondaryGrid extends JPanel
 			}
 		}
 
-		refreshUI();
+		refreshUI(calc.getItemManager());
 	}
 }

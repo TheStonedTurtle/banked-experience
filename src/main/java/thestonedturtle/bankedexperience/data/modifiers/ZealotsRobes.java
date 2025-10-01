@@ -30,13 +30,14 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.Activity;
 
-import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 public class ZealotsRobes extends SkillingOutfit
 {
 	private static final float CONSUME_AMT = 0.0125f;
 	private static final String TOOLTIP = "1.25% chance to prevent bones and ensouled heads from being consumed";
-	private static final Set<Activity> EXCLUDED = ImmutableSet.of(
+	private static final ImmutableSet<Activity> EXCLUDED = ImmutableSet.of(
 //		Activity.LOAR_REMAINS, Activity.PHRIN_REMAINS, Activity.RIYL_REMAINS, Activity.ASYN_REMAINS, Activity.FIYR_REMAINS,
 			Activity.SMALL_LIMBS, Activity.SMALL_SPINE, Activity.SMALL_RIBS, Activity.SMALL_PELVIS, Activity.SMALL_SKULL, Activity.SMALL_FOSSIL,
 			Activity.MEDIUM_LIMBS, Activity.MEDIUM_SPINE, Activity.MEDIUM_RIBS, Activity.MEDIUM_PELVIS, Activity.MEDIUM_SKULL, Activity.MEDIUM_FOSSIL,
@@ -48,15 +49,37 @@ public class ZealotsRobes extends SkillingOutfit
 			Activity.KBD_HEADS, Activity.KQ_HEAD, Activity.VORKATHS_HEAD, Activity.ALCHEMICAL_HYDRA_HEADS
 	);
 
-	ZealotsRobes(ItemManager itemManager, ItemComposition... items)
+	/* 
+		Helper class implementing method for creating ZealotsRobes from arrays of ItemCompositions.
+		This inner class mirrors the one provided by SkillingOutfit for API compatability between
+		ZealotRobes and SkillingOutfit, since ZealotRobes does not inherit the parent class' FromArray
+		inner class from SkillingOutfit.
+	*/
+	public static final class FromArray 
 	{
-		super(Skill.PRAYER, "Zealot's robes", null, EXCLUDED, itemManager, items);
+		public static final ZealotsRobes create(ItemManager itemManager, @Nonnull ItemComposition[] items)
+		{
+			if (items == null || items.length != 4)
+			{
+				throw new AssertionError("Mis-sized or null array may not be used to construct a " + ZealotsRobes.class.getName());
+			}
+			return new ZealotsRobes(itemManager, items[0], items[1], items[2], items[3]);
+		}
+	}
+
+	ZealotsRobes(ItemManager itemManager,
+			@Nonnull ItemComposition helmComp,
+			@Nonnull ItemComposition topComp,
+			@Nonnull ItemComposition bottomComp,
+			@Nonnull ItemComposition bootComp)
+	{
+		super(Skill.PRAYER, "Zealot's robes", null, EXCLUDED, itemManager, helmComp, topComp, bottomComp, bootComp);
 		additive = false;
 
-		helm.setToolTipText("<html>" + items[0].getName() + "<br/>" + TOOLTIP + "</html>");
-		top.setToolTipText("<html>" + items[1].getName() + "<br/>" + TOOLTIP + "</html>");
-		bottom.setToolTipText("<html>" + items[2].getName() + "<br/>" + TOOLTIP + "</html>");
-		boots.setToolTipText("<html>" + items[3].getName() + "<br/>" + TOOLTIP + "</html>");
+		helm.setToolTipText("<html>" + helmComp.getName() + "<br/>" + TOOLTIP + "</html>");
+		top.setToolTipText("<html>" + topComp.getName() + "<br/>" + TOOLTIP + "</html>");
+		bottom.setToolTipText("<html>" + bottomComp.getName() + "<br/>" + TOOLTIP + "</html>");
+		boots.setToolTipText("<html>" + bootComp.getName() + "<br/>" + TOOLTIP + "</html>");
 
 		panel.setToolTipText(TOOLTIP);
 	}

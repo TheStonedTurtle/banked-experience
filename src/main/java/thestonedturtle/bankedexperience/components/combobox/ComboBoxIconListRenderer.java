@@ -26,6 +26,9 @@ package thestonedturtle.bankedexperience.components.combobox;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Objects;
+
+import javax.annotation.Nullable;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
@@ -36,14 +39,16 @@ import net.runelite.client.util.Text;
 
 /**
  * Based off the old RL ComboBoxListRenderer but supports icons and default text values
+ * 
+ * @param <E> the type of values this renderer can be used for
  */
-public final class ComboBoxIconListRenderer extends JLabel implements ListCellRenderer
+public final class ComboBoxIconListRenderer<E> extends JLabel implements ListCellRenderer<E>
 {
 	@Setter
 	private String defaultText = "Select an option...";
 
 	@Override
-	public Component getListCellRendererComponent(JList list, Object o, int index, boolean isSelected, boolean cellHasFocus)
+	public Component getListCellRendererComponent(@Nullable JList<? extends E> list, @Nullable E o, int index, boolean isSelected, boolean cellHasFocus)
 	{
 		if (isSelected)
 		{
@@ -52,7 +57,7 @@ public final class ComboBoxIconListRenderer extends JLabel implements ListCellRe
 		}
 		else
 		{
-			setBackground(list.getBackground());
+			setBackground(list != null ? list.getBackground() : ColorScheme.DARK_GRAY_COLOR);
 			setForeground(ColorScheme.LIGHT_GRAY_COLOR);
 		}
 
@@ -67,7 +72,7 @@ public final class ComboBoxIconListRenderer extends JLabel implements ListCellRe
 		}
 		else if (o instanceof Enum)
 		{
-			text = Text.titleCase((Enum) o);
+			text = Text.titleCase((Enum<?>) o);
 		}
 		else if (o instanceof ComboBoxIconEntry)
 		{
@@ -77,7 +82,7 @@ public final class ComboBoxIconListRenderer extends JLabel implements ListCellRe
 		}
 		else
 		{
-			text = o.toString();
+			text = Objects.toString(o);
 		}
 
 		setText(text);

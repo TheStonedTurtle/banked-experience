@@ -4,10 +4,21 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("bankedexperience")
+@ConfigGroup(BankedExperienceConfig.CONFIG_GROUP)
 public interface BankedExperienceConfig extends Config
 {
-	String POTION_STORAGE_KEY = "grabFromPotionStorage";
+	/**
+	 * The name of the group under which all of this plugins configuration key/value
+	 * pairs will be stored by Runelite via the config API. The config key names below
+	 * are within this named configuration group.
+	 */
+	public static final String CONFIG_GROUP = "bankedexperience";
+
+	public static final String POTION_STORAGE_KEY = "grabFromPotionStorage";
+	public static final String VAULT_CONFIG_KEY = "grabFromSeedVault";
+	public static final String INVENTORY_CONFIG_KEY = "grabFromInventory";
+	public static final String LOOTING_BAG_CONFIG_KEY = "grabFromLootingBag";
+	public static final String FOSSIL_CHEST_CONFIG_KEY = "grabFromFossilChest";
 
 	@ConfigItem(
 		keyName = "cascadeBankedXp",
@@ -43,7 +54,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromSeedVault",
+		keyName = VAULT_CONFIG_KEY,
 		name = "Include seed vault",
 		description = "Toggles whether the items stored inside the Seed Vault at the Farming Guild will be included in the calculations",
 		position = 4
@@ -54,7 +65,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromInventory",
+		keyName = INVENTORY_CONFIG_KEY,
 		name = "Include player inventory",
 		description = "Toggles whether the items inside your inventory will be included in the calculations",
 		position = 5
@@ -65,7 +76,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromLootingBag",
+		keyName = LOOTING_BAG_CONFIG_KEY,
 		name = "Include looting bag",
 		description = "Toggles whether the items stored inside your Looting Bag will be included in the calculations",
 		position = 6
@@ -76,7 +87,7 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
-		keyName = "grabFromFossilChest",
+		keyName = FOSSIL_CHEST_CONFIG_KEY,
 		name = "Include Fossil Chest",
 		description = "Toggles whether the fossils stored inside your Fossil Island chest will be included in the calculations",
 		position = 7
@@ -90,7 +101,7 @@ public interface BankedExperienceConfig extends Config
 		keyName = POTION_STORAGE_KEY,
 		name = "Include Potion Storage",
 		description = "Toggles whether items in your potion storage should be included in the calculations",
-		position = 7
+		position = 8
 	)
 	default boolean grabFromPotionStorage()
 	{

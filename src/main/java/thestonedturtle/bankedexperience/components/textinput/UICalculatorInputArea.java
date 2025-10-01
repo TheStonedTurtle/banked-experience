@@ -28,9 +28,14 @@ package thestonedturtle.bankedexperience.components.textinput;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import lombok.Getter;
 import net.runelite.client.ui.ColorScheme;
@@ -38,23 +43,23 @@ import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.components.FlatTextField;
 
 /**
- * Copy of {@link net.runelite.client.plugins.skillcalculator.UICalculatorInputArea} with public access
+ * Refactored copy of {@link net.runelite.client.plugins.skillcalculator.UICalculatorInputArea} with public access
  */
 @Getter
 public class UICalculatorInputArea extends JPanel
 {
-	private final JTextField uiFieldCurrentLevel;
-	private final JTextField uiFieldCurrentXP;
-	private final JTextField uiFieldTargetLevel;
-	private final JTextField uiFieldTargetXP;
+
+	private static final LayoutManager DEFAULT_LAYOUT = new GridLayout(2, 2, 7, 7);
+	private static final AbstractBorder DEFAULT_COMPONENT_INPUT_BORDER = new EmptyBorder(5, 7, 5, 7);
+
+	private final JTextField uiFieldCurrentLevel = addComponent("Current Level");
+	private final JTextField uiFieldCurrentXP = addComponent("Current Experience");
+	private final JTextField uiFieldTargetLevel = addComponent("Level Banked");
+	private final JTextField uiFieldTargetXP = addComponent("Ending Experience");
 
 	public UICalculatorInputArea()
 	{
-		setLayout(new GridLayout(2, 2, 7, 7));
-		uiFieldCurrentLevel = addComponent("Current Level");
-		uiFieldCurrentXP = addComponent("Current Experience");
-		uiFieldTargetLevel = addComponent("Level Banked");
-		uiFieldTargetXP = addComponent("Ending Experience");
+		setLayout(DEFAULT_LAYOUT);
 	}
 
 	int getCurrentLevelInput()
@@ -72,7 +77,7 @@ public class UICalculatorInputArea extends JPanel
 		return getInput(uiFieldCurrentXP);
 	}
 
-	public void setCurrentXPInput(Object value)
+	public void setCurrentXPInput(@Nullable final Object value)
 	{
 		setInput(uiFieldCurrentXP, value);
 	}
@@ -82,7 +87,7 @@ public class UICalculatorInputArea extends JPanel
 		return getInput(uiFieldTargetLevel);
 	}
 
-	public void setTargetLevelInput(Object value)
+	public void setTargetLevelInput(@Nullable final Object value)
 	{
 		setInput(uiFieldTargetLevel, value);
 	}
@@ -92,16 +97,17 @@ public class UICalculatorInputArea extends JPanel
 		return getInput(uiFieldTargetXP);
 	}
 
-	public void setTargetXPInput(Object value)
+	public void setTargetXPInput(@Nullable final Object value)
 	{
 		setInput(uiFieldTargetXP, value);
 	}
 
-	private int getInput(JTextField field)
+	private int getInput(@Nonnull final JTextField field)
 	{
 		try
 		{
-			return Integer.parseInt(field.getText());
+			final String str = field.getText().trim();
+			return Integer.parseInt(str);
 		}
 		catch (NumberFormatException e)
 		{
@@ -109,12 +115,12 @@ public class UICalculatorInputArea extends JPanel
 		}
 	}
 
-	private void setInput(JTextField field, Object value)
+	private void setInput(@Nonnull final JTextField field, @Nullable Object value)
 	{
 		field.setText(String.valueOf(value));
 	}
 
-	private JTextField addComponent(String label)
+	private JTextField addComponent(@Nonnull final String label)
 	{
 		final JPanel container = new JPanel();
 		container.setLayout(new BorderLayout());
@@ -124,7 +130,7 @@ public class UICalculatorInputArea extends JPanel
 
 		uiInput.setBackground(ColorScheme.DARKER_GRAY_COLOR);
 		uiInput.setHoverBackgroundColor(ColorScheme.DARK_GRAY_HOVER_COLOR);
-		uiInput.setBorder(new EmptyBorder(5, 7, 5, 7));
+		uiInput.setBorder(DEFAULT_COMPONENT_INPUT_BORDER);
 
 		uiLabel.setFont(FontManager.getRunescapeSmallFont());
 		uiLabel.setBorder(new EmptyBorder(0, 0, 4, 0));

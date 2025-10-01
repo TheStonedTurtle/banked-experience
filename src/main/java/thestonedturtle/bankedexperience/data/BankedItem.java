@@ -24,11 +24,9 @@
  */
 package thestonedturtle.bankedexperience.data;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Value;
 
-@AllArgsConstructor
-@Getter
+@Value
 public class BankedItem
 {
 	private final ExperienceItem item;
@@ -38,17 +36,5 @@ public class BankedItem
 	public String toString()
 	{
 		return item.name() + " x " + qty;
-	}
-
-	@Override
-	public boolean equals(final Object o)
-	{
-		if (!(o instanceof BankedItem))
-		{
-			return false;
-		}
-
-		final BankedItem obj = (BankedItem) o;
-		return obj.getItem().equals(item) && obj.getQty() == qty;
 	}
 }

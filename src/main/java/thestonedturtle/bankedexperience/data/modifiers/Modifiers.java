@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import javax.swing.SwingUtilities;
 import net.runelite.api.ItemComposition;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.Activity;
@@ -70,16 +70,17 @@ public final class Modifiers
 
 		final Map<Integer, ItemComposition[]> compositions = new HashMap<>();
 
-		final ItemComposition[] zealots = asCompositions(manager, ItemID.ZEALOTS_HELM, ItemID.ZEALOTS_ROBE_TOP, ItemID.ZEALOTS_ROBE_BOTTOM, ItemID.ZEALOTS_BOOTS);
+		final ItemComposition[] zealots = asCompositions(manager, ItemID.SHADES_PRAYER_HELM, ItemID.SHADES_PRAYER_TOP, ItemID.SHADES_PRAYER_BOTTOM, ItemID.SHADES_PRAYER_BOOTS);
 		compositions.put(zealots[0].getId(), zealots);
 
-		final ItemComposition[] farmers = asCompositions(manager, ItemID.FARMERS_STRAWHAT, ItemID.FARMERS_JACKET, ItemID.FARMERS_BORO_TROUSERS, ItemID.FARMERS_BOOTS);
+		//TODO: Make tithe farm outfit detection aware of female version of outfit
+		final ItemComposition[] farmers = asCompositions(manager, ItemID.TITHE_REWARD_HAT_MALE, ItemID.TITHE_REWARD_TORSO_MALE, ItemID.TITHE_REWARD_LEGS_MALE, ItemID.TITHE_REWARD_FEET_MALE);
 		compositions.put(farmers[0].getId(), farmers);
 
-		final ItemComposition[] carpenters = asCompositions(manager, ItemID.CARPENTERS_HELMET, ItemID.CARPENTERS_SHIRT, ItemID.CARPENTERS_TROUSERS, ItemID.CARPENTERS_BOOTS);
+		final ItemComposition[] carpenters = asCompositions(manager, ItemID.CONSTRUCTION_HAT, ItemID.CONSTRUCTION_SHIRT, ItemID.CONSTRUCTION_TROUSERS, ItemID.CONSTRUCTION_BOOTS);
 		compositions.put(carpenters[0].getId(), carpenters);
 
-		final ItemComposition[] pyromancer = asCompositions(manager, ItemID.PYROMANCER_HOOD, ItemID.PYROMANCER_GARB, ItemID.PYROMANCER_ROBE, ItemID.PYROMANCER_BOOTS);
+		final ItemComposition[] pyromancer = asCompositions(manager, ItemID.PYROMANCER_HOOD, ItemID.PYROMANCER_TOP, ItemID.PYROMANCER_BOTTOM, ItemID.PYROMANCER_BOOTS);
 		compositions.put(pyromancer[0].getId(), pyromancer);
 
 		// Create modifiers on EDT thread as the UI components are created now
@@ -101,7 +102,7 @@ public final class Modifiers
 	private static void createModifiers(final ItemManager manager, final Map<Integer, ItemComposition[]> compositions)
 	{
 		// Prayer Modifiers
-		addModifier(new ZealotsRobes(manager, compositions.get(ItemID.ZEALOTS_HELM)));
+		addModifier(ZealotsRobes.FromArray.create(manager, compositions.get(ItemID.SHADES_PRAYER_HELM)));
 		addModifier(new StaticModifier(Skill.PRAYER, "Demonic Offering (300% xp)", 3, ASHES, null, ASHES_TOOLTIP_TEXT));
 		addModifier(new StaticModifier(Skill.PRAYER, "Sinister Offering (300% xp)", 3, BONES, null, BONES_TOOLTIP_TEXT));
 		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null, BONES_TOOLTIP_TEXT));
@@ -127,15 +128,13 @@ public final class Modifiers
 		});
 
 		// Farming
-		addModifier(new SkillingOutfit(Skill.FARMING, "Farmer's Outfit", null, null,
-			manager, compositions.get(ItemID.FARMERS_STRAWHAT)));
+		addModifier(SkillingOutfit.FromArray.create(Skill.FARMING, "Farmer's Outfit", null, null, manager, compositions.get(ItemID.TITHE_REWARD_HAT_MALE)));
 
 		// Construction
-		addModifier(new SkillingOutfit(Skill.CONSTRUCTION, "Carpenter's Outfit", null, CONSTRUCTION_BONES, manager, compositions.get(ItemID.CARPENTERS_HELMET)));
+		addModifier(SkillingOutfit.FromArray.create(Skill.CONSTRUCTION, "Carpenter's Outfit", null, CONSTRUCTION_BONES, manager, compositions.get(ItemID.CONSTRUCTION_HAT)));
 
 		// Firemaking
-		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
-			null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
+		addModifier(SkillingOutfit.FromArray.create(Skill.FIREMAKING, "Pyromancer Outfit", null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
 	}
 
 	private static void addModifier(final Modifier modifier)
