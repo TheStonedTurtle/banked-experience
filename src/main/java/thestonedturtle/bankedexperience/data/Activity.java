@@ -1053,9 +1053,9 @@ public enum Activity
 	AMETHYST_ARROWTIPS(ItemID.AMETHYST_ARROWTIPS, "Amethyst arrowtips", 85, 60,
 		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_ARROWTIPS, 15)),
 	AMETHYST_JAVELIN_HEADS(ItemID.AMETHYST_JAVELIN_HEADS, "Amethyst javelin heads", 87, 60,
-		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 5)),
+		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_JAVELIN_HEADS, 5)),
 	AMETHYST_DART_TIP(ItemID.AMETHYST_DART_TIP, "Amethyst dart tips", 89, 60,
-		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_BOLT_TIPS, 8)),
+		ExperienceItem.AMETHYST, null, new ItemStack(ItemID.AMETHYST_DART_TIP, 8)),
 	// RNG section
 	// Soda Ash
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, "Furnace", 1, 20,
