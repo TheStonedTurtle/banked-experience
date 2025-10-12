@@ -125,6 +125,7 @@ public enum Secondaries
 	LEATHER_BODY(new ItemStack(ItemID.LEATHER_BODY, 1)),
 	LEATHER_CHAPS(new ItemStack(ItemID.LEATHER_CHAPS, 1)),
 	BALL_OF_WOOL(new ItemStack(ItemID.BALL_OF_WOOL, 1)),
+	EMPTY_LIGHT_ORB(new ItemStack(ItemID.EMPTY_LIGHT_ORB, 1)),
 	/**
 	 * Construction
 	 */

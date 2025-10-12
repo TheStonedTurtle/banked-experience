@@ -26,16 +26,17 @@ package thestonedturtle.bankedexperience.data;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
 import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -338,6 +339,8 @@ public enum ExperienceItem
 	MOLTEN_GLASS(ItemID.MOLTEN_GLASS, Skill.CRAFTING, "Misc"),
 	BATTLESTAFF(ItemID.BATTLESTAFF, Skill.CRAFTING, "Misc"),
 	GOLD_BAR(ItemID.GOLD_BAR, Skill.CRAFTING, "Misc"),
+	LIGHT_ORB(ItemID.LIGHT_ORB, Skill.CRAFTING, "Misc"),
+	CAVE_GOBLIN_WIRE(ItemID.CAVE_GOBLIN_WIRE, Skill.CRAFTING, "Misc"),
 	// Leather
 	COW_HIDE(ItemID.COWHIDE, Skill.CRAFTING, "Leather"),
 	LEATHER(ItemID.LEATHER, Skill.CRAFTING, "Leather"),

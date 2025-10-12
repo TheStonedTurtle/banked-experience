@@ -26,14 +26,6 @@ package thestonedturtle.bankedexperience.data;
 
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableSortedSet;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemID;
@@ -41,6 +33,15 @@ import net.runelite.api.Skill;
 import net.runelite.client.game.ItemManager;
 import thestonedturtle.bankedexperience.data.modifiers.ConsumptionModifier;
 import thestonedturtle.bankedexperience.data.modifiers.Modifier;
+
+import javax.annotation.Nullable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A specific in-game action that consumes bank-able item(s) and rewards {@link Skill} experience.
@@ -868,8 +869,13 @@ public enum Activity
 		ExperienceItem.MOLTEN_GLASS, null, new ItemStack(ItemID.UNPOWERED_ORB, 1)),
 	LANTERN_LENS(ItemID.LANTERN_LENS, "Lantern lens", 49, 55,
 		ExperienceItem.MOLTEN_GLASS, null, new ItemStack(ItemID.LANTERN_LENS, 1)),
-	LIGHT_ORB(ItemID.LIGHT_ORB, "Light orb", 87, 70,
-		ExperienceItem.MOLTEN_GLASS, null, new ItemStack(ItemID.LIGHT_ORB, 1)),
+	EMPTY_LIGHT_ORB(ItemID.EMPTY_LIGHT_ORB, "Empty Light orb", 87, 70,
+		ExperienceItem.MOLTEN_GLASS, null, new ItemStack(ItemID.EMPTY_LIGHT_ORB, 1)),
+	// Goblin Wire,
+	LIGHT_ORB(ItemID.LIGHT_ORB, "Light orb", 87, 104,
+		ExperienceItem.CAVE_GOBLIN_WIRE, Secondaries.EMPTY_LIGHT_ORB, new ItemStack(ItemID.LIGHT_ORB, 1)),
+	DORGESH_KAAN_LAMPS(ItemID.LIGHT_ORB, "Dorgesh-Kaan lamps", 52, 550,
+		ExperienceItem.LIGHT_ORB, null, null),
 	// Regular Leather
 	LEATHER(ItemID.LEATHER, "Tan Leather", 1, 0,
 		ExperienceItem.COW_HIDE, Secondaries.COIN, new ItemStack(ItemID.LEATHER, 1)),
