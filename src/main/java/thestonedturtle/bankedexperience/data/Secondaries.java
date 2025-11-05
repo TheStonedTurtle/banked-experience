@@ -113,6 +113,7 @@ public enum Secondaries
 	 */
 	GOLD_BAR(new ItemStack(ItemID.GOLD_BAR, 1)),
 	SILVER_BAR(new ItemStack(ItemID.SILVER_BAR, 1)),
+	BATTLESTAFF(new ItemStack(ItemID.BATTLESTAFF, 1)),
 	WATER_ORB(new ItemStack(ItemID.WATER_ORB, 1)),
 	EARTH_ORB(new ItemStack(ItemID.EARTH_ORB, 1)),
 	FIRE_ORB(new ItemStack(ItemID.FIRE_ORB, 1)),
