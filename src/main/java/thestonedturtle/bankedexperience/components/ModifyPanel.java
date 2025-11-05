@@ -24,31 +24,9 @@
  */
 package thestonedturtle.bankedexperience.components;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.ItemEvent;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 import lombok.Getter;
 import net.runelite.api.Constants;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
@@ -63,6 +41,23 @@ import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ExperienceItem;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ModifyPanel extends JPanel
 {
@@ -403,9 +398,9 @@ public class ModifyPanel extends JPanel
 			if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
 			{
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
-				final int available = this.calc.getItemQtyFromBank(ItemID.NATURE_RUNE);
+				final int available = this.calc.getItemQtyFromBank(ItemID.NATURERUNE);
 				final int required = handler.getTotalNaturesRequired(amount);
-				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURE_RUNE, 0), available, required));
+				container.add(createSecondaryItemLabel(new ItemStack(ItemID.NATURERUNE, 0), available, required));
 			}
 
 			if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)

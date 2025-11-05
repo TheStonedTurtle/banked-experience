@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.EnumComposition;
 import net.runelite.api.EnumID;
-import net.runelite.api.InventoryID;
 import net.runelite.api.Item;
 import net.runelite.api.ItemComposition;
 import net.runelite.api.ItemContainer;
@@ -16,7 +15,8 @@ import net.runelite.api.events.ItemContainerChanged;
 import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.VarbitChanged;
 import net.runelite.api.events.WidgetLoaded;
-import net.runelite.api.widgets.ComponentID;
+import net.runelite.api.gameval.InterfaceID;
+import net.runelite.api.gameval.InventoryID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.ConfigManager;
@@ -167,10 +167,10 @@ public class BankedExperiencePlugin extends Plugin
 		switch (event.getKey())
 		{
 			case VAULT_CONFIG_KEY:
-				inventoryId = InventoryID.SEED_VAULT.getId();
+				inventoryId = InventoryID.SEED_VAULT;
 				break;
 			case INVENTORY_CONFIG_KEY:
-				inventoryId = InventoryID.INVENTORY.getId();
+				inventoryId = InventoryID.INV;
 				break;
 			case LOOTING_BAG_CONFIG_KEY:
 				inventoryId = LOOTING_BAG_ID;
@@ -201,9 +201,9 @@ public class BankedExperiencePlugin extends Plugin
 	@Subscribe
 	public void onItemContainerChanged(ItemContainerChanged ev)
 	{
-		if (ev.getContainerId() == InventoryID.BANK.getId()
-				|| (ev.getContainerId() == InventoryID.SEED_VAULT.getId() && config.grabFromSeedVault())
-				|| (ev.getContainerId() == InventoryID.INVENTORY.getId() && config.grabFromInventory())
+		if (ev.getContainerId() == InventoryID.BANK
+				|| (ev.getContainerId() == InventoryID.SEED_VAULT && config.grabFromSeedVault())
+				|| (ev.getContainerId() == InventoryID.INV && config.grabFromInventory())
 				|| (ev.getContainerId() == LOOTING_BAG_ID && config.grabFromLootingBag()))
 		{
 			updateItemsFromItemContainer(ev.getContainerId(), ev.getItemContainer());
@@ -342,7 +342,7 @@ public class BankedExperiencePlugin extends Plugin
 			updatePotionStorageMap();
 			rebuildPotions = false;
 
-			Widget w = client.getWidget(ComponentID.BANK_POTIONSTORE_CONTENT);
+			Widget w = client.getWidget(InterfaceID.Bankmain.POTIONSTORE_ITEMS);
 			if (w != null && potionStoreVars == null)
 			{
 				// cache varps that the potion store rebuilds on

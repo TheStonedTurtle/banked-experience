@@ -26,19 +26,10 @@ package thestonedturtle.bankedexperience.components;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import lombok.Getter;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ItemID;
+import net.runelite.api.gameval.ItemID;
 import net.runelite.client.ui.ColorScheme;
 import thestonedturtle.bankedexperience.BankedCalculator;
 import thestonedturtle.bankedexperience.data.Activity;
@@ -46,6 +37,15 @@ import thestonedturtle.bankedexperience.data.BankedItem;
 import thestonedturtle.bankedexperience.data.ItemInfo;
 import thestonedturtle.bankedexperience.data.ItemStack;
 import thestonedturtle.bankedexperience.data.Secondaries;
+
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import java.awt.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class SecondaryGrid extends JPanel
@@ -166,8 +166,8 @@ public class SecondaryGrid extends JPanel
 			else if (secondaries.getCustomHandler() instanceof Secondaries.Degrime)
 			{
 				Secondaries.Degrime handler = (Secondaries.Degrime) secondaries.getCustomHandler();
-				qtyMap.merge(ItemID.NATURE_RUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
-				infoMap.put(ItemID.NATURE_RUNE, new ItemInfo("Nature rune", true));
+				qtyMap.merge(ItemID.NATURERUNE, (double) handler.getTotalNaturesRequired(bankedQty), Double::sum);
+				infoMap.put(ItemID.NATURERUNE, new ItemInfo("Nature rune", true));
 			}
 			else if (secondaries.getCustomHandler() instanceof Secondaries.Crushable)
 			{
