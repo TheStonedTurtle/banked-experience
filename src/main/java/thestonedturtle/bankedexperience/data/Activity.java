@@ -876,6 +876,8 @@ public enum Activity
 		ExperienceItem.CHEESE, Secondaries.POTATO_BUTTER, new ItemStack(ItemID.POTATO_CHEESE, 1)),
 	POTATO_EGG_TOMATO(ItemID.POTATO_EGG_TOMATO, "Egg potato", 51, 45, 
 		ExperienceItem.BOWL_EGG_TOMATO, Secondaries.POTATO_BUTTER, new ItemStack(ItemID.POTATO_EGG_TOMATO, 1)),
+	FRIED_ONIONS(ItemID.BOWL_ONION_FRIED, "Fried onions", 42, 60,
+		ExperienceItem.BOWL_ONION, null, new ItemStack(ItemID.BOWL_ONION_FRIED, 1)),
 	/**
 	 * Crafting
 	 */

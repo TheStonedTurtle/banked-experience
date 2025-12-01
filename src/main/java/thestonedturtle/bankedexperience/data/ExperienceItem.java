@@ -342,6 +342,7 @@ public enum ExperienceItem
 	POT_OF_NOT_GARLIC_BUTTER(ItemID.POT_OF_NOT_GARLIC_BUTTER, Skill.COOKING, "Dairy"),
 	POTATO(ItemID.POTATO, Skill.COOKING, "Other"),
 	POTATO_BAKED(ItemID.POTATO_BAKED, Skill.COOKING, "Other"),
+	BOWL_ONION(ItemID.BOWL_ONION, Skill.COOKING, "Other"),
 	/**
 	 * Crafting
 	 */
