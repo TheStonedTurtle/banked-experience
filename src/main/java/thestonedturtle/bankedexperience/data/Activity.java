@@ -846,6 +846,12 @@ public enum Activity
 		ExperienceItem.RAW_DASHING_KEBBIT, null, new ItemStack(ItemID.DASHINGKEBBIT_COOKED, 1)),
 	COOK_MOONLIGHT_ANTELOPE(ItemID.ANTELOPEMOON_COOKED, "Cooked moonlight antelope", 92, 220.0,
 		ExperienceItem.RAW_MOONLIGHT_ANTELOPE, null, new ItemStack(ItemID.ANTELOPEMOON_COOKED, 1)),
+	BOWL_EGG_RAW(ItemID.BOWL_EGG_RAW, "Uncooked egg", 13, 0,
+		ExperienceItem.EGG, Secondaries.BOWL, new ItemStack(ItemID.BOWL_EGG_RAW, 1)),
+	BOWL_EGG_SCRAMBLED(ItemID.BOWL_EGG_SCRAMBLED, "Scrambled egg", 13, 50,
+		ExperienceItem.BOWL_EGG_RAW, null, new ItemStack(ItemID.BOWL_EGG_SCRAMBLED, 1)),
+	BOWL_EGG_TOMATO(ItemID.BOWL_EGG_TOMATO, "Egg and tomato", 23, 0,
+		ExperienceItem.BOWL_EGG_SCRAMBLED, Secondaries.TOMATO, new ItemStack(ItemID.BOWL_EGG_TOMATO, 1)),
 	//Churning
 	CHURN_POT_OF_CREAM(ItemID.POT_OF_CREAM, "Churn cream", 21, 18,
 		ExperienceItem.BUCKET_OF_MILK, null, new ItemStack(ItemID.POT_OF_CREAM, 1)),
@@ -868,6 +874,8 @@ public enum Activity
 		ExperienceItem.POTATO_BAKED, Secondaries.BUTTER, new ItemStack(ItemID.POTATO_BUTTER, 1)),
 	POTATO_CHEESE(ItemID.POTATO_CHEESE, "Potato with cheese", 47, 40, 
 		ExperienceItem.CHEESE, Secondaries.POTATO_BUTTER, new ItemStack(ItemID.POTATO_CHEESE, 1)),
+	POTATO_EGG_TOMATO(ItemID.POTATO_EGG_TOMATO, "Egg potato", 51, 45, 
+		ExperienceItem.BOWL_EGG_TOMATO, Secondaries.POTATO_BUTTER, new ItemStack(ItemID.POTATO_EGG_TOMATO, 1)),
 	/**
 	 * Crafting
 	 */
