@@ -108,6 +108,11 @@ public enum Secondaries
 	COAL_ORE_4(new ItemStack(ItemID.COAL, 4)),
 	COAL_ORE_6(new ItemStack(ItemID.COAL, 6)),
 	COAL_ORE_8(new ItemStack(ItemID.COAL, 8)),
+	//Coal + smithing catalyst
+	COAL_ORE_CATALYST(new ItemStack(ItemID.COAL, 1), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
+	COAL_ORE_2_CATALYST(new ItemStack(ItemID.COAL, 2), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
+	COAL_ORE_3_CATALYST(new ItemStack(ItemID.COAL, 3), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
+	COAL_ORE_4_CATALYST(new ItemStack(ItemID.COAL, 4), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
 	/**
 	 * Crafting
 	 */
