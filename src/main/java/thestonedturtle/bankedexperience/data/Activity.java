@@ -846,6 +846,28 @@ public enum Activity
 		ExperienceItem.RAW_DASHING_KEBBIT, null, new ItemStack(ItemID.DASHINGKEBBIT_COOKED, 1)),
 	COOK_MOONLIGHT_ANTELOPE(ItemID.ANTELOPEMOON_COOKED, "Cooked moonlight antelope", 92, 220.0,
 		ExperienceItem.RAW_MOONLIGHT_ANTELOPE, null, new ItemStack(ItemID.ANTELOPEMOON_COOKED, 1)),
+	//Churning
+	CHURN_POT_OF_CREAM(ItemID.POT_OF_CREAM, "Churn cream", 21, 18,
+		ExperienceItem.BUCKET_OF_MILK, null, new ItemStack(ItemID.POT_OF_CREAM, 1)),
+	CHURN_BUTTER_CREAM(ItemID.POT_OF_BUTTER, "Churn butter", 38, 22.5,
+		ExperienceItem.POT_OF_CREAM, null, new ItemStack(ItemID.POT_OF_BUTTER, 1)),
+	CHURN_BUTTER_MILK(ItemID.POT_OF_BUTTER, "Churn butter", 38, 40.5,
+		ExperienceItem.BUCKET_OF_MILK, null, new ItemStack(ItemID.POT_OF_BUTTER, 1)),
+	CHURN_CHEESE_BUTTER(ItemID.CHEESE, "Churn cheese", 48, 23.5,
+		ExperienceItem.POT_OF_BUTTER, null, new ItemStack(ItemID.CHEESE, 1)),
+	CHURN_CHEESE_NOT_GARLIC_BUTTER(ItemID.CHEESE, "Churn cheese", 48, 23.5,
+		ExperienceItem.POT_OF_NOT_GARLIC_BUTTER, null, new ItemStack(ItemID.CHEESE, 1)),
+	CHURN_CHEESE_CREAM(ItemID.CHEESE, "Churn cheese", 48, 46,
+		ExperienceItem.POT_OF_CREAM, null, new ItemStack(ItemID.CHEESE, 1)),
+	CHURN_CHEESE_MILK(ItemID.CHEESE, "Churn cheese", 48, 64,
+		ExperienceItem.BUCKET_OF_MILK, null, new ItemStack(ItemID.CHEESE, 1)),
+	//Potatoes
+	POTATO_BAKED(ItemID.POTATO_BAKED, "Baked potato", 7, 15, 
+		ExperienceItem.POTATO, null, new ItemStack(ItemID.POTATO_BAKED, 1)),
+	POTATO_BUTTER(ItemID.POTATO_BUTTER, "Potato with butter", 39, 40, 
+		ExperienceItem.POTATO_BAKED, Secondaries.BUTTER, new ItemStack(ItemID.POTATO_BUTTER, 1)),
+	POTATO_CHEESE(ItemID.POTATO_CHEESE, "Potato with cheese", 47, 40, 
+		ExperienceItem.CHEESE, Secondaries.POTATO_BUTTER, new ItemStack(ItemID.POTATO_CHEESE, 1)),
 	/**
 	 * Crafting
 	 */

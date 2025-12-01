@@ -153,6 +153,9 @@ public enum Secondaries
 	 * Cooking
 	 */
 	JUG_OF_WATER(new ItemStack(ItemID.JUG_WATER, 1)),
+	BOWL(new ItemStack(ItemID.BOWL_EMPTY, 1)),
+	BUTTER(new ItemStack(ItemID.POT_OF_BUTTER, 1)),
+	POTATO_BUTTER(new ItemStack(ItemID.POTATO_BUTTER, 1)),
 	/**
 	 * Fletching
 	 */
