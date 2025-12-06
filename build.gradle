@@ -27,7 +27,7 @@ dependencies {
 }
 
 group = 'thestonedturtle.bankedexperience'
-version = '2.7.4'
+version = '2.8'
 sourceCompatibility = '1.8'
 
 tasks.withType(JavaCompile) {
