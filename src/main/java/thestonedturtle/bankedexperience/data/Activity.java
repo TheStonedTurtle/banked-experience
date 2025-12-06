@@ -1038,6 +1038,8 @@ public enum Activity
 	TOPAZ_AMULET_U(ItemID.STRUNG_TOPAZ_AMULET, "Topaz amulet (u)", 45, 80,
 		ExperienceItem.RED_TOPAZ, Secondaries.SILVER_BAR, new ItemStack(ItemID.UNSTRUNG_TOPAZ_AMULET, 1)),
 	// Gold Jewelery
+	SLAYER_RING(ItemID.SLAYER_RING_8, "Slayer ring (8)", 75, 15,
+			ExperienceItem.ENCHANTED_GEM, Secondaries.GOLD_BAR, new ItemStack(ItemID.SLAYER_RING_8, 1)),
 	SAPPHIRE_RING(ItemID.SAPPHIRE_RING, "Sapphire ring", 20, 40,
 		ExperienceItem.SAPPHIRE, Secondaries.GOLD_BAR, new ItemStack(ItemID.SAPPHIRE_RING, 1)),
 	SAPPHIRE_NECKLACE(ItemID.SAPPHIRE_NECKLACE, "Sapphire necklace", 22, 55,
