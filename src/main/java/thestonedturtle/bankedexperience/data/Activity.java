@@ -463,6 +463,8 @@ public enum Activity
 		ExperienceItem.DRAKE_BONES, null, null),
 	HYDRA_BONES(ItemID.HYDRA_BONES, "Hydra bones", 1, 110.0,
 		ExperienceItem.HYDRA_BONES, null, null),
+    FROST_DRAGON_BONES(ItemID.FROST_DRAGON_BONES, "Frost dragon bones", 1, 100.0,
+            ExperienceItem.FROST_DRAGON_BONES, null, null),
 	// Wyrmling bones behave slightly differently than other bones, so modifiers cannot apply correctly
 	WYRMLING_BONES_BURY(ItemID.BABYWYRM_BONES, "Bury", 1, 21.0,
 		ExperienceItem.WYRMLING_BONES, null, null),
@@ -531,6 +533,10 @@ public enum Activity
 		ExperienceItem.HYDRA_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARD, 93)),
 	BLESSED_HYDRA_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARD, "Blessed bone shards", 0, 0.0,
 		ExperienceItem.BLESSED_HYDRA_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARD, 93)),
+    FROST_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARD, "Blessed bone shards", 0, 0.0,
+            ExperienceItem.FROST_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARD, 84)),
+    BLESSED_FROST_DRAGON_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARD, "Blessed bone shards", 0, 0.0,
+            ExperienceItem.BLESSED_FROST_DRAGON_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARD, 84)),
 	DAGANNOTH_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARD, "Blessed bone shards", 0, 0.0,
 		ExperienceItem.DAGANNOTH_BONES, null, new ItemStack(ItemID.BLESSED_BONE_SHARD, 100)),
 	BLESSED_DAGANNOTH_BONES_TO_SHARDS(ItemID.BLESSED_BONE_SHARD, "Blessed bone shards", 0, 0.0,
@@ -598,8 +604,10 @@ public enum Activity
 		ExperienceItem.DRAKE_BONEMEAL, Secondaries.BUCKET_OF_SLIME, null),
 	HYDRA_BONEMEAL(ItemID.POT_BONEMEAL_HYDRA, "Hydra bonemeal", 1, 440,
 		ExperienceItem.HYDRA_BONEMEAL, Secondaries.BUCKET_OF_SLIME, null),
-	// Shade Remains (Pyre Logs)
-	// TODO: Fix this for the different log types and the mory hard diary
+    FROST_DRAGON_BONEMEAL(ItemID.POT_BONEMEAL_FROST_DRAGON, "Frost dragon bonemeal", 1, 400,
+            ExperienceItem.FROST_DRAGON_BONEMEAL, Secondaries.BUCKET_OF_SLIME, null),
+    // Shade Remains (Pyre Logs)
+    // TODO: Fix this for the different log types and the mory hard diary
 //	LOAR_REMAINS(ItemID.LOAR_REMAINS, "Loar remains", 1, 33.0,
 //		ExperienceItem.LOAR_REMAINS, null, null),
 //	PHRIN_REMAINS(ItemID.PHRIN_REMAINS, "Phrin remains", 1, 46.5,
