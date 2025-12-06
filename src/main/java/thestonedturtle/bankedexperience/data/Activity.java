@@ -1096,13 +1096,13 @@ public enum Activity
 		ExperienceItem.ZENYTE, Secondaries.GOLD_BAR, new ItemStack(ItemID.UNSTRUNG_ZENYTE_AMULET, 1)),
 	// Battle Staves
 	WATER_BATTLESTAFF(ItemID.WATER_BATTLESTAFF, "Water battlestaff", 54, 100,
-		ExperienceItem.BATTLESTAFF, Secondaries.WATER_ORB, new ItemStack(ItemID.WATER_BATTLESTAFF, 1)),
+		ExperienceItem.WATER_ORB, Secondaries.BATTLESTAFF, new ItemStack(ItemID.WATER_BATTLESTAFF, 1)),
 	EARTH_BATTLESTAFF(ItemID.EARTH_BATTLESTAFF, "Earth battlestaff", 58, 112.5,
-		ExperienceItem.BATTLESTAFF, Secondaries.EARTH_ORB, new ItemStack(ItemID.EARTH_BATTLESTAFF, 1)),
+		ExperienceItem.EARTH_ORB, Secondaries.BATTLESTAFF, new ItemStack(ItemID.EARTH_BATTLESTAFF, 1)),
 	FIRE_BATTLESTAFF(ItemID.FIRE_BATTLESTAFF, "Fire battlestaff", 62, 125,
-		ExperienceItem.BATTLESTAFF, Secondaries.FIRE_ORB, new ItemStack(ItemID.FIRE_BATTLESTAFF, 1)),
+		ExperienceItem.FIRE_ORB, Secondaries.BATTLESTAFF, new ItemStack(ItemID.FIRE_BATTLESTAFF, 1)),
 	AIR_BATTLESTAFF(ItemID.AIR_BATTLESTAFF, "Air battlestaff", 66, 137.5,
-		ExperienceItem.BATTLESTAFF, Secondaries.AIR_ORB, new ItemStack(ItemID.AIR_BATTLESTAFF, 1)),
+		ExperienceItem.AIR_ORB, Secondaries.BATTLESTAFF, new ItemStack(ItemID.AIR_BATTLESTAFF, 1)),
 	// Gold Jewelery
 	GOLD_RING(ItemID.GOLD_RING, "Gold ring", 5, 15,
 		ExperienceItem.GOLD_BAR, null, new ItemStack(ItemID.GOLD_RING, 1)),
