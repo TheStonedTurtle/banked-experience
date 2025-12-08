@@ -53,7 +53,8 @@ public final class Modifiers
 		Activity.JOGRE_BONES, Activity.BIG_BONES, Activity.ZOGRE_BONES, Activity.SHAIKAHAN_BONES,
 		Activity.BABYDRAGON_BONES, Activity.WYVERN_BONES, Activity.DRAGON_BONES, Activity.FAYRG_BONES,
 		Activity.LAVA_DRAGON_BONES, Activity.RAURG_BONES, Activity.DAGANNOTH_BONES, Activity.OURG_BONES,
-		Activity.SUPERIOR_DRAGON_BONES, Activity.WYRM_BONES, Activity.DRAKE_BONES, Activity.HYDRA_BONES
+		Activity.SUPERIOR_DRAGON_BONES, Activity.WYRM_BONES, Activity.DRAKE_BONES, Activity.HYDRA_BONES,
+		Activity.FROST_DRAGON_BONES
 	);
 
 	static final Set<Activity> ASHES = ImmutableSet.of(
