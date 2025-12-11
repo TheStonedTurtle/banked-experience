@@ -973,6 +973,18 @@ public enum Activity
 	// Spinning
 	BALL_OF_WOOL(ItemID.BALL_OF_WOOL, "Ball of wool", 1, 2.5,
 		ExperienceItem.WOOL, null, new ItemStack(ItemID.BALL_OF_WOOL, 1)),
+	LINEN_YARN(ItemID.LINEN_YARN, "Linen yarn", 12, 16,
+			ExperienceItem.FLAX, null, new ItemStack(ItemID.LINEN_YARN, 1)),
+	HEMP_YARN(ItemID.HEMP_YARN, "Hemp yarn", 39, 60,
+		ExperienceItem.HEMP, null, new ItemStack(ItemID.HEMP_YARN, 1)),
+	COTTON_YARN(ItemID.COTTON_YARN, "Cotton yarn", 73, 105,
+		ExperienceItem.COTTON, null, new ItemStack(ItemID.COTTON_YARN, 1)),
+	BOLT_OF_LINEN(ItemID.BOLT_OF_LINEN, "Bolt of linen", 12, 10,
+		ExperienceItem.LINEN_YARN, null, new ItemStack(ItemID.BOLT_OF_LINEN, 0.5)),
+	BOLT_OF_CANVAS(ItemID.BOLT_OF_CANVAS, "Bolt of canvas", 39, 37.5,
+		ExperienceItem.HEMP_YARN, null, new ItemStack(ItemID.BOLT_OF_CANVAS, 0.5)),
+	BOLT_OF_COTTON(ItemID.BOLT_OF_COTTON, "Bolt of cotton", 73, 66,
+		ExperienceItem.COTTON_YARN, null, new ItemStack(ItemID.BOLT_OF_COTTON, 0.5)),
 	BOW_STRING(ItemID.BOW_STRING, "Bow string", 1, 15,
 		ExperienceItem.FLAX, null, new ItemStack(ItemID.BOW_STRING, 1)),
 	// Glass Blowing
