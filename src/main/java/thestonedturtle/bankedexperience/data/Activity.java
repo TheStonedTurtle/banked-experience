@@ -1601,6 +1601,17 @@ public enum Activity
 		ExperienceItem.SUMMER_SQIRK, Secondaries.BEER_GLASS_HALF, new ItemStack(ItemID.OSMAN_SQUIRK_J_SUMMER, 0.5)),
 	SUMMER_SQUIRKJUICE(ItemID.OSMAN_SQUIRK_J_SUMMER, "Redeem sq'irkjuice", 65, 3000,
 		ExperienceItem.SUMMER_SQIRKJUICE, null, null),
+	/**
+	 * Sailing
+	 */
+	SMALL_SALVAGE(ItemID.SAILING_SMALL_SHIPWRECK_SALVAGE, "Sort salvage", 15, 5.5, ExperienceItem.SMALL_SALVAGE, null, null),
+	FISHY_SALVAGE(ItemID.SAILING_FISHERMAN_SHIPWRECK_SALVAGE, "Sort salvage", 26, 9, ExperienceItem.FISHY_SALVAGE, null, null),
+	BARRACUDA_SALVAGE(ItemID.SAILING_BARRACUDA_SHIPWRECK_SALVAGE, "Sort salvage", 35, 15.5, ExperienceItem.BARRACUDA_SALVAGE, null, null),
+	LARGE_SALVAGE(ItemID.SAILING_LARGE_SHIPWRECK_SALVAGE, "Sort salvage", 53, 24, ExperienceItem.LARGE_SALVAGE, null, null),
+	PLUNDERED_SALVAGE(ItemID.SAILING_PIRATE_SHIPWRECK_SALVAGE, "Sort salvage", 64, 31.5, ExperienceItem.PLUNDERED_SALVAGE, null, null),
+	MARTIAL_SALVAGE(ItemID.SAILING_MERCENARY_SHIPWRECK_SALVAGE, "Sort salvage", 73, 63.5, ExperienceItem.MARTIAL_SALVAGE, null, null),
+	FREMENNIK_SALVAGE(ItemID.SAILING_FREMENNIK_SHIPWRECK_SALVAGE, "Sort salvage", 80, 75, ExperienceItem.FREMENNIK_SALVAGE, null, null),
+	OPULENT_SALVAGE(ItemID.SAILING_MERCHANT_SHIPWRECK_SALVAGE, "Sort salvage", 87, 95, ExperienceItem.OPULENT_SALVAGE, null, null),
 	;
 
 	private final int icon;

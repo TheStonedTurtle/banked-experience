@@ -65,6 +65,12 @@ public final class Modifiers
 		Activity.LONG_BONE, Activity.CURVED_BONE
 	);
 
+	private static final Collection<Activity> SALVAGE = ImmutableSet.of(
+		Activity.SMALL_SALVAGE, Activity.FISHY_SALVAGE, Activity.BARRACUDA_SALVAGE,
+		Activity.LARGE_SALVAGE, Activity.PLUNDERED_SALVAGE, Activity.MARTIAL_SALVAGE,
+		Activity.FREMENNIK_SALVAGE, Activity.OPULENT_SALVAGE
+	);
+
 	public static void prepare(ItemManager manager)
 	{
 		assert modifiers.isEmpty();
@@ -137,6 +143,9 @@ public final class Modifiers
 		// Firemaking
 		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
 			null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
+
+		// Sailing
+		addModifier(new StaticModifier(Skill.SAILING, "Horizon's Lure (102.5% xp)", 1.025f, SALVAGE, null, null));
 	}
 
 	private static void addModifier(final Modifier modifier)
