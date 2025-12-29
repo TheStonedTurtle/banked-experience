@@ -374,6 +374,7 @@ public enum ExperienceItem
 	 */
 	WOOL(ItemID.WOOL, Skill.CRAFTING, "Misc"),
 	FLAX(ItemID.FLAX, Skill.CRAFTING, "Misc"),
+	FLAX_BALE(ItemID.FLAX_BALE, Skill.CRAFTING, "Misc"),
 	HEMP(ItemID.HEMP, Skill.CRAFTING, "Misc"),
 	COTTON(ItemID.COTTON_BOLL, Skill.CRAFTING, "Misc"),
 	LINEN_YARN(ItemID.LINEN_YARN, Skill.CRAFTING, "Misc"),

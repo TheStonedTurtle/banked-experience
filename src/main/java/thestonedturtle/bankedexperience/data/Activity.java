@@ -971,6 +971,8 @@ public enum Activity
 	 * Crafting
 	 */
 	// Spinning
+	FLAX(ItemID.FLAX, "Bale of Flax", 1, 0,
+			ExperienceItem.FLAX_BALE, null, new ItemStack(ItemID.FLAX, 25)),
 	BALL_OF_WOOL(ItemID.BALL_OF_WOOL, "Ball of wool", 1, 2.5,
 		ExperienceItem.WOOL, null, new ItemStack(ItemID.BALL_OF_WOOL, 1)),
 	LINEN_YARN(ItemID.LINEN_YARN, "Linen yarn", 12, 16,
