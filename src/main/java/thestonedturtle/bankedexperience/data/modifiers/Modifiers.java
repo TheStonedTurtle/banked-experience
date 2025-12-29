@@ -53,7 +53,8 @@ public final class Modifiers
 		Activity.JOGRE_BONES, Activity.BIG_BONES, Activity.ZOGRE_BONES, Activity.SHAIKAHAN_BONES,
 		Activity.BABYDRAGON_BONES, Activity.WYVERN_BONES, Activity.DRAGON_BONES, Activity.FAYRG_BONES,
 		Activity.LAVA_DRAGON_BONES, Activity.RAURG_BONES, Activity.DAGANNOTH_BONES, Activity.OURG_BONES,
-		Activity.SUPERIOR_DRAGON_BONES, Activity.WYRM_BONES, Activity.DRAKE_BONES, Activity.HYDRA_BONES
+		Activity.SUPERIOR_DRAGON_BONES, Activity.WYRM_BONES, Activity.DRAKE_BONES, Activity.HYDRA_BONES,
+		Activity.FROST_DRAGON_BONES
 	);
 
 	static final Set<Activity> ASHES = ImmutableSet.of(
@@ -63,6 +64,12 @@ public final class Modifiers
 
 	private static final Collection<Activity> CONSTRUCTION_BONES = ImmutableSet.of(
 		Activity.LONG_BONE, Activity.CURVED_BONE
+	);
+
+	private static final Collection<Activity> SALVAGE = ImmutableSet.of(
+			Activity.SORT_SMALL_SALVAGE, Activity.SORT_FISHY_SALVAGE, Activity.SORT_BARRACUDA_SALVAGE,
+			Activity.SORT_LARGE_SALVAGE, Activity.SORT_PIRATE_SALVAGE, Activity.SORT_MARTIAL_SALVAGE,
+			Activity.SORT_FREMENNIK_SALVAGE, Activity.SORT_OPULENT_SALVAGE
 	);
 
 	public static void prepare(ItemManager manager)
@@ -137,6 +144,9 @@ public final class Modifiers
 		// Firemaking
 		addModifier(new SkillingOutfit(Skill.FIREMAKING, "Pyromancer Outfit",
 			null, null, manager, compositions.get(ItemID.PYROMANCER_HOOD)));
+
+		// Sailing
+		addModifier(new StaticModifier(Skill.SAILING, "Horizon's Lure (102.5% xp)", 1.025f, SALVAGE, null, null));
 	}
 
 	private static void addModifier(final Modifier modifier)
