@@ -54,7 +54,7 @@ public final class Modifiers
 		Activity.BABYDRAGON_BONES, Activity.WYVERN_BONES, Activity.DRAGON_BONES, Activity.FAYRG_BONES,
 		Activity.LAVA_DRAGON_BONES, Activity.RAURG_BONES, Activity.DAGANNOTH_BONES, Activity.OURG_BONES,
 		Activity.SUPERIOR_DRAGON_BONES, Activity.WYRM_BONES, Activity.DRAKE_BONES, Activity.HYDRA_BONES,
-		Activity.FROST_DRAGON_BONES
+		Activity.FROST_DRAGON_BONES, Activity.STRYKEWYRM_BONES_BURY
 	);
 
 	static final Set<Activity> ASHES = ImmutableSet.of(
@@ -113,7 +113,7 @@ public final class Modifiers
 		addModifier(new StaticModifier(Skill.PRAYER, "Demonic Offering (300% xp)", 3, ASHES, null, ASHES_TOOLTIP_TEXT));
 		addModifier(new StaticModifier(Skill.PRAYER, "Sinister Offering (300% xp)", 3, BONES, null, BONES_TOOLTIP_TEXT));
 		addModifier(new StaticModifier(Skill.PRAYER, "Lit Gilded Altar (350% xp)", 3.5f, BONES, null, BONES_TOOLTIP_TEXT));
-		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, null, BONES_TOOLTIP_TEXT));
+		addModifier(new StaticModifier(Skill.PRAYER, "Ectofuntus (400% xp)", 4, BONES, Set.of(Activity.STRYKEWYRM_BONES_BURY), BONES_TOOLTIP_TEXT));
 		addModifier(new ConsumptionModifier(Skill.PRAYER, "Wildy Altar (350% xp & 50% Save)", 0.5f, BONES, null, BONES_TOOLTIP_TEXT)
 		{
 			@Override

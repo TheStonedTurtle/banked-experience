@@ -202,6 +202,7 @@ public enum Secondaries
 	/**
 	 * Prayer
 	 */
+	EMPTY_POT(new ItemStack(ItemID.POT_EMPTY, 1)),
 	BUCKET_OF_SLIME(new ItemStack(ItemID.BUCKET_ECTOPLASM, 1)),
 	BASIC_REANIMATION(new ItemStack(ItemID.NATURERUNE, 2), new ItemStack(ItemID.BODYRUNE, 4)),
 	ADEPT_REANIMATION(new ItemStack(ItemID.NATURERUNE, 3), new ItemStack(ItemID.BODYRUNE, 4), new ItemStack(ItemID.SOULRUNE, 1)),
