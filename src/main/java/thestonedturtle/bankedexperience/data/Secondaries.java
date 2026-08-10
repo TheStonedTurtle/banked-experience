@@ -87,6 +87,7 @@ public enum Secondaries
 	ZAMORAK_BREW(new ItemStack(ItemID.JANGERBERRIES, 1)),
 	SUPER_COMBAT_POTION(new ItemStack(ItemID._4DOSE2ATTACK, 1), new ItemStack(ItemID._4DOSE2STRENGTH, 1), new ItemStack(ItemID._4DOSE2DEFENSE, 1)),
 	ANTIVENOM_PLUS(new ItemStack(ItemID.ANTIVENOM4, 1)),
+	SURGE_POTION(new ItemStack(ItemID.DEMONIC_TALLOW, 1)),
 	// Huasca
 	PRAYER_REGENERATION_POTION(new ItemStack(ItemID.ALDARIUM, 1)),
 	// Elkhorn

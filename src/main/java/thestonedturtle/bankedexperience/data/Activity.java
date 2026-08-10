@@ -182,6 +182,8 @@ public enum Activity
 		ExperienceItem.TORSTOL_POTION_UNF, Secondaries.SUPER_COMBAT_POTION, new ItemStack(ItemID._4DOSE2COMBAT, 1)),
 	EXTENDED_ANTIVENOM_PLUS(ItemID.EXTENDED_ANTIVENOM_1, "Extended Anti-venom+", 94, 20,
 		ExperienceItem.ARAXYTE_VENOM_SACK, Secondaries.EXTENDED_ANTIVENOM_PLUS, new ItemStack(ItemID.EXTENDED_ANTIVENOM_1, 1)),
+	SURGE_POTION(ItemID._3DOSESURGE, "Surge potion", 81, 185,
+		ExperienceItem.TORSTOL_POTION_UNF, Secondaries.SURGE_POTION, new ItemStack(ItemID._3DOSESURGE, 1)),
 	// Huasca
 	HUASCA_POTION_UNF(ItemID.HUASCAVIAL, "Unfinished potion", 58, 0,
 		ExperienceItem.HUASCA, Secondaries.UNFINISHED_POTION, new ItemStack(ItemID.HUASCAVIAL, 1)),
