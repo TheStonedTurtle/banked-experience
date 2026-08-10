@@ -1668,13 +1668,10 @@ public enum Activity
 	BURN_YEW(ItemID.YEW_LOGS, "Burn Yew logs", 60, 202.5, ExperienceItem.FM_YEW_LOGS, null, null),
 	BURN_BLISTERWOOD(ItemID.BLISTERWOOD_LOGS, "Burn Blisterwood logs", 62, 96, ExperienceItem.FM_BLISTERWOOD_LOGS, null, null),
 	BURN_CAMPHOR(ItemID.CAMPHOR_LOGS, "Burn Camphor logs", 66, 180, ExperienceItem.FM_CAMPHOR_LOGS, null, null),
-	BURN_CAMPHOR_BARB(ItemID.CAMPHOR_LOGS, "Burn Camphor logs (Barbarian)", 86, 245, ExperienceItem.FM_CAMPHOR_LOGS, null, null),
 	BURN_MAGIC(ItemID.MAGIC_LOGS, "Burn Magic logs", 75, 303.8, ExperienceItem.FM_MAGIC_LOGS, null, null),
 	BURN_IRONWOOD(ItemID.IRONWOOD_LOGS, "Burn Ironwood logs", 80, 220.5, ExperienceItem.FM_IRONWOOD_LOGS, null, null),
-	BURN_IRONWOOD_BARB(ItemID.IRONWOOD_LOGS, "Burn Ironwood logs (Barbarian)", 99, 320, ExperienceItem.FM_IRONWOOD_LOGS, null, null),
 	BURN_REDWOOD(ItemID.REDWOOD_LOGS, "Burn Redwood logs", 90, 350, ExperienceItem.FM_REDWOOD_LOGS, null, null),
 	BURN_ROSEWOOD(ItemID.ROSEWOOD_LOGS, "Burn Rosewood logs", 92, 268, ExperienceItem.FM_ROSEWOOD_LOGS, null, null),
-	BURN_ROSEWOOD_BARB(ItemID.ROSEWOOD_LOGS, "Burn Rosewood logs (Barbarian)", 99, 420, ExperienceItem.FM_ROSEWOOD_LOGS, null, null),
 	/**
 	 * Thieving
 	 */
