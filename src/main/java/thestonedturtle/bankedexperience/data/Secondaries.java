@@ -164,13 +164,13 @@ public enum Secondaries
 	STEEL_BAR_TEAK(new ItemStack(ItemID.STEEL_BAR, 0.042)),
 	STEEL_BAR_MAHOGANY(new ItemStack(ItemID.STEEL_BAR, 0.040)),
 	// Boat Repair kits
-	REPAIR_KIT(new ItemStack(ItemID.NAILS_BRONZE, 5), new ItemStack(ItemID.SWAMPPASTE,2.5)),
-	OAK_REPAIR_KIT(new ItemStack(ItemID.NAILS_IRON, 5), new ItemStack(ItemID.SWAMPPASTE,2.5)),
-	TEAK_REPAIR_KIT(new ItemStack(ItemID.NAILS,5), new ItemStack(ItemID.SWAMPPASTE,2.5)),
-	MAHOGANY_REPAIR_KIT(new ItemStack(ItemID.NAILS_MITHRIL, 5), new ItemStack(ItemID.SWAMPPASTE,2.5)),
-	CAMPHOR_REPAIR_KIT(new ItemStack(ItemID.NAILS_ADAMANT, 5), new ItemStack(ItemID.SWAMPPASTE,2.5)),
-	IRONWOOD_REPAIR_KIT(new ItemStack(ItemID.NAILS_RUNE, 10), new ItemStack(ItemID.SWAMPPASTE,5)),
-	ROSEWOOD_REPAIR_KIT(new ItemStack(ItemID.NAILS_DRAGON, 5), new ItemStack(ItemID.SWAMPPASTE,5)),
+	REPAIR_KIT(new ItemStack(ItemID.NAILS_BRONZE, 5), new ItemStack(ItemID.SWAMPPASTE, 2.5)),
+	OAK_REPAIR_KIT(new ItemStack(ItemID.NAILS_IRON, 5), new ItemStack(ItemID.SWAMPPASTE, 2.5)),
+	TEAK_REPAIR_KIT(new ItemStack(ItemID.NAILS, 5), new ItemStack(ItemID.SWAMPPASTE, 2.5)),
+	MAHOGANY_REPAIR_KIT(new ItemStack(ItemID.NAILS_MITHRIL, 5), new ItemStack(ItemID.SWAMPPASTE, 2.5)),
+	CAMPHOR_REPAIR_KIT(new ItemStack(ItemID.NAILS_ADAMANT, 5), new ItemStack(ItemID.SWAMPPASTE, 2.5)),
+	IRONWOOD_REPAIR_KIT(new ItemStack(ItemID.NAILS_RUNE, 10), new ItemStack(ItemID.SWAMPPASTE, 5)),
+	ROSEWOOD_REPAIR_KIT(new ItemStack(ItemID.NAILS_DRAGON, 5), new ItemStack(ItemID.SWAMPPASTE, 5)),
 	/**
 	 * Prayer
 	 */
