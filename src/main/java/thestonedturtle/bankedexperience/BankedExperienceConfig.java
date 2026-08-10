@@ -98,6 +98,18 @@ public interface BankedExperienceConfig extends Config
 	}
 
 	@ConfigItem(
+		keyName = "showBattlestavesAsSecondary",
+		name = "Show battlestaves as secondary",
+		description = "Toggles whether battlestaves show as a secondary",
+		position = 8
+	)
+	default boolean showBattlestavesAsSecondary()
+	{
+		return true;
+	}
+
+
+	@ConfigItem(
 		keyName = "ignoredItems",
 		name = "",
 		description = "",

@@ -32,11 +32,13 @@ import net.runelite.api.ItemComposition;
 import net.runelite.api.Skill;
 import net.runelite.api.gameval.ItemID;
 import net.runelite.client.game.ItemManager;
+import thestonedturtle.bankedexperience.BankedExperienceConfig;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -388,6 +390,7 @@ public enum ExperienceItem
 	EARTH_ORB(ItemID.EARTH_ORB, Skill.CRAFTING, "Misc"),
 	FIRE_ORB(ItemID.FIRE_ORB, Skill.CRAFTING, "Misc"),
 	WATER_ORB(ItemID.WATER_ORB, Skill.CRAFTING, "Misc"),
+	BATTLESTAFF(ItemID.BATTLESTAFF, Skill.CRAFTING, "Misc"),
 	GOLD_BAR(ItemID.GOLD_BAR, Skill.CRAFTING, "Misc"),
 	LIGHT_ORB(ItemID.DORGESH_LIGHT_BULB, Skill.CRAFTING, "Misc"),
 	CAVE_GOBLIN_WIRE(ItemID.DORGESH_WIRE, Skill.CRAFTING, "Misc"),
@@ -733,6 +736,20 @@ public enum ExperienceItem
 		}
 
 		return items;
+	}
+
+	public static Collection<ExperienceItem> getBySkillAndConfig(Skill skill, BankedExperienceConfig config)
+	{
+		return getBySkill(skill).stream()
+			.filter(xpItem ->
+			{
+				if (xpItem == AIR_ORB || xpItem == EARTH_ORB || xpItem == WATER_ORB || xpItem == FIRE_ORB)
+					return config.showBattlestavesAsSecondary();
+				if (xpItem == BATTLESTAFF)
+					return !config.showBattlestavesAsSecondary();
+				return true;
+			})
+			.collect(Collectors.toList());
 	}
 
 	public static ExperienceItem getByItemId(int id)
