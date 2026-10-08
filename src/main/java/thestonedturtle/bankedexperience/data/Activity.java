@@ -1298,6 +1298,8 @@ public enum Activity
 		ExperienceItem.IRON_ORE, null, new ItemStack(ItemID.IRON_BAR, 1)),
 	ELEMANTAL_ORE(ItemID.ELEMENTAL_WORKSHOP_BAR, "Elemental bar", 20, 8,
 		ExperienceItem.ELEMENTAL_WORKSHOP_ORE, Secondaries.COAL_ORE_4, new ItemStack(ItemID.ELEMENTAL_WORKSHOP_BAR, 1)),
+	LEAD_ORE(ItemID.LEAD_BAR, "Lead bar", 25, 15.5 * 0.5,
+		ExperienceItem.LEAD_ORE, null, new ItemStack(ItemID.LEAD_BAR, 0.5)),
 	STEEL_ORE(ItemID.STEEL_BAR, "Steel bar", 30, 17.5,
 		ExperienceItem.IRON_ORE, Secondaries.COAL_ORE_2, new ItemStack(ItemID.STEEL_BAR, 1)),
 	SILVER_ORE(ItemID.SILVER_BAR, "Silver Bar", 20, 13.67,
@@ -1312,6 +1314,8 @@ public enum Activity
 		ExperienceItem.MITHRIL_ORE, Secondaries.COAL_ORE_4, new ItemStack(ItemID.MITHRIL_BAR, 1)),
 	ADAMANTITE_ORE(ItemID.ADAMANTITE_BAR, "Adamantite bar", 70, 37.5,
 		ExperienceItem.ADAMANTITE_ORE, Secondaries.COAL_ORE_6, new ItemStack(ItemID.ADAMANTITE_BAR, 1)),
+	CUPRONICKEL_ORE(ItemID.CUPRONICKEL_BAR, "Cupronickel bar", 74, 42,
+		ExperienceItem.NICKEL_ORE, Secondaries.COPPER_ORE_2, new ItemStack(ItemID.CUPRONICKEL_BAR, 1)),
 	RUNITE_ORE(ItemID.RUNITE_BAR, "Runite bar", 85, 50,
 		ExperienceItem.RUNITE_ORE, Secondaries.COAL_ORE_8, new ItemStack(ItemID.RUNITE_BAR, 1)),
 	// Smelting ores (Furnace) + Smithing catalyst
