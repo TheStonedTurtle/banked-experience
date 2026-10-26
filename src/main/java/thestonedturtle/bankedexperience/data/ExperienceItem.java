@@ -614,6 +614,7 @@ public enum ExperienceItem
 	F_DRAGON_CROSSBOW_U(ItemID.XBOWS_CROSSBOW_UNSTRUNG_DRAGON, Skill.FLETCHING, "Unstrung Crossbow"),
 	// Battlestaves
 	F_CELASTRUS_BARK(ItemID.CELASTRUS_WOOD, Skill.FLETCHING, "Other"),
+	F_AMETHYST(ItemID.AMETHYST, Skill.FLETCHING, "Other"),
 	// Javelin Heads
 	BRONZE_JAVELIN_TIPS(ItemID.BRONZE_JAVELIN_HEAD, Skill.FLETCHING, "Javelin Tips"),
 	IRON_JAVELIN_TIPS(ItemID.IRON_JAVELIN_HEAD, Skill.FLETCHING, "Javelin Tips"),

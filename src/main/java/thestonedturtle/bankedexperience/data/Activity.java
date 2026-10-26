@@ -1454,6 +1454,13 @@ public enum Activity
 	// General
 	F_HEADLESS_ARROWS(ItemID.HEADLESS_ARROW, "Headless arrow", 1, 1,
 		ExperienceItem.F_ARROW_SHAFT, Secondaries.FEATHER, new ItemStack(ItemID.HEADLESS_ARROW, 1)),
+	// Amethyst (chiseling is a Crafting action and gives no Fletching XP, so no Fletching level requirement here)
+	F_AMETHYST_TO_ARROWTIPS(ItemID.AMETHYST_ARROWHEADS, "Amethyst arrowtips", 1, 0,
+		ExperienceItem.F_AMETHYST, null, new ItemStack(ItemID.AMETHYST_ARROWHEADS, 15)),
+	F_AMETHYST_TO_JAVELIN_TIPS(ItemID.AMETHYST_JAVELIN_HEAD, "Amethyst javelin heads", 1, 0,
+		ExperienceItem.F_AMETHYST, null, new ItemStack(ItemID.AMETHYST_JAVELIN_HEAD, 5)),
+	F_AMETHYST_TO_DART_TIPS(ItemID.AMETHYST_DART_TIP, "Amethyst dart tips", 1, 0,
+		ExperienceItem.F_AMETHYST, null, new ItemStack(ItemID.AMETHYST_DART_TIP, 8)),
 	// Logs
 	F_ARROW_SHAFT(ItemID.ARROW_SHAFT, "Arrow shaft", 1, 5,
 		ExperienceItem.F_LOGS, null, new ItemStack(ItemID.ARROW_SHAFT, 15)),
