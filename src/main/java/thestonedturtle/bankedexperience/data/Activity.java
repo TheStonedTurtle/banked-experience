@@ -1741,6 +1741,10 @@ public enum Activity
 	SORT_MARTIAL_SALVAGE(ItemID.SAILING_MERCENARY_SHIPWRECK_SALVAGE, "Sort martial salvage", 73, 63.5, ExperienceItem.MARTIAL_SALVAGE, null, null),
 	SORT_FREMENNIK_SALVAGE(ItemID.SAILING_FREMENNIK_SHIPWRECK_SALVAGE, "Sort Fremennik salvage", 80, 75, ExperienceItem.FREMENNIK_SALVAGE, null, null),
 	SORT_OPULENT_SALVAGE(ItemID.SAILING_MERCHANT_SHIPWRECK_SALVAGE, "Sort opulent salvage", 87, 95, ExperienceItem.OPULENT_SALVAGE, null, null),
+	/**
+	 * Sailing
+	 */
+	IMBUE_DESICCATED_PAGE(ItemID.DESICCATED_PAGE, "Imbue desiccated page", 50, 50, ExperienceItem.DESICCATED_PAGE, null, null),
 
 	;
 
