@@ -124,6 +124,16 @@ public enum Secondaries
 	COAL_ORE_2_CATALYST(new ItemStack(ItemID.COAL, 2), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
 	COAL_ORE_3_CATALYST(new ItemStack(ItemID.COAL, 3), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
 	COAL_ORE_4_CATALYST(new ItemStack(ItemID.COAL, 4), new ItemStack(ItemID.SMITHING_CATALYST, 1)),
+	//Giant's Foundry
+	FOUNDRY_IRON_BAR_19_PER_9(new ItemStack(ItemID.IRON_BAR, 19.0 / 9)),
+	FOUNDRY_BRONZE_BAR_9_PER_19(new ItemStack(ItemID.BRONZE_BAR, 9.0 / 19)),
+	FOUNDRY_IRON_BAR(new ItemStack(ItemID.IRON_BAR, 1)),
+	FOUNDRY_STEEL_BAR(new ItemStack(ItemID.STEEL_BAR, 1)),
+	FOUNDRY_MITHRIL_BAR(new ItemStack(ItemID.MITHRIL_BAR, 1)),
+	FOUNDRY_ADAMANTITE_BAR(new ItemStack(ItemID.ADAMANTITE_BAR, 1)),
+	FOUNDRY_RUNITE_BAR(new ItemStack(ItemID.RUNITE_BAR, 1)),
+	FOUNDRY_RUNITE_BAR_9_PER_19(new ItemStack(ItemID.RUNITE_BAR, 9.0 / 19)),
+	FOUNDRY_ADAMANTITE_BAR_19_PER_9(new ItemStack(ItemID.ADAMANTITE_BAR, 19.0 / 9)),
 	/**
 	 * Crafting
 	 */

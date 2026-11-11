@@ -46,6 +46,7 @@ public final class Modifiers
 {
 	private static final String ASHES_TOOLTIP_TEXT = "Only applies to ashes";
 	private static final String BONES_TOOLTIP_TEXT = "Only applies to bones";
+	private static final String MOULD_TOOLTIP_TEXT = "Increases the average base score/experience of swords made in Giant's Foundry.";
 	private static final Multimap<Skill, Modifier> modifiers = ArrayListMultimap.create();
 
 	static final Set<Activity> BONES = ImmutableSet.of(
@@ -147,6 +148,9 @@ public final class Modifiers
 
 		// Sailing
 		addModifier(new StaticModifier(Skill.SAILING, "Horizon's Lure (102.5% xp)", 1.025f, SALVAGE, null, null));
+
+		// Smithing
+		addModifier(new SwordQualityModifier(Skill.SMITHING, "All Giant's Foundry Moulds Unlocked", MOULD_TOOLTIP_TEXT));
 	}
 
 	private static void addModifier(final Modifier modifier)
