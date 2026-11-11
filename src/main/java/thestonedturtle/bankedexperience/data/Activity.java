@@ -1902,11 +1902,6 @@ public enum Activity
 
 	public double getFoundryXpPerBar(final int mouldScore)
 	{
-		if (!isFoundryActivity())
-		{
-			throw new IllegalStateException("Activity is not a Giants' Foundry alloy: " + name);
-		}
-
 		return foundryXpPerBar(foundryBaseScore + mouldScore, foundryBarsUsed);
 	}
 
