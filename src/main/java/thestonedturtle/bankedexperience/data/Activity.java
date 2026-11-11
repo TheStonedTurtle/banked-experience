@@ -1361,6 +1361,45 @@ public enum Activity
 		ExperienceItem.RUNITE_BAR, null, null),
 	RUNE_CANNONBALLS(ItemID.RUNE_CANNONBALL, "Rune cannonballs", 90, 50.8,
 		ExperienceItem.RUNITE_BAR, null, new ItemStack(ItemID.RUNE_CANNONBALL, 4)),
+	// Giants' Foundry alloys. XP ber par is calculated by an estimated sword quality based on the alloy
+	// composition, plus the average mould score without any moulds unlocked, then divided by the number
+	// of the relevant bars used in the alloy.
+	GF_BRONZE_19_IRON_9_BRONZE(ItemID.BRONZE_BAR, "Foundry: 9 Bronze + 19 Iron", 15,
+		foundryXpPerBarWithAverageMouldScore(21, 9),
+		ExperienceItem.BRONZE_BAR, null, null, 21, 9),
+	GF_IRON_19_IRON_9_BRONZE(ItemID.IRON_BAR, "Foundry: 9 Bronze + 19 Iron", 15,
+		foundryXpPerBarWithAverageMouldScore(21, 19),
+		ExperienceItem.IRON_BAR, null, null, 21, 19),
+	GF_IRON_14_IRON_14_STEEL(ItemID.IRON_BAR, "Foundry: 14 Iron + 14 Steel", 30,
+		foundryXpPerBarWithAverageMouldScore(40, 14),
+		ExperienceItem.IRON_BAR, null, null, 40, 14),
+	GF_STEEL_14_IRON_14_STEEL(ItemID.STEEL_BAR, "Foundry: 14 Iron + 14 Steel", 30,
+		foundryXpPerBarWithAverageMouldScore(40, 14),
+		ExperienceItem.STEEL_BAR, null, null, 40, 14),
+	GF_STEEL_14_STEEL_14_MITHRIL(ItemID.STEEL_BAR, "Foundry: 14 Steel + 14 Mithril", 50,
+		foundryXpPerBarWithAverageMouldScore(65, 14),
+		ExperienceItem.STEEL_BAR, null, null, 65, 14),
+	GF_MITHRIL_14_STEEL_14_MITHRIL(ItemID.MITHRIL_BAR, "Foundry: 14 Steel + 14 Mithril", 50,
+		foundryXpPerBarWithAverageMouldScore(65, 14),
+		ExperienceItem.MITHRIL_BAR, null, null, 65, 14),
+	GF_MITHRIL_14_MITHRIL_14_ADAMANT(ItemID.MITHRIL_BAR, "Foundry: 14 Mithril + 14 Adamant", 70,
+		foundryXpPerBarWithAverageMouldScore(95, 14),
+		ExperienceItem.MITHRIL_BAR, null, null, 95, 14),
+	GF_ADAMANT_14_MITHRIL_14_ADAMANT(ItemID.ADAMANTITE_BAR, "Foundry: 14 Mithril + 14 Adamant", 70,
+		foundryXpPerBarWithAverageMouldScore(95, 14),
+		ExperienceItem.ADAMANTITE_BAR, null, null, 95, 14),
+	GF_ADAMANT_14_ADAMANT_14_RUNE(ItemID.ADAMANTITE_BAR, "Foundry: 14 Adamant + 14 Rune", 85,
+		foundryXpPerBarWithAverageMouldScore(130, 14),
+		ExperienceItem.ADAMANTITE_BAR, null, null, 130, 14),
+	GF_RUNE_14_ADAMANT_14_RUNE(ItemID.RUNITE_BAR, "Foundry: 14 Adamant + 14 Rune", 85,
+		foundryXpPerBarWithAverageMouldScore(130, 14),
+		ExperienceItem.RUNITE_BAR, null, null, 130, 14),
+	GF_ADAMANT_19_ADAMANT_9_RUNE(ItemID.ADAMANTITE_BAR, "Foundry: 19 Adamant + 9 Rune", 85,
+		foundryXpPerBarWithAverageMouldScore(118, 19),
+		ExperienceItem.ADAMANTITE_BAR, null, null, 118, 19),
+	GF_RUNE_19_ADAMANT_9_RUNE(ItemID.RUNITE_BAR, "Foundry: 19 Adamant + 9 Rune", 85,
+		foundryXpPerBarWithAverageMouldScore(118, 9),
+		ExperienceItem.RUNITE_BAR, null, null, 118, 9),
 	/**
 	 * Farming
 	 */
@@ -1755,12 +1794,28 @@ public enum Activity
 	private final Secondaries secondaries;
 	@Nullable
 	private final ItemStack output;
+	private final int foundryBaseScore;
+	private final int foundryBarsUsed;
 	private ItemInfo outputItemInfo = null;
 	@Nullable
 	private final ExperienceItem linkedItem;
 
 	private static final ImmutableMultimap<ExperienceItem, Activity> ITEM_MAP;
 	public static final ImmutableSortedSet<Skill> BANKABLE_SKILLS;
+	private static final int FOUNDRY_AVERAGE_MOULD_SCORE = 38;
+
+	private static double foundryXpPerBarWithAverageMouldScore(final int baseScore, final int barsUsed)
+	{
+		return foundryXpPerBar(baseScore + FOUNDRY_AVERAGE_MOULD_SCORE, barsUsed);
+	}
+
+	private static double foundryXpPerBar(final int baseScore, final int barsUsed)
+	{
+		// Use the hand-in formula without mould bonuses or mistakes, averaged over the bars used in this alloy type.
+		final double xpPerSword = ((Math.floor(Math.pow(baseScore, 2) / 73.0))
+			+ Math.floor(1.5 * baseScore) + 1) * 30;
+		return xpPerSword / (double) barsUsed;
+	}
 
 	static
 	{
@@ -1784,7 +1839,21 @@ public enum Activity
 		@Nullable final Secondaries secondaries,
 		@Nullable final ItemStack output)
 	{
-		this(icon, name, level, xp, false, experienceItem, secondaries, output);
+		this(icon, name, level, xp, false, experienceItem, secondaries, output, 0, 0);
+	}
+
+	Activity(
+		final int icon,
+		final String name,
+		final int level,
+		final double xp,
+		final ExperienceItem experienceItem,
+		@Nullable final Secondaries secondaries,
+		@Nullable final ItemStack output,
+		final int foundryBaseScore,
+		final int foundryBarsUsed)
+	{
+		this(icon, name, level, xp, false, experienceItem, secondaries, output, foundryBaseScore, foundryBarsUsed);
 	}
 
 	Activity(
@@ -1797,6 +1866,21 @@ public enum Activity
 		@Nullable final Secondaries secondaries,
 		@Nullable final ItemStack output)
 	{
+		this(icon, name, level, xp, rngActivity, experienceItem, secondaries, output, 0, 0);
+	}
+
+	Activity(
+		final int icon,
+		final String name,
+		final int level,
+		final double xp,
+		final boolean rngActivity,
+		final ExperienceItem experienceItem,
+		@Nullable final Secondaries secondaries,
+		@Nullable final ItemStack output,
+		final int foundryBaseScore,
+		final int foundryBarsUsed)
+	{
 		this.icon = icon;
 		this.name = name;
 		this.skill = experienceItem.getSkill();
@@ -1806,7 +1890,24 @@ public enum Activity
 		this.experienceItem = experienceItem;
 		this.secondaries = secondaries;
 		this.output = output;
+		this.foundryBaseScore = foundryBaseScore;
+		this.foundryBarsUsed = foundryBarsUsed;
 		this.linkedItem = output == null ? null : ExperienceItem.getByItemId(output.getId());
+	}
+
+	public boolean isFoundryActivity()
+	{
+		return foundryBaseScore > 0;
+	}
+
+	public double getFoundryXpPerBar(final int mouldScore)
+	{
+		if (!isFoundryActivity())
+		{
+			throw new IllegalStateException("Activity is not a Giants' Foundry alloy: " + name);
+		}
+
+		return foundryXpPerBar(foundryBaseScore + mouldScore, foundryBarsUsed);
 	}
 
 	/**
